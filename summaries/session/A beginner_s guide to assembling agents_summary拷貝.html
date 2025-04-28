@@ -1,0 +1,246 @@
+
+        <!DOCTYPE html>
+        <html lang="zh-TW">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>A beginner_s guide to assembling agents</title>
+            <style>
+                body {
+                    font-family: 'Roboto', 'Microsoft JhengHei', sans-serif;
+                    background-color: #f8f9fa;
+                    color: #333;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 1.6;
+                }
+                header {
+                    text-align: center;
+                    padding: 30px 20px;
+                    background: linear-gradient(135deg, #4b6cb7, #182848);
+                    color: #fff;
+                    position: relative;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    border-radius: 10px 10px 0 0;
+                }
+                .video-link {
+                    display: inline-block;
+                    margin: 10px 0;
+                    padding: 8px 15px;
+                    background-color: rgba(255, 255, 255, 0.2);
+                    color: #fff;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                }
+                .video-link:hover {
+                    background-color: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+                .video-link i {
+                    margin-right: 5px;
+                }
+                header h1 {
+                    font-size: 2.2rem;
+                    margin: 0 0 10px 0;
+                    letter-spacing: 0.5px;
+                }
+                header p {
+                    font-size: 1.1rem;
+                    margin: 0;
+                    opacity: 0.9;
+                }
+                header img {
+                    max-width: 35%;
+                    height: auto;
+                    margin-bottom: 15px;
+                }
+                main {
+                    max-width: 900px;
+                    margin: 30px auto;
+                    padding: 0 20px;
+                }
+                .content-container {
+                    background-color: #fff;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                    padding: 30px;
+                    margin-bottom: 30px;
+                }
+                .section-block {
+                    background-color: #fff;
+                    padding: 25px;
+                    border-radius: 8px;
+                    margin-bottom: 25px;
+                    border-left: 5px solid #4b6cb7;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+                .section-block:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                }
+                /* 為不同段落設置不同的邊框顏色和背景 */
+                .section-block.conclusion {
+                    border-left-color: #e74c3c;
+                    background-color: #fff9f9;
+                }
+                .section-block.meeting-topic {
+                    border-left-color: #3498db;
+                    background-color: #f7fbff;
+                }
+                .section-block.tech-points {
+                    border-left-color: #2ecc71;
+                    background-color: #f7fff9;
+                }
+                .section-block.decisions {
+                    border-left-color: #f39c12;
+                    background-color: #fffaf5;
+                }
+                .section-block.timeline {
+                    border-left-color: #9b59b6;
+                    background-color: #faf5ff;
+                }
+                .section-block.challenges {
+                    border-left-color: #e67e22;
+                    background-color: #fff8f2;
+                }
+                .section-block.action-plan {
+                    border-left-color: #1abc9c;
+                    background-color: #f5fffc;
+                }
+                .section-title {
+                    font-size: 1.5rem;
+                    margin-top: 0;
+                    margin-bottom: 20px;
+                    padding-bottom: 10px;
+                    border-bottom: 2px solid #4b6cb7;
+                    display: inline-block;
+                }
+                /* 為不同段落標題設置對應的顏色 */
+                .section-block.conclusion .section-title {
+                    color: #e74c3c;
+                    border-bottom-color: #e74c3c;
+                }
+                .section-block.meeting-topic .section-title {
+                    color: #3498db;
+                    border-bottom-color: #3498db;
+                }
+                .section-block.tech-points .section-title {
+                    color: #2ecc71;
+                    border-bottom-color: #2ecc71;
+                }
+                .section-block.decisions .section-title {
+                    color: #f39c12;
+                    border-bottom-color: #f39c12;
+                }
+                .section-block.timeline .section-title {
+                    color: #9b59b6;
+                    border-bottom-color: #9b59b6;
+                }
+                .section-block.challenges .section-title {
+                    color: #e67e22;
+                    border-bottom-color: #e67e22;
+                }
+                .section-block.action-plan .section-title {
+                    color: #1abc9c;
+                    border-bottom-color: #1abc9c;
+                }
+                .content-container ul {
+                    padding-left: 20px;
+                }
+                .content-container li {
+                    margin-bottom: 10px;
+                    position: relative;
+                    list-style-type: none;
+                    padding-left: 25px;
+                }
+                .content-container li::before {
+                    content: "•";
+                    position: absolute;
+                    left: 0;
+                    color: #4b6cb7;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                }
+                .section-block.conclusion li::before { color: #e74c3c; }
+                .section-block.meeting-topic li::before { color: #3498db; }
+                .section-block.tech-points li::before { color: #2ecc71; }
+                .section-block.decisions li::before { color: #f39c12; }
+                .section-block.timeline li::before { color: #9b59b6; }
+                .section-block.challenges li::before { color: #e67e22; }
+                .section-block.action-plan li::before { color: #1abc9c; }
+                
+                .content-container p {
+                    margin-bottom: 15px;
+                    line-height: 1.7;
+                }
+                .content-container strong {
+                    color: #2c3e50;
+                    font-weight: bold;
+                }
+                footer {
+                    text-align: center;
+                    padding: 25px 20px;
+                    background-color: #f0f2f5;
+                    color: #666;
+                    border-radius: 0 0 10px 10px;
+                    border-top: 1px solid #e0e0e0;
+                }
+                footer img {
+                    max-width: 35%;
+                    height: auto;
+                    margin-bottom: 15px;
+                }
+                footer p {
+                    margin: 5px 0;
+                    font-size: 0.95rem;
+                }
+                footer a {
+                    color: #4b6cb7;
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+                footer a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+        </head>
+        <body>
+            <header>
+                <img src="https://i.imgur.com/0LXUWvj.png" alt="會議摘要圖示">
+                <h1>A beginner_s guide to assembling agents</h1>
+                
+                <p>```markdown</p>
+            </header>
+            <main>
+                <div class="content-container">
+                    <div class="section-block meeting-topic">
+                        <h2 class="section-title">1. 核心觀點</h2>
+                        <p>本次會議主要介紹了 Google Cloud AI Agent Space，以及如何使用 Agent Space 構建和組裝 Agent。核心觀點包括：Agent Space 作為搜尋和 Agent 的中心樞紐，可以連接各種數據源，利用 Gemini 模型的能力，讓 Agent 能夠思考、行動和自動化複雜任務。同時，Agent Space 提供現成的 Agent，例如 Deep Research 和 Idea Generation，並提供無代碼 Agent 設計器和 Agent Developer Kit (ADK) 來幫助員工和開發者構建 Agent。</p>
+                    </div>
+                    <div class="section-block tech-points">
+                        <h2 class="section-title">2. 詳細內容</h2>
+                        <p>Agent Space 的基礎是連接到數據，它是一個搜尋和 Agent 的中心樞紐，可以匯集所有數據源。Agent Space 中的 Agent 可以使用 Google 的高品質和相關性搜尋企業數據，並利用 Gemini 模型的能力來思考、行動和自動化複雜任務。Agent 也可以協調和與其他 Agent 協作，無論是在 Agent Space 還是其他平台上。所有這些都在安全合規的框架內進行。</p>
+<p>Agent Space 提供了一些現成的強大 Agent。Deep Research Agent 能夠進行複雜的多步驟調查，綜合來自內部企業數據和外部網路數據的信息。它的特別之處在於能夠根據目標調整研究策略，並使用智慧迴圈生成問題，直到達成目標。Deep Research Agent 也能夠獨特地匹配來自內部數據和網路數據的發現。Deep Research 也以 API 的形式提供，可以用於增強 Agent 或應用程式。</p>
+<p>Idea Generation Agent 旨在通過多 Agent 的構思過程來產生和改進解決方案，從而推動企業的下一個重大創新。它受到 Google 研究技術的啟發，該技術曾用於為生物醫學研究產生假設。Idea Generation Agent 的特別之處在於它能夠協調 Agent 系統進行動態構思，並在後台進行類似於象棋比賽的競賽來對所有想法進行排名。使用者也可以協作來完善這些想法。</p>
+<p>為了讓員工和開發者能夠在 Agent Space 中構建 Agent，Google 推出了無代碼 Agent 設計器，讓員工可以訪問 30 多個工具和操作，並在企業數據中構建集成。開發者可以使用 Agent Developer Kit (ADK)，這是一個開源框架，用於定義、測試和部署複雜的 Agent。Agent Space 原生支持 ADK，這意味著可以使用 ADK 開發 Agent，並將其直接集成到 Agent Space 中。Agent Space 將負責集成、協調和 UI 渲染，並使 Agent 能夠調用 Agent Space 工具以及查看連接到 Agent Space 的數據。</p>
+                    </div>
+                    <div class="section-block conclusion">
+                        <h2 class="section-title">3. 重要結論</h2>
+                        <p>Agent Space 提供了一個強大的平台，用於構建和組裝 Agent，利用 Google 的 AI 技術和數據連接能力，可以幫助企業自動化任務、產生創新想法，並提高效率。無代碼 Agent 設計器和 ADK 則降低了 Agent 開發的門檻，讓更多人可以參與到 Agent 的構建中。
+```</p>
+                    </div>
+                </div>
+            </main>
+            <footer>
+                <img src="https://i.imgur.com/0LXUWvj.png" alt="會議摘要圖示">
+                <p>此摘要由 AI 輔助生成</p>
+                <p>如有任何問題或需要更多詳細資訊，請聯繫 ITR 小組</p>
+            </footer>
+        </body>
+        </html>
+        
