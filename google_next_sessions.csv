@@ -1,0 +1,2150 @@
+﻿Meeting,URL,code,Key,Topic
+ASL Developer Keynote: You can just build things,https://www.youtube.com/watch?v=cNo1WGGnBkc,DEVKEY-ASL,,
+ASL Opening Keynote: The new way to cloud,https://www.youtube.com/watch?v=zsis2u4WsWE,GENKEY-ASL,,
+Developer Keynote in 10 minutes,https://www.youtube.com/watch?v=xHODIqeARXM,DEVKEY-RC3,,
+Developer Keynote in 2 minutes,https://www.youtube.com/watch?v=e3ccrpljwNY,DEVKEY-RC1,,
+Developer Keynote: You can just build things,https://www.youtube.com/watch?v=xLDSuXD8Mls,DEVKEY,"本次 Google Cloud 的開發者主題演講，重點展示了如何利用 Google Cloud 和 Gemini 模型，賦能開發者構建新一代的應用程式，特別是 AI 代理（Agent）。演講涵蓋了代理的開發、部署和互動，以及如何利用 AI 輔助程式碼編寫和雲端操作。核心觀點包括：
+
+*   **AI 代理的強大能力：** AI 代理可以規劃、推理、學習、協作和行動，代表使用者或與其他代理協同完成目標。
+*   **Google Cloud 的工具和框架：** 推出 Agent Development Kit (ADK)、Agent Engine 和 Agent Space，簡化代理的開發和部署流程。
+*   **Gemini 模型的關鍵作用：** Gemini 模型提供長上下文視窗和多模態支援，實現影片、圖片和語音的無縫整合，為應用程式帶來更豐富的體驗。
+*   **AI 輔助開發的效率提升：** Code Assist 和 Cloud Assist 代理可以加速開發流程，簡化雲端操作，提高軟體工程師的生產力。
+*   **開放性和選擇性：** 開發者可以選擇自己喜歡的 IDE 和模型，利用 Google Cloud 的工具和平台，構建符合自身需求的應用程式。","Applied AI
+"
+Google Cloud Next 25 in a minute,https://www.youtube.com/watch?v=OIJywyYQrd8,EVENT-01,"本次會議主要介紹 Google Cloud 如何透過 Gemini 模型和新的工具，革新軟體開發流程，提升開發者效率。重點包括：
+
+*   **新一代 Agentic 應用程式開發：** 推出 Agent Development Kit、Agent Engine 和 Agent Space，協助開發者構建、運行和管理 AI 代理程式，實現人機協作。
+*   **提升開發者生產力：** 透過 Code Assist 和 Cloud Assist 代理程式，加速開發流程，簡化雲端操作，涵蓋整個軟體開發生命週期。
+*   **Gemini 模型賦能：** 利用 Gemini 的強大上下文窗口和多模態支援，開發更強大的應用程式。
+*   **AI Studio 體驗：** 開發者可以在 AI Studio 中試用最新的 Gemini 模型，包括 Gemini 2.5 Pro。","Applied AI
+"
+Next 25 Opening Keynote in 10 minutes,https://www.youtube.com/watch?v=dwgmfSOZNoQ,GENKEY-RC4,Google Cloud Next 大會重點展示了 Google 在 AI 領域的最新進展和產品。核心觀點包括：Gemini 模型系列的強大功能和廣泛應用，Google Cloud 作為 AI 優化平台的領先地位，以及 Google 對於開放、多雲和企業級 AI 平台的承諾。此外，還強調了與 NVIDIA 等重要合作夥伴的協作，以及 AI 在 Workspace、安全和數據分析等領域的創新應用。,"AI
+"
+Next 25 Opening Keynote in less than 5 minutes,https://www.youtube.com/watch?v=niB671nDcN0,GENKEY-RC2,"Google Cloud Next 2024 開幕主題演講重點在於展示 Google Cloud 和 Workspace 在過去一年中的產品進展，以及客戶如何利用這些創新來實現業務轉型。核心觀點包括：
+
+*   Google Cloud 視 AI 為推動客戶使命的最重要方式。
+*   推出第七代 TPU IronWood，為最強大的晶片，將推動 AI 模型發展。
+*   Gemini 2.5 Pro 和 Gemini 2.5 Flash 的發布，提供更強大、低延遲且具成本效益的 AI 模型。
+*   Google Cloud 提供 AI 優化平台，具備領先的價格、效能、精準度和品質。
+*   推出構建和管理多代理系統所需的一切工具。
+*   Gemini 可以在 Google Distributed Cloud 上本地運行，無論是氣隙環境還是連線環境。
+*   與 NVIDIA 的合作，推出三項 Workspace 創新功能。
+*   Google 是唯一一家提供跨所有模態生成媒體模型的公司。
+*   Vertex AI 上的 Gemini 使用量大幅增長。
+*   推出新的代理開發套件和代理間通訊協定，簡化多代理系統的構建。
+*   透過 Google Agent Space 將 AI 代理交付給每位員工。
+*   客戶參與套件正在轉變客戶服務。
+*   推出新的程式碼輔助代理，協助程式碼現代化和軟體開發生命週期。
+*   安全代理可以顯著提高安全分析師的速度和效率。
+*   推出 Google Unified Security，提供無與倫比的可見性。","AI
+"
+Opening Keynote: The new way to cloud,https://www.youtube.com/watch?v=Md4Fs-Zc3tg,GENKEY,"本次會議主題為雲端服務的新方式，重點介紹了 Google 在 AI 領域的最新進展，以及如何將這些技術整合到 Google Workspace、Vertex AI 等產品中，幫助企業提升效率、加速創新。核心觀點包括：
+
+*   **Gemini 在 Google Workspace 的應用：** Gemini 已經整合到 Gmail、Docs、Drive 和 Meet 等 Google Workspace 應用中，協助使用者完成資料分析、音訊概述、工作流程自動化等任務。
+*   **Vertex AI 上提供多種生成式 AI 模型：** Google 提供 Gemini、Imagine、Chirp、Liria 和 VO 等多種生成式 AI 模型，涵蓋文字、圖像、音訊和影片等多種模態，並透過 Vertex AI 提供給客戶使用。
+*   **AI Agents 的重要性：** AI Agents 能夠進行推理、規劃、記憶，並使用工具來完成任務，可以協助員工提高效率、做出更好的決策、並加速創新。
+*   **Google Agent Space 的推出：** Google Agent Space 讓員工可以輕鬆找到並使用 AI Agents，從企業內部資料中獲取資訊，並讓 Agents 代表他們執行任務。
+*   **Google Unified Security 的推出：** Google Unified Security 整合了 Google 的安全產品和服務，提供更全面的安全防護。","Applied AI
+"
+[NEW!] Introducing Firestore with MongoDB compatibility. Dive-deep into its capabilities and use-cases.,https://www.youtube.com/watch?v=ZzLFAEYV2js,BRK2-113,本次會議主要介紹了 Google Cloud Platform (GCP) 中 Firestore 與 MongoDB 兼容性的新功能。重點在於結合 MongoDB API 和工具的便利性，以及 Firestore 的可擴展性、可用性和易用性。此外，還探討了 Firestore Enterprise Edition 的定價模式，以及 Mayo Clinic 如何利用 Firestore 進行創新。,"Databases
+"
+10 infrastructure innovations to accelerate your AI solutions anywhere,https://www.youtube.com/watch?v=r_HHDInFNMc,SPTL205,"本次會議Sachin Gupta介紹了Google在基礎設施方面的10項創新，旨在加速客戶的人工智慧解決方案。核心觀點包括：
+
+*   **滿足客戶需求：** 解決客戶在生成式AI應用、資料管理、安全、成本優化以及混合雲環境中遇到的挑戰。
+*   **Google的獨特優勢：** 強調Google在AI和基礎設施領域的長期投入和技術積累，包括資料中心、全球網路、TPU、液體冷卻和全球42個區域。
+*   **安全連接、優化效能、隨處運行AI：** 闡述Google如何幫助客戶安全地連接使用者、資料和模型，優化效能和成本，並在任何地方運行AI。
+*   **網路、儲存和分散式雲的創新：** 介紹了在網路、儲存和Google分散式雲方面的多項創新，以提升AI解決方案的效能和效率。","Applied AI
+"
+10 infrastructure innovations to accelerate your AI solutions anywhere (Recap),https://www.youtube.com/watch?v=Ib1m8ngHEVU,SPTL205-RC,,
+A beginner's guide to assembling agents,https://www.youtube.com/watch?v=T96ArcQTek0,BRK2-195,本次會議主要介紹了 Agent Space 及其在組裝代理方面的應用。Agent Space 作為搜尋和代理的中心樞紐，旨在幫助使用者釋放代理的潛力。透過 Agent Space，使用者可以連接到各種數據源，利用 Gemini 模型的能力，並在安全合規的框架內協調多個代理，自動化複雜任務。會議還介紹了兩個 Agent Space 內建的強大代理：Deep Research 和 Idea Generation，並展示了如何使用無程式碼代理設計器和 Agent Developer Kit (ADK) 來構建自定義代理。,"Applied AI
+"
+A conversation with Anthropic: How AI is shaping the future for startups,https://www.youtube.com/watch?v=lfBij7GXYEk,BRK1-096,"本次對話主要探討了 AI，特別是 Anthropic 的 Claude 模型，如何影響新創公司的發展。核心觀點包括：
+
+*   **AI 的巨大潛力與風險：** AI 具有加速研究、改善人類健康、消除繁瑣工作等巨大潛力，但同時也存在風險，需要確保其發展對人類有益。
+*   **新創公司在 AI 浪潮中的角色：** 新創公司將在 AI 驅動的變革中扮演重要角色，Google Cloud 致力於為這些新創公司提供支援。
+*   **Claude 模型在實際應用中的價值：** Claude 模型已被 Replit、Augment Code 和 BrainLogic 等新創公司廣泛應用，用於加速軟體開發、簡化使用者體驗和提供個人化服務。
+*   **安全性的重要性：** 在 AI 應用中，資料安全和模型安全至關重要，需要採取措施保護使用者資料和防止模型被濫用。
+*   **新創公司建立競爭優勢的策略：** 在模型能力不斷增強的情況下，新創公司需要專注於建立網路效應、深入了解使用者需求、利用獨有資料等方式來建立競爭壁壘。
+*   **AI 對未來工作模式的影響：** AI 將會改變組織結構和工作模式，員工將扮演更像 CEO 的角色，指揮 AI 團隊完成任務。","AI
+"
+A conversation with Replit and Anthropic: Empowering the next billion creators with Claude,https://www.youtube.com/watch?v=GxwueqmxT-g,SPTL212,"本次會議主要探討 Replit 如何利用 Anthropic 的 Claude 模型，賦能更多人成為軟體創作者。核心觀點包括：
+
+*   **Replit 的願景：** 讓十億人成為軟體創作者，不再需要傳統的程式設計技能。
+*   **AI 的角色：** AI 降低了程式設計的門檻，讓非技術人員也能快速創建應用程式。
+*   **Claude 的優勢：** Claude 在 UI 設計、長期對話、工具使用和除錯方面表現出色，能協助使用者完成複雜的應用程式開發。
+*   **使用者回饋的重要性：** 快速迭代和根據使用者回饋調整產品方向至關重要。
+*   **Vertex 的價值：** Google Cloud Vertex 提供可靠、安全且全球可用的基礎設施，支援 Replit 的 AI 應用。","Applied AI
+"
+A master class in managing billions of Google Cloud storage objects and beyond,https://www.youtube.com/watch?v=eosO6EwNyxI,BRK2-134,"本次會議主要介紹了 Google Cloud Storage 的物件管理，特別是在大規模場景下的挑戰與解決方案。核心觀點包括：
+
+*   儲存空間持續增長，尤其是在 AI 時代，新的訓練資料和 AI 生成內容不斷湧現。
+*   物件儲存的規模龐大，管理困難，許多客戶擁有數千萬、數十億甚至數兆個物件。
+*   自行開發儲存管理工具既困難又耗時，需要投入大量精力。
+*   Google 推出了統一的儲存管理產品 Storage Intelligence，旨在幫助客戶解決儲存管理難題，讓他們能夠專注於更重要的業務問題。
+*   Storage Intelligence 提供分析儲存狀態和大規模執行操作的功能，例如物件鎖定、儲存桶遷移和加密金鑰更新。","Storage
+"
+A new BigQuery capability: Integrated Earth data for better decision making,https://www.youtube.com/watch?v=xL25aGeKi4s,BRK2-204,"本次會議主要介紹了 Google Cloud BigQuery 的一項新功能，該功能整合了地球觀測數據，旨在幫助使用者做出更明智的決策。核心觀點包括：
+
+*   BigQuery 擴展了其地理空間分析能力，納入了地球觀測數據，包括衛星影像和衍生數據集。
+*   透過 Python 和使用者定義函數 (UDF)，可以利用地球觀測數據來豐富 BigQuery 中的現有數據。
+*   BigQuery 推出了一項新功能 ST\_REGION\_STATS，該功能將 Earth Engine 的柵格分析能力引入 BigQuery，使用者可以直接在 BigQuery 中使用 SQL 進行柵格數據分析。
+*   地球觀測數據在各個行業中具有廣泛的應用，例如監測森林砍伐、評估農業生產、管理供應鏈等。
+*   歐盟反森林砍伐法規 (EUDR) 的實施，進一步凸顯了地球觀測數據在供應鏈合規性方面的重要性。","Data Analytics
+"
+A new era of AI for BI with Conversational Analytics for BigQuery and Looker,https://www.youtube.com/watch?v=sXzPQRdXi7c,BRK2-086,"本次會議主要探討如何利用 BigQuery 和 Looker 解決企業在商業智慧（BI）和人工智慧（AI）工具中面臨的數據孤島問題，並展示了生成式 AI 如何融入 Looker 平台的核心，特別是透過對話式分析，讓使用者能夠以自然語言與數據互動。核心觀點包括：
+
+*   **數據整合與信任：** BigQuery 消除數據孤島，Looker 則減少 BI 和分析領域的孤島，確保數據的一致性和可信度。
+*   **語義模型的重要性：** Looker 的語義模型是確保數據準確性的基礎，尤其在生成式 AI 環境下，能提供卓越的精確度。
+*   **BigQuery 與 Looker 的協同效應：** Looker 的資料庫內架構充分利用 BigQuery 的強大功能和規模，同時提供效能管理和成本控制工具。
+*   **AI 驅動的分析轉型：** Adio 的案例展示了如何從數據驅動轉向 AI 驅動，利用 AI 提升分析能力和決策品質。
+*   **對話式分析的潛力：** 透過自然語言介面，使用者可以更輕鬆地獲取數據洞察，並利用 AI 進行更深入的分析。","Business Intelligence
+"
+A new era of self-service and beautiful visualizations: Studio in Looker,https://www.youtube.com/watch?v=c_9rAjEMiOY,BRK2-088,"本次會議主要介紹 Looker 中 Studio 的新功能，以及如何透過這些功能實現自助服務和美觀的可視化。核心觀點包括：
+
+*   **自助服務的重要性：** 解決數據分析師不足的問題，讓非技術人員也能獨立獲取數據洞察。
+*   **Studio 和 Looker 的結合：** 將 Studio 強大的可視化和報告引擎整合到 Looker 中，提高自助服務的易用性。
+*   **Gemini 和 Looker 的結合：** 透過 AI 增強 BI 功能，提供更智能的數據分析。
+*   **Looker Reports 的優勢：** 提供 Google 簡易儀表板、多樣的數據連接器，以及強大的管理和治理模型。
+*   **Funnel 客戶案例：** 展示 Gina Tricot 如何透過 Looker 實現業務增長。
+*   **Looker 的治理能力：** 確保用戶在自助服務的同時，也能遵守數據安全和合規性要求。","Business Intelligence
+"
+Accelerate creative media content with gen AI,https://www.youtube.com/watch?v=a2MZ6kw933c,BRK2-203,"本次會議主要探討如何利用生成式 AI（Gen AI）加速創意媒體內容的製作流程。會議涵蓋了 Gen Media 在 Vertex AI 上的應用，包括圖像、影片、音樂和語音等不同模態的生成，並展示了實際的行業應用案例，例如 Kraft Heinz 如何利用 Gen AI 優化行銷工作流程，以及 Goodby Silverstein & Partners 如何使用 AI 實現 Salvador Dalí 的電影願景。核心觀點包括：
+
+*   **Gen AI 的普及化與可能性擴展：** Gen AI 降低了創作門檻，讓更多人能夠參與內容創作，同時也拓展了創作的可能性，實現過去難以實現的特效和編輯。
+*   **Gen Media on Vertex AI 的優勢：** Gen Media 提供高品質、可擴展、安全且易於使用的生成式 AI 模型，降低了客戶自行開發和維護模型的成本和複雜性。
+*   **多模態整合的重要性：** 將圖像、影片、音樂和語音等不同模態的 AI 模型整合在一起，可以創造更豐富、更具吸引力的內容。
+*   **控制力與客製化的提升：** 新推出的相機控制功能和編輯工具，讓使用者能夠更精準地控制影片的生成過程，並根據不同需求進行客製化。
+*   **安全與版權保護：** Gen Media 提供版權保護和安全過濾器，確保使用者可以安全地使用 AI 模型進行內容創作。
+*   **實際應用案例的價值：** Kraft Heinz 和 Goodby Silverstein & Partners 的案例展示了 Gen AI 在行銷和創意內容製作方面的巨大潛力。","Vertex AI
+"
+Accelerate creative media content with gen AI (Recap),https://www.youtube.com/watch?v=hUG17QrXHk0,BRK2-203-RC,,
+Accelerate enterprise Android app development with Gemini in Android Studio,https://www.youtube.com/watch?v=MPCI1klfgK0,BRK2-073,"本次會議主要介紹了 Google 如何利用 Gemini 和 Android Studio 來加速企業應用程式的開發。核心觀點包括：
+
+*   Gemini 和 Android Studio 是一個 AI 編碼助手，可以幫助開發者更快地構建高品質的應用程式。
+*   Gemini 和 Android Studio 已經推出兩年，並持續改進，為 Android 開發者提供最佳的 AI 助手。
+*   針對企業用戶，Gemini 和 Android Studio 增加了客製化 AI 以適應團隊內部程式碼庫的工具，整合了最佳的管理功能，並提供隱私和 IP 保證。
+*   使用 Gemini 可以提高軟體工程師的生產力高達 40%。
+*   AI 程式碼完成功能現在接近 Google 內部軟體儲存庫中所有手動輸入字元的 50%。
+*   Gemini 和 Android Studio 支援整個軟體開發生命週期，從設計 UI 到編寫和理解程式碼，再到除錯和監控。","App Dev
+"
+Accelerate your code reviews with Gemini Code Assist in GitHub,https://www.youtube.com/watch?v=WSoAXWVK7lY,BRK2-078,"本次會議主要介紹 Gemini Code Assist 如何協助開發者加速程式碼審查流程，提升開發效率和程式碼品質。核心觀點包括：
+
+*   Gemini Code Assist 是一個由 AI 驅動的助手，旨在提高開發者的生產力、效率和滿意度。
+*   Gemini Code Assist 可以整合到 GitHub 和 GitLab 等程式碼託管平台，在程式碼審查過程中提供自動化的建議和洞察。
+*   透過客製化風格指南和配置，Gemini Code Assist 可以根據特定組織的需求進行調整。
+*   Tailored Brands 分享了他們使用 Gemini Code Assist 的經驗，包括提高程式碼審查速度、改善程式碼品質和提升開發者體驗。","AI
+"
+Accelerate your Google Cloud migration journey,https://www.youtube.com/watch?v=RNBp0UHVw2Y,BRK1-122,"本次演講主要探討如何加速 Google Cloud 遷移的旅程，講者 Scott 分享了 Datadog 在協助客戶遷移雲端的經驗，強調了事前規劃、可觀測性的重要性，以及如何利用 Google Cloud 提供的工具和服務來實現更高效、安全且具成本效益的遷移。核心觀點包括：
+
+*   **遷移前的準備：** 充分了解現有應用程式的架構、依賴關係和效能指標，建立詳細的資產清單。
+*   **可觀測性的重要性：** 利用 Datadog 等工具監控遷移過程中的系統效能、安全性和成本，及早發現並解決問題。
+*   **選擇合適的遷移策略：** 根據應用程式的特性和業務需求，選擇最適合的遷移策略，例如重新託管、重新平台化、重新架構等。
+*   **安全性優先：** 在遷移過程中始終將安全性放在首位，利用 Google Cloud 提供的安全工具和服務來保護資料和應用程式。
+*   **成本優化：** 遷移後持續監控和優化雲端資源的使用，以降低成本並提高效率。","Migration
+"
+Accelerate your Google Cloud migration journey (Recap),https://www.youtube.com/watch?v=xpYb7FMlA5Q,BRK1-122-RC,,
+Accelerate your software development lifecycle with agents,https://www.youtube.com/watch?v=MgJq4bnJ3F8,BRK2-006,,
+Accelerating data product development with Gen AI,https://www.youtube.com/watch?v=eLd5JSdy260,SPTL213,"本次會議主要探討如何利用生成式 AI（Gen AI）來加速數據產品的開發，解決數據品質問題，並找出符合業務需求的數據切片方式。核心觀點包括：
+
+*   **數據是新的石油：** 企業需要從原始數據中提煉出有價值的資訊，並將其轉化為可用的產品。
+*   **數據品質至關重要：** 數據品質問題會導致生產力下降、錯失機會和成本增加。
+*   **業務驅動技術：** 數據產品開發應以業務需求為導向，避免技術先行。
+*   **AI 不是萬能的：** 領域專家知識在解決數據品質問題和確保數據產品品質方面至關重要。
+*   **生成式 AI 加速數據產品開發：** 生成式 AI 可以幫助企業更快地創建數據產品，並將數據轉化為可用的商業價值。
+*   **數據品質是持續的過程：** 數據品質需要在整個數據生命週期中不斷監控和改進。","Applied AI
+"
+Accelerating migration to Google Cloud at scale: Practical lessons,https://www.youtube.com/watch?v=kHjg1fZOF9U,BRK1-044,"本次演講主要分享了德意志銀行在將數百個應用程式從內部部署遷移到 Google Cloud 的過程中，所遇到的挑戰以及 E-PAM Systems 如何協助他們克服這些挑戰。核心觀點包括：
+
+*   應用程式團隊在設計階段耗費過多時間。
+*   Google Cloud 生態系統服務眾多，應用程式團隊難以成為所有服務的專家，也難以完全了解銀行的策略。
+*   不同團隊針對相同問題提出不同的解決方案，且可能使用未經銀行批准的服務。
+*   設計問題通常在正式審查時才被發現。
+*   透過決策樹、解決方案共享和培訓計畫，可以顯著縮短設計時間，提高解決方案品質和一致性，並降低總體擁有成本。","Migration
+"
+Accelerating tech modernization through gen AI agents,https://www.youtube.com/watch?v=eYtSGiuNx6I,BRK1-043,"本次會議主要探討如何利用生成式AI Agents加速技術現代化，並降低成本和風險。核心觀點如下：
+
+*   **成本與風險降低：** 使用AI進行現代化改造，可降低35%至45%的成本和風險。
+*   **技術與人的結合：** 技術固然重要，但人的因素（例如：如何建構、調整Agents）至關重要，若人的環節出錯，Agents將無法達到預期效果。
+*   **結構化擴展：** 擁有Agents和建構它們的人才還不夠，還需要結構化的方法來擴展應用，避免停留在試點階段。
+*   **變更管理：** 除了技術、人才和結構化方法，還需要變更管理，讓使用者能夠有效利用Agents及其產出。
+*   **價值實現加速：** 過去需要7到10年才能完成的系統現代化，現在可以在幾個月內實現並開始產生價值。","Applied AI
+"
+Achieve operational resilience for critical apps in regulated industries,https://www.youtube.com/watch?v=2vZ4NqXj_WA,BRK2-121,"本次會議主要探討芝加哥商業交易所集團（CME Group）在 Google Cloud 上實現關鍵應用營運韌性的經驗。重點包括：
+
+*   CME Group 與 Google Cloud 的合作歷程，以及從傳統地端部署轉移到雲端解決方案的過程。
+*   營運韌性的原則，包括可觀測性、資料韌性以及變更管理。
+*   在受監管產業中，如何透過雲端技術和 SRE（網站可靠性工程）實踐來確保關鍵應用程式的穩定性和可靠性。","Migration
+"
+Achieve robust business continuity on Google Cloud for mission-critical apps,https://www.youtube.com/watch?v=aFjf9L1EL68,BRK2-023,,
+Achieve robust business continuity on Google Cloud for mission-critical apps (Recap),https://www.youtube.com/watch?v=PADc0CDOb7A,BRK2-023-RC,,
+Advanced analytics made easy: BigQuery and Looker for small teams,https://www.youtube.com/watch?v=oepub9jaync,BRK2-002,本次會議主要介紹 Google Cloud Platform (GCP) 如何透過整合 BigQuery、Looker 和 Vertex AI，為小型團隊提供易於使用且功能強大的進階分析解決方案。重點在於解決小型團隊在數據分析方面面臨的挑戰，例如數據孤島、缺乏專業知識和預算限制。,"Data Analytics
+"
+Advanced developer's guide to MLOps on Vertex AI,https://www.youtube.com/watch?v=T1S45Bkt2Ao,BRK3-069,本次會議主要探討了在 Vertex AI 上進行 MLOps 的進階開發者指南。講者 Chase Lyle 首先闡述了 MLOps 的定義，強調其為人員、流程和工具的整合，旨在快速且可靠地將機器學習應用程式部署到生產環境。會議重點涵蓋了 MLOps 的生命週期，從模型探索、資料策劃、開發實驗、發布部署到生產監控，並介紹了 Google Cloud 提供的相關工具和服務，以簡化和加速 MLOps 流程。此外，Block 公司的 Damien Ramuno Johnson 分享了他們如何利用 Vertex AI Training 加速 MLOps 工作負載的實例。,"Vertex AI
+"
+Agent observability 101: Evaluating output and behaviour of your agents,https://www.youtube.com/watch?v=2pTM1qGF9Ww,BRK3-067,,
+Agents are all you need,https://www.youtube.com/watch?v=Fbq2ty_3kDY,BRK2-212,"本次演講主要探討了 AI 代理（Agent）的概念、組成部分、生態系統以及未來發展趨勢。核心觀點包括：
+
+*   **AI 代理的定義與重要性：** AI 代理是一種可以被要求完成目標，並以一定程度的自主性實現該目標的實體。
+*   **AI 代理的組成部分：** 包括模型（尤其是具備思考能力的模型）、工具（用於擴展知識、能力和執行動作）、記憶（短期和長期）以及感知能力。
+*   **AI 代理生態系統的現狀：** 涵蓋 AI 代理開發平台、工具、語音 AI 代理、多代理協作等領域。
+*   **AI 代理的應用場景：** 包括編碼、研究、客戶支援、螢幕共享、銷售、招聘、教育、金融和個人生產力等。
+*   **AI 代理的局限性與挑戰：** 包括邏輯迴圈、記憶限制、規劃能力不足、成本和延遲問題、缺乏標準協定、安全隱憂以及倫理考量。
+*   **AI 代理的未來發展趨勢：** 包括代理將變得更加複雜、AI 協同科學家、多代理系統、機器人技術的發展以及高情商代理的出現。","AI
+"
+AI agents: Driving results in financial services,https://www.youtube.com/watch?v=0TpoeBG-v0g,BRK1-005,,
+AI for everyone: Unlock employee productivity with Google Workspace and partners,https://www.youtube.com/watch?v=8p_azUwvjdQ,BRK1-082,,
+AI Hypercomputer: Master your storage infrastructure,https://www.youtube.com/watch?v=CXwFLE4Eelg,BRK2-020,"本次會議主要介紹 Google Cloud Storage 如何針對 AI 和 ML 工作負載進行優化，並推出新的儲存產品和功能，以滿足 AI Hypercomputer 對儲存基礎架構的需求。核心觀點包括：
+
+*   **AI Hypercomputer 的重要性：** Google Cloud 提供端到端的整合 AI 系統，包括硬體、軟體和彈性的使用模式，針對 AI 工作負載進行優化。
+*   **儲存是 AI 基礎架構的關鍵：** 儲存 I/O 瓶頸會嚴重影響 GPU 利用率，儲存也是資料擷取、處理、模型訓練和推論等流程的整合元件。
+*   **Google Cloud Storage 的解決方案：** 透過 Anywhere Cache 和 Rapid Storage 等產品，提供高效能、低延遲、高吞吐量的儲存解決方案，以加速 AI 工作負載。
+*   **平行檔案系統的優勢：** Managed Luster 提供高效能、完全託管的平行檔案系統，適用於需要低延遲和高吞吐量的 AI 工作負載。","Applied AI
+"
+"AI Hypercomputer: Performance, scale, and the power of Pathways",https://www.youtube.com/watch?v=2yTzNwYLrKw,BRK2-132,"本次會議主要介紹 Google Cloud 的 AI Hypercomputer，這是一個端到端的協同設計架構，旨在最大化 AI 工作負載的效能。會議重點包括：
+
+*   **AI Hypercomputer 的架構：** 涵蓋效能優化的硬體、協調、運行時、框架和解決方案層，以及彈性的使用模型。
+*   **Pathways 的引入：** 一個分散式運行時，可實現靈活的協調、整合的控制和互動式超級運算。
+*   **Osmos 的案例：** 展示如何使用 Pathways 最大化 FLOPs 以進行開發。
+*   **彈性訓練的重要性：** 強調在發生故障時，能夠縮減規模並在節點可用時擴展規模的能力。
+*   **互動式開發的革新：** 透過 Pathways，開發人員可以使用低成本的 CPU 機器進行開發，並利用任意規模的運算資源。","Applied AI
+"
+AI in action: Optimize your AI infrastructure,https://www.youtube.com/watch?v=UEM4XMPKB_g,BRK1-060,"本次會議主要探討了 Google Cloud 的 AI Hypercomputer 如何幫助企業最佳化其 AI 基礎架構，並分享了 Moloco、Shopify 和 UAE's Technology Innovation Institute 等公司利用 Google Cloud 解決方案的實際案例。核心觀點包括：
+
+*   **AI Hypercomputer 的架構與優勢：** 透過整合硬體、軟體和動態工作負載排程器，提供端到端的 AI 解決方案，提高效率和靈活性。
+*   **Google Cloud 在 AI 領域的領先地位：** 強調 Google 在 AI 研究和應用方面的深厚積累，以及如何將這些經驗應用於 Google Cloud 服務。
+*   **企業如何利用 Google Cloud 擴展 AI 能力：** 分享了不同企業在模型訓練、推論和資料處理等方面使用 Google Cloud 的經驗，以及如何實現效能提升和成本降低。
+*   **持續最佳化的重要性：** 強調 AI 領域的快速發展，企業需要不斷調整和最佳化其 AI 基礎架構，以保持競爭力。","Applied AI
+"
+AI in action: Optimize your AI infrastructure (Recap),https://www.youtube.com/watch?v=rDx5_maHSfw,BRK1-060-RC,,
+AI in action: SMBs transforming customer experiences with Google Cloud,https://www.youtube.com/watch?v=AzdEQxmOkyE,BRK1-112,本次會議主要探討中小企業 (SMBs) 如何利用 Google Cloud 的 AI 解決方案，在資源有限的情況下，快速適應不斷變化的客戶需求和市場環境，實現業務轉型，提升客戶體驗、創新能力和營運效率。與會者分享了他們在實踐中遇到的挑戰、解決方案以及取得的成果。,"Applied AI
+"
+AI in banking: Enable money-laundering detection and prevention at scale,https://www.youtube.com/watch?v=V4eipJm6Hjs,BRK2-055,本次會議主要探討了如何利用人工智慧（AI）技術，更有效地偵測和預防金融犯罪，特別是洗錢活動。會議強調了傳統基於規則的系統的局限性，以及單一AI解決方案缺乏透明度和可解釋性的問題。與會者分享了利用AI技術從根本上改變反洗錢（AML）策略的經驗，強調了數據的重要性、合作的必要性，以及在不斷變化的犯罪環境中保持領先地位的挑戰。,"Applied AI
+"
+AI Investment to impact: Unlocking sustainable ROI with Google Cloud,https://www.youtube.com/watch?v=HBIAGM5sNng,BRK1-002,"本次會議主要探討了在 Google Cloud 上進行 AI 投資，如何實現可持續的投資報酬率。核心觀點包括：
+
+*   **AI 投資的商業價值實現：** 強調不僅僅是採用 AI，更重要的是從 AI 投資中獲得實際、可衡量的商業價值。
+*   **FinOps 的重要性：** 利用 FinOps 的核心財務治理最佳實踐，確保對 AI 投資有適當的可見性和控制，避免成本失控，並實現可預測的價值。
+*   **業務對齊、價值衡量和 FinOps 採用：** 成功的 AI FinOps 策略需要這三個核心支柱。
+*   **持續監控和優化：** 不僅僅是推出 AI 產品，還需要持續監控和優化，以管理效能和營運指標。
+*   **跨職能協作：** 強調業務、技術和財務團隊之間的跨職能協作，以最大化價值和投資回報。","AI
+"
+AI security and APIs: Address OWASP’s top 10 LLM and API risks,https://www.youtube.com/watch?v=U8bGoGAG5AU,BRK3-008,本次會議主要探討了 AI 和 API 安全，特別是針對 OWASP（開放網路應用安全專案）針對大型語言模型（LLM）和 API 的十大風險。會議議程包括 Renault 集團的 API 歷程分享、LLM 和 API 的 OWASP 十大風險分析，以及相關的示範。Google 的 Model Armor 和 Apigee 被提出作為應對這些風險的解決方案。,"Security
+"
+AI security and APIs: Address OWASP’s top 10 LLM and API risks (Recap),https://www.youtube.com/watch?v=LVaQkaL95R0,BRK3-008-RC,,
+AI-assisted database management: From fleet-wide optimization to granular performance troubleshooting,https://www.youtube.com/watch?v=1yZU7s1mKsA,BRK2-099,本次會議主要介紹了 Google Cloud 推出的 Database Center，一個基於 AI 的資料庫助手，旨在簡化企業在多種資料庫引擎環境下的管理工作，並協助主動降低風險。Database Center 提供統一的介面，讓使用者可以跨組織查看和管理整個資料庫群，並利用 Gemini 的 AI 能力進行輔助聊天和進階效能疑難排解。,"Databases
+"
+AI-powered data cloud: Unify databases and BigQuery,https://www.youtube.com/watch?v=bGlBratj1-E,BRK2-114,"本次演講主要介紹 Mercado Libre 如何運用 Spanner 和 BigQuery 來處理其龐大的數據量，並為開發者提供更好的平台。核心觀點包括：
+
+*   Spanner 的運營簡便性，可自動擴展和縮減節點，無需人工干預。
+*   Spanner 與 BigQuery 的整合，以及 Chain Streams 和 Dataflow 的使用，簡化了數據處理流程。
+*   Furi 平台作為一個平台即服務（PaaS）解決方案，旨在簡化開發者的工作，讓他們可以專注於構建微服務、訓練機器學習模型和創建 AI 解決方案。","Data Analytics
+"
+AI-powered impact: Vertex AI for startups,https://www.youtube.com/watch?v=-xAsWh-zcoM,BRK1-102,"本次會議邀請了 Prompt AI、NoBroker.com 和 Resemble AI 三家公司的創辦人，分享他們如何利用 Google Cloud 的 Vertex AI 來構建解決方案，並探討了 Vertex AI 在新創公司中的應用、經驗和未來發展。核心觀點包括：
+
+*   **Vertex AI 的可擴展性：** Vertex AI 提供了高度的可擴展性，能夠快速擴展運算資源，滿足新創公司快速成長的需求。
+*   **Vertex AI 的多樣化模型：** Vertex AI 提供了多種預訓練模型，方便新創公司快速構建應用，同時也支持自定義模型的訓練和部署。
+*   **Vertex AI 的整合性：** Vertex AI 與 Google Cloud 的其他服務高度整合，方便新創公司構建完整的解決方案。
+*   **AI 代理的潛力：** AI 代理在自動化任務、改善客戶服務和提高生產力方面具有巨大潛力，新創公司應積極探索其應用。
+*   **負責任的 AI：** 在生成式 AI 快速發展的背景下，確保 AI 的安全和負責任使用至關重要，需要技術和政策共同努力。","Vertex AI
+"
+AI-powered marketing: Google Cloud and startup secrets,https://www.youtube.com/watch?v=UxcAiPZbUdU,BRK1-100,"本次會議主要探討了AI如何驅動行銷，以及新創公司如何利用Google Cloud的資源和AI技術來提升競爭力。核心觀點包括：
+
+*   AI在內容創作、優化和個性化方面的應用，可以顯著提高行銷效率和投資回報率。
+*   生成式AI不僅僅是工作流程的附加元件，更應該整合到整個內容創作流程中，從而改變生產模式。
+*   人類在迴圈中的角色至關重要，需要在追求完美和可擴展性之間找到平衡。
+*   透過AI分析使用者行為，可以獲得洞察，進而優化行銷策略和內容。","Applied AI
+"
+AI-powered operations of the future,https://www.youtube.com/watch?v=RvjRIiyjQdg,BRK1-015,"本次會議主要探討了AI如何驅動製造業的未來營運，重點包括：
+
+*   **AI對生產力曲線的巨大影響：** AI預計將帶來前所未有的生產力提升，尤其是在連接、洞察和創新方面。
+*   **AI在製造業的價值：** AI有望釋放數千億美元的價值，主要來自生產力和吞吐量的提升，並大幅縮短創新週期。
+*   **五大產業趨勢：** 包括GenAI的升級、GenAI代理、輔助搜尋、客戶體驗和安全。
+*   **Google Cloud的願景：** 透過GenAI代理，在發明、製造和銷售三個支柱上提供解決方案，打破數據孤島，創建飛輪效應。
+*   **工業5.0架構：** 將數據視為核心，透過智能代理實現業務目標，打破傳統OT/IT的界限。
+*   **實際應用案例：** 展示了如何利用GenAI在產品生命週期的各個階段進行創新，從產品概念到最終銷售。
+*   **Honeywell和Micron的經驗分享：** 介紹了他們如何將AI應用於產品工程、智能製造和內部流程優化。","Applied AI
+"
+"AI, cloud, and edge: Unlocking innovation for retail and manufacturing",https://www.youtube.com/watch?v=Vxiay5s0-1w,BRK2-140,"本次會議主要探討了 AI、雲端和邊緣運算如何推動零售和製造業的創新。核心觀點包括：
+
+*   **邊緣運算的重要性：** 在網路不穩定或需要低延遲的環境下，邊緣運算至關重要，能確保應用程式的持續運作。
+*   **Google Distributed Cloud (GDC) 的價值：** GDC 提供類似雲端的體驗，但在本地端運行，解決了網路連線問題，並提供合規性、工作負載隔離和可擴展性。
+*   **AI 在零售和製造業的應用：** AI 可用於庫存管理、安全監控、自助結帳、店內分析等多個方面，提高效率和改善客戶體驗。
+*   **合作夥伴生態系統：** Google 與 Toshiba、Standard AI、Ever seen 和 Intenseye 等合作夥伴合作，提供各種 AI 解決方案。
+*   **標準化的重要性：** 標準化有助於加速部署、降低成本，並確保系統的未來適用性。","Applied AI
+"
+AppSheet: Accelerate AI adoption into the flow of work,https://www.youtube.com/watch?v=R0KeMD2bP6M,BRK1-084,AppSheet 是一個無需編碼的平台，旨在賦予業務使用者快速構建應用程式和自動化流程的能力，直接在業務資料之上進行。透過 Gemini AI 的整合，AppSheet 能夠自動提取和分類資訊，簡化工作流程，並與企業資料系統連接，使 AI 更容易導入工作流程。,"App Dev
+"
+Architecting the future: Spanner's multimodel power and technological foundation,https://www.youtube.com/watch?v=Xsz7m6TvXxM,BRK2-103,"本次會議主要介紹了 Spanner 的多模型能力，以及如何在 Gen.AI 時代利用 Spanner 提升應用程式的效能和功能。重點包括：
+
+*   Spanner 從擴展資料庫演進為多模型平台。
+*   Shopify 如何利用 Spanner 實現高度可擴展、彈性且全球分散的應用程式。
+*   Spanner 的多模型能力（全文檢索、圖形、向量搜尋）如何結合，簡化架構和操作，同時充分釋放資料的潛力。
+*   Palo Alto Networks 如何利用 Spanner 的多模型能力，在概念驗證中實現高效能的網路安全解決方案。
+*   Spanner 在 Google 的 AI-ready 資料雲中的關鍵作用，以及它如何提供智慧、統一和開放的平台。","Databases
+"
+Architectural approaches for RAG infrastructure,https://www.youtube.com/watch?v=O80umwW01oc,BRK2-074,本次會議主要探討在 Google Cloud 上建構和部署 RAG（Retrieval-Augmented Generation，檢索增強生成）應用程式的不同架構方法。會議涵蓋了 RAG 的基本概念、設計決策、影響架構選擇的因素，並介紹了四種預先封裝的架構選項，最後以一個架構選項的演示作結。,"Applied AI
+"
+ASL Developer Keynote: You can just build things,https://www.youtube.com/watch?v=cNo1WGGnBkc,DEVKEY-ASL,,
+ASL Opening Keynote: The new way to cloud,https://www.youtube.com/watch?v=zsis2u4WsWE,GENKEY-ASL,,
+Automate data pipelines with AI agents in BigQuery,https://www.youtube.com/watch?v=60M7VelVCGM,BRK1-053,"本次會議主要探討如何利用 AI Agents 在 BigQuery 中自動化資料管線，解決傳統資料工程的痛點，並提升效率。核心觀點包括：
+
+*   **AI Agents 的定義與應用：** AI Agents 能夠代表使用者追求目標、完成任務，並以主動的方式執行。在資料工程領域，AI Agents 將扮演輔助、半自主，甚至完全自主的角色。
+*   **資料工程 Agents 的目標：** 專注於自動化資料管線的建構、管理與優化，減少資料工程團隊的人力負擔，並加速從原始資料到洞察的過程。
+*   **解決資料工程的瓶頸：** 透過 AI Agents 簡化資料擷取、轉換、載入 (ETL) 流程，加速問題排除，並縮短從業務需求到實際應用的時間。
+*   **Deloitte 的應用案例：** Deloitte 將利用 AI Agents 簡化資料遷移、資料管理等操作，為客戶提供更高效的服務。","Applied AI
+"
+Automate data pipelines with AI agents in BigQuery (Recap),https://www.youtube.com/watch?v=cypaAknVemI,BRK1-053-RC,,
+Axion in action: Unlock price-performance and efficiency with Google Axion VMs,https://www.youtube.com/watch?v=medSOm7zQU0,BRK2-022,,
+Axion in action: Unlock price-performance and efficiency with Google Axion VMs (Recap),https://www.youtube.com/watch?v=bZrBrvILoz0,BRK2-022-RC,,
+Best practices for building a lakehouse on Google Cloud,https://www.youtube.com/watch?v=cgQvuEy-6ww,BRK2-179,,
+Best practices for building a lakehouse on Google Cloud (Recap),https://www.youtube.com/watch?v=1OHTdcE1Xwg,BRK2-179-RC,,
+Best practices for designing and deploying Cross-Cloud network security,https://www.youtube.com/watch?v=X0LQTHc1FOw,BRK3-043,本次會議主要探討了在設計和部署跨雲網路安全時的最佳實踐。講者們強調了雲安全威脅形勢的演變，包括大型語言模型（LLM）的雙面刃效應，以及合規性和資料外洩成本的日益增加。會議重點在於如何透過 Google Cloud 的網路安全產品組合，實現無縫整合、集中控制和全面強制的安全策略，以應對跨雲環境中的挑戰。此外，會議也分享了來自 Charles Schwab 和 DBS Bank 的客戶案例，展示了他們在雲網路安全方面的實踐經驗和學習心得。,"Security
+"
+Best practices for monitoring Vertex AI models,https://www.youtube.com/watch?v=2bBKMTM8lBE,BRK2-037,本次會議主要講解了監控 Vertex AI 模型以確保 AI 應用程式使用者獲得快速效能和成功工作流程的最佳實踐。重點涵蓋了監控的定義、Vertex AI 模型的範圍、實際場景演示、以及如何使用和客製化監控儀表板和警示。,"Vertex AI
+"
+Best practices from product-led growth at Google Cloud,https://www.youtube.com/watch?v=Y8rT1_G6aa8,BRK1-045,"本次演講主要探討 Google Cloud 如何透過產品主導增長 (Product-Led Growth, PLG) 策略，讓使用者更容易從產品中發現價值，進而帶動業務增長。核心觀點包括：
+
+*   透過質化與量化數據結合，找出產品對客戶的關鍵價值點和阻礙使用者體驗的摩擦點。
+*   建立平台組織，賦能各產品團隊自行實施 PLG，並提供最佳實踐、工具、建議和基準。
+*   將使用者劃分為不同原型和角色，以便更快地進行投資和實驗，為使用者提供關鍵業務價值。
+*   透過摩擦日誌 (Friction Logging) 模擬使用者體驗，找出產品體驗中的優缺點。
+*   透過數據科學方法，找出能帶來高價值行動 (High Value Actions, HVAs)，並優化使用者旅程。
+*   PLG 只是業務增長的眾多槓桿之一，可與其他行銷方式互補。","Applied AI
+"
+Bet on innovation and growth: Leaders who switched to Google Workspace,https://www.youtube.com/watch?v=ageJkRo0KQA,BRK1-086,"本次會議主要探討企業領導者轉向 Google Workspace 後，如何在創新和成長方面取得優勢。核心觀點包括：
+
+*   **打破工作常規，擁抱持續變革：** 企業應不斷調整工作模式，利用新技術推動創新。
+*   **文化與技術融合：** Google Workspace 不僅是工具，更是一種開放協作的文化。
+*   **提升員工體驗：** Workspace 簡化工作流程，提高員工效率和滿意度。
+*   **生成式 AI 的應用：** Gemini 等 AI 工具嵌入 Workspace，助力內容創作、資訊檢索和流程優化。
+*   **安全與協作並重：** Workspace 提供雲原生安全保障，同時促進團隊協作。","Workspace
+"
+Beyond basic monitoring: AI-powered observability for Cloud SQL,https://www.youtube.com/watch?v=h2OZVNezEHQ,BRK2-106,"本次演講主要介紹了 Cloud SQL 中由 AI 驅動的可觀測性功能，旨在幫助開發者主動管理資料庫效能問題，即使他們不具備深厚的資料庫專業知識。核心觀點包括：
+
+*   **AI 驅動的可觀測性：** 提供直觀的洞察和工具，幫助開發者排除效能問題。
+*   **Cloud SQL 的優勢：** 作為一個全託管服務，Cloud SQL 降低了營運負擔和風險，讓開發者可以專注於創新。
+*   **可觀測性的三大支柱：** 包含資料擷取、洞察分析和引導式疑難排解。","Databases
+"
+Beyond hype: How Google Distributed Cloud unlocks AI for regulated industries,https://www.youtube.com/watch?v=a03H3BxQzno,BRK2-139,本次會議主要探討 Google Distributed Cloud (GDC) 如何將生成式 AI 的強大功能帶到邊緣，讓資料在本地端進行處理，解決了合規性、資料落地性以及低延遲等問題。GDC 旨在彌合雲端創新與客戶資料本地化需求之間的差距，為客戶提供在安全、離線環境中部署和操作 AI 應用的能力。,"Applied AI
+"
+Beyond metrics: Use DORA and AI to build a world-class DevEx,https://www.youtube.com/watch?v=_ONEL3KlwEg,BRK2-075,本次會議主要探討如何利用 DORA（DevOps Research and Assessment）的研究成果和人工智慧（AI）來提升開發者體驗（DevEx）。會議強調，儘管 AI 在程式碼編寫等方面帶來了效率提升，但軟體交付的整體效能並未隨之改善。因此，需要關注開發流程中的瓶頸，並利用 AI 來優化程式碼編寫之外的環節，例如測試、部署、安全性和成本控制等。此外，會議還強調了文化、工具和流程在提升開發者體驗中的重要性，並提倡透過消除不必要的負擔、縮短反饋週期和確保開發者安全感來改善開發環境。,"Applied AI
+"
+Beyond the hype: Real-world applications of gen AI and databases,https://www.youtube.com/watch?v=QguI0ypBiP4,BRK2-016,"本次會議主要探討了生成式 AI (Gen AI) 與資料庫結合的實際應用，並著重於企業如何利用這兩者的力量來解決真實世界的問題。核心觀點包括：
+
+*   **彌合差距：** 企業級 Gen AI 應用存在基礎模型能力與實際需求之間的差距，而企業的營運資料庫是彌合這一差距的關鍵。
+*   **AI-Ready 資料庫：** 新一代資料庫需要具備 AI-Ready 的特性，簡化應用程式堆疊，並將 AI 功能直接整合到資料庫中。
+*   **結構化與非結構化資料的結合：** 現代應用程式需要能夠同時處理結構化與非結構化資料，並利用 AI 技術進行分析和處理。
+*   **Agentic AI 的應用：** Agentic AI 是一種利用 LLM (大型語言模型) 來決定下一步行動的架構，資料庫是 Agentic AI 必須互動的重要系統。
+*   **安全與情境感知：** 在 Gen AI 應用中，安全性和情境感知至關重要，需要採取措施來保護資料並確保 AI 的行為符合預期。","Applied AI
+"
+Boost app reliability with AI-powered incident management: A real-world story,https://www.youtube.com/watch?v=1j87FwgAnMU,BRK2-118,本次會議主要探討雲端複雜性對故障排除流程的影響，以及如何利用AI（特別是Google的Gemini模型）來加速事件調查和根本原因分析（RCA）。Charles Schwab的SRE主管分享了他們在實踐中遇到的挑戰和解決方案，並展示了Google Cloud Assist Investigations這款新產品如何簡化故障排除流程，提升團隊效率，最終減少平均檢測時間（MTTD）和平均修復時間（MTTR）。,"Applied AI
+"
+Boost productivity with custom solutions on Google Workspace,https://www.youtube.com/watch?v=nDxWRjwLnhc,BRK1-079,"本次會議主要探討如何利用 Google Workspace 平台及其相關工具（如 AppSheet、Apps Script）來提升生產力，並介紹了 Google Workspace Marketplace、巨量資料分析、以及合作夥伴的成功案例。核心觀點包括：
+
+*   **Google Workspace Marketplace 的應用：** 利用 Marketplace 上的應用程式擴展 Workspace 功能，並強調 Google 對應用程式的安全審查機制。
+*   **AppSheet 的無程式碼開發：** 使用者無需編寫程式碼即可創建應用程式，解決特定工作流程問題，並強調 IT 部門對 AppSheet 應用程式的治理和控制。
+*   **Google Sheets 巨集的使用：** 利用巨集自動化重複性任務，提高工作效率，並介紹了 Google Sheets 在連接 BigQuery、Oracle、Locker 等系統方面的強大功能。
+*   **Apps Script 的靈活應用：** 使用 Apps Script 擴展 Workspace 功能，自動化工作流程，並結合 Gemini 進行程式碼生成和問題解決。
+*   **NewBank 的案例分享：** 介紹 NewBank 如何利用 Gemini 和 Vertex AI 平台構建 AI 代理 Ask New，提升員工資訊檢索效率，解決資訊孤島問題。
+*   **Codea 的合作夥伴案例：** 分享 Codea 如何協助客戶利用 Google Workspace 解決實際業務問題，包括使用 Apps Script 自動生成 Google Slides 簡報，以及使用 AppSheet 結合 Gemini API 進行健康安全評估。","Workspace
+"
+Boost productivity with custom solutions on Google Workspace (Recap),https://www.youtube.com/watch?v=MYK0bOAU_HA,BRK1-079-RC,,
+Boost your code coverage with an AI-powered unit-testing agent,https://www.youtube.com/watch?v=bG8gmuTVLEw,BRK2-058,"本次會議主要探討如何利用 AI 代理程式，特別是單元測試代理程式，來提升開發者的程式碼覆蓋率和生產力。核心觀點包括：
+
+*   AI 工具能有效提升開發者生產力，尤其是在程式碼編寫、搜尋和除錯方面。
+*   AI 在文件撰寫、內容生成、測試和專案規劃等領域的應用仍有很大的成長空間。
+*   軟體開發生命週期（SDLC）是一個迴圈，AI 應被應用於各個階段，而不僅僅是程式碼編寫。
+*   Gemini Code Assist 代理程式旨在成為開發者的中央智慧專案經理，協調各種專業代理程式，簡化工作流程。
+*   多代理程式系統透過模擬軟體工程師、測試工程師和架構師等角色之間的協作，以改進單元測試的生成和執行。
+*   自我修復迴圈透過生成、執行和分析測試，不斷迭代改進測試品質。","Applied AI
+"
+Bridge the gap: Unify your data with BigQuery multimodal tables,https://www.youtube.com/watch?v=hBg8FB6vCQ8,BRK3-052,"本次會議主要介紹了 BigQuery 中名為 ""Object Ref"" 的新功能，旨在彌合結構化和非結構化數據之間的鴻溝。Object Ref 允許您在 BigQuery 表格中直接引用 Google Cloud Storage (GCS) 中的非結構化數據（例如圖像、音頻、視頻、文檔），從而可以使用 SQL 和 Python 對結構化和非結構化數據進行統一分析和機器學習。
+
+核心觀點包括：
+
+*   **Object Ref 的概念：** Object Ref 是一種新的數據類型，可以嵌入到 BigQuery 表格中，用於引用 GCS 中的非結構化數據對象。
+*   **Object Ref 的優勢：** 簡化了 AI/ML 工作流程，允許在單個查詢中結合結構化和非結構化數據，並繼承了 BigQuery 的所有治理和安全功能。
+*   **Object Ref 的應用場景：** 客戶服務、保險理賠、城市服務等，可以通過結合結構化數據和非結構化數據來獲得更深入的洞察。","Data Analytics
+"
+Bring the power of BigQuery to your Apache Iceberg lakehouse,https://www.youtube.com/watch?v=ik6gS35HWCs,BRK3-018,"本次會議主要介紹了 Google Cloud 的 BigQuery 如何與 Apache Iceberg 整合，以提供更強大的湖倉一體解決方案。核心觀點包括：
+
+*   **結合開放與託管的優勢：** BigQuery 旨在結合 Apache Iceberg 的開放性與 BigQuery 的完全託管特性，提供高效能、可擴展且易於管理的湖倉解決方案。
+*   **增強 Iceberg 的功能：** BigQuery 為 Iceberg 表格帶來了許多增強功能，例如高吞吐量串流、細粒度變更、多表格交易和持續分析。
+*   **簡化資料管理：** 透過 BigQuery，使用者可以更輕鬆地管理 Iceberg 資料，無需擔心底層基礎架構的複雜性。
+*   **與 GCS 深度整合：** BigQuery 與 Google Cloud Storage (GCS) 深度整合，提供軟刪除、自動分層和自動 NL 產生洞察等功能。
+*   **Spotify 的實際應用案例：** Spotify 分享了他們如何使用 BigQuery 和 Iceberg 來解決資料孤島問題，並實現成本節約和效率提升。","Data Analytics
+"
+Build a competitive edge with platform engineering: An expert panel,https://www.youtube.com/watch?v=68PN_F-7cwA,BRK1-031,"本次會議主要探討平台工程的核心概念、實踐經驗以及如何透過平台工程建立競爭優勢。與會專家分享了各自公司在平台工程方面的經驗，包括成功的案例、遇到的挑戰以及未來的發展方向。核心觀點包括：
+
+*   **平台工程的定義：** 平台工程旨在降低開發人員的認知負擔，提供自助服務，並將底層工具、治理和標準抽象化，使開發人員能夠更專注於程式碼編寫和創新。
+*   **平台工程的價值：** 透過解決常見問題、提供可重用的解決方案，平台工程可以提高開發人員的生產力、加速軟體交付、提升安全性，並最終為企業帶來業務價值。
+*   **平台工程的挑戰：** 平台工程的實施需要組織文化的轉變、產品管理方法的引入以及對開發人員體驗的關注。此外，衡量平台工程的成功與否也是一個挑戰。
+*   **平台工程的未來：** 平台工程將繼續發展，並與雲原生、可觀測性、AI 等新技術相結合，為企業提供更強大的競爭優勢。","Architecture
+"
+Build a serverless toolkit: Empower developers with Cloud Run,https://www.youtube.com/watch?v=aqjg1QRVed8,BRK2-063,"本次會議主要探討 Shopify 如何建構一個無伺服器工具組 ProdKit，以賦能開發者更輕鬆地在 Cloud Run 上部署應用程式。會議涵蓋了 ProdKit 的設計理念、架構、安全考量、可觀測性，以及實際應用案例。核心觀點包括：
+
+*   **簡化 Cloud Run 部署流程：** ProdKit 旨在降低開發者使用 Cloud Run 的門檻，減少基礎設施設定和維護的負擔。
+*   **自動化基礎設施管理：** ProdKit 提供自動化的基礎設施配置和持續部署解決方案，讓開發者可以專注於程式碼開發。
+*   **強化安全性：** ProdKit 整合了多項安全措施，確保應用程式在 Cloud Run 上安全執行。
+*   **提升可觀測性：** ProdKit 支援將應用程式指標傳送到 Shopify 的集中式可觀測性平台，方便開發者監控和除錯。
+*   **實際應用案例：** Shopify 客戶行為 API 團隊分享了他們如何使用 ProdKit 將應用程式從 GKE 遷移到 Cloud Run，並在 Black Friday Cyber Monday 期間實現了穩定的效能。","Serverless
+"
+Build AI agents on Cloud Run,https://www.youtube.com/watch?v=GwL8e5Z1tl4,BRK3-002,"本次會議主要探討如何使用 Google Cloud Run 構建 AI 代理。核心觀點包括：
+
+*   **AI 代理的定義與架構：** AI 代理是結合大型語言模型（LLM）、資料來源、計算能力和工具的應用程式，透過循環執行 LLM，並根據工具的輸出結果不斷迭代，直到完成任務。
+*   **LangGraph 的作用：** LangGraph 是一個低階編排框架，旨在彌合傳統鏈（Chain）的可靠性與代理的靈活性之間的差距，透過圖形化的方式表示代理的控制流程，結合預定的程式碼流程和 LLM 邏輯。
+*   **Cloud Run 的優勢：** Cloud Run 是一個 serverless 運行時環境，具備自動擴展、成本效益、低延遲、高可靠性、良好的開發者體驗、與 LLM 模型整合以及支援串流等優勢，非常適合用於部署 AI 代理。
+*   **工具的重要性：** AI 代理需要使用各種工具來完成任務，包括數學計算、資料庫存取、API 調用、圖像生成、網頁瀏覽和程式碼沙箱等。
+*   **CodeRabbit 的案例：** CodeRabbit 是一個基於 AI 的程式碼審查工具，利用 Cloud Run 的沙箱環境安全地執行程式碼，並使用 AI 代理進行程式碼審查。","Applied AI
+"
+"Build an open, unified AI lakehouse with BigQuery and OSS",https://www.youtube.com/watch?v=8cAm9TEL5pI,BRK3-019,本次會議主要探討如何利用 BigQuery 和開源軟體（OSS）建構一個開放、統一的 AI Lakehouse。重點在於透過統一的儲存、中繼資料管理和處理引擎，簡化資料處理流程，並提供更大的靈活性和選擇。,"Data Analytics
+"
+Build and deploy multi-agent applications with Vertex AI,https://www.youtube.com/watch?v=LBE0Q1w47lg,BRK2-048,本次會議主要介紹了 Google Cloud 的 Vertex AI Agent Builder，這是一個用於建構和部署多代理程式應用程式的平台。會議重點涵蓋了 Agent Builder 的三個主要組成部分：Agent Development Kit (ADK)、Agent Engine 和 Agent Garden。此外，Ford 和 Revionics 的代表分享了他們使用 Vertex AI Agent Builder 建構代理程式的經驗和演示。,"Vertex AI
+"
+Build enterprise observability at petabyte scale,https://www.youtube.com/watch?v=7OwH0dNWfro,BRK3-031,"本次會議主要探討了如何在 Google 和客戶的角度，以極大規模構建企業可觀測性。核心觀點包括：
+
+*   Google 內部擁有極大規模的可觀測性系統，能夠處理海量的遙測數據並快速採取行動。
+*   OpenTelemetry 正在成為業界標準，提供統一的檢測方式和數據可移植性。
+*   將所有遙測數據集中在一個平台上（例如 BigQuery），可以更好地利用 AI 進行分析和洞察。
+*   Yahoo 通過採用 Google 的可觀測性套件和 OpenTelemetry，成功地將其大規模的郵件環境遷移到 Google Cloud。
+*   在 OpenTelemetry 的部署中，Sidecar 模式和 DaemonSet 模式各有優缺點，應根據具體用例選擇。","Data Analytics
+"
+Build event-driven apps with Cloud Run and Eventarc Advanced,https://www.youtube.com/watch?v=C5dl_D_IYgQ,BRK2-066,,
+Build event-driven apps with Cloud Run and Eventarc Advanced (Recap),https://www.youtube.com/watch?v=4RqM_sfmHRQ,BRK2-066-RC,,
+Build high-performance apps for the edge with Wasm in Go 1.24,https://www.youtube.com/watch?v=2ECGTgZp1KA,BRK3-012,本次會議主要探討了如何使用 Go 語言和 WebAssembly (Wasm) 技術，在邊緣環境構建高效能應用程式。Go 團隊強調 Go 不僅僅是一門程式語言，而是一個完整的平台，旨在提供高效、安全、可靠的生產系統構建方案。會議重點介紹了 Go 1.24 在 Wasm 支援方面的改進，以及如何在 Google Cloud 和 Shopify 等實際應用場景中利用這些技術。,"Applied AI
+"
+"Build intelligent, multi-model applications with Spanner",https://www.youtube.com/watch?v=8RXnNgcEp3o,BRK2-102,,
+Build powerful gen AI agents with Google Cloud databases and LlamaIndex,https://www.youtube.com/watch?v=DfZcT_ytYEE,BRK2-098,"本次會議主要介紹如何使用 LlamaIndex 和 Google Cloud 數據庫構建強大的知識代理。重點包括：
+
+*   AI 代理生態系統正在快速發展，主要趨勢包括多模態互動、AI 代理和 AI 代理工作流程的興起，以及員工使用 Gen AI 檢索知識。
+*   AI 代理是模型驅動的實體，可以推理、計劃和採取行動以實現特定目標，通常透過調用工具來執行操作，例如從數據源獲取數據或調用 API。
+*   隨著開發人員構建多代理架構，複雜性增加，需要解決連接池、身份驗證和安全性等問題。
+*   Google Cloud 提供了 MCP 工具箱，位於應用程式編排層和數據庫之間，為 AI 代理提供更好的可管理性、可觀察性和安全性。
+*   LlamaIndex 提供端到端的知識代理堆疊，Llama Cloud 幫助知識管理，該框架易於構建多代理工作流程，可用於各種用例，例如報告生成。
+*   Google Cloud 與 LlamaIndex 進行了多項整合，提供安全身份驗證、透過連接池提高性能、內建索引和原生異步編程支持等優勢。","Applied AI
+"
+Build production-grade gen AI apps with Cloud SQL for MySQL and PostgreSQL in less than 30 minutes,https://www.youtube.com/watch?v=UJJM6Yg81pI,BRK2-107,本次會議主要介紹了如何使用 Google Cloud SQL for MySQL 和 PostgreSQL 快速構建生產級的 Gen AI 應用程式。重點涵蓋了應用程式開發的生命週期，以及 Google Cloud 和 Cloud SQL 的最新功能，這些功能旨在簡化 Gen AI 應用程式的構建過程。會議還探討了應用程式的設計和架構、如何使用 Cloud SQL 更快地進行開發，以及 Gen AI 應用程式的運營和管理。此外，Manhattan Associates 分享了他們在 Gen AI 轉型方面的經驗。,"Applied AI
+"
+Build scalable AI infrastructure for startups,https://www.youtube.com/watch?v=N2kixOL7XRQ,BRK1-099,"本次會議主要探討新創公司如何建構可擴展的人工智慧基礎設施。與會的三位企業家和技術專家分享了他們在人工智慧領域的實戰經驗和深刻見解，涵蓋了從化學感測、語音辨識到開源模型優化等不同層面。核心觀點包括：
+
+*   **評估指標的重要性：** 不要過度迷信基準測試，應關注對業務真正重要的關鍵績效指標（KPI），例如轉換率、客戶流失率和客戶滿意度。
+*   **專注於核心競爭力：** 新創公司應集中資源開發對產品獨特性至關重要的功能，而非重複造輪子。
+*   **與可擴展的合作夥伴合作：** 選擇具有良好擴展記錄的雲端服務供應商和其他合作夥伴，以確保基礎設施能夠隨著業務成長而擴展。
+*   **快速實驗和迭代：** 在安全的前提下，鼓勵團隊嘗試新工具和技術，並快速評估其效果。
+*   **重視客戶回饋：** 積極收集和分析客戶回饋，並將其納入產品開發和優化過程中。
+*   **關注資料安全：** 根據資料的敏感程度，採取適當的安全措施，例如資料加密、存取控制和合規性認證。
+*   **謹慎招聘：** 優先考慮具有正確價值觀和文化契合度的人才，因為他們將成為公司的未來領導者。","Applied AI
+"
+Building an AI-ready data foundation with lean teams,https://www.youtube.com/watch?v=i4kQgJi0sCM,BRK2-170,本次會議主要探討如何利用精簡團隊，在 BigQuery 和 Google Cloud 上建立一個具備 AI 能力的資料基礎。會議強調了資料孤島、AI 準備度不足以及成本增加是企業在 AI 轉型過程中面臨的主要挑戰。BigQuery 如何透過整合資料、AI 和治理，以及提供跨雲支援和開放平台，來解決這些挑戰。同時，與會者分享了他們在不同產業和業務中使用 BigQuery 的經驗，強調了集中化、簡化、加速價值實現以及賦能團隊的重要性。,"Data Analytics
+"
+Building and serving the next generation AI Models with JAX,https://www.youtube.com/watch?v=fcI9A-pjNlU,BRK3-035,本次會議主要探討了如何使用 JAX 框架在 Google Cloud 上建構和部署下一代 AI 模型，特別是大型語言模型（LLM）和混合專家模型（MOE）。會議重點包括 JAX 的優勢、Google Cloud 提供的 JAX 生態系統、以及 Kakao 和 Children's Hospital of Philadelphia 等機構的實際應用案例。,"Applied AI
+"
+Building custom RAG systems with Vertex AI,https://www.youtube.com/watch?v=vSL68n5MG5g,BRK2-198,"本次會議主要探討如何使用 Google Cloud 的 Vertex AI 構建自定義的 RAG（Retrieval-Augmented Generation，檢索增強生成）系統。核心觀點包括：
+
+*   RAG 系統的關鍵在於將 AI 代理連接到正確的數據，並依賴於強大且精確的檢索方法。
+*   Vertex AI 提供了一系列 RAG 解決方案，從開箱即用的 Vertex AI Search 到高度可定制的搜尋平台 API。
+*   Google 內部使用雙階段檢索流程，首先使用混合嵌入和向量搜尋進行候選檢索，然後使用排序來縮小範圍。
+*   DocAI Layout Parser、Vertex AI Embeddings、Vector Search 和 Ranking API 是構建 RAG 系統的關鍵組件。
+*   Gemini 可以通過主動檢索器智能地決定如何查詢檢索方法，從而實現更準確、更有幫助的 RAG。
+*   實際案例展示了 AstraZeneca、Home Depot 和 RCS Media Group 如何利用 RAG 解決方案解決其特定業務挑戰。","Vertex AI
+"
+Building for the AI-centric world: Google Sovereign Cloud,https://www.youtube.com/watch?v=4h-ssEfTR3s,BRK1-070,"本次會議主要探討了在人工智慧（AI）時代，Google 如何透過其主權雲（Sovereign Cloud）解決方案，協助客戶滿足不斷變化的法規要求，同時實現創新和利用 AI 能力。核心觀點包括：
+
+*   **主權雲的重要性：** 全球法規日趨嚴格，各國政府都在重新思考數位轉型政策，企業需要符合法規要求，同時有效利用 AI 等創新技術。
+*   **Google 的主權哲學：** 提供客戶選擇權，與當地合作夥伴緊密合作，並確保解決方案能經受時間考驗，隨著法規變化不斷調整。
+*   **三種主權雲解決方案：**
+    *   GCP 上的主權控制：針對需要在公有雲上運行的工作負載，提供最強大的資料邊界。
+    *   Google 主權雲：在特定國家/地區提供專用基礎設施，滿足高度監管需求。
+    *   Google 分散式雲：針對需要氣隙環境（air gap）的工作負載，提供資料、營運和軟體主權。
+*   **主權 AI：** 在主權雲的各個層面引入 AI 功能，讓客戶無需在主權和 AI 之間妥協。","Applied AI
+"
+Building the AI-defined vehicle,https://www.youtube.com/watch?v=hnDdhBNHfb4,BRK2-053,,
+Building the tools for valuable business insights from sustainability data,https://www.youtube.com/watch?v=7q1FYYP1vzM,BRK1-116,"本次會議由 Google Cloud 的全球永續發展總監 Justin Keeble 主持，邀請了 Watershed、ESG Book 和 Deloitte 等合作夥伴，共同探討如何利用永續性數據來驅動商業價值。會議主要圍繞三個核心觀點展開：
+
+*   永續性數據的商業價值：從法規報告轉向驅動韌性、效率和增長。
+*   永續性數據的新系統：雲端技術將成為衡量和整合永續性數據的中心。
+*   AI 對永續發展議程的強化：利用 AI 從新型來源提取數據，並協助企業做出更明智的決策。","Applied AI
+"
+CEO perspectives: A new era of AI-powered research and innovation,https://www.youtube.com/watch?v=-CNW-dX4Lts,SPTL109,"本次會議主要探討了人工智慧（AI）在研究和創新領域所帶來的變革，以及 Google 與 Allen Institute for AI (AI2) 之間的合作如何推動科學研究和解決全球性挑戰。核心觀點包括：
+
+*   AI 正在推動各行各業和整個社會的全面轉型。
+*   開放的 AI 模型和工具對於促進更廣泛的創新至關重要。
+*   AI 在科學研究、環境保護和醫療保健等領域具有巨大的潛力。
+*   合作夥伴關係是推動 AI 發展和解決複雜問題的關鍵。","AI
+"
+CEO perspectives: A new era of AI-powered research and innovation (Recap),https://www.youtube.com/watch?v=CE5wGNeXDnM,SPTL109-RC,,
+Closing the air gap: Securing industrial operations in the cloud,https://www.youtube.com/watch?v=7NdhFnM0Zqc,BRK3-046,"本次會議主要探討工業控制系統（OT）環境中，傳統「氣隙」安全防護概念的消逝，以及在 OT 系統日益連接雲端的情況下，如何確保其安全性。核心觀點包括：
+
+*   傳統的 OT 安全「氣隙」已不復存在，連接已成必然。
+*   重點應轉向如何保護日益連接的 OT 系統。
+*   雲端技術在 OT 環境中的應用，可提升效率、擴展性及安全性。
+*   良好的安全基礎建設（如網路分段、存取控制）至關重要。
+*   應將安全納入 OT 系統的設計和部署階段。
+*   AI 和機器學習等新興技術，可增強 OT 環境的安全性。
+*   跨部門協作（IT、OT、安全）對於成功部署雲端 OT 解決方案至關重要。","Security
+"
+"Cloud compliance with confidence, made simple",https://www.youtube.com/watch?v=k-GOBVNwXJg,BRK1-034,"本次會議主要探討如何透過 Google Cloud 的 Compliance Manager 和 Assured Workloads 等工具，簡化雲端合規流程，並在不斷變化的法規環境下保持信心。核心觀點包括：
+
+*   **合規與主權挑戰：** 法規不斷變化，地緣政治局勢帶來新的要求，工具分散難以管理。
+*   **簡化合規：** 從配置到監控再到稽核，提供端到端的合規環境，並利用 AI 提升效率。
+*   **Assured Workloads 的作用：** 透過軟體定義的控制項，在單一 GCP 組織中滿足多種法規要求，無需重新架構。
+*   **AI 在合規中的應用：** 利用 AI 生成新的控制項、分析法規框架，並協助建立客製化控制項。
+*   **全球部署與規模化：** Assured Workloads 允許全球部署，無需為不同地區的合規要求進行妥協。
+*   **數位主權：** 從資料、營運和軟體三個層面看待主權，Assured Workloads 主要提供資料主權，並在營運主權方面與合作夥伴合作。","Security
+"
+"Cloud compliance with confidence, made simple (Recap)",https://www.youtube.com/watch?v=r4nol-bJsxw,BRK1-034-RC,,
+Cloud migration conquered: Strategies for small but mighty IT teams,https://www.youtube.com/watch?v=rMngcqslnf0,BRK1-018,"本次會議主要探討小型 IT 團隊在進行雲端遷移時所面臨的挑戰與應對策略。核心觀點包括：
+
+*   小型 IT 團隊在雲端遷移過程中面臨額外的挑戰，例如資源、預算和專業知識的限制。
+*   雲端遷移是一個包含估算、發現、評估、規劃和遷移的五步驟旅程。
+*   Google Cloud 提供了免費工具（如 Migration Center）和合作夥伴網路，以協助加速遷移過程。
+*   客戶案例（如 Triarch Health）證明了成功的雲端遷移專案是可行的，並且能夠按時、按預算完成。","Migration
+"
+Cluster Director with GKE: Optimal performance at max scale,https://www.youtube.com/watch?v=Ki3EYE8ME6Q,BRK2-128,"本次演講介紹了 Google Kubernetes Engine (GKE) 的 Cluster Director，旨在為大規模 AI 工作負載提供最佳效能和彈性。核心觀點包括：
+
+*   Cluster Director 能夠部署和管理大規模的加速虛擬機器叢集，將運算、儲存和網路視為一個單一單元。
+*   透過標準 Kubernetes API 進行協調，無需學習新的平台或工具。
+*   提供高效能、超大規模、拓撲感知排程、易於使用、360 度可觀測性和高彈性等關鍵價值。","Compute
+"
+Combat emerging cyberthreats with Google Workspace and Chrome,https://www.youtube.com/watch?v=wlKrop6K-UE,BRK2-161,"本次會議主要探討了日益嚴峻的網路威脅，以及 Google 如何透過 AI 驅動的防禦、安全設計原則和企業安全控制（包括 Gemini 等生成式 AI 產品）來保護 Google Workspace 和 Chrome 用戶。核心觀點包括：
+
+*   網路攻擊日益頻繁，影響各行各業，需要轉變思維，從「更多安全產品」轉向「更安全產品」。
+*   生成式 AI 的採用帶來風險，但也可用於對抗惡意 AI，需要安全、可靠且合規的平台。
+*   地緣政治緊張局勢影響網路安全，組織需要數位主權以確保可攜性和生存能力。
+*   Google 在各個層面（從應用程式到基礎模型）進行創新，以應對不斷變化的威脅。
+*   Workspace 和 Chrome 內建安全功能，例如雙重驗證、通行密鑰和裝置綁定會話憑證，可保護使用者免受帳戶盜用。
+*   企業可以利用資料保護和數位主權控制來管理敏感資料並滿足法規要求。
+*   Chrome Enterprise Protection 將安全控制擴展到第三方應用程式。
+*   Google Workspace 安全中心提供即時威脅可見性和回應能力。","Security
+"
+"Compute Engine best practices: Optimizing cost, workload management, and scalability",https://www.youtube.com/watch?v=u3aLFageNzQ,BRK1-062,本次會議主要介紹了 Google Compute Engine 的最佳實務，旨在幫助客戶應對在成本管理、效能優化、可靠性保障以及新功能應用等方面遇到的常見挑戰。會議將應用程式分為三種類型：AI/ML 和高效能運算、雲原生應用程式和傳統應用程式，並針對每種類型提供不同的最佳實務建議。,"Compute
+"
+Connect the dots with Google Cloud AI: From models to machines,https://www.youtube.com/watch?v=BsGbIKwnOU0,BRK1-051,本次會議旨在闡明 Google Cloud AI 的各個層面，協助使用者了解何時該選擇哪種 Google Cloud AI 產品。Etsy 的 Derek 分享了 Etsy 如何針對不同使用案例選擇不同的 Google Cloud AI 產品。此外，會議也探討了如何利用 NVIDIA 在 Google Cloud 堆疊中加速 AI 工作負載。,"Applied AI
+"
+"Connect, secure, and simplify with new Cross-Cloud Network innovations",https://www.youtube.com/watch?v=fMwxXgihxSg,BRK2-029,,
+Control vs autonomy: Tradeoffs in designing AI agents,https://www.youtube.com/watch?v=dX2QqolWBxg,BRK2-196,"本次會議探討了在設計AI Agent時，如何在控制和自主性之間取得平衡。講者分享了客戶在AI Agent設計和部署過程中遇到的實際挑戰，以及Google Cloud的產品策略如何應對這些挑戰。會議重點包括：
+
+*   **AI Agent的發展趨勢：** AI Agent被視為軟體的下一個前沿，將改變人們與資訊互動的方式。
+*   **企業級AI Agent的關鍵要素：** 品質、可靠性、安全性和可擴展性是企業級AI Agent的重要考量因素。
+*   **多樣化的建構介面：** Google Cloud提供從無程式碼到完全DIY的多種建構介面，以滿足不同使用者的需求。
+*   **ADK（Agent Development Kit）：** Google開發的開源Python SDK，旨在簡化AI Agent的建構過程，並充分利用Gemini模型的優勢。
+*   **Agent Engine：** 一個抽象化的基礎設施，提供監控和評估服務，支援多種Agent編排框架。
+*   **Agent Space：** 一個用於分發和發現內部AI Agent的平台。
+*   **客戶案例分享：** DBS（VML）和Renault分享了他們在AI Agent開發和部署方面的經驗。","Applied AI
+"
+Control vs autonomy: Tradeoffs in designing AI agents (Recap),https://www.youtube.com/watch?v=AFAkgk5Ei4Q,BRK2-196-RC,,
+Conversational agents: Build and deploy no-code/low-code AI agents,https://www.youtube.com/watch?v=bNvxDer0SfE,BRK2-050,"本次會議主要介紹了 Google AI 的 Customer Engagement Suite 中 Conversational Agents 的相關功能與應用，強調透過 no-code 和 low-code 的方式，快速構建和部署 AI 助理，提升客戶互動體驗和企業生產力。核心觀點包括：
+
+*   **生成式 AI 的強大影響力：** Conversational Agents 透過生成式 AI 顯著提升生產力，並賦能人類客服人員，提高銷售額和擴大規模。
+*   **Conversational Agents Console 的重要性：** 整合 Dialogflow CX 和生成式 AI，提供混合型代理，結合規則和 AI，提供最佳客戶體驗。
+*   **多樣化的連接器和語音支援：** 提供豐富的連接器，方便與 CRM、資料庫等系統整合，並支援自然的人聲語音體驗。
+*   **多模態互動的未來：** 支援圖像、語音、螢幕分享等多種互動方式，提升客戶互動的豐富性。
+*   **客戶案例的成功經驗：** Bell Canada 和 Bouygues Telecom 等客戶透過 Conversational Agents 實現了顯著的成本節省和銷售轉化。","Applied AI
+"
+Cotality's (CoreLogic) cloud transformation with Cognizant and Google,https://www.youtube.com/watch?v=ih6RLCsseN0,SPTL106,"本次會議主要探討了Quartality（前身為CoreLogic）如何與Cognizant和Google Cloud合作，成功完成雲端轉型，並從中獲得的效益。核心觀點包括：
+
+*   **雲端轉型的必要性：** 解決傳統資料中心帶來的成本高昂、安全風險以及創新受限等問題。
+*   **自動化的重要性：** 透過自動化一切流程，降低人為錯誤，提升效率和安全性。
+*   **工程文化的轉變：** 從各自為政的開發模式轉向統一的平台和工程文化，促進協作和創新。
+*   **AI在營運中的應用：** 利用AI提升營運效率，改善客戶體驗。
+*   **安全性的提升：** 透過雲端轉型，實現更強大的安全防護，應對新型安全挑戰。","Migration
+"
+Cross-Cloud Network connecting global enterprises with Cloud WAN,https://www.youtube.com/watch?v=IDnXxxTw7cM,BRK2-228,"本次會議主要介紹 Google Cloud 推出的 Cross-Cloud Network (CCN) 及其延伸服務 Cloud WAN，旨在為企業提供高效能、低延遲、安全可靠的全球網路解決方案，以應對多雲環境和 AI 時代的需求。核心觀點包括：
+
+*   **解決企業網路挑戰：** 傳統企業網路面臨應用程式效能不穩定、安全性不一致、成本高等問題，Google Cloud WAN 旨在解決這些痛點。
+*   **Google 全球骨幹網路的延伸：** Cloud WAN 利用 Google 自身使用的全球骨幹網路，為企業提供高可靠性和效能。
+*   **安全內建而非外掛：** Google 強調安全性是內建於網路架構中，而非事後添加。
+*   **簡化多雲連接：** Cloud WAN 支援連接企業的資料中心、共同託管設施以及其他雲端服務，實現真正的多雲互聯互通。
+*   **提升應用程式效能：** 透過優化網路路徑和減少網路躍點，Cloud WAN 可顯著提升應用程式效能。
+*   **降低總體擁有成本 (TCO)：** 透過整合多個網路服務和簡化管理，Cloud WAN 有助於降低企業的網路成本。
+*   **與合作夥伴生態系統整合：** Google 與領先的 SD-WAN、安全性和 DDI 供應商合作，提供更全面的解決方案。","Networking
+"
+Customer Engagement Suite: Elevate customer experiences with Google AI,https://www.youtube.com/watch?v=fpprNYtemS4,BRK1-047,,
+Customer Engagement Suite: Elevate customer experiences with Google AI (Recap),https://www.youtube.com/watch?v=JMS7_ZqPaFA,BRK1-047-RC,,
+Data fabric on BigQuery: An architect’s perspective of why and how to do it,https://www.youtube.com/watch?v=hquNW0MtoEo,BRK1-055,,
+Data on Kubernetes: Run stateful apps and AI workloads on GKE,https://www.youtube.com/watch?v=udQYLxsMGeU,BRK2-082,"本次會議主要探討在 Google Kubernetes Engine (GKE) 上運行具狀態應用程式和 AI 工作負載的策略，重點在於成本節省和效能提升。核心觀點包括：
+
+*   針對不同類型的具狀態應用程式選擇合適的儲存方案，例如使用 Hyperdisk 調整 IOPS 和吞吐量，或使用 Storage Pool 共享容量和效能。
+*   利用 GKE Data Cache 加速讀取密集型工作負載，降低延遲並提高交易處理量。
+*   針對 AI/ML 工作負載，區分訓練和推論的不同需求，並採用相應的優化策略，例如使用 Container Preloading 加速推論啟動時間，或使用 Cloud Storage FUSE 或 Hyperdisk ML 儲存模型。
+*   透過客戶案例分享，展示 Quadrant 和 Codeway 如何利用 GKE 解決方案來提升其向量資料庫和 AI 應用程式的效能和效率。","Applied AI
+"
+Data platform migrations: Perspectives from industry insiders,https://www.youtube.com/watch?v=AVw610QmdiI,BRK3-024,,
+Data-driven decisions: Gemini and BigQuery for startups,https://www.youtube.com/watch?v=JvcHIMPugbk,BRK1-101,Ask.ai 的 CEO Alain Talmor 分享了 Gemini 和 BigQuery 如何幫助他們為大型組織的客戶服務團隊提供企業級 AI 平台。核心觀點包括：Gemini 2.0 Pro 在準確性和推理能力方面表現出色，BigQuery 則作為一個良好的連接器，方便客戶儲存和使用數據。此外，Gemini 2.0 Pro 的大上下文窗口有助於分析大量數據，從而識別重複問題並提供解決方案。,"Gemini
+"
+Declutter and defend: A panel on strategies for small security teams,https://www.youtube.com/watch?v=7k0mFh8kBLo,BRK1-017,"本次會議主要探討小型安全團隊在面對日益複雜的網路安全威脅時，如何有效地精簡資源、提升防禦能力。核心觀點包括：
+
+- **威脅情勢嚴峻：** 國家級駭客攻擊加速，AI 成為雙面刃，攻擊頻率和真實性提高。
+- **工具過多：** 平均每個 CISO 管理 60-70 種安全工具，導致資源不足，難以有效應對。
+- **人才短缺：** 資安人才供不應求，需要更有效地利用現有資源。
+- **AI 的應用：** 儘管 AI 在資安領域的應用尚處於早期階段，但已開始用於威脅優先排序和資源優化。
+- **團隊合作：** 強調安全是團隊運動，需要跨部門協作。
+- **流程優化：** 利用 AI 簡化安全運營流程，例如自動化事件分流。
+- **技術選擇：** 優先考慮雲原生技術和平台，以簡化管理和降低運營成本。","Security
+"
+Decoding multicloud networking: Expert insights from Equinix and Uber,https://www.youtube.com/watch?v=AyWjgni_nyg,BRK1-042,"本次會議主要探討了多雲網路環境下企業面臨的挑戰，以及 Equinix 如何協助企業應對這些挑戰。核心觀點包括：
+
+*   多雲環境的普及：90% 的企業正在使用多個公有雲。
+*   多雲環境的挑戰：缺乏標準、可見性不足、效能和延遲問題。
+*   Equinix 的解決方案：透過其全球資料中心網路和服務，提供低延遲的雲到雲路由和簡化的多雲連接。
+*   Uber 的案例：展示了如何使用 Equinix Fabric Cloud Router 解決數據遷移問題。","Multicloud
+"
+Deep dive into multimodal embeddings and vector search in BigQuery,https://www.youtube.com/watch?v=dPcta6Jvuvs,BRK3-016,"本次會議深入探討了 BigQuery 中多模態嵌入和向量搜尋的應用。核心觀點包括：
+
+*   **AI 的數據基礎：** 高品質的數據是 AI 提供卓越體驗的關鍵，BigQuery 致力於構建高品質的數據集，以支援 AI 平台。
+*   **多模態數據的機會：** 除了結構化和半結構化數據，非結構化數據（如圖像、文檔、影片）也提供了巨大的機會來提升數據品質。
+*   **BigQuery 的統一介面：** BigQuery 提供了一個統一的介面，可以處理各種格式的數據，包括表格數據、半結構化數據和非結構化數據。
+*   **向量搜尋的應用：** 向量搜尋可以應用於各種場景，包括搜尋、個人化、分析和生成式 AI。
+*   **BigQuery 的向量索引：** BigQuery 提供了向量索引，可以加速向量搜尋，並支援大規模的批次處理。
+*   **Object Ref 的整合：** Object Ref 是一種新的 BigQuery 類型，可以將非結構化數據無縫整合到現有的 BigQuery 表格中。
+*   **AI 查詢引擎：** BigQuery 提供了 AI 查詢引擎，可以使用 AI 來分析和轉換數據。
+*   **BigQuery 與 Vertex AI 的整合：** BigQuery 可以與 Vertex AI 整合，以支援線上低延遲的向量搜尋。","Vertex AI
+"
+Deep dive into the latest innovations in AlloyDB: The new way to PostgreSQL,https://www.youtube.com/watch?v=FTVj7IE-8SI,BRK2-100,"本次會議深入探討了 AlloyDB 的最新創新，強調其作為 PostgreSQL 的新途徑，不僅在價格效能、高可用性和安全性方面超越了傳統方案，更在 AI 應用、跨雲部署等方面展現出獨特的優勢。核心觀點包括：
+
+*   **AlloyDB 的卓越效能：** 提供比開源 PostgreSQL 高四倍的交易吞吐量，以及高達 100 倍的分析查詢效能提升。
+*   **價格效能優勢：** 在相同效能下，成本僅為自管 PostgreSQL 的一半，甚至在 Axion 處理器上運行時，比 AWS Aurora on Graviton 4 具有三倍的價格效能優勢。
+*   **高可用性和安全性：** 預設提供 99.99% 的 SLA，近零停機更新，以及 Google 等級的安全保障。
+*   **AlloyDB AI 的強大功能：** 提供卓越的向量處理引擎、AI 查詢引擎和自然語言介面，助力 GenAI 應用開發。
+*   **AlloyDB Omni 的靈活性：** 允許在任何地方運行 AlloyDB，包括 Azure、AWS、本地環境等，並透過 Atomic I.O. 技術實現四倍於標準 PostgreSQL 的效能。","Databases
+"
+Deliver exceptional customer experiences with Google AI,https://www.youtube.com/watch?v=Fx1R7pQyx04,BRK1-046,"本次會議主要探討如何利用 Google AI 的客戶互動套件（Customer Engagement Suite）來提升客戶體驗，從早期的人工智慧實驗階段，發展到現在的實際應用，並展望未來 AI 在客戶服務領域的發展趨勢。核心觀點包括：
+
+*   **客戶期望的轉變：** 客戶期望越來越高，希望獲得個人化、主動且跨管道的無縫體驗。
+*   **AI 的核心地位：** Google 將 AI 視為產品的核心，而非事後附加的功能，並利用 Gemini 等模型來優化客戶互動。
+*   **全方位的客戶旅程：** AI 應用於客戶旅程的每個階段，從網站搜尋到人工客服協助，提供一致且高效的體驗。
+*   **數據驅動的優化：** 透過分析客戶互動數據，不斷改進服務，實現客戶中心的自我完善。
+*   **從成本控制到營收增長：** 將客戶服務從單純的成本中心轉變為營收增長的引擎，提升客戶終身價值和品牌忠誠度。","Applied AI
+"
+Delivering business value in the new agentic era,https://www.youtube.com/watch?v=U1X5Lx7GwnA,BRK2-001,,
+Delivering business value in the new agentic era (Recap),https://www.youtube.com/watch?v=QzAbBTUa6sw,BRK2-001-RC,,
+Democratizing AI and ML: Building and scaling with BigQuery and Vertex AI,https://www.youtube.com/watch?v=g4v1XEbiqgk,BRK2-219,"本次會議主要探討了如何利用 BigQuery 和 Vertex AI 來普及人工智慧（AI）和機器學習（ML），使構建和擴展智慧應用程式變得更加容易。核心觀點包括：
+
+*   BigQuery 和 Vertex AI 解決了企業在 AI 時代面臨的工具分散、員工技能不足等問題。
+*   Google Cloud 提供了一個以 BigQuery 為中心的統一平台，簡化了資料分析和機器學習流程。
+*   BigQuery ML 允許在 BigQuery 內部訓練和部署模型，無需導出資料，簡化了資料治理和基礎設施管理。
+*   BigQuery ML 透過 SQL 介面賦予更多使用者使用機器學習的能力。
+*   BigQuery 與 Vertex AI 的整合，特別是與 Gemini 模型的整合，為資料操作帶來了變革性的潛力。","Vertex AI
+"
+Deploy AlloyDB Omni on Kubernetes next to local AI models,https://www.youtube.com/watch?v=BxuozkkiNhQ,BRK2-173,本次會議主要介紹了 AlloyDB Omni 在 Kubernetes 上的部署，以及如何與本地 AI 模型整合。講者 Gleb 強調 AlloyDB Omni 作為一個與 PostgreSQL 完全相容的資料庫，具有卓越的效能價格比、完整的向量資料庫功能和即時分析能力。此外，AlloyDB Omni 可以在任何環境中運行，包括本地、資料中心和雲端。會議重點在於展示如何利用 AlloyDB Omni 搭配本地部署的 AI 模型，以實現更安全、更快速且更具成本效益的 AI 應用。,"Databases
+"
+Deploy AlloyDB Omni on Kubernetes next to local AI models (Recap),https://www.youtube.com/watch?v=BZ0YcHcRgnQ,BRK2-173-RC,,
+Deploy Next.js and Angular apps with Firebase App Hosting on Google Cloud,https://www.youtube.com/watch?v=aw2YjRpvq_0,BRK2-069,Firebase App Hosting 是一個以 Git 為中心的伺服器端解決方案，專為構建在 Google Cloud 上的現代 Web 框架而設計。它管理 Web 應用程式的整個堆疊，從構建管道到 CDN 和伺服器端渲染。Firebase App Hosting 現已正式發布 (GA)，支援 Angular 和 Next.js，並且也支援 Nuxt 和 Astro 應用程式（預覽版）。App Hosting 透過管理基礎設施並與 GitHub 集成以實現自動部署，從而加速開發。它還提供改進的 UX 用於除錯構建失敗、內建監控儀表板以了解應用程式效能和健康狀況，以及無需重建即可立即回滾到先前版本的功能。App Hosting 具有可擴展的基礎架構、成本效益和安全性，並與 Google Cloud Secret Manager 緊密集成，以實現企業級密鑰管理。,"Firebase
+"
+Deploying a virtual red team to find cloud risks you didn’t know about,https://www.youtube.com/watch?v=TdGkKm5KGhY,BRK2-144,"本次會議主要探討如何利用虛擬紅隊來發現雲端環境中潛在的風險。講者介紹了 Google 如何透過安全圖（Security Graph）來建模風險和威脅，並利用持續的虛擬紅隊演練來驗證和揭露未知的風險。會議重點包括：
+
+*   **可見性和風險管理：** 強調了解雲端環境中的漏洞、活動和潛在攻擊路徑的重要性。
+*   **情境感知的重要性：** 強調在風險評估中考慮資產、數據、漏洞、活動和權限等情境因素。
+*   **安全圖（Security Graph）：** 介紹了安全圖作為一種建模雲端環境中資源和關係的工具，以便更好地理解和應對風險。
+*   **虛擬紅隊（Virtual Red Teaming）：** 介紹了虛擬紅隊的概念，它使用數位雙生模型來模擬攻擊，以發現潛在的攻擊路徑和風險。
+*   **問題（Issues）：** 介紹了 SEC（Security Command Center）中的新概念「問題」，它代表了使用者應該優先處理的最重要的風險。
+*   **毒性組合（Toxic Combinations）和扼流點（Choke Points）：** 介紹了虛擬紅隊發現的兩種主要風險類型，毒性組合代表了通往高價值資源的最可能路徑，而扼流點則代表了修復後能帶來最大效益的雲端資源。","Security
+"
+Design a cross-cloud network to connect apps securely across clouds,https://www.youtube.com/watch?v=pbnCg6X8Jek,BRK2-039,"本次會議主要探討了如何設計和部署跨雲網路，以安全地連接分散在多個雲端和混合雲環境中的應用程式。核心觀點包括：
+
+*   **跨雲網路的重要性：** 隨著企業採用多雲策略和生成式 AI 應用，跨雲網路變得至關重要，它能提供強大的全球連接性、可擴展性、安全性和合規性。
+*   **兩種主要的部署模型：** 一種是從本地環境遷移到雲端的企業，需要強大的全球連接；另一種是雲原生企業，需要跨多個雲端的連接，以利用不同的服務和 SaaS 應用。
+*   **Google Cloud 的解決方案：** Google Cloud 提供了 Cloud Interconnect、Cross-Cloud Interconnect、Network Connectivity Center (NCC) 和 Private Service Connect (PSC) 等產品，以構建安全、可擴展且高效的跨雲網路。
+*   **應用程式感知能力：** 透過應用程式感知能力，客戶可以根據應用程式的優先順序來管理和優化網路流量，確保關鍵應用程式獲得足夠的頻寬。
+*   **服務導向架構的演進：** 從傳統的網路架構演進到服務導向架構，可以簡化連接性，並為開發人員提供更大的自主權。","Networking
+"
+Design business continuity for SQL Server workloads,https://www.youtube.com/watch?v=Zzb2rBuDEbo,BRK2-108,"本次會議主要討論了 Google Cloud SQL for SQL Server 的業務連續性設計，重點介紹了多項新功能和改進，旨在提高資料保護能力、縮短維護停機時間，並提供更強大的災難復原能力。核心觀點包括：
+
+*   備份與實例解耦，即使實例刪除後也能保留備份。
+*   計劃性維護和機器擴展的停機時間縮短至亞秒級。
+*   Cloud SQL Enterprise Plus Edition 提供更佳的讀取效能。
+*   透過異地災難復原副本實現零資料遺失的故障轉移。
+*   強化資料保護，包括更長的備份保留期和更高的可用性 SLA。","Databases
+"
+Developer Keynote in 10 minutes,https://www.youtube.com/watch?v=xHODIqeARXM,DEVKEY-RC3,,
+Developer Keynote in 2 minutes,https://www.youtube.com/watch?v=e3ccrpljwNY,DEVKEY-RC1,,
+Developer Keynote: You can just build things,https://www.youtube.com/watch?v=xLDSuXD8Mls,DEVKEY,,
+Developer's jumpstart guide to Vertex AI,https://www.youtube.com/watch?v=irnZxftBSU4,BRK3-063,本次會議主要探討了如何利用 Vertex AI 快速啟動開發者專案，並展示了 Live API 的多種應用場景，包括客戶服務、軟體教學以及與 AR 眼鏡的整合。會議強調了 Live API 在解決複雜軟體操作問題上的潛力，以及生成媒體在影片編輯方面的應用。此外，會議還分享了程式碼生成的技巧，並介紹了可用的資源和範例。,"Vertex AI
+"
+Dialing In: Firestore with MongoDB compatibility in Action,https://www.youtube.com/watch?v=zuinn3OkskI,BRK2-112,"本次會議主要介紹了 Firestore 與 MongoDB 的兼容性，以及 Dialpad 如何利用 Firestore 構建其 AI 驅動的通訊平台。核心觀點包括：
+
+*   **Firestore 的優勢：** 強調 Firestore 在擴展性、可靠性、開發者生產力方面的優勢，以及其簡化資料遷移的能力。
+*   **MongoDB 兼容性：** 介紹了 Firestore 如何通過 MongoDB 兼容性，讓開發者可以使用熟悉的 MongoDB 驅動程式、工具和生態系統。
+*   **Dialpad 的應用：** 分享了 Dialpad 如何利用 Firestore 實現低延遲、高可用性和自動擴展，以支持其 AI 通訊平台。
+*   **新功能介紹：** 介紹了 Firestore 的新功能，包括查詢編輯器、索引類型、查詢解釋和查詢洞察，以及與 Database Center 的整合。
+*   **成本效益：** 強調 Firestore 的定價模式簡單且具有成本效益，並提供承諾使用折扣。","Databases
+"
+Dialing In: Firestore with MongoDB compatibility in Action (Recap),https://www.youtube.com/watch?v=Bw6EtlZrsi0,BRK2-112-RC,,
+Disrupting streaming experiences with AI transformation,https://www.youtube.com/watch?v=JLVkSeiYuYQ,BRK1-092,"本次會議主要探討媒體與娛樂產業的趨勢，人工智慧（AI）的持續影響，以及全球領先公司如何轉型其業務和觀眾體驗。核心觀點包括：
+
+*   **注意力爭奪戰：** 在內容選擇日益豐富的環境下，爭奪消費者注意力變得至關重要。
+*   **AI 的機會：** 儘管產業面臨挑戰，AI 為優化和轉型業務提供了機會。
+*   **Google Cloud 的三方面方法：** 利用先進的多模態模型、垂直整合的技術堆疊和企業級 AI 解決方案。
+*   **四大支柱：** 透過 AI 增強內容製作管理、理解內容價值、提高企業生產力以及個人化觀眾體驗。
+*   **AI 部署階段：** 從 2023 年的實驗階段，到 2024 年的規模化試點，再到 2025 年的規模化生產部署。
+*   **AI 不僅僅是保留注意力：** 而是重塑對話，讓使用者參與內容並創造新的故事。","Applied AI
+"
+Ditch the frameworks and embrace core tech: Prototyping in the AI era,https://www.youtube.com/watch?v=s8alcaLBIKc,BRK2-178,"本次演講主要探討在生成式人工智慧時代，如何透過擁抱核心技術來進行原型設計，並強調快速迭代和持續改進的重要性。核心觀點包括：
+
+*   原型設計的本質是提出問題並尋找答案，而非單純的交付物。
+*   生成式人工智慧可以幫助我們更好地提出問題，並快速驗證想法。
+*   在原型設計初期，應避免過度依賴框架，而應專注於核心技術的應用。
+*   在應用程式規模擴大後，再考慮使用框架來提高安全性、可靠性和可擴展性。","AI
+"
+Ditch the frameworks and embrace core tech: Prototyping in the AI era (Recap),https://www.youtube.com/watch?v=NVqRwLUGBuM,BRK2-178-RC,,
+Drive platform engineering and software delivery with Gemini Cloud Assist and Code Assist,https://www.youtube.com/watch?v=XEst7Xd3Zck,BRK2-033,"本次會議主要介紹如何使用 Gemini Cloud Assist 和 Code Assist 來驅動平台工程和軟體交付，從而幫助在 GCP 上構建高度可靠和可擴展的應用程式，同時提高軟體開發生命週期的效率、速度和一致性。核心觀點包括：
+
+*   Gemini 是 Code Assist 和 Cloud Assist 許多功能和能力的基礎。
+*   Gemini 擁有 Stack Overflow 和 GCP 產品的知識，並結合應用程式拓撲等上下文資訊，在編碼、設計和問題排除方面提供支援。
+*   Cloud Assist 和 Code Assist 協同工作，可以簡化軟體開發生命週期。
+*   Code Assist 與多種工具整合，簡化程式碼編寫和專案整合。
+*   AI 驅動的故障排除代理可以理解應用程式拓撲，收集日誌、指標和配置變更等資訊，分析資料並提供修復建議。
+*   Cloud Hub 提供單一管理介面，用於管理 GCP 上的應用程式，並提供上下文相關且可操作的洞察，以提高應用程式管理效率。","Applied AI
+"
+Driving Data & Analytics Innovation at USAA: Financial Services in the age of GenAI,https://www.youtube.com/watch?v=FrxLUUIx1wc,SPTL104,,
+Efficiently scale storage for AI and analytics workloads with Hyperdisk,https://www.youtube.com/watch?v=hVXCWWa0lyA,BRK2-028,"本次會議主要介紹了 Google Cloud 的下一代區塊儲存產品 Hyperdisk，以及它如何幫助客戶高效地擴展 AI 和分析工作負載的儲存。核心觀點包括：
+
+*   **Hyperdisk 的獨特性：** 工作負載優化、高效率、企業級功能。
+*   **Hyperdisk 的四種版本：** Balanced、Throughput、Extreme 和 ML，分別針對不同的工作負載。
+*   **儲存池 (Storage Pools) 的重要性：** 透過儲存池可以更有效地管理和分配儲存資源，降低總體擁有成本 (TCO)。
+*   **AI 和分析工作負載對儲存的需求正在改變：** 客戶需要更動態、更靈活的儲存解決方案。
+*   **客戶案例分享：** Sentry 和 HRT 分享了他們如何使用 Hyperdisk 來滿足其儲存需求。
+*   **Hyperdisk 的未來發展方向：** 更大的規模、更高的效能，以及更簡化的管理。","Storage
+"
+Eliminate your weak spots: Discover and protect sensitive data,https://www.youtube.com/watch?v=tRKP2m2tung,BRK2-149,本次會議主要討論如何消除雲端環境中的弱點，特別是針對敏感資料的理解和保護。講者強調，雲端風險往往來自於對環境中未知因素的缺乏了解，例如未知的專案或資料，這些都可能導致潛在的風險暴露。會議重點在於識別高價值資產、理解攻擊路徑，並利用 Google Cloud 的服務來降低風險。,"Security
+"
+Empower growth: Data and security solutions for small and medium businesses,https://www.youtube.com/watch?v=PjUWOoMenOc,BRK1-113,,
+Empower small IT teams to harness gen AI with Google Cloud databases,https://www.youtube.com/watch?v=Li57kMm51zc,BRK2-188,本次會議主要展示如何利用 AlloyDB AI 和應用程式資料來構建生成式 AI 應用程式。重點在於利用向量搜尋和自然語言處理能力，簡化應用程式開發流程，並提升使用者體驗。AlloyDB AI 透過內建的安全機制和高效能的向量搜尋，讓開發者能夠更專注於應用程式本身，而無需耗費大量資源處理底層的資料庫管理和 AI 模型整合。,"Applied AI
+"
+"Enable innovative, secure work with Chrome, ChromeOS, and Google Workspace",https://www.youtube.com/watch?v=p_b40CuD5Gg,BRK2-159,"本次會議主要探討如何利用 Chrome、Chrome OS 和 Google Workspace 來實現創新且安全的工作環境。核心觀點包括：
+
+*   簡化管理：透過 Google 的網頁管理控制台，集中管理 Chrome、Chrome OS 和 Workspace 的部署，節省 IT 管理員的時間。
+*   增強安全性：將安全性內建於產品中，而非事後附加，例如 Chrome 的威脅信號導入、Workspace 無需修補的特性、Chrome OS 的唯讀作業系統，以及 Gmail 的 AI 防禦機制。
+*   提高生產力：透過 Chrome Enterprise 提供客製化的瀏覽體驗，利用 Google Workspace 的協作工具，以及 Chrome OS 支援各種應用程式的能力，提升員工的生產力。
+*   客戶案例：分享 Hackensack Meridian Health (HMH) 和 Randstad 如何透過 Google 的解決方案簡化 IT 管理、降低成本並提高生產力。
+*   TELUS 的經驗：邀請 TELUS 的 Alison Butler 分享他們如何利用 Google Workspace、Chrome OS 和 Cameo 來轉型其業務，包括簡化協作、提高安全性，以及現代化虛擬環境。","Workspace
+"
+Encryption key management in a post-quantum world,https://www.youtube.com/watch?v=sZRaX-Q-OVM,BRK2-147,"本次會議主要探討了 Google Cloud 在金鑰和密鑰管理方面的進展，特別是在後量子密碼學（PQC）領域的應對策略。會議強調了易用性，旨在讓使用者更容易地利用 Google Cloud 提供的安全、隱私和合規性保護。核心觀點包括：
+
+*   **簡化金鑰管理：** 透過 Cloud KMS AutoKey 等工具，簡化金鑰的建立、管理和輪換，降低使用門檻。
+*   **應對量子威脅：** 積極開發和部署後量子密碼學演算法，以應對未來量子電腦帶來的安全挑戰。
+*   **強化密鑰保護：** 提供多種金鑰管理選項，包括 Google 預設加密、客戶擁有的加密金鑰（Cloud KMS AutoKey）以及零權限解決方案（外部金鑰管理、單租戶 HSM）。
+*   **提升Secret管理：** 透過 Secret Manager 和 Parameter Manager，集中管理和保護敏感資訊，降低配置錯誤的風險。
+*   **合作夥伴關係：** 與 Talos 等安全廠商合作，提供更全面的安全解決方案。","Security
+"
+Enhance the citizen experience: Transform data into insights and actions faster,https://www.youtube.com/watch?v=3tiCduBRB9o,BRK1-012,"本次會議主要探討了如何在公共服務領域利用技術創新，特別是人工智慧（AI）和現代化基礎設施，來提升公民體驗、促進經濟增長和提高政府效率。核心觀點包括：
+
+*   **擁抱創新時代：** 認識到當前公共部門面臨的挑戰和不確定性，同時抓住AI等創新技術帶來的機遇，推動經濟增長和公共服務改善。
+*   **技術平權：** 公共部門應享有與商業客戶同等水準的創新技術，避免採用過時的政府雲模式，確保及時部署和利用最新技術。
+*   **全棧式AI策略：** 強調從矽晶片和數據中心到研究模型、開發工具和應用程式的全棧式AI開發和部署方法，以提高創新速度、安全性和開放性。
+*   **數據驅動：** 強調數據策略的重要性，包括數據的獲取、整合和分析，以支持AI應用和改善公共服務。
+*   **領導力與變革管理：** 強調領導者在推動技術變革中的作用，包括溝通變革的必要性、解決員工的擔憂以及提供培訓和支持。","Applied AI
+"
+"Enhance the customer experience with Gemini 2.0, Flutter, and Firebase",https://www.youtube.com/watch?v=fuLh8B865hw,BRK3-013,"本次演講主要介紹如何使用 Gemini 2.0、Flutter 和 Firebase 來增強客戶體驗。核心觀點包括：
+
+*   Vertex AI 和 Firebase 產品套件可以單獨或一起使用，涵蓋應用程式的整個生命週期，包括開發、發布和使用者互動。
+*   透過簡單直觀的開發者體驗，目標成為應用程式開發者利用 Google 最先進的 AI 模型的首選解決方案。
+*   Live API 是一個介面，專為使用音訊和視訊串流與 Gemini 模型進行即時、持續的互動而設計。","Applied AI
+"
+Enhancing Definity's customer and agent experience with proactive Agent Assist,https://www.youtube.com/watch?v=XRQpv8dyFco,BRK1-135,"本次會議主要探討 DFINITY 如何透過生成式 AI 提升客戶和客服人員的體驗。DFINITY 與 Deloitte 合作，利用 Google Cloud 平台，開發了一系列 AI 解決方案，包括通話摘要、虛擬客服人員和主動式客服助理。這些解決方案旨在提高客服人員的生產力、改善客戶滿意度，並深入了解客戶需求。核心觀點包括：
+
+*   **以業務問題為導向：** 從實際的業務挑戰出發，尋找 AI 解決方案。
+*   **循序漸進：** 從簡單的用例開始，逐步擴展到更複雜的應用。
+*   **重視員工參與：** 確保客服人員接受並積極使用 AI 工具。
+*   **數據驅動：** 利用 AI 分析通話數據，深入了解客戶需求和痛點。
+*   **靈活的平台：** 選擇具有靈活性的平台，以便快速適應不斷變化的 AI 技術。
+*   **持續改進：** 不斷優化 AI 模型和解決方案，以提高準確性和效率。","Applied AI
+"
+Enterprise-grade security and scale for serverless workloads with Cloud Run,https://www.youtube.com/watch?v=EEUZtcYHi78,BRK2-065,本次會議主要介紹了 Google Cloud Run 如何為企業級應用提供安全、可擴展的無伺服器工作負載平台。Cloud Run 的核心優勢包括：簡化操作、內建安全性、廣泛的應用場景支援、以及成本效益。此外，會議還重點介紹了 Cloud Run 在 AI 應用、網路效能、身份驗證、高可用性、資料處理、管理和安全等方面的最新進展。ANZ 銀行分享了他們使用 Cloud Run 的經驗，強調了其在簡化開發、降低成本和提高可靠性方面的價值。,"Serverless
+"
+Enterprise-ready gen AI with Apigee,https://www.youtube.com/watch?v=9YWnYwE4kps,BRK2-072,"本次會議主要探討了在生成式 AI (Gen AI) 應用中，API 管理實踐的重要性，並介紹了 Apigee 如何提供相關的價值。核心觀點包括：
+
+*   Gen AI 的服務挑戰與 API 管理的挑戰相似，例如分配、安全、延遲、成本、效能、可用性和可觀察性。
+*   Apigee 作為 API 管理平台，提供 API 目錄、彈性運行時、開發者入口網站、分析和異常檢測、進階安全性、產品化和貨幣化以及應用程式整合等增值服務。
+*   Apigee 支援伺服器發送事件 (Server-Sent Events, SSE)，允許對每個事件執行策略，例如配額檢查和內容審查。","APIs
+"
+Expert techniques for deploying open models using Vertex AI,https://www.youtube.com/watch?v=RGw1yJuVvxM,BRK3-065,本次會議主要探討了在 Vertex AI 上部署開放模型的專家技巧，涵蓋模型探索、選擇、部署、監控、安全性和成本優化等方面。Yahoo! Mail 的案例研究展示了如何利用這些技巧來簡化郵件管理。,"Vertex AI
+"
+Exploring and securing Google Cloud default service accounts: Deep dive and real-world adoption trends,https://www.youtube.com/watch?v=WOSyvCNd6yI,BRK2-224,"本次會議主要探討 Google Cloud Platform (GCP) 中預設服務帳戶濫用的問題，這是一個主要的威脅來源。會議強調了預防此類威脅的方法，並提倡使用服務帳戶作為一種有效的安全機制。核心觀點包括：
+
+*   預設服務帳戶雖然方便，但可能存在過度授權的風險。
+*   Google 已經採取措施限制預設服務帳戶的權限，但舊組織可能仍然存在風險。
+*   可以透過 IAM 權限微調、單一用途服務帳戶和 Workload Identity Federation 等方法來降低風險。","Security
+"
+Extracting industry value from agentic AI,https://www.youtube.com/watch?v=kYW6KDdE_OA,BRK1-004,"本次會議主要探討如何從代理式 AI（Agentic AI）中提取產業價值，重點在於將 AI 技術應用於實際業務問題，並確保企業能夠儘快獲得業務成果。會議強調了消費者動態的變化、企業內部流程的摩擦以及代理式 AI 在解決這些問題中的作用。核心觀點包括：
+
+*   消費者行為變化：消費者在交易過程中接觸點增加，資訊過載導致決策延遲或避免，企業需突破噪音，有效與終端用戶互動。
+*   企業內部摩擦：團隊面臨流程和數據孤島，阻礙價值實現，代理式 AI 有助於打破這些壁壘。
+*   代理式 AI 的價值：從單一用途的預測性 AI 到具備行動能力的代理，再到跨團隊、跨數據源的多代理系統，逐步釋放企業價值。
+*   工作流程重塑：重新設計工作流程是實現價值的關鍵，但目前僅有少數企業真正開始進行流程改造。
+*   簡化與普及：目標是簡化 AI 互動，讓開發者和普通員工都能輕鬆使用 AI 和代理，從而釋放其在業務中的潛力。","Applied AI
+"
+Fast-track your AI SaaS journey on Google Cloud: A real-world story,https://www.youtube.com/watch?v=PVz_NKIXMUY,BRK2-123,"本次會議主要介紹 Google Cloud 的 SaaS Runtime 服務，旨在簡化 AI 驅動的 SaaS 應用程式的建構、部署和營運。Avathon 公司分享了他們使用 SaaS Runtime 的經驗，強調其如何幫助他們簡化客戶導入流程並優化 SaaS 營運。會議重點包括：
+
+*   SaaS Runtime 是一個完全託管的服務管理平台，專為 SaaS 供應商設計。
+*   SaaS Runtime 透過模型化、部署和營運三個步驟簡化 SaaS 管理。
+*   Avathon 強調 SaaS Runtime 如何解決多租戶部署、客戶導入和整體 SaaS 營運的痛點。
+*   透過示範展示了如何使用 SaaS Runtime 建立可擴展且安全的學習管理 SaaS。
+*   強調了使用功能標誌（Feature Flags）為特定客戶提供個人化體驗（例如 AI 功能）的能力。","Applied AI
+"
+Fast-track your AI SaaS journey on Google Cloud: A real-world story (Recap),https://www.youtube.com/watch?v=gGriPnLcfPY,BRK2-123-RC,,
+Find and eliminate cloud risks with Security Command Center,https://www.youtube.com/watch?v=uEqi96osNRc,BRK1-033,本次會議主要介紹 Google Cloud 的 Security Command Center (SCC) 如何協助企業快速建立雲端安全基礎、識別並優先排序風險，以及安全地採用 AI 技術。講者分享了 Yahoo 作為 SCC 用戶的經驗，並展示了 SCC 的新功能，包括合規性管理、無代理程式漏洞掃描、威脅偵測、虛擬紅隊模擬和 AI 安全保護等。,"Security
+"
+Firebase and gen AI: Elevate your Android app,https://www.youtube.com/watch?v=UUxgB_PpHpI,BRK3-054,"本次會議主要介紹如何使用 Firebase 和生成式 AI（Gen AI）來提升 Android 應用程式的開發效率和使用者體驗。核心觀點包括：
+
+*   **Vertex AI in Firebase：** 一種簡化在 Android 應用程式中整合 Gemini 和 Imagen 3 等 AI 模型的方案，無需額外的後端服務層。
+*   **Gemini 和 Imagen 3 模型：** 強調 Gemini 模型的多模態能力和 Imagen 3 模型的高品質圖像生成能力。
+*   **Live API：** 一種用於建立即時對話式 AI 體驗的新功能，允許應用程式與 Gemini 模型進行串流互動。
+*   **生產準備：** 討論了將 AI 功能部署到生產環境時需要考慮的因素，例如模型配置、資料驗證和成本追蹤。","App Dev
+"
+From AWS to Google Cloud: Expand your cloud toolkit,https://www.youtube.com/watch?v=cRK7uInlI94,BRK2-177,"本次會議主要探討了從 AWS 遷移到 Google Cloud 的相關議題，包括 AWS 和 Google Cloud 的異同、遷移工具和框架，以及實際的遷移示範。核心觀點包括：
+
+*   **AWS 與 Google Cloud 的相似與差異：** 兩者都是全球規模的雲端平台，提供類似的服務和功能，但在資源層級、網路和 IAM 方面存在顯著差異。
+*   **結構化的遷移方法：** 強調遷移不僅僅是工具的使用，更需要一個結構化的方法和框架，以降低風險並加速遷移過程。
+*   **多樣化的遷移工具：** Google Cloud 提供了多種遷移工具，涵蓋計算、儲存和資料庫等不同領域，可以根據不同的需求選擇合適的工具。
+*   **遷移策略的靈活性：** 強調可以針對不同的工作負載採用不同的遷移策略，例如零停機遷移或簡單的遷移。
+*   **遷移是多雲環境的機會：** 遷移可以作為建立多雲環境的起點，利用不同雲端平台的優勢。","Migration
+"
+From data to action: Building causal AI systems with knowledge graphs,https://www.youtube.com/watch?v=M6muE9X_dgo,BRK2-210,"本次演講主要介紹如何利用因果AI和知識圖譜，從數據中提取因果關係，並應用於決策制定。核心觀點包括：
+
+- 傳統的基於相關性的分析方法存在局限性，容易將巧合誤認為因果關係，導致錯誤的決策。
+- 因果AI旨在建立理解因果關係的系統，從而做出更準確的預測和決策。
+- 知識圖譜可以幫助存儲和檢索因果關係，提高決策效率。
+- Gemini等大型語言模型可以利用知識圖譜中的因果關係，提供更明智的建議。","Applied AI
+"
+From laptop to viral: Scale your AI app with Gemini and Vertex AI,https://www.youtube.com/watch?v=eoqC0S2ss20,BRK1-049,本次會議主要討論如何將一個在筆記型電腦上開發的 AI 應用程式，擴展到能夠處理病毒式傳播的規模。會議以 AutoCal 這個應用程式為例，展示了如何透過事件驅動架構、應用程式託管和身份驗證等技術，來解決處理大量使用者、運行環境和安全性的問題。核心觀點強調了快速迭代的重要性，以及如何利用 Google Cloud 工具建立 CI/CD 流程，最終實現更高的影響力和價值。,"Applied AI
+"
+From model to market: Platform approach to AI development,https://www.youtube.com/watch?v=c43ZBUqeqfA,BRK2-193,本次會議主要探討如何利用 Vertex AI 平台，加速 AI 模型的原型設計、迭代和部署，最終推向市場。Dialpad 公司分享了他們如何利用 Vertex AI 的 Prompt Optimizer 工具，將模型遷移到 Gemini 1.5 Flash，並在成本、延遲和可擴展性方面獲得顯著優勢的實際案例。,"Vertex AI
+"
+From portal to platform: Unlock the power of Backstage on Google Cloud,https://www.youtube.com/watch?v=T7IMd66sZxI,BRK2-035,"本次會議主要探討了如何利用 Backstage 這個框架，在 Google Cloud 上構建強大的開發者平台。核心觀點包括：
+
+*   Backstage 並非開箱即用的開發者入口網站或平台，而是一個可擴展、可客製化的框架，用於構建開發者入口網站。
+*   HCA Healthcare（美國最大的營利性醫療保健系統）如何利用 Backstage 加速應用程式開發和現代化，並遷移到雲端。
+*   透過標準化技術和建立黃金路徑，可以顯著減少開發者在 sprint zero 上花費的時間。
+*   利用 CNCF（雲原生計算基金會）的平台架構和開源工具，可以構建可移植且可重複使用的平台。
+*   GKE（Google Kubernetes Engine）多租戶服務與 Backstage 的整合，可以實現應用程式的自助服務部署。","App Dev
+"
+"From weeks to minutes: Build full-stack, agentic apps with Firebase Studio",https://www.youtube.com/watch?v=_kLVjxLZ0NQ,BRK2-007,Firebase Studio 是一個整合且可擴展的工作區，旨在幫助開發者更快速地構建應用程式。它支援構建、運行和管理各種應用程式，包括 Web 應用程式、跨平台行動應用程式和後端服務。Firebase Studio 的目標是讓開發者能夠在 30 秒內將想法轉化為可運作的應用程式。AI 在應用程式構建中扮演核心角色，開發者可以根據需要選擇使用多少 AI 功能。,"App Dev
+"
+Funding the future: VC insights for startups in 2025,https://www.youtube.com/watch?v=EtvBBc2MOEI,BRK1-020,"本次會議主要探討了風險投資 (VC) 領域的未來趨勢，特別是針對 2025 年新創公司的投資洞察。講者們分享了他們對於人工智慧 (AI) 領域的機會與挑戰、風險投資的演變、以及新創公司如何成功募資的看法。核心觀點包括：
+
+*   **AI 的持續發展與影響：** AI 不僅在軟體領域，也在硬體、基礎設施等各個層面產生深遠影響，為新創公司帶來了巨大的創新機會。
+*   **風險投資的變化：** 隨著 AI 技術的快速發展，風險投資也在不斷演變，包括投資策略、評估標準、以及對新創公司的期望。
+*   **新創公司募資策略：** 在不確定的宏觀經濟環境下，新創公司需要更加注重基本面，並根據自身業務特性制定合理的募資策略。
+*   **團隊的重要性：** 優秀的團隊仍然是風險投資的核心考量因素，包括領域專業知識、技術能力、以及商業敏銳度。
+*   **效率與成長的平衡：** 新創公司需要在快速成長的同時，注重效率和可持續性，並建立具有防禦性的競爭優勢。",Al
+Future-proof and modernize SAP business processes with Google Cloud,https://www.youtube.com/watch?v=5bvBk0zIpfY,BRK2-031,"本次會議主要探討了在 Google Cloud 上運行 SAP 系統的優勢，以及如何利用 Google Cloud 的技術來實現 SAP 業務流程的現代化和創新。會議重點包括：
+
+*   客戶選擇 SAP on Google Cloud 的原因，以及實際案例分享。
+*   Google Cloud 與 SAP 的合作關係，以及 Rise with SAP 的相關資訊。
+*   如何利用 AI 和分析技術來實現業務流程的貨幣化和創新。
+*   Google Cloud 在可靠性、效能、可擴展性、營運和安全性方面的優勢。","Business Intelligence
+"
+Gemini and Vertex AI: Driving value for enterprise applications,https://www.youtube.com/watch?v=2S8d6qs02rc,BRK2-046,"本次會議主要介紹了 Google 的 Gemini 和 Vertex AI 如何為企業應用帶來變革性的價值。重點包括：
+
+*   **Gemini 的強大能力：** Gemini 2.5 Pro 在多項基準測試中表現優異，具備先進的推理、數學和編碼能力。Gemini 2.5 Flash 則針對速度和效率進行了優化。
+*   **Vertex AI 的全面平台：** Vertex AI 提供模型建構、自訂、評估和監控部署的完整平台，支援 Google、合作夥伴和開放生態系統的 200 多個企業級模型。
+*   **多模態內容理解：** Gemini 能夠同時分析文字、音訊、圖像和影片等多種模態的資料，從而實現大規模的洞察。
+*   **Live API 的即時互動：** Live API 讓開發者能夠建構由 Gemini 驅動的即時、多模態、沉浸式體驗。
+*   **Labelbox 的 AI 訓練資料解決方案：** Labelbox 利用 Gemini 建立 AI 訓練資料和評估解決方案，包括合成資料生成、AI 評論和代理工作流程。
+*   **LG U+ 的 AI 核心代理服務：** LG U+ 結合自家 AI 引擎 Ixigen 和 Google 的 Gemini 模型，推出 AI 核心代理服務 Ixio，提供通話錄音摘要、AI 接聽電話、語音釣魚防護等功能。
+*   **超個人化：** Gemini 支援原生圖像生成、模型微調、RAG 和 grounding，以及 Podcast 生成 API，實現內容的超個人化。","Applied AI
+"
+Gemini Code Assist at scale: The enterprise edition,https://www.youtube.com/watch?v=LvurE7IcavU,BRK2-064,本次會議主要介紹了 Gemini Code Assist 企業版的功能和優勢，特別是在大規模企業應用場景下的授權管理、安全性、合規性以及資料落地等方面的解決方案。會議強調了 Gemini Code Assist 如何幫助企業提升開發者效率、保障資料安全，並滿足不同地區和行業的合規性要求。此外，還展示了 Gemini Code Assist 在 Apigee 和應用程式整合方面的具體應用，以及如何透過 Gemini Code Assist 簡化 API 管理和應用程式整合流程。,"Gemini
+"
+Gemini Code Assist: Superpowers for building apps on Google Cloud databases,https://www.youtube.com/watch?v=sDTjVOo6M04,BRK3-026,"本次演講主要介紹 Gemini Code Assist 如何協助開發者在 Google Cloud Databases 上構建應用程式，重點在於 Gemini 如何利用大型語言模型和數據庫上下文，提供更智能的程式碼生成和錯誤修復功能。核心觀點包括：
+
+*   Gemini Code Assist 能夠理解數據庫和 SQL，協助開發者更有效地編寫程式碼。
+*   數據庫上下文（schema、data、examples、documentation、code）對於 AI 代理理解數據庫至關重要。
+*   Google Database tool 整合 Gemini Code Assist 和 Google Cloud Database，提供更便捷的開發體驗。
+*   Cloud SQL AlloyDB 和 Spanner Studios 中的 Help Me Code 工具，可以使用自然語言生成 SQL 查詢。
+*   開源 EvalBench 和 Context Enrichment tool，協助開發者評估和增強 AI 代理與數據庫的互動能力。","Databases
+"
+Gemini in BigQuery: Your AI assistant for transforming your data workflows,https://www.youtube.com/watch?v=n1sFLL7ccTM,BRK2-011,"本次會議主要介紹了 Google 的 Gemini 與 BigQuery 的整合，以及如何利用 AI 來轉變數據工作流程。核心觀點包括：
+
+*   **AI 的價值取決於 AI-ready 的數據：** 許多組織在 AI 方面投入大量資源，但由於技能差距、數據訪問限制等問題，未能充分發揮其潛力。Gemini 與 BigQuery 的整合旨在幫助客戶釋放數據價值。
+*   **Gemini 在 BigQuery 中的廣泛應用：** Gemini 涵蓋數據管道構建、數據發現與分析、查詢編寫效率提升，甚至簡化運營等各個方面。
+*   **數據準備的簡化：** 利用自然語言和低代碼方式構建數據管道，並提供數據質量規則和轉換建議，以及數據和架構 SKU 的監控。
+*   **自動化元數據生成：** 加速元數據生成過程，使機器和人員能夠更有效地發現和使用數據。
+*   **利用 AI 加速 Spark 工作流程：** 支援 Apache Spark 代碼生成，並整合 Gemini Cloud Assist 進行問題排查。
+*   **核心功能免費提供：** SQL Code Assist、Python Code Assist、Data Canvas 和 Data Preparation 等核心功能免費提供給所有 BigQuery 客戶。
+*   **Agentic 體驗的未來：** 結合 Gemini 模型、BigQuery 知識引擎和 AI 治理功能，提供安全、準確且符合政策的 AI 協助。
+*   **BigQuery AI 查詢引擎：** 允許使用者將熟悉的 SQL 與自然語言提示混合使用，簡化複雜的分析。","Applied AI
+"
+Gemini is now a multimodal creative partner,https://www.youtube.com/watch?v=fz61sT59aKk,BRK2-213,"本次會議主要介紹 Gemini 在多模態圖像生成方面的能力，強調其原生多模態的特性，以及由此帶來的各種應用場景和優勢。Gemini 從一開始的預訓練到後續的強化學習等階段，都以多模態的方式進行訓練，使得它不僅能理解文字，也能理解圖像，並在文字和圖像之間自由切換，實現更豐富的互動體驗。
+
+核心觀點包括：
+
+*   **原生多模態的重要性：** Gemini 的圖像生成能力是其原生能力的一部分，而非獨立的模型，這使得它能夠在文字和圖像之間自然地切換，實現更流暢的互動。
+*   **圖像編輯的精確性：** Gemini 在圖像編輯方面表現出色，能夠精確地修改圖像的特定部分，同時保持圖像的整體風格和細節。
+*   **多模態輸入的靈活性：** Gemini 能夠接受多種模態的輸入，包括文字、圖像、音訊和影片，並根據這些輸入生成新的圖像。
+*   **創意協作的可能性：** Gemini 可以作為一個創意夥伴，幫助使用者進行頭腦風暴、產生創意，並將這些創意轉化為視覺化的圖像。","Gemini
+"
+Gemmaverse: The latest updates,https://www.youtube.com/watch?v=cIFVKC2__50,BRK3-057,"本次演講主要介紹了 Gemmaverse 及其最新更新。Gemma 作為 Google 首批開放模型之一，基於與 Gemini 相同的研究成果。Gemmaverse 包含了社群共享的超過 60,000 個開放模型，總下載量超過 1 億次。最新發布的 Gemma 3 旨在成為最佳的單一消費級 GPU 可運行的開放模型，提供從 10 億到 270 億參數的多種開發者友好的模型尺寸。Gemma 3 具備多模態能力，可以處理圖像和影片輸入，並進行圖像和文字的交錯處理。Shield Gemma 是 Gemma 3 的安全版本。","AI
+"
+Gen AI and Agents: Reinventing business across industries,https://www.youtube.com/watch?v=Ucu7hgUWWYU,SPTL215,,
+Get hands-on with Gemini SDK,https://www.youtube.com/watch?v=563bAOztX8g,BRK3-064,"本次會議主要介紹 Gemini 及 Gemini SDK，並展示如何使用 Gemini SDK 構建強大的 AI 應用程式。會議涵蓋了 Gemini 模型家族的介紹、Vertex AI 平台的功能，以及 Gemini SDK 的使用方法和實際應用範例，特別是客戶支援場景。核心觀點包括：
+
+*   Gemini 模型家族包含不同模型，針對不同使用案例進行優化，開發者應根據需求選擇合適的模型。
+*   Vertex AI 提供完整的 AI 平台，涵蓋模型、工具和基礎設施，協助開發者構建企業級 AI 應用程式。
+*   Gemini SDK 提供統一的介面，簡化了從 AI Studio 到 Vertex AI 的開發流程，加速 AI 應用程式的開發。
+*   Gemini SDK 支援多種程式語言，包括 Python、Go、Java 和 Node.js，方便不同背景的開發者使用。
+*   Gemini 具備多模態輸入、長上下文視窗、結構化輸出、原生工具使用和即時 API 等強大功能。","Gemini
+"
+Get the most out of your Google Cloud budget: Essential tips for lean teams,https://www.youtube.com/watch?v=8c_r-agPZfw,BRK1-014,"本次會議主要探討了企業，尤其是新創公司和中小型企業，如何最大化利用雲端預算。會議分享了相關技巧、策略，並在最後安排了問答環節。核心觀點包括：
+
+*   **雲端優勢與潛在風險：** 雲端技術讓精簡團隊能以小搏大，加速產品上市和擴展，並使用 AI 服務。然而，若管理不當，其彈性和靈活性可能導致意外支出。
+*   **FinOps 的重要性：** FinOps 不僅僅是削減成本，而是整合技術、業務和財務，以實現財務透明度和為客戶創造價值。
+*   **成本可視性：** 了解成本是優化的前提。企業應利用 Google Cloud 的工具（如帳單控制台和 Looker）深入了解支出，並做出明智決策。
+*   **文化與責任：** 成本管理不應僅由財務部門負責，而應融入企業文化，讓每個人都具備成本意識。
+*   **工具與技術：** 投資合適的工具，以提高成本可視性，並利用雲端原生功能和 AI 技術來優化支出。","Cost Optimization
+"
+Getting beyond the hype: Gen AI success at Cox Communications,https://www.youtube.com/watch?v=DjwHcVLi7aM,SPTL103,"本次會議主要探討了 Cox Communications 在生成式 AI (Gen AI) 領域的實踐經驗，包括如何選擇用例、與合作夥伴建立關係、應對組織變革以及衡量成功。核心觀點包括：
+
+*   **從加速現有流程轉向解決新挑戰：** 從著重於利用 AI 加速現有流程和解決方案，轉變為尋找利用 AI 解決新舊挑戰的創新方法。
+*   **擁抱實驗和快速迭代：** 透過創新預算進行概念驗證 (POC)，快速學習和調整策略，避免長期瀑布式開發週期。
+*   **建立靈活的合作夥伴關係：** 選擇能夠快速創新、學習和適應的合作夥伴，並採用敏捷開發模式。
+*   **數據與 AI 的融合至關重要：** 數據和 AI 組織需要緊密合作，並採用多雲數據策略以支持不同的 AI 能力。
+*   **組織變革和技能提升：** AI 的引入需要更細緻的運營模式，需要主題專家、技術專家和 AI 專家的協同合作，並重視組織內部的技能提升。
+*   **高層領導的支持至關重要：** 高層領導的熱情和支持對於 Gen AI 的成功至關重要，透過展示實際成果來贏得他們的信任。
+*   **風險、回報、準備和重塑 (Four R's)：** 透過關注風險管理、可衡量的業務回報、組織準備度和重新構想解決方案的方式，來組織和推進 AI 策略。
+*   **產品而非專案思維：** 開發可擴展的企業能力，而不是針對特定專案的點解決方案，以最大化價值並降低風險。","Applied AI
+"
+"GKE and AI Hypercomputer: Build a scalable, secure, AI-ready container platform",https://www.youtube.com/watch?v=vMBqiwuO0Ms,BRK3-001,"本次會議主要探討了 Google Cloud 的 AI Hypercomputer 如何與 Google Kubernetes Engine (GKE) 結合，為 AI 模型的訓練和推論提供高效、彈性且具成本效益的解決方案。核心觀點包括：
+
+*   AI Hypercomputer 提供強大的基礎設施，包括 TPU 和 GPU，以滿足不斷增長的 AI 需求。
+*   GKE 透過彈性訓練和推論，最大化資源利用率，降低成本。
+*   動態工作負載排程器 (Dynamic Workload Scheduler, DWS) 和自訂運算類別 (Custom Compute Classes) 提升了 GPU 和 TPU 的可取得性。
+*   GKE Autopilot 簡化了基礎設施管理，讓開發者更專注於 AI 模型的開發。
+*   VLLM 的 TPU 支援，讓模型可以在 TPU 和 GPU 之間無縫移植，提高靈活性和成本效益。","Applied AI
+"
+"GKE and AI Hypercomputer: Build a scalable, secure, AI-ready container platform (Recap)",https://www.youtube.com/watch?v=QrSijhol0qc,BRK3-001-RC,,
+GKE gen AI Inference: Deploy gen AI inference and save up to 30%,https://www.youtube.com/watch?v=6DWy7vd_9Fg,BRK3-038,"本次會議主要討論了在 Kubernetes 上使用 GKE 進行 Gen AI 推論的優勢、客戶面臨的挑戰以及 Google 提供的解決方案。重點包括：
+
+*   **GKE 的定位：** 相較於 Vertex AI，GKE 提供更高的靈活性、可移植性以及對基礎設施更細緻的控制。
+*   **客戶挑戰：** 包括成本效益、加速器資源的取得、快速變化的技術堆疊以及對開放標準和可移植性的需求。
+*   **GKE 解決方案：** 透過 GKE Inference Quick Start、自定義運算類別 (Custom Compute Classes, CCC)、VLLM on TPUs 等功能，簡化評估、資源獲取和效能優化。
+*   **Snap 的經驗分享：** Snap 如何利用 GKE 平台，加速 Gen AI 模型的實驗和部署，並整合到其內容理解平台中。","Applied AI
+"
+GKE turns 10 and looks to the future of Kubernetes,https://www.youtube.com/watch?v=d2C3PbkOzUc,BRK2-122,"本次會議主要探討 GKE（Google Kubernetes Engine）在過去十年中的發展歷程，以及 Kubernetes 未來的發展方向。重點包括：
+
+*   GKE 作為 Google 核心容器平台的重要性，以及其在 Google 內部產品中的廣泛應用。
+*   Kubernetes 從 Borg 專案演變至今的創新歷程，以及 GKE 在其中的關鍵作用。
+*   Google 對 Kubernetes 社群的持續貢獻，以及 GKE 如何專注於解決使用者不希望或不應該處理的任務，例如安全性和可靠性。
+*   GKE 如何透過規模擴展和優化，協助使用者克服 AI 帶來的挑戰，並降低成本。
+*   AppLovin 如何利用 Google Cloud 和 GKE 解決其基礎設施挑戰，並實現業務增長。
+*   GKE 如何透過自動擴展、容器優化計算等技術，提升效能和降低延遲。
+*   GKE 未來發展方向，包括即時調整 Pod 大小、多叢集協調器等功能。","Compute
+"
+Goodbye intranet. Hello AI.,https://www.youtube.com/watch?v=T36sU3iftmI,BRK2-047,"本次會議主要探討了 AgentSpace 如何透過結合人工智慧搜尋和代理（Agent）來重新構想工作方式，解決企業員工工作流程複雜和應用程式碎片化的問題。核心觀點包括：
+
+*   傳統企業內部網路（Intranet）雖然整合了資訊，但缺乏互操作性和自動化能力。
+*   通用型人工智慧助理雖然具備自動化潛力，但缺乏對企業資料的深入理解和跨應用程式的整合能力。
+*   AgentSpace 旨在成為企業代理的中心，提供開箱即用的 Google 專家代理，以及無程式碼和程式碼代理開發工具，並整合 Google Cloud Marketplace 的合作夥伴代理。
+*   AgentSpace 的價值驅動因素包括提高員工效率、促進業務損益增長、加速業務成果以及建立戰略競爭優勢。
+*   Banco BV 透過採用 AgentSpace，在短短三週內實現了顯著的生產力提升，並看到了加速採用生成式 AI 的潛力。","Applied AI
+"
+Google AI for developers: Research to reality,https://www.youtube.com/watch?v=LtapFtQQKMc,BRK2-184,本次會議主要介紹 Google DeepMind 在 AI 領域的最新研究成果以及如何將這些成果應用於實際開發中。重點包括 Gemini 模型系列的強大功能和多樣性，以及 Google AI Studio 這個便捷的開發工具。強調 Google 致力於以負責任的方式開發 AI，並使其對開發者、企業和一般大眾都有所助益。,"AI
+"
+Google Cloud Next 25 in a minute,https://www.youtube.com/watch?v=OIJywyYQrd8,EVENT-01,,
+Google Workspace: How businesses are using AI to drive results,https://www.youtube.com/watch?v=wfDJgOs8fBQ,SPTL101,"本次會議主要探討 Google Workspace 如何透過整合 Gemini AI，協助企業提升生產力、改善協作效率，並確保資料安全與合規性。核心觀點包括：
+
+*   Gemini AI 已整合至 Google Workspace 的核心功能，無需額外附加元件，即可為所有使用者提供 AI 輔助。
+*   AI 功能協助使用者處理各種任務，例如撰寫電子郵件、文件、會議記錄、試算表等，每月提供超過 20 億次 AI 輔助。
+*   Google Workspace 強調資料安全與隱私，確保使用者資料不會被用於廣告投放或人工審閱，並符合多項安全與合規性認證。
+*   透過 Google Vids 等新應用，Google Workspace 正在將影片製作大眾化，讓更多員工能夠輕鬆創建多媒體內容。
+*   Etsy 和 Rivian 等企業分享了他們如何利用 Google Workspace 和 Gemini AI 改善客戶服務、加速產品開發，並提升整體營運效率。","Workspace
+"
+Google Workspace: How businesses are using AI to drive results (Recap),https://www.youtube.com/watch?v=QIqPXb40pPU,SPTL101-RC,,
+Google Workspace: Secure and compliant collaboration for regulated industries,https://www.youtube.com/watch?v=E2YbBzx9bvc,BRK2-158,Google Workspace 旨在簡化受監管行業的合規策略，透過安全設計的基礎設施、細緻的加密技術、技術性資料存取控制以及行業認證，在單一雲端實例中實現，無需客製化客戶端。Google 強調其獨特優勢在於透過技術而非僅僅是合約邊界，阻止政府過度干預並防止資料存取，所有這些都在現代瀏覽器基礎的安全環境中進行。此外，Google Workspace 正在擴展其合規能力至 Gemini for Workspace，並推出客戶端加密套件的新功能，以提供更精細、自主和合規的控制。,"Workspace
+"
+Google’s AI-powered next-gen global network: Built for the Gemini era,https://www.youtube.com/watch?v=oZN9kUIVLOU,BRK2-133,"本次會議主要介紹 Google 如何利用 AI 技術重新架構其全球網路，以應對 AI 時代對網路效能、可靠性、安全性和效率提出的新挑戰。核心觀點包括：
+
+*   **AI 時代的網路需求：** 傳統網路架構已無法滿足 AI 應用對高頻寬、低延遲、高可靠性和安全性的需求。
+*   **Google 的解決方案：** Google 透過四大原則重新設計其網路：指數級擴展性、超越 9 的可靠性、意圖驅動的可程式化能力和自主網路。
+*   **與合作夥伴的協同：** Google 與 British Telecom (BT) 等合作夥伴合作，將其網路與 Google Cloud WAN 整合，為客戶提供端到端的網路解決方案。","Networking
+"
+Grow your business with BigQuery and Google Maps Platform,https://www.youtube.com/watch?v=ws0UokqTNhA,BRK3-059,"本次會議主要介紹 Google Maps Platform、Earth Engine 和 BigQuery 在地理空間分析方面的最新創新和發展。核心觀點包括：
+
+*   地理空間分析市場正在快速發展，這得益於分析工具的強大功能、AI 驅動的超本地化趨勢，以及 GenAI 降低了地理空間分析的技術門檻。
+*   客戶面臨的主要挑戰是找到合適的數據，以及整合來自不同來源的數據。
+*   Google Maps Platform 提供可靠且強大的數據，擁有超過 20 億月活躍用戶，並透過 AI、合作夥伴關係和社群驗證來確保數據品質。
+*   Google 正在將 Google Maps Platform 和 Earth Engine 的數據集整合到 BigQuery 中，讓決策者和數據分析師能夠在熟悉的 BigQuery 環境中利用地理空間智慧。
+*   本次會議宣布了一系列豐富且易於使用的地理空間功能和數據集，包括 Imagery Insights、Places Insights、Earth Engine in BigQuery 和 Roads Management Insights。","Data Analytics
+"
+Hadoop pioneer to cloud innovator: Yahoo’s data lake modernization journey,https://www.youtube.com/watch?v=_7Oz1V1-ZiE,BRK3-023,本次會議主要探討 Yahoo 作為 Hadoop 的先驅，如何將其龐大的資料湖從傳統的內部部署環境遷移到 Google Cloud，實現雲端現代化的轉型歷程。重點在於分享 Yahoo 在此過程中遇到的挑戰、解決方案以及經驗教訓，旨在幫助其他企業在雲端轉型中節省時間和金錢。,"Migration
+"
+How a global bank transformed their data estate with Teradata + Google,https://www.youtube.com/watch?v=Pwso9duzorw,BRK2-216,"本次會議主要探討了匯豐銀行（HSBC）如何與 Teradata 和 Google Cloud 合作，將其關鍵數據資產從內部部署環境遷移到雲端，並實現現代化轉型。核心觀點包括：
+
+*   **信任與合作夥伴關係至關重要：** 匯豐銀行強調與 Teradata 和 Google Cloud 建立深厚的信任關係，並將其視為合作夥伴，共同解決遷移過程中的挑戰。
+*   **生態系統複雜性是主要挑戰：** 遷移的難點不在於 Teradata 本身的功能，而在於與銀行現有 IT 生態系統的整合，包括網路、安全、合規等。
+*   **遷移目標是提升能力和靈活性：** 匯豐銀行希望透過遷移到雲端，提升數據處理速度、改善功能、並能利用 Google Cloud 的原生雲端產品。
+*   **成本效益和業務連續性是關鍵考量：** 遷移不僅要提升性能，還要降低成本，並確保業務連續性，滿足監管要求。
+*   **AI 和機器學習是未來發展方向：** 遷移到雲端為匯豐銀行提供了利用 AI 和機器學習技術，改善客戶體驗和業務流程的機會。","Migration
+"
+How a global bank transformed their data estate with Teradata + Google (Recap),https://www.youtube.com/watch?v=zROiJUSS70M,BRK2-216-RC,,
+How AI agents can transform business operations for small IT teams,https://www.youtube.com/watch?v=8Ft38lcfadQ,BRK2-171,"本次會議探討了 AI 代理如何改變小型 IT 團隊的業務運營方式。講者們分享了他們在代理領域的經驗，並闡述了代理相較於傳統 AI 自動化的優勢，以及實際應用案例。核心觀點包括：
+
+*   AI 代理能夠獨立運作，具備推理、規劃和自主適應能力，從而簡化重複性任務。
+*   AI 代理可以作為個人購物助理、客戶服務代理和銷售代理等多重角色，提供更個性化的客戶體驗。
+*   透過 Agent Space 等平台，企業可以更輕鬆地構建、部署和管理 AI 代理。
+*   AI 代理在處理非結構化資料、進行大規模資料分析以及提高運營效率方面具有顯著優勢。
+*   在導入 AI 代理時，應從解決實際問題出發，並確保代理能夠安全地存取企業資料。","Applied AI
+"
+How Anthropic is pushing the computing limits of AI at scale with GKE,https://www.youtube.com/watch?v=taqYKWX5vGw,BRK3-034,Anthropic 與 Google 合作，利用 Kubernetes 和 GKE（Google Kubernetes Engine）推動 AI 運算極限。Anthropic 基於 Kubernetes 構建 AI 平台，並透過客製化的排程器、快取機制和工作流程優化，實現高效能和高利用率。Google 則透過 GKE 提供大規模叢集管理能力，並與 Anthropic 合作解決擴展性挑戰。本次演講重點在於分享 Anthropic 如何利用 Kubernetes 運行大規模 AI 工作負載，以及 Google 如何透過 GKE 支援這些需求。,"Applied AI
+"
+How BigQuery can help modernize your data platform for the AI era,https://www.youtube.com/watch?v=Qa9tw4Zfq5I,BRK2-096,本次會議主要探討資料倉儲和資料湖的現代化，以及 BigQuery 如何協助企業將資料現代化，以迎接人工智慧時代。講者分享了遷移的最佳實踐、常見的陷阱，以及 PayPal 和 Intesa Sanpaolo 的實際遷移案例。同時，也介紹了 Google 在 BigQuery 產品方面的最新發布。,"Data Analytics
+"
+How BigQuery can help modernize your data platform for the AI era (Recap),https://www.youtube.com/watch?v=5a8jF20dM_4,BRK2-096-RC,,
+How Google AI is supporting neurodiversity,https://www.youtube.com/watch?v=bVFllkhEXr8,BRK1-081,"本次會議主要探討 Google AI 如何支持神經多樣性，以及為何企業應將此視為優先事項。同時分享了講者作為神經多樣性領導者的個人經驗。核心觀點包括：
+
+*   神經多樣性是指大腦處理資訊方式的多樣性，約有五分之一的人口屬於神經多樣性群體。
+*   神經多樣性群體具有巨大的消費能力和創新潛力，企業應重視並擁抱這個群體。
+*   Gen Z 中有超過 50% 認為自己是神經多樣性，且 80% 的 Gen Z 更願意為對神經多樣性友善的雇主工作。
+*   Google Gemini 等輔助技術可以幫助神經多樣性員工發揮優勢，提高效率、生產力和創造力。
+*   企業應利用 AI 來簡化工作流程、提供即時字幕和會議摘要，以支持所有員工，特別是神經多樣性員工。","AI
+"
+How Google Cloud and Gemini Code Assist supercharge Android development,https://www.youtube.com/watch?v=VZTC9OQVzGg,BRK3-011,"本次會議主要探討 Renault 集團（及其子公司 Ampere）如何透過與 Google Cloud 合作，利用 Cloud Workstations 和 Gemini Code Assist 等工具，大幅提升 Android 軟體開發的效率、安全性和協作性，最終加速軟體定義汽車（SDV）的開發進程。核心觀點包括：
+
+*   **解決傳統開發痛點：** 傳統開發環境設置繁瑣、耗時，且存在安全風險，Google Cloud 提供的解決方案有效解決這些問題。
+*   **大幅縮短開發週期：** 透過雲端開發環境、AI 輔助編碼等方式，顯著減少程式碼同步、建置和測試所需的時間。
+*   **提升開發團隊協作效率：** 雲端環境讓全球分散的開發團隊能夠隨時隨地安全地協作，實現持續開發。
+*   **強化安全性：** 透過嚴格的網路安全控制和程式碼存取權限管理，確保智慧財產權的安全。
+*   **利用 AI 提升開發效率：** Gemini Code Assist 等 AI 工具可以協助程式碼生成、測試案例生成和程式碼驗證，提高開發人員的生產力。
+*   **虛擬化測試環境：** 建立汽車的虛擬雙生，讓開發人員能夠在虛擬環境中測試新功能，加速驗證流程。","App Dev
+"
+How lean IT teams can achieve enterprise-grade cybersecurity with Google Cloud,https://www.youtube.com/watch?v=0KSuKB2DsWA,BRK1-016,本次會議主要探討了精簡型 IT 團隊如何在 Google SecOps 的幫助下，實現企業級的網路安全。會議強調了中小企業在網路安全方面面臨的挑戰，以及如何利用 Google 的情報和 AI 技術來克服這些挑戰。,"Security
+"
+How Shopify and Palo Alto Networks use Dataflow bringing real-time data to AI,https://www.youtube.com/watch?v=FA8_aIzk5Ts,BRK2-095,"本次會議主要探討了 Shopify 和 Palo Alto Networks 如何利用 Google Cloud Dataflow 平台，將即時數據應用於人工智慧（AI）領域。核心觀點包括：
+
+*   **Dataflow 的優勢：** Dataflow 作為一個全託管的串流平台，能夠處理大規模的即時數據，並提供強大的 SDK 和轉型功能，簡化了複雜的 AI 應用程式開發。
+*   **Shopify 的多模態 AI 應用：** Shopify 利用 Dataflow 建立了一個多模態 AI 管道，用於提取產品的結構化數據，包括圖像和文本信息，並將其映射到 Shopify 的產品分類體系中。
+*   **Palo Alto Networks 的大規模數據處理：** Palo Alto Networks 利用 Dataflow 處理來自數十萬個設備的數百萬個事件，每天處理數 PB 的數據，並將這些數據用於安全分析和威脅緩解。
+*   **基礎設施的重要性：** 會議強調了基礎設施在 AI 應用中的重要性，包括 GPU 加速、資源優化和低延遲數據處理。
+*   **Dataflow 的新功能：** 會議介紹了 Dataflow 的一些新功能，包括 Run Inference 轉型、RAG 應用支援、Iceberg I/O 整合和數據沿襲追蹤。","Applied AI
+"
+How Shopify runs their biggest business event of the year with GKE,https://www.youtube.com/watch?v=1RSgI4kwfOY,BRK2-084,"本次會議主要探討 Shopify 如何利用 Google Kubernetes Engine (GKE) 及其新功能（如自定義運算類別）來應對其年度最大流量高峰期，即黑色星期五和網路星期一 (BFCM)。核心觀點包括：
+
+*   **GKE 的重要性：** GKE 在 Shopify 應對 BFCM 期間的大規模流量方面扮演關鍵角色，提供所需的效能、可擴展性和可用性。
+*   **自定義運算類別的優勢：** 自定義運算類別讓 Shopify 能夠根據不同區域的運算資源可用性，靈活地調整其應用程式的運算資源配置，從而優化效能和成本。
+*   **自動化和簡化：** GKE 和自定義運算類別有助於簡化運營複雜性，使 Shopify 能夠更有效地服務客戶。
+*   **持續創新：** Shopify 不斷探索和採用 GKE 的新功能，以改進其基礎設施並提升使用者體驗。
+*   **近乎即時的運算能力：** GKE 的最新進展，例如容器優化的運算，可實現更快的 Pod 排程和更低的延遲。","Compute
+"
+How to accelerate AI app development and use AlloyDB Omni in any environment,https://www.youtube.com/watch?v=fH-GG9MqpHI,BRK2-101,"本次會議主要探討如何利用 AlloyDB Omni 加速 AI 應用程式的開發，並將其應用於各種環境，包括雲端、地端和邊緣運算。核心觀點包括：
+
+*   AlloyDB Omni 是一個可下載的資料庫軟體，可以在任何地方運行，包括本地端、多雲環境和邊緣設備。
+*   AlloyDB Omni 基於 PostgreSQL，並加入了 Google 在 AI、效能和可擴展性方面的創新。
+*   AlloyDB Omni 支援向量搜尋，可以輕鬆構建語意搜尋應用程式。
+*   Ivan 提供 AlloyDB Omni 的託管服務，簡化了部署和管理。
+*   Google Cloud Ready 計畫認證了與 AlloyDB 良好協作的合作夥伴解決方案。","Databases
+"
+How video game studios use Google Cloud to power gen AI in games,https://www.youtube.com/watch?v=NwB_ZpZ67hs,BRK1-052,"本次會議主要探討了遊戲工作室如何利用 Google Cloud 平台和生成式 AI 技術，來提升遊戲開發效率、改善玩家體驗，並創造更具互動性和沉浸感的「活生生」的遊戲世界。重點包括：
+
+*   生成式 AI 在遊戲開發和遊戲體驗中的應用。
+*   Google Cloud for Games 的技術堆疊及其三大支柱。
+*   Agonis on GKE 如何簡化遊戲伺服器的運行和擴展。
+*   Clang Games 如何利用 Google Cloud 和生成式 AI 打造 MMO 模擬遊戲 Seed。","Applied AI
+"
+Human and nonhuman identities as the bedrock for cloud security,https://www.youtube.com/watch?v=5mu43NXgVo8,BRK2-143,本次會議主要探討 Google Cloud 中人類與非人類身分的重要性，強調它們是雲端安全的核心基礎。會議涵蓋了身分優先安全模型的轉變、人類與非人類身分的具體安全措施，以及 Yahoo 在身分安全方面的實踐經驗。,"Security
+"
+Human expertise and empathy in an AI world,https://www.youtube.com/watch?v=iuP-xkDKYtI,BRK1-119,講者 Jen Grant (Dialpad 的 CMO) 主要探討 AI 如何輔助人類，特別是在客戶支援方面，讓支援人員更好地服務客戶。重點在於如何支持人類更好地完成工作，而非僅僅強調 AI 的能力。,"Applied AI
+"
+Humans and AI agents together—driving success with Salesforce and Google Cloud,https://www.youtube.com/watch?v=CLnCVdwWwPQ,BRK1-154,"本次會議主要探討了 Salesforce Agent Force 如何與 Google Cloud 合作，利用多代理系統（Multi-Agent Systems）和代理互操作性（Agent Interoperability）來提升客戶體驗和工作效率。核心觀點包括：
+
+*   **Agent Force 的重要性：** Agent Force 作為 Salesforce 的數位勞動力平台，旨在解決企業工作人員工作量過大和客戶期望更高的問題，透過構建自主代理來處理低價值任務，提升生產力。
+*   **多代理系統的優勢：** 多個專業代理協同工作，可以更有效地處理複雜任務，提高效能、彈性和可擴展性。
+*   **代理互操作性的必要性：** 解決不同平台（如 Salesforce、Google Cloud、Anthropic、OpenAI）構建的代理之間無法有效溝通的問題，實現無縫協作，提供一致的客戶體驗。
+*   **Salesforce 與 Google Cloud 的合作：** 透過 A2A（Agent-to-Agent）協議，實現不同平台代理之間的互操作性，共同推動 AI 創新。","Applied AI
+"
+Hybrid LLMs for edge AI applications,https://www.youtube.com/watch?v=OqeiJ0es0sA,BRK3-058,"本次會議主要探討了混合使用大型語言模型（LLM），結合雲端和邊緣運算的優勢，以提升 AI 應用程式的效能、隱私和可用性。核心觀點包括：
+
+*   **混合 LLM 的優勢：** 結合雲端 LLM 的強大能力和邊緣 LLM 的低延遲、隱私保護和離線可用性。
+*   **邊緣運算的必要性：** 在網路連線不穩定或需要保護使用者隱私的場景下，邊緣 LLM 尤其重要。
+*   **MediaPipe 框架：** Google 的 MediaPipe 框架可簡化在邊緣裝置上部署和執行 LLM 的流程。
+*   **多種混合架構：** 介紹了序列式、並行式和路由式等多種混合 LLM 架構，各有優缺點。
+*   **效能評估的重要性：** 強調在選擇和部署 LLM 時，需要仔細評估模型的效能、延遲和準確性。","Applied AI
+"
+Implement a cloud detection strategy for effective incident response,https://www.youtube.com/watch?v=OnjHltE2fgU,BRK3-045,"本次會議主要探討在雲端環境中，如何建立有效的偵測策略以應對安全事件。核心觀點包括：
+
+*   雲端環境的特殊性：傳統的端點偵測與回應（EDR）方法在雲端環境中存在局限性，需要考慮混合身份、臨時雲端資產以及控制平面日誌等因素。
+*   威脅建模的重要性：了解針對雲端環境的特定威脅，是建立有效偵測策略的基礎。
+*   日誌記錄的關鍵性：預設情況下，許多重要的雲端日誌並未啟用，需要手動配置。
+*   善用雲端供應商提供的安全工具：例如 Google Cloud 的 Security Command Center 和 AWS 的 GuardDuty，可以快速獲得有價值的安全洞察。
+*   持續迭代與成熟度提升：透過威脅建模、日誌記錄、偵測與回應等方面的持續改進，逐步提升雲端安全防護能力。","Security
+"
+Inference at scale with Google Cloud’s AI Hypercomputer,https://www.youtube.com/watch?v=susBrCautR8,BRK2-130,本次會議主要介紹 Google Cloud 的 AI Hypercomputer 在大規模推論方面的進展，包括硬體加速器（TPU 和 GPU）的選擇、LLM 推論的優化方案（VLLM 和 Jetstream）、以及 Pathways 架構帶來的性能提升。同時，也邀請了 Osmos 和 Contextual AI 這兩家合作夥伴，分享他們如何利用 AI Hypercomputer 來驅動實際工作負載。,"Applied AI
+"
+Inference at scale with Google Cloud’s AI Hypercomputer (Recap),https://www.youtube.com/watch?v=rpbWWssLkMY,BRK2-130-RC,,
+Inflection points on the path to IPO with Spotify,https://www.youtube.com/watch?v=LyYEnfMNG6s,BRK1-094,本次會議主要探討 Spotify 在 IPO 過程中，於領導力、風險管理、技術架構和 AI 應用等方面所面臨的挑戰與應對策略。重點在於如何從新創公司快速發展的模式，轉變為符合上市公司規範的嚴謹體系，同時保持創新能力和開發效率。,"Applied AI
+"
+Innovate data workloads with AI-first data prep and BigQuery notebooks,https://www.youtube.com/watch?v=2IqAJ1UoXEw,BRK3-017,"本次會議主要探討了 BigQuery 中多項 AI 功能，以及如何利用這些功能創新資料工作負載。核心觀點包括：
+
+*   **解決時間浪費問題：** 利用 Gemini 賦能的資料準備工具，簡化資料清理和 ETL 流程，從數週縮短到數分鐘。
+*   **解決低效的資料分析問題：** 透過 BigQuery 筆記本，整合多種工具和引擎，打破組織內部的資料孤島，讓更多人能夠進行高效的資料分析。
+*   **挖掘未開發的資料價值：** 利用 BigQuery 的統一資料平台，打破資料孤島，解鎖metadata，輕鬆獲得洞察。
+*   **BigQuery Studio 的未來：** 打造一個無縫、單一、統一的工作空間，讓資料分析師、資料科學家和資料工程師能夠協同工作。
+*   **GAF 的實踐經驗：** 分享了 GAF 如何利用 BigQuery 和 Data Prep 解決資料準備的挑戰，並建立可擴展、可信賴的資料平台。","Applied AI
+"
+Innovation with speed: Journey of a large and complex data warehouse to Cloud,https://www.youtube.com/watch?v=CwOF7LgUHdg,BRK2-232,"本次會議主要探討了埃森哲（Accenture）與 Google Cloud、Teradata 合作，協助匯豐銀行（HSBC）將大型複雜的 Teradata 資料倉儲快速遷移至雲端的案例。核心觀點包括：
+
+*   AI 發展迅速，但底層數據往往位於複雜的本地資料倉儲中，需要現代化。
+*   傳統的資料重構耗時，本次採用了「直接遷移」（Lift and Shift）的方法，大幅縮短了遷移時間。
+*   透過與 Teradata 和 Google Cloud 的合作，實現了零中斷的遷移。
+*   遷移至雲端為匯豐銀行奠定了基礎，使其能夠充分利用 AI 的各種應用場景。
+*   本次合作帶來了立即的成本節省、快速遷移、零中斷，以及加速創新的成果。","Migration
+"
+Insight to impact: Driving business innovation and value with AI agents today,https://www.youtube.com/watch?v=LqwrVxZ1mh8,BRK2-223,,
+Into the Geminiverse: How to accelerate your solutions development,https://www.youtube.com/watch?v=xdTd_hzgmOM,BRK2-220,"本次會議主要介紹 Google DeepMind 的 Gemini 模型，以及如何利用 Gemini API 和 AI Studio 來加速解決方案的開發。重點包括：
+
+*   **Gemini 的多模態特性：** Gemini 從一開始就被設計成可以處理多種資料格式，包括文字、圖片、影片等，減少了開發者處理不同資料格式的複雜性。
+*   **Gemini 的不同版本：** Gemini 有 Pro、Flash 和 Nano 等不同版本，分別適用於不同的應用場景，開發者可以根據需求選擇合適的版本。
+*   **Gemini 的工具和功能：** Gemini 提供了許多工具和功能，例如程式碼執行、Google 搜尋整合和即時串流，可以幫助開發者更輕鬆地開發解決方案。
+*   **AI Studio 的使用：** AI Studio 是一個免費的 UI 工具，可以讓開發者在不需要編寫任何程式碼的情況下，快速實驗 Gemini 的各種功能。
+*   **Gemini API 的使用：** Gemini API 提供了 Python、JavaScript 和 Go 等多種 SDK，開發者可以使用自己喜歡的程式語言來呼叫 API。
+*   **Gem Media Team 的 Imagine 和 Veo 模型：** Imagine 是一個高品質的文字轉圖片模型，Veo 是一個文字轉影片模型，開發者可以使用這些模型來生成高品質的媒體內容。","Gemini
+"
+Introducing Firebase Genkit: A new framework for AI development,https://www.youtube.com/watch?v=YgZIUlYqruQ,BRK2-060,GenKit 是一個由 Firebase 團隊開發的開源框架，旨在簡化開發者使用大型語言模型（LLM）的流程。它提供框架、工具和可觀測性，協助開發者構建、測試、調整、偵錯和部署 AI 應用程式。GenKit 支援多種語言（JavaScript、Go 和 Python），並提供統一的模型 API，方便開發者切換和比較不同的模型。此外，GenKit 還提供結構化輸出、函數呼叫、檢索增強生成（RAG）和對話代理等功能，並與多個模型供應商、向量儲存提供商和平台整合。,"Applied AI
+"
+Introducing Firebase Genkit: A new framework for AI development (Recap),https://www.youtube.com/watch?v=9aSoxh9Rp1g,BRK2-060-RC,,
+Introducing the one-stop shop for managing applications on Google Cloud,https://www.youtube.com/watch?v=hwXGaNvdOJg,BRK2-124,"本次會議主要介紹 Google Cloud 推出的 CloudHub，一個應用程式管理平台，旨在簡化雲端應用程式的管理，解決企業在應用程式部署、監控、成本控制等方面面臨的挑戰。核心觀點包括：
+
+*   **應用程式中心平台：** CloudHub 將應用程式視為核心，提供資源關係建模、環境感知、變更追蹤等功能，幫助使用者更好地理解和管理應用程式。
+*   **統一的洞察中心：** CloudHub 整合多個產品和領域的資料來源，提供情境化的、可操作的洞察，幫助使用者快速發現和解決問題。
+*   **簡化故障排除：** CloudHub 提供統一的監控儀表板，整合指標和日誌，減少 SRE 在不同工具之間切換的時間，加速故障排除。
+*   **優化成本和資源利用率：** CloudHub 提供應用程式層級的成本和資源利用率分析，幫助使用者更好地了解和優化資源使用。
+*   **支援多應用程式管理：** CloudHub 支援在資料夾層級啟用應用程式管理，方便使用者管理多個應用程式。","App Dev
+"
+Ironwood TPUs and specialized AI Hardware: Jeff Dean on what’s next,https://www.youtube.com/watch?v=fNjH5izFeyw,SPTL300,本次會議主要討論了 Google 第七代 TPU，Ironwood，以及專用 AI 硬體的重要性。Jeff Dean 強調了 TPU 在訓練大型模型方面的效率和低能耗，並展望了 AI 在醫療、教育等領域的應用前景。會議還探討了 AI 基礎設施和硬體方面未來的挑戰，例如如何將大型模型轉化為更小、更易於部署的模型。,"AI
+"
+Ironwood TPUs and specialized AI Hardware: Jeff Dean on what’s next (Recap),https://www.youtube.com/watch?v=nLruW83RLIo,SPTL300-RC,,
+Isomorphic Labs: Solving disease with AI,https://www.youtube.com/watch?v=YP8ENvG4iLU,BRK3-072,"Isomorphic Labs 致力於運用人工智慧技術，從原子解析度的分子建模到AI驅動的藥物設計，全面解決疾病問題。核心觀點包括：
+
+*   **獨特技術建模：** 開發獨特技術，以原子解析度全面建模幾乎所有分子複合物的結構。
+*   **廣泛的機器學習方法：** 部署多種機器學習方法，從生成模型到進階搜尋方法，設計和尋找符合需求的分子。
+*   **通用模型：** 開發具備通用性的模型，模擬底層生物學和化學，不限於特定治療領域或方式。
+*   **AlphaFold3 的應用：** 利用 AlphaFold3 預測分子結構，加速藥物設計。
+*   **多尺度生物系統建模：** 從蛋白質到細胞、組織、器官，最終建立人類整體AI模型，全面理解生物學。
+*   **AI 驅動的藥物發現：** 透過 AI 代理在模擬環境中進行開放式的藥物發現，針對任何目標設計分子。","Applied AI
+"
+LangGraph and MCP Toolbox: Building generative AI agents on your databases,https://www.youtube.com/watch?v=GGn580J5UOQ,BRK3-025,"本次演講介紹了如何使用 LangGraph 和 MCP Toolbox for Databases 來構建基於生成式 AI 的代理，以自動化複雜的實際工作流程。核心觀點包括：
+
+*   **代理的定義與應用：** 代理是使用生成式 AI 模型進行決策的軟體應用，它們透過選擇工具（如 API 調用、資料庫查詢等）來收集資料並採取行動。
+*   **LangGraph 的優勢：** LangGraph 在靈活性和可靠性之間取得了平衡，允許開發者定義 LLM 可以在不同狀態之間轉換的圖，從而在每個狀態選擇不同的工具。
+*   **MCP Toolbox for Databases 的作用：** MCP Toolbox 是一個開源伺服器，簡化了代理與資料庫的連接，改善了可觀察性，並易於整合身份驗證服務，以解決資料存取問題。
+*   **安全考量：** 強調了在構建 AI 代理時需要考慮的安全問題，例如防止惡意使用者欺騙代理以存取未授權的資料。
+*   **模型上下文協定 (MCP)：** Toolbox 支援 MCP，這意味著它可以被任何與 MCP 相容的代理使用。","Applied AI
+"
+"Less artificial, more intelligence",https://www.youtube.com/watch?v=930nkqBYaQw,SPTL107,"本次會議主要探討了人工智慧（AI）如何從「人工」轉向「智慧」，以及 Google Cloud 在亞太地區（APAC）的 AI 發展策略。核心觀點包括：
+
+*   **混合團隊的新模式：** 強調人類與 AI 代理在雲端協作的混合模式，將 SaaS（軟體即服務）轉向 RAS（工作即服務）和最終的結果即服務。
+*   **Agentic AI 的重要性：** 認為具備代理能力的 AI 將徹底改變軟體服務的模式，並強調 A2A（代理到代理）的互通性。
+*   **亞太地區的獨特性：** 強調亞太地區在 AI 採用速度、規模和定價方面的獨特需求，以及語言和文化差異的重要性。
+*   **Google Cloud 在亞太地區的投資：** 包括數據中心擴張、硬體加速器投資和服務區域化，以滿足當地客戶的需求。
+*   **AI 驅動的客戶體驗：** 強調 AI 不僅能提高效率，還能改善客戶體驗，最終實現客戶自動駕駛式的服務。
+*   **企業 AI 轉型：** 強調企業需要將 AI 融入企業文化，讓每個員工都能夠使用 AI，而不僅僅是 IT 部門。
+*   **垂直與水平 AI 應用：** 區分針對特定角色的垂直 AI 應用，以及觸及企業每個員工的水平 AI 應用。
+*   **OPPO 的 AI 策略：** 強調以人為本的 AI 解決方案，以及 AI 安全的重要性，並介紹了 OPPO 在 AI 方面的研究成果。
+*   **新加坡政府的雲端與 AI 策略：** 分享了新加坡政府如何透過與 Google Cloud 合作，將 AI 融入公共服務，提升效率和競爭力。
+
+---","Applied AI
+"
+"Less artificial, more intelligence (Recap)",https://www.youtube.com/watch?v=miXip-GYi_Y,SPTL107-RC,,
+Let's talk about thinking models: Test time compute and reasoning,https://www.youtube.com/watch?v=BblWtyu6fl4,BRK2-211,,
+Lloyds Banking Group revolutionizes banking and insurance with Cloud and AI,https://www.youtube.com/watch?v=0o_uh2SDhnw,SPTL214,"本次會議主要探討勞埃德銀行集團（Lloyds Banking Group）如何透過雲端技術和人工智慧（AI）來革新其銀行和保險業務。核心觀點包括：
+
+*   **以客戶為中心：** 強調從產品思維轉向以客戶需求為中心的服務模式，提供更個人化、無縫的客戶體驗。
+*   **擁抱敏捷轉型：** 從傳統瀑布式開發轉向敏捷開發，加速產品迭代和交付速度。
+*   **簡化與現代化：** 大力精簡應用程式數量，採用現代化技術堆疊，提升效率和可擴展性。
+*   **生成式AI的應用：** 在工程、客戶服務、風險管理等多個領域應用生成式AI，提高生產力、準確性和客戶滿意度。
+*   **與監管機構合作：** 積極與監管機構溝通，建立信任，確保創新符合法規要求。
+*   **數據驅動：** 建立統一的數據平台，提升數據品質和可信度，為決策提供支持。
+*   **合作夥伴生態系統：** 透過與合作夥伴合作，獲取外部視角、專業知識和技能，加速轉型。","Applied AI
+"
+Long context is all you need,https://www.youtube.com/watch?v=MVhAzBJnyQI,BRK2-215,"本次會議主要討論了長上下文模型的重要性及其在解決大型語言模型（LLM）挑戰中的作用。核心觀點包括：
+
+*   上下文對於模型理解使用者意圖和生成相關回應至關重要。
+*   長上下文模型能夠處理大量的背景資訊，從而克服傳統 LLM 在知識儲備和資訊時效性方面的限制。
+*   Google 提供的 Gemini 1.5 Pro、2.0 Flashlight、2.0 Flash 和 2.5 Pro 等模型，都支援不同長度的上下文視窗，並在效能上有所提升。
+*   2.5 Pro 模型在多項基準測試中，展現出超越其他強大模型的效能。","Gemini
+"
+Mainframe modernization with AI and the cloud: Customer stories,https://www.youtube.com/watch?v=rMa3a6_80f4,BRK1-029,"本次會議主要探討了在 Google Cloud 上進行大型主機現代化的各種方法和客戶案例。核心觀點包括：
+
+*   大型主機現代化並非單一解決方案，而是一個多模式問題，需要根據業務優先級選擇合適的現代化模式。
+*   Google Cloud 提供多種解決方案，包括評估工具、重新託管、擴增、重新平台化、重構、重寫以及替換等，並與合作夥伴共同提供完整的現代化旅程支援。
+*   生成式 AI 在大型主機現代化中扮演重要角色，可用於評估、理解應用程式邏輯，並協助程式碼重寫和應用程式重新設計。
+*   雙軌運行（Dual Run）是驗證和降低風險的重要手段，允許客戶在一段時間內並行運行大型主機應用程式和現代化應用程式，以確保功能等效。
+*   Google Cloud 強調與合作夥伴的合作，提供廣泛的技術和服務，以應對大型主機環境的多樣性。","Migration
+"
+Mainframe modernization with AI and the cloud: Customer stories (Recap),https://www.youtube.com/watch?v=RtRyr6faU40,BRK1-029-RC,,
+Managing API sprawl with API hub,https://www.youtube.com/watch?v=hZ7fRpGBKA0,BRK2-081,本次演講主要介紹如何使用 API Hub 來管理 API 的擴散問題。API 擴散指的是 API 在不同的閘道和工具中分散，導致難以管理、發現和治理。API Hub 作為 API 生態系統的神經中樞，可以整合來自不同來源的 API 資訊和元數據，提供單一的企業真相來源，從而解決 API 擴散帶來的挑戰。,"APIs
+"
+Master observability with expert strategies for unified troubleshooting,https://www.youtube.com/watch?v=_lf3HzpCkWc,BRK3-030,,
+Master OpenTelemetry: Scale and streamline observability pipelines,https://www.youtube.com/watch?v=F9NtBWCL3L0,BRK2-120,"本次會議主要討論了 OpenTelemetry (OTEL) 的規模化應用，以及如何利用 OTEL 簡化可觀測性管線。重點包括：
+
+*   **OTEL 的重要性與普及性：** OTEL 已成為業界標準，用於生成、收集和匯出遙測數據，並在 CNCF 基金會中活躍度排名第二。
+*   **OTEL 在遙測生命週期中的角色：** OTEL 涵蓋生成、收集和匯入階段，但不涉及儲存和消費，但其數據模型和規範有助於後續階段的工具更好地利用數據。
+*   **OTEL Collector 的規模化：** 透過代理 (Agent) 和閘道 (Gateway) 架構，可以有效地擴展 OTEL Collector 的處理能力，應對高流量場景。
+*   **Google Cloud 對 OTEL 的支持：** Google Cloud 全面擁抱 OTEL，提供原生 OTLP 端點、GKE 專用配置，並與 Cloud Trace 等服務深度整合。
+*   **BindPlane 的作用：** BindPlane 是一個用於管理 OTEL 的平台，可以簡化配置、路由數據、標準化遙測數據，並提供免費的 Google Cloud 版本。","Applied AI
+"
+Master serverless gen AI with Gemini and Cloud Run,https://www.youtube.com/watch?v=SY6CkVcMNzs,BRK2-004,"本次會議主要探討如何結合 Gemini、Gemini Code Assist 和 Cloud Run，在整個軟體開發生命週期中構建生成式 AI 應用。核心觀點包括：
+
+*   **設計與編碼：** 利用 Gemini Code Assist 加速應用開發。
+*   **RAG 系統：** 強調資料攝取的重要性，包括資料分塊、元資料添加和選擇合適的嵌入模型。
+*   **安全：** 強調在建構和部署階段，安全軟體供應鏈的重要性，例如使用多階段建構、Google 管理的基礎映像檔和漏洞掃描。
+*   **可觀測性：** 強調建立服務等級目標（SLO），並利用 Cloud Trace 和 Cloud Run 的監控儀表板進行效能分析和問題檢測。
+*   **GPU 加速：** 介紹 Cloud Run GPU 的使用，以及如何利用它來託管影像生成模型。","Applied AI
+"
+Mastering conversational AI: Google Cloud and Quantiphi workshop,https://www.youtube.com/watch?v=Ha9h3eNqWzo,BRK3-009,"本次會議主要探討如何運用對話式 AI 和生成式 AI，在 Google Cloud 的基礎上，結合 Quantiphi 的實務經驗，為企業創造實際的商業價值。核心觀點包括：
+
+*   **合作夥伴的重要性：** Google Cloud 合作夥伴在對話式 AI 解決方案的成功部署中扮演關鍵角色，他們的經驗和專業知識至關重要。
+*   **生成式 AI 的成熟度：** 生成式 AI 技術已趨於成熟，可以實際應用於商業場景中。
+*   **Google Cloud 的優勢：** Google Cloud 提供易於入門的託管產品方法，以及從產品到雲端基礎設施再到模型的垂直整合，降低了企業導入對話式 AI 的門檻。
+*   **以人為本的開發方法：** 尋找並學習優秀的人工客服的經驗，將其轉化為生成式 AI 代理的知識和技能。
+*   **數據驅動的決策：** 利用數據分析來確定自動化的優先順序，並持續監控和優化解決方案的效能。","Applied AI
+"
+Mastering conversational AI: Google Cloud and Quantiphi workshop (Recap),https://www.youtube.com/watch?v=Shsu7xSWbTM,BRK3-009-RC,,
+Maximize the availability and performance of your Cloud SQL workloads,https://www.youtube.com/watch?v=ccC5Sr7uuLU,BRK2-109,"本次會議主要探討如何最大化 Cloud SQL 工作負載的可用性和效能。核心觀點包括：
+
+*   **效能提升：** 透過選擇合適的 Cloud SQL 版本（Enterprise Edition 或 Enterprise Plus Edition）、適當的運算和儲存配置，以及啟用資料快取和讀取複本等功能，可以顯著提升效能。Google Axion 機器在效能和價格效能方面都有顯著優勢。
+*   **連線管理：** Cloud SQL 提供受管理的連線池，可以有效管理資料庫連線，提升效能並降低延遲。
+*   **讀取擴展：** 透過讀取池，可以輕鬆擴展讀取操作，提高應用程式的效能。
+*   **高可用性：** Cloud SQL Enterprise Plus Edition 提供極高的可用性，計劃性維護的停機時間低於一秒。
+*   **災難復原：** Cloud SQL 提供進階災難復原功能，簡化跨區域災難復原的複雜性，並確保資料的持續可用性。
+*   **備份與資料保護：** Cloud SQL 提供靈活的備份選項，包括在刪除執行個體後保留備份，確保資料安全。
+*   **全球支付案例：** 全球支付分享了他們如何使用 Cloud SQL 來滿足其業務連續性需求，包括高可用性、災難復原和法規遵循。","Databases
+"
+Maximize your cloud ROI: A practical approach to efficiency and optimization,https://www.youtube.com/watch?v=7csgD3iIc2Q,BRK1-030,"本次會議主要探討如何最大化雲端投資報酬率（ROI），特別是在 Google Cloud Platform (GCP) 上，透過效率和優化實現成本效益。核心觀點包括：
+
+*   DevOps 團隊不喜歡處理成本數據，這是一項繁瑣且耗時的任務。
+*   Cloud Assist Optimize 是一套新工具，旨在簡化成本優化流程，包含 Cloud Hub Optimize、Cost Explorer 和 Gemini Cloud Assist Chat Helper Agent。
+*   MLB（美國職棒大聯盟）分享了他們如何使用這些工具來優化雲端成本。
+*   透過實際演示，展示了如何輕鬆開始使用這些新工具。","Cost Optimization
+"
+Maximize your Google Cloud investment: Real-world learnings,https://www.youtube.com/watch?v=M8aD3ghd5l4,BRK2-119,"本次會議主要探討了 Shopify 如何利用 Google Cloud 的社群使用折扣（Community Use Discounts，CUDs）和 Google Cloud 定價計算器來優化其雲端投資。核心觀點包括：
+
+*   **社群使用折扣（CUDs）的價值：** CUDs 提供顯著的成本節省，尤其是在 GCE（Google Compute Engine）上，透過承諾使用一定量的資源，可以獲得比隨需定價更低的價格。
+*   **集中管理 CUDs 的重要性：** 集中管理 CUDs 可以確保資源在整個組織內共享，避免資源浪費，並最大化折扣效益。
+*   **優化工作負載的重要性：** 在應用 CUDs 之前，必須先優化工作負載，確保資源得到有效利用，避免購買了過多的承諾資源。
+*   **Google Cloud 定價計算器的作用：** 透過連結帳單帳戶，Google Cloud 定價計算器可以提供更準確的成本估算，幫助團隊更好地預測和管理雲端支出。
+*   **持續學習和調整策略：** 雲端環境不斷變化，需要持續學習新的技術和方法，並根據實際情況調整 CUDs 的使用策略。","Cost Optimization
+"
+Migrate from AWS and Azure to Google Cloud runtimes,https://www.youtube.com/watch?v=Ai0syylcREw,BRK2-085,本次會議主要探討了將工作負載從 AWS 和 Azure 遷移到 Google Cloud 的關鍵要素，以及在遷移過程中進行現代化的優勢。Nokia 的轉型歷程被作為案例研究，展示了理論知識如何在實際應用中落地。會議強調了評估、理解不同雲服務之間的差異、數據遷移挑戰以及部署流程的重要性。同時，會議也強調了現代化不僅僅是遷移，更應該與業務目標對齊，並持續進行。Google Cloud 的 AI 能力、優化的基礎設施、安全性和可靠性以及降低 TCO 的能力，使其成為有吸引力的遷移目標。,"Migration
+"
+Migrating to Google Workspace: Case studies in digital transformation,https://www.youtube.com/watch?v=qetdnJhNdHI,BRK1-038,"本次會議主要探討企業遷移至 Google Workspace 的案例，著重於數位轉型過程中的策略、挑戰與機遇。講者分享了客戶在遷移過程中如何應對技術和文化變革，以及如何利用 Google Workspace 實現更高效的協作和創新。核心觀點包括：
+
+*   遷移至 Google Workspace 不僅僅是 IT 專案，更是一項涉及人員和文化的變革。
+*   周全的規劃和變革管理對於成功遷移至關重要。
+*   Google Workspace Migrate 等工具可以簡化資料遷移流程。
+*   AI 在 Google Workspace 中的應用進一步推動了數位轉型。
+*   與合作夥伴的緊密合作有助於確保遷移的順利進行。","Workspace
+"
+Migration to Google Cloud made easy with Migration Center by your side,https://www.youtube.com/watch?v=N1CuRfeFYEI,BRK2-138,CME Group 與 Google 的合作，透過 Google Cloud Migration Center，成功將業務遷移至雲端。CME Group 作為全球領先的衍生性商品交易所，在風險管理方面扮演重要角色。本次遷移不僅提升了技術能力，也促進了組織文化的轉型。重點在於與 Google 的緊密合作、數據優先的策略、以及建立雲端經驗團隊。,"Migration
+"
+Model Garden: Your gateway to cutting-edge AI models,https://www.youtube.com/watch?v=mx0zn4_kpyA,BRK2-191,企業在擁抱 AI 時，不應局限於單一來源。多數企業正在利用來自三個或更多不同供應商的模型，以針對特定任務選擇最佳工具。這趨勢突顯市場對統一、穩健平台的迫切需求，該平台能簡化跨多樣化生態系統的管理、部署和整合。Vertex AI 是 Google Cloud 專為企業需求打造的端到端 AI 平台，而 Model Garden 則是其中一個精選的基礎模型庫和管理中心。Model Garden 提供多種 Google 基礎模型，涵蓋文字、聊天、圖像、程式碼、語音和嵌入等多種模態。除了 Google 的基礎模型外，還有來自開源和合作夥伴的特定任務模型、特定領域模型和基礎模型。Model Garden 提供靈活的模型部署方式，包括 Serverless API 和自助部署。,"Vertex AI
+"
+Monetize AI innovation: Build and deploy AI agents on Google Cloud,https://www.youtube.com/watch?v=nUDBF-Ojytg,BRK2-162,"本次會議主要探討如何在 Google Cloud 上構建、部署和商業化 AI 代理。核心觀點包括：
+
+*   AI 正在從生成式 AI 演進到代理式 AI，後者具備推理、規劃和自主行動的能力，將帶來工作方式的世代轉變。
+*   AI 代理市場潛力巨大，擁抱 AI 代理能帶來先發優勢和新的收入來源。
+*   Google Cloud 提供完整的技術堆疊，支援 AI 代理的構建、封裝、銷售、部署和使用者使用。
+*   Google Cloud Marketplace 提供市場滲透和商業化能力，包括企業級銷售和計費功能。
+*   Google Cloud AI 代理 Marketplace 致力於提供靈活性，支援各種代理框架、部署模型和定價策略。
+*   合作夥伴可以透過 Google Agent Space，將其構建的 AI 代理直接整合到客戶的工作流程中。
+*   安全性和效能是 AI 代理的關鍵考量因素，需要透過合作夥伴生態系統共同解決。","Applied AI
+"
+Navigate a web app with an AI-enabled browser agent,https://www.youtube.com/watch?v=p_dztB1-ECM,BRK2-182,"本次會議主要探討如何使用具備 AI 功能的瀏覽器代理來導航 Web 應用程式。核心觀點包括：
+
+*   **Web 代理的定義與運作方式：** Web 代理是一種 AI 代理，用於代表使用者導航和互動網站。其運作流程通常包括接收任務、定義所需執行的動作，以及實際執行這些動作。
+*   **Web 代理的應用場景：** 確保 Google Cloud 產品的文件和使用者流程的有效性。透過讓代理理解文件和使用者流程，並自主執行任務，可以顯著提高效率，尤其是在處理大量文件和不同環境、語言時。
+*   **Web 代理的優化：** 透過儲存代理在特定領域（如公司票務系統）中執行任務的歷史記錄，並將其應用於微調模型，可以提高代理執行此類任務的能力。
+*   **Web 代理系統的關鍵組件：** 包括底層模型、代理環境、驅動引擎和瀏覽器。
+*   **基準測試的重要性：** 基準測試對於開發有效的 Web 代理至關重要，它可以進行效能評估、比較不同模型，並透過優化來改進代理。","AI
+"
+Navigate AI adoption: Best practices to help your organization use AI,https://www.youtube.com/watch?v=TeBHQb63GDI,BRK1-085,"本次會議主要探討了企業如何有效地導入和應用生成式AI（Gen AI），並分享了來自WEX、DocuSign和Air Liquide等公司的實踐經驗。核心觀點包括：
+
+*   **AI導入的必要性：** 儘早擁抱AI已成為企業發展的必然趨勢。
+*   **安全與信任：** 在AI應用中，資料安全和使用者信任至關重要。
+*   **使用者體驗：** 提供無縫整合、易於使用的AI工具，提升員工生產力。
+*   **企業文化：** 鼓勵創新和實驗，同時建立明確的AI使用規範。
+*   **持續學習與迭代：** AI技術不斷發展，企業需要不斷學習和調整策略。","Applied AI
+"
+New geospatial analytics tools to drive business and sustainability impact,https://www.youtube.com/watch?v=szIb8OEnQV0,BRK2-206,,
+New ways to automate your work and integrate with Google Workspace,https://www.youtube.com/watch?v=ZO3CKEUOWS0,BRK1-080,"本次會議主要介紹 Google Workspace 在工作自動化和整合方面的新功能和方法，重點展示了 Google Workspace Flows、Workspace Connector Platform 以及與第三方應用程式（如 HubSpot、ServiceNow）的整合。核心觀點包括：
+
+*   **Google Workspace Flows：** 一種新的自動化體驗，允許在工作流程中整合 AI 代理，消除傳統工作流程的邏輯障礙。
+*   **Workspace Connector Platform：** 將第三方工具直接整合到核心 Workspace 應用程式中，提供無摩擦的設定體驗和統一的安全隱私保護。
+*   **與第三方應用程式的深度整合：** 展示了 HubSpot 和 ServiceNow 如何利用 Google Workspace 的功能，提升銷售團隊的生產力並簡化 IT 支援流程。
+*   **AI 驅動的自動化：** 強調利用 Gemini 的強大功能，實現更智慧、更具情境感知的工作流程自動化。","Workspace
+"
+Next 25 Opening Keynote in 10 minutes,https://www.youtube.com/watch?v=dwgmfSOZNoQ,GENKEY-RC4,,
+Next 25 Opening Keynote in less than 5 minutes,https://www.youtube.com/watch?v=niB671nDcN0,GENKEY-RC2,,
+"Not-so-loosely-typed JavaScript with TypeScript, Zod, and Effect.ts",https://www.youtube.com/watch?v=FT41Rt3gO8c,BRK2-176,本次演講探討了在 JavaScript 開發中使用 TypeScript、Zod 和 Effect.ts 等工具，以提升程式碼的型別安全性和可維護性。講者分享了自己對這些工具的看法演變，強調它們在不同情境下解決特定問題的價值，並非強制性的最佳實踐，而是開發者工具箱中的可選工具。,"App Dev
+"
+NotebookLM: Unlock instant insights and transform knowledge management,https://www.youtube.com/watch?v=qxbcYu5yQU4,BRK1-039,"本次會議主要介紹 NotebookLM，一個由 AI 驅動的研究助理，旨在幫助使用者更有效地處理和理解大量資訊。核心觀點包括：
+
+*   **資訊整合與知識提煉：** NotebookLM 能夠快速整合各種來源的資訊（文字、程式碼、影片、音訊、PDF、Google 文件等），並提煉出關鍵知識，協助使用者快速掌握重點。
+*   **AI 驅動的研究助理：** 使用者可以使用自然語言提問，NotebookLM 會根據上傳的資料提供精確的答案，並提供引文出處，確保資訊的準確性和透明度。
+*   **提升工作效率：** NotebookLM 能夠在幾分鐘內完成過去需要數小時、數天甚至數月才能完成的研究工作，大幅提升工作效率。
+*   **知識共享與協作：** NotebookLM 支援團隊協作，方便知識共享和學習發展。
+*   **Gemini AI 整合：** NotebookLM+ 版本包含更多功能，例如更高的使用量限制、更精細的客製化選項，以及進階的共享和分析功能，且包含在 Workspace 企業方案中，不需額外付費。","AI
+"
+NVIDIA’s special address at Google Cloud Next,https://www.youtube.com/watch?v=hReE7ncbVdg,SPTL105,"NVIDIA 在 Google Cloud Next 的特別演講中，重點闡述了 AI 應用普及、AI 工廠的概念、以及 NVIDIA 與 Google 在 AI 基礎設施和軟體方面的深度合作。演講者強調了 AI 在各行各業的變革性影響，並介紹了 NVIDIA 最新的 Blackwell 架構和相關軟體工具，旨在加速 AI 的開發和部署，降低成本並提高效率。核心觀點包括：
+
+*   AI 應用無處不在，正在改變各行各業的工作方式。
+*   AI 工廠是 AI 模型生產的基礎，需要強大的基礎設施、安全環境和 AI 工具。
+*   推理模型（Reasoning Models）是 AI 發展的重要方向，能夠進行更深入的思考和推理。
+*   NVIDIA Blackwell 架構顯著提升了 AI 計算的效能和效率。
+*   NVIDIA 與 Google 的合作旨在提供全面的 AI 解決方案，包括硬體、軟體和雲端服務。
+*   NVIDIA 提供一系列軟體工具，如 NVIDIA Nemo 和 NVIDIA Blueprints，以簡化 AI 開發和部署。
+*   NVIDIA Dynamo 能夠顯著提升 AI 推理的效能。","Applied AI
+"
+One network: Reimagine service assembly and compliance in a multicloud world,https://www.youtube.com/watch?v=upPo50w7Tks,BRK2-042,本次會議主要介紹了 One Network 的概念，這是一種在多個應用程式之間統一應用服務和策略的方法，旨在解決組織中應用程式孤島化、運行環境異質化導致的複雜性和創新阻礙問題。One Network 是一種架構方法，而非單一產品，它可以在所有運算平台、環境和路徑上運行，並允許在網路層整合服務，以及在整個組織中統一執行策略，而無需對應用程式進行大規模重構。,"Architecture
+"
+Opening Keynote: The new way to cloud,https://www.youtube.com/watch?v=Md4Fs-Zc3tg,GENKEY,,
+Optimize software development with Gemini Code Assist,https://www.youtube.com/watch?v=QAiNz0lObkg,BRK2-080,本次會議主要探討如何在企業中導入 Gemini Code Assist，並強調這不僅僅是導入一個工具，更重要的是管理企業內部的變革。會議涵蓋了 Gemini Code Assist 在 IDE 內的使用，以及在整個軟體開發生命週期 (SDLC) 中的應用。此外，會議還討論了開發者對 AI 生成程式碼的信任問題，以及如何透過結構化的導入方法來建立信任感，並實現預期的價值。,"Gemini
+"
+Oracle and Google Cloud: Design for the future with advanced analytics and AI,https://www.youtube.com/watch?v=4KBFP58tbHQ,BRK2-018,"本次會議主要討論了如何利用 Oracle 資料庫的資料，結合 Google Cloud 的分析和 AI 能力，為企業帶來更深入的商業洞察。核心觀點包括：
+
+*   結合 Oracle 的資料和 Google 的 AI，可以從各種來源的資料中提取商業營運洞察。
+*   在 Google Cloud 上直接運行 Oracle 資料庫，可以靈活選擇資料庫版本，並利用現有技術進行遷移和管理。
+*   Google Cloud 的 HyperDisk 提供了高吞吐量和 IOPS，解決了 Oracle 資料庫的儲存瓶頸問題。
+*   利用 Google 的原生解決方案，如 DataStream，可以將各種資料來源的資料整合到 BigQuery 中，進行進階分析。
+*   Sabre 成功案例展示了在 Google Cloud 上運行 Oracle 資料庫，並利用 CI/CD 流程和 Looker 進行分析的優勢。","Data Analytics
+"
+Out of the box thinking: Automated observability with Datadog and Project44,https://www.youtube.com/watch?v=5-bjwVsgMG0,SPTL208,"本次會議主要探討了如何利用 Datadog 和 Project44 實現自動化可觀測性，從而提升開發效率、降低問題發現時間，並最終改善客戶體驗。核心觀點包括：
+
+*   **自動化是關鍵：** 透過自動化，開發者可以將更多精力集中在核心業務邏輯上，而非繁瑣的基礎設施管理和監控配置。
+*   **可觀測性平台的重要性：** Datadog 作為可觀測性平台，能夠提供對基礎設施和應用程式運行狀況的深入洞察，幫助快速定位和解決問題。
+*   **基礎設施即代碼（Infrastructure as Code, IaC）：** 利用 Terraform 等工具，可以將基礎設施配置納入版本控制，實現可重複、可審計的部署流程。
+*   **標準化和模組化：** 透過建立標準化的模組，可以簡化監控配置，並確保一致性。
+*   **SLO（Service Level Objective）的重要性：** 基於 SLO 的監控可以更準確地反映客戶體驗，並幫助團隊優先處理影響客戶的事件。","Data Analytics
+"
+Out-of-the-box application monitoring: Reimagine observability in 2025,https://www.youtube.com/watch?v=uncLt6j1CXo,BRK3-029,"本次會議主要介紹了 Google Cloud 中 Cloud Observability 的新功能，重點在於如何透過應用程式監控而非基礎設施監控，來提升團隊效率和應用程式效能。核心觀點包括：
+
+*   **應用程式中心化監控：** 強調以應用程式為中心，而非傳統的基礎設施為中心，進行監控和故障排除。
+*   **開箱即用的儀表板：** 提供針對應用程式、服務和工作負載的預設儀表板，方便快速了解系統健康狀況。
+*   **整合的故障排除流程：** 將日誌、指標和追蹤整合在一起，加速故障排除過程。
+*   **成本可視化：** 透過 Cost Explorer，將應用程式的成本與利用率數據結合，提供更全面的視角。","Applied AI
+"
+Personalizing public health and human services: Stories of support and care,https://www.youtube.com/watch?v=xIrHM-tZxdg,BRK1-007,本次會議主要探討如何透過雲端、人工智慧和數據分析，革新醫療保健，實現公共衛生和人類服務的個人化。重點在於簡化資格審查、自動化行政流程，並擴大關鍵服務的可及性。與會者分享了各自在科羅拉多州、亞利桑那州和韋恩州立大學的實踐經驗，強調了跨部門合作、數據整合和以人為本的重要性。,"Applied AI
+"
+Powering Wisconsin’s workforce with digital innovation,https://www.youtube.com/watch?v=4MlxvuxiElg,BRK1-123,"本次會議主要討論了威斯康辛州勞動力發展部（Wisconsin Department of Workforce Development, DWD）與 Google Cloud 合作，透過數位創新來提升服務效率和改善使用者體驗的相關工作。核心觀點包括：
+
+*   威斯康辛州勞動力發展部與 Google Cloud 的合作歷史悠久，早在疫情期間就已開始。
+*   SATA 作為 Google Cloud 的合作夥伴，協助威斯康辛州勞動力發展部進行現代化改造。
+*   現代化改造的重點在於簡化使用者介面、節省時間、提升安全性、改善溝通，並為威斯康辛州的雇主提供更好的體驗。","App Dev
+"
+Productionizing OSS agents: Best practices for agent frameworks and Vertex AI,https://www.youtube.com/watch?v=piz7XImNLfk,BRK3-068,"本次會議主要探討了如何將開源（OSS）代理程式投入生產環境，並分享了代理程式框架和 Vertex AI 的最佳實踐。講者們來自 Google Cloud、Latam Airlines 和 Walmart，分別從不同角度分享了他們在代理程式開發、部署和應用方面的經驗。
+
+核心觀點包括：
+
+*   **代理程式框架選擇：** 選擇合適的框架至關重要，需要考慮工具、記憶體管理、可觀測性、學習曲線等因素。
+*   **模型選擇：** 根據代理程式的任務選擇合適的模型，考慮長上下文、多模態等因素。
+*   **部署挑戰：** 將代理程式從本地環境部署到生產環境面臨諸多挑戰，包括依賴管理、狀態管理、安全等。
+*   **Agent Engine：** Google Cloud 的 Agent Engine 旨在簡化代理程式的部署流程，提供框架無關、可擴展、安全的運行環境。
+*   **多代理程式框架：** Walmart 分享了他們使用多代理程式框架解決複雜問題的經驗，強調任務分解、上下文管理和工具支援的重要性。
+*   **評估的重要性：** Latam Airlines 強調在代理程式開發過程中進行評估的重要性，並分享了他們使用黃金數據集進行評估的經驗。","Vertex AI
+"
+Protect our resources and invest in tomorrow with data and AI,https://www.youtube.com/watch?v=3Qbi_Wa3JDs,BRK1-009,"本次會議探討公共部門如何利用數據和AI來保護資源並投資於未來。與會者分享了各自組織在水資源管理、永續供應鏈建設以及應對氣候變遷等方面的挑戰和解決方案。核心觀點包括：
+
+*   公共部門應享有與私營部門相同的技術資源和創新。
+*   數據和AI在監測、分析和解決全球性挑戰方面具有前所未有的能力。
+*   全堆疊AI方法對於公共部門從AI試點轉向全面任務部署至關重要。
+*   跨部門和跨領域的合作對於有效管理自然資源至關重要。
+*   勞動力技能提升和AI應用普及是應對未來挑戰的關鍵。","Applied AI
+"
+Protect sovereignty and mission-critical data with Google Workspace,https://www.youtube.com/watch?v=sk5H4nQEOO4,BRK2-157,"本次會議主要探討如何在使用 Google Workspace 的同時，保護數據主權和關鍵任務數據。核心觀點包括：
+
+*   生成式 AI 帶來創新，但同時也帶來數據治理和風險管理的挑戰。
+*   Google Workspace 提供多種安全控制和合規性工具，幫助企業在創新和安全之間取得平衡。
+*   Google Workspace 具有雲原生架構、數據集中化和專有的 AI 技術，可同時提供主權和創新。
+*   Gemini for Google Workspace 擴展了這些功能，包括 AI 分類、數據標記、數據區域化、供應商訪問控制和客戶端加密。
+*   Google Workspace 通過了多項嚴格的合規性審計，為客戶提供信心。","Workspace
+"
+Protect your cloud data with Security Command Center,https://www.youtube.com/watch?v=itdSNQ9lTTI,BRK2-145,"本次會議主要介紹了 Google Cloud 的 Security Command Center 如何幫助企業保護雲端資料，以及德意志交易所（Deutsche Börse）如何利用該工具來應對資料安全挑戰。核心觀點包括：
+
+*   資料安全的重要性：資料是企業的重要資產，但同時也帶來風險，需要在風險和收益之間取得平衡。
+*   Data Security Compliance Posture Management (DSCPM)：Google Cloud 提出的解決方案，旨在將安全性帶到資料所在之處，無論是在 Google Cloud 還是其他地方。
+*   DSCPM 的三個組成部分：資料探索、安全態勢評估、資料控制應用。
+*   德意志交易所的應用案例：透過安全控制定義和安全狀態機，將法規要求映射到 Google Cloud 的安全策略上，實現資料安全驗證。","Security
+"
+Protect your users and brand with Google Cloud’s Web Risk,https://www.youtube.com/watch?v=zB5qzxL1NOw,BRK2-151,Web Risk 旨在協助組織和政府更好地保護其使用者免受網路釣魚、惡意軟體和社交工程詐騙的侵害。它提供威脅情報、品牌保護解決方案（針對大型品牌）以及提交 API 以實現反應式保護。Web Risk 還提供保護儀表板，以衡量 AI 代理在網路上的威脅搜尋效果。,"Security
+"
+PyTorch on Google Cloud: From experimentation to production,https://www.youtube.com/watch?v=mXPhQBglpP8,BRK2-131,"本次會議主要介紹了 Google Cloud 在支援 PyTorch 社群方面的進展，以及如何幫助客戶在 GCP 上實現效能和規模。核心觀點包括：
+
+*   PyTorch 的快速成長及其三大支柱：模型、生態系統和效能。
+*   Google 對 PyTorch 生態系統的深度投入，包括作為 PyTorch 基金會的創始成員，以及支援 VLLM 和 Ray 等 PyTorch 解決方案。
+*   OpenXLA 作為一個開放原始碼的 ML 編譯器，如何橋接 PyTorch 到不同的硬體，並確保高效能，尤其是在大規模情況下。
+*   PyTorch XLA 如何使 PyTorch 能夠在 XLA 裝置（尤其是 Cloud TPU）上高效運行。
+*   透過最佳化檢查點、改進可見性和通知，以及基於策略的彈性訓練來提高 LLM 訓練工作負載的韌性。
+*   NVIDIA 在韌性軟體方面的工作，以及與 Google Cloud 的整合。","Applied AI
+"
+PyTorch on Google Cloud: From experimentation to production (Recap),https://www.youtube.com/watch?v=4jbX_wjGOQ4,BRK2-131-RC,,
+Ray on GKE: Building a next-generation AI/ML platform,https://www.youtube.com/watch?v=F3Ao10MV2-g,BRK2-126,"本次會議主要討論了在 Google Kubernetes Engine (GKE) 上使用 Ray 構建下一代 AI/ML 平台。核心觀點包括：
+
+*   GKE 和 Ray 的結合為 AI/ML 工作負載提供了卓越的效能、可擴展性和可靠性。
+*   Ray 是一個 Python 原生的 API 和生態系統，非常適合資料科學家，並且針對效能和規模進行了最佳化。
+*   GKE 提供了領先業界的容器編排、生產處理和可靠的規模化能力，並持續投資於 AI/ML 工作負載的支援。
+*   Ray Turbo 即將在 GKE 上推出，它將與 AnyScale 合作，進一步提升效能和效率。","Applied AI
+"
+"Ready, threat, go! Unlock the power of threat-driven security operations",https://www.youtube.com/watch?v=s4eZ1cNyk6o,BRK2-153,"本次會議主要探討如何利用威脅情報，結合事件數據和安全資訊與事件管理（SIEM）系統中的數據，有效地追蹤、管理和緩解威脅行為者的活動。會議強調了傳統SIEM技術的不足，以及如何透過Google安全運營（SecOps）和Google威脅情報（GTI）來提升威脅情報的應用效率和效果。核心觀點包括：
+
+*   **傳統SIEM的局限性：** 人工評估威脅情報數據，效率低下，容易遺漏。
+*   **威脅情報的重要性：** 高品質的威脅情報是有效防禦的基礎。
+*   **Google SecOps的優勢：** 將威脅情報疊加到所有事件數據上，優先排序情報命中，提供行為檢測。
+*   **Google威脅情報的深度和廣度：** 結合Google的廣泛用戶數據和Mandiant的深入威脅研究。
+*   **AI在安全運營中的應用：** 利用AI代理進行警報分流，提高響應速度和準確性。
+*   **實例分析：** 透過真實案例展示如何利用Google SecOps和GTI應對複雜的網路攻擊。","Security
+"
+Real-world success stories: How gen AI is revolutionizing industries,https://www.youtube.com/watch?v=Jcqxku7hv5o,BRK1-093,"本次會議討論了生成式AI如何革新各個產業，以及企業如何利用生成式AI來驅動業務成果。核心觀點包括：
+
+*   **數據民主化：** 透過讓更多使用者能夠存取和理解數據，釋放數據的潛在價值。
+*   **AI應用領域：** 將AI應用於技術（軟體開發生命週期）、數據和業務，以實現不同的目標。
+*   **產業領導者：** 生命科學（藥物發現）和行銷自動化是目前生成式AI應用最活躍的產業。
+*   **主要挑戰：** 變革管理、安全性以及數據品質是採用生成式AI的主要障礙。
+*   **負責的AI：** 在實施和使用AI時，必須以負責任的方式進行，確保安全和合規。
+*   **AI普及的催化劑：** 地緣政治事件實際上加速了AI的採用，因為企業意識到不採用AI將會落後。","Applied AI
+"
+Redefine data and AI governance in the unified BigQuery platform,https://www.youtube.com/watch?v=g2LIKmswKXM,BRK2-014,"本次會議主要探討在統一的 BigQuery 平台中，如何重新定義資料和 AI 治理。核心觀點包括：
+
+*   AI 應用快速發展，健全的資料和 AI 治理策略至關重要。
+*   治理必須是通用的、智慧的且開放的。
+*   BigQuery 正在演進為一個真正的統一 AI-ready 資料平台，而 BigQuery Universal Catalog 是其核心的 metadata 管理和治理層。
+*   Walmart 和 Box 分享了他們在資料治理方面的實踐經驗。
+*   Google 宣布了一系列新的產品功能，以加強資料和 AI 治理。","Data Analytics
+"
+Reduce costs and improve collaboration by moving to Google Chat and Meet,https://www.youtube.com/watch?v=l5R25IXiz_c,BRK1-078,"本次會議主要探討了企業如何透過遷移至 Google Chat 和 Google Meet 來降低成本、提升協作效率。Vimeo 和 Angie 等客戶分享了他們成功遷移的經驗和心得。核心觀點包括：
+
+*   **降低成本：** 透過整合至 Google Workspace，企業可以節省大量授權費用，例如 Angie 透過遷移節省了超過 50 萬美元的 Zoom 授權費用。
+*   **提升效率：** Google Chat 和 Meet 與 Workspace 無縫整合，減少了應用程式之間的切換，提高了員工的生產力。
+*   **改善協作：** Meet 的表情符號反應、聊天側邊欄等功能，以及 Chat 的即時訊息和協作空間，都促進了團隊之間的溝通和協作。
+*   **簡化管理：** Google Workspace 提供單一的管理控制台，簡化了 IT 管理工作。
+*   **利用 AI：** Gemini AI 整合至 Meet 和 Chat，可以自動生成會議摘要、提供建議等，進一步提升效率。","Workspace
+"
+Reduce costs and improve collaboration by moving to Google Chat and Meet (Recap),https://www.youtube.com/watch?v=e6PnRQwBJZc,BRK1-078-RC,,
+Reduce the attack surface of your cloud with advanced identity management,https://www.youtube.com/watch?v=6esZV_aN9Rg,BRK1-069,,
+Reduce toil across the software development life cycle with Gemini Code Assist agents in Firebase Studio,https://www.youtube.com/watch?v=dQNrL5mglPw,BRK2-062,本次會議主要介紹了 Google Cloud 團隊開發的 AI 代理程式，旨在透過消除繁瑣的任務來賦能開發人員，讓他們能夠專注於程式碼編寫。會議重點介紹了兩個代理程式：一個用於理解和聊天程式碼庫，另一個用於確保生成式 AI 返回安全的結果。,"AI
+"
+Reimagining work with AI agents in your own browser,https://www.youtube.com/watch?v=lT5ULgFDnnc,BRK2-218,"本次會議主要介紹 Google Cloud 的 Notebook LM for Enterprise、Google Agent Space 以及 Chrome Enterprise 如何協助企業員工運用 AI 提升工作效率。核心觀點包括：
+
+*   企業面臨的挑戰：企業數據分散、工作流程複雜、現有 AI 應用未充分整合企業數據與員工工作流程。
+*   Google 的解決方案：透過 Notebook LM for Enterprise、Google Agent Space 和 Chrome Enterprise 瀏覽器，提供整合的 AI 體驗，讓員工能更輕鬆地搜尋、生成內容和自動化工作流程。
+*   Notebook LM for Enterprise 的優勢：高度合規、易於使用、可與 Agent Space 整合，並提供 Podcast 生成 API。
+*   Agent Space 的功能：整合 Gemini 的推理能力、Google 搜尋和 AI Agents，連接各種應用程式，協助使用者搜尋資訊、理解數據和自動化工作流程。
+*   Chrome Enterprise 的價值：在瀏覽器層面提供控制、可見性、安全性和生產力提升，並整合 Agent Space，讓使用者能直接在瀏覽器中使用 AI 功能。","Applied AI
+"
+Remote development in 2025: Your new default,https://www.youtube.com/watch?v=A-hmvl7i1cI,BRK2-181,"本次會議主要探討了遠端開發的現狀、優勢以及未來發展趨勢，特別是在晶片短缺、資料安全、地緣政治等因素影響下，遠端開發如何成為新的常態。會議涵蓋了從工具選擇、開發流程到最佳實踐等多個方面，旨在幫助開發者和企業更好地利用遠端開發提高效率、保障安全。
+
+*   **遠端開發的必要性：** 晶片短缺、多架構需求、資料安全、地緣政治等因素共同推動遠端開發成為趨勢。
+*   **遠端開發的定義：** 將開發環境遷移至遠端伺服器，本地設備僅作為客戶端，實現協作、安全和效率的提升。
+*   **遠端開發的目標：** 提高開發者生產力，縮短反饋迴圈，降低認知負荷。
+*   **Google Cloud 提供的解決方案：** Cloud Shell Editor 和 Cloud Workstations。
+*   **最佳實踐：** 網路配置、映像檔客製化、專案結構、內部市場、實驗文化等。","Compute
+"
+Replicating the entire computer vision industry using Gemini,https://www.youtube.com/watch?v=mKePYTrlmF8,BRK2-214,"本次演講主要介紹 Gemini 的多模態能力，以及如何利用 Gemini 的視覺能力來處理圖像、文件和影片。核心觀點包括：
+
+*   Gemini 從一開始就被設計為原生多模態模型，可以處理文字、圖像、影片和音訊等多種輸入。
+*   Gemini 2.5 在視覺和多模態能力方面表現更佳，是目前業界領先的模型。
+*   Gemini 的視覺能力可以應用於圖像理解、文件處理和影片理解等多個領域。
+*   Gemini 能夠進行像素級的推理，並生成 2D/3D 邊界框和分割遮罩。
+*   Gemini 能夠處理長達一小時的影片，並具備 200 萬 token 的上下文窗口。","Gemini
+"
+"Route, reduce, redact: Manage your security data pipeline",https://www.youtube.com/watch?v=OLvDEL_3s_Q,BRK3-007,"本次會議主要介紹 Google SecOps 透過與 BindPlane 合作，為客戶提供的領先資料管道管理功能。核心觀點包括：
+
+*   解決企業在安全運營中面臨的資料過載問題。
+*   透過資料管道管理，降低資料量、編輯敏感資訊、並將資料路由到不同的目的地。
+*   Google SecOps 客戶可以免費使用此功能，透過 BindPlane 實現資料路由和轉換。","Security
+"
+Run high-availability multi-region services with Cloud Run,https://www.youtube.com/watch?v=tTv-SVkKRTw,BRK2-071,本次會議主要介紹如何使用 Cloud Run 構建高可用性多區域服務。講者分享了 Cloud Run 的優勢，包括彈性擴展、快速部署和高可靠性。此外，還介紹了 Commerce Bank 如何利用 Cloud Run 實現高可用性和可靠的銀行服務，以及 Cloud Run 即將推出的 Service Health 功能，該功能可以自動化跨區域故障轉移，確保業務關鍵服務的高可用性。,"Serverless
+"
+Run large-scale distributed AI workloads with Cluster Director,https://www.youtube.com/watch?v=RmXW3UIxMYg,BRK1-061,"本次會議主要介紹 Google Cloud 的 AI 基礎設施和 Cluster Director，旨在幫助客戶更輕鬆地運行大規模分散式 AI 工作負載。核心觀點包括：
+
+*   **Google Cloud 在 AI 領域的優勢：** Google 在 AI 領域擁有長久的歷史、強大的研究能力、豐富的模型、活躍的開源生態系統、大規模生產應用經驗以及全面的基礎設施。
+*   **Google Cloud 強大的 GPU 產品路線圖：** 涵蓋 A3 Ultra、A4、A4X 等多個世代的 NVIDIA GPU，並將在 2025 年推出 RTX Pro 6000 Blackwell 和 GB300 等更強大的 GPU。
+*   **Cluster Director 的重要性：** Cluster Director 是一個超級運算平台，提供卓越的效能和彈性，可輕鬆部署和管理數千個 GPU，解決了大規模 AI 訓練的挑戰。
+*   **CrowdStrike 的成功案例：** CrowdStrike 透過使用 Cluster Director，在模型端到端訓練方面實現了 6 到 10 倍的速度提升。","Applied AI
+"
+Save time and effort with Google Cloud Managed Service for Apache Kafka,https://www.youtube.com/watch?v=CavnCigalf4,BRK3-020,"本次會議主要介紹 Google Cloud Managed Service for Apache Kafka 如何幫助使用者節省時間和精力，解決微服務架構下事件匯流排的挑戰。核心觀點包括：
+
+*   **微服務架構的挑戰：** 傳統的點對點整合方式在微服務架構下會導致複雜度呈指數級增長，需要一個統一的事件匯流排來簡化整合。
+*   **Kafka 的優勢：** Kafka 具有高吞吐量和水平擴展能力，非常適合作為事件匯流排。
+*   **Managed Kafka 的價值：** Google Cloud Managed Service for Apache Kafka 提供了易於使用、安全可靠的 Kafka 服務，降低了運維成本，讓開發者可以專注於業務邏輯。
+*   **MadHive 的案例：** MadHive 使用 Google Cloud Managed Kafka 重新設計了事件處理管道，提高了效率和可靠性。
+*   **未來發展方向：** Google Cloud 將繼續改進 Managed Kafka，包括增強多租戶隔離、元數據管理、整合能力和安全性。","Architecture
+"
+Scale data science with BigQuery DataFrames for Python,https://www.youtube.com/watch?v=24_ILX3wLVg,BRK2-092,"本次會議主要介紹如何使用 BigQuery DataFrames 這個 Python 開源函式庫，在 BigQuery 上進行大規模資料科學運算。核心觀點包括：
+
+*   **BigQuery DataFrames 的優勢：** 能夠在不離開 BigQuery 的情況下，使用熟悉的 Pandas 和 Scikit-learn API 處理大規模資料，簡化了從小型資料集到大型資料集的過渡。
+*   **BigQuery DataFrames 的運作原理：** 作為一個轉譯器，將 Pandas 和 Scikit-learn API 轉換為 BigQuery SQL 和 BigQuery ML SQL，並在 BigQuery 內部執行。
+*   **BigQuery DataFrames 的最新發展：** 推出 2.0 版本，包含效能優化（部分排序）、擴展的資料類型支援（陣列、結構、JSON）以及與 BigQuery Managed Python Functions 的整合。
+*   **BigQuery DataFrames 的未來方向：** 支援多模態資料（結構化和非結構化資料），並整合 AI Query Engine 和向量搜尋等技術，以簡化從非結構化資料中提取語義洞察的過程。
+*   **Deutsche Telekom 的案例分享：** 介紹了如何使用 BigQuery DataFrames 遷移 PySpark 程式碼，並在 BigQuery 上建立機器學習平台。","Data Analytics
+"
+Scale your ML platform from zero to hero,https://www.youtube.com/watch?v=PGXyJ2x4Nls,BRK2-083,"本次演講由 Google Kubernetes Engine (GKE) 的 AI 產品團隊負責人 Nathan Beach 與 Snap 的 Liyong 共同主講，主要探討如何利用 GKE 構建和擴展機器學習 (ML) 平台。演講涵蓋了從評估、導入到生產部署的各個階段，並分享了 Snap 在 GKE 上構建 ML 平台的實踐經驗。核心觀點包括：
+
+*   GKE 提供了豐富的工具和功能，可簡化 ML 平台的構建和擴展。
+*   動態工作負載排程器 (DWS) 能夠有效提升 GPU 的可用性並降低成本。
+*   Cluster Director for GKE 簡化了大規模分散式運算的管理。
+*   GKE Inference Gateway 能夠顯著提升模型服務的吞吐量並降低延遲。
+*   Snap 利用 GKE 實現了顯著的成本節約和穩定性提升。","Applied AI
+"
+Scaling CPG transformation: From vision to value,https://www.youtube.com/watch?v=14Itn3FzHtE,BRK1-003,"本次會議主要探討消費品公司（CPG）如何擴展人工智慧（AI）轉型，從初步的試點階段到實際產生商業價值。會議強調了數據、AI 創新和客戶體驗在 CPG 轉型中的關鍵作用，並分享了來自通用磨坊（General Mills）和億滋國際（Mondelez）的實踐經驗。核心觀點包括：
+
+*   **AI 轉型不僅僅是技術策略：** 而是如何利用 AI 加速增長並提高 CPG 領域的生產力。
+*   **數據是長期競爭優勢：** 建立可擴展、安全且具備 AI 功能的數據平台至關重要。
+*   **擁抱 Agentic AI：** 探索 Agentic AI 在簡化流程、提高效率和改善客戶體驗方面的潛力。
+*   **價值驅動和有目的性的實驗：** 專注於具有明確商業價值和可衡量結果的 AI 應用。
+*   **跨職能協作：** 整合技術、數據、行銷和法務等不同部門，共同推動 AI 轉型。","Applied AI
+"
+Scaling multi-tenant AI platforms in the era of agentic AI with GKE,https://www.youtube.com/watch?v=QUKxWw3c6lc,BRK2-127,"本次會議主要探討在 Kubernetes 和 GKE 環境下，如何有效地擴展多租戶 AI 平台，以支援日益增長的 AI 模型和 Agent 應用。核心觀點包括：
+
+*   **多模型是未來趨勢：** 企業需要能夠部署和管理多種模型，以滿足不同的應用場景和需求。
+*   **NVIDIA NIM 的優勢：** NVIDIA Inference Microservices (NIM) 提供優化的模型部署方案，可在 NVIDIA GPU 上實現卓越的效能。
+*   **GKE 的角色：** GKE 提供靈活且可控的平台，用於部署和管理 AI 模型，並支援多租戶環境。
+*   **Agent 的興起：** AI Agent 正在快速發展，企業需要為 Agent 的部署和管理做好準備。
+*   **自動化和治理的重要性：** 在多模型環境中，自動化部署流程、成本控制和資源治理至關重要。
+*   **多集群管理：** 隨著規模擴大，需要考慮跨多個集群管理模型和 Agent。","Applied AI
+"
+Scaling multimodal hybrid search for massive datasets,https://www.youtube.com/watch?v=uf17IwYg4nE,BRK2-202,"本次演講主要介紹了 Google Cloud 的產品經理 Aron Lewis 關於如何擴展多模態混合搜索以應用於海量數據集。核心觀點包括：
+
+*   搜索的重要性日益提升，尤其是在大型語言模型（LLM）普及的背景下，使用者期望 AI 驅動的、能深入理解其意圖的體驗。
+*   向量搜索和嵌入（embeddings）是實現這些智能體驗的基礎技術，能夠理解數據背後的含義，超越了簡單的關鍵字搜索。
+*   Vertex-i vector search 基於 Google 的 Scan 技術，具有快速、可擴展、易於使用、高質量和高成本效益等優點。
+*   Vertex-i vector search 的新功能包括元數據存儲、BigQuery 連接器和存儲優化向量搜索。","Vertex AI
+"
+Search and Agents to drive site and app monetization,https://www.youtube.com/watch?v=tr_bv8zJhGY,BRK2-201,"本次會議主要探討如何利用搜尋和代理（Agents）來提升網站和應用程式的營利能力。核心觀點包括：
+
+*   現代客戶期望更高的個人化搜尋和導航體驗。
+*   Vertex AI Search 能夠提供更強大的搜尋功能、AI模式、個人化瀏覽和生成式模式，以滿足客戶需求。
+*   Vertex AI Search 平台具有高度的客製化能力，讓使用者能夠快速上手並持續優化。
+*   代理模式（Agentic mode）結合了搜尋、外部資料來源和API，能夠實現更複雜的任務，例如行程規劃和預約服務。","Applied AI
+"
+Search that sells: AI search and conversation for commerce,https://www.youtube.com/watch?v=_IVJhaJPQiE,BRK2-200,"本次會議主要介紹 Vertex Search for Commerce，一個利用 Google AI 技術為電商平台提供個人化產品探索的解決方案。核心觀點包括：
+
+*   **產品套件：** Vertex Search for Commerce 包含搜尋與瀏覽、推薦、視覺搜尋（多模態搜尋）以及對話式商務等多項產品。
+*   **對話式商務：** 針對複雜、模糊的搜尋意圖，透過 AI 驅動的對話引導，幫助使用者更精準地找到所需商品。
+*   **ROI 導向：** 強調投資報酬率，透過意圖偵測決定何時啟動對話，避免不必要的 LLM 成本和使用者摩擦。
+*   **多模態搜尋進化：** 未來將支援使用者透過圖片提問，例如「如果我穿這件衣服，我的伴侶應該穿什麼？」，AI 將理解並推薦合適的搭配。
+*   **購物研究助理：** 針對高單價、需要深入研究的商品，提供基於 Google 搜尋的資訊整合和產品比較功能。
+*   **多代理整合：** 允許整合 Google 官方和第三方代理，提供無縫的使用者體驗。","Applied AI
+"
+Secure by design for AI applications and agents,https://www.youtube.com/watch?v=aw5Pu342tM8,SPTL210,"本次會議主要探討在企業環境中，AI 應用程式和代理程式快速發展所帶來的資安挑戰，以及如何透過安全設計來應對這些挑戰。核心觀點包括：
+
+*   AI 技術正在企業中快速普及，特別是 ChatGPT 的出現加速了企業對 AI 的採用。
+*   AI 代理程式（Agents）的數量預計將在未來幾年內大幅增長，對企業 IT 架構產生深遠影響。
+*   傳統的 IT 架構無法滿足 AI 時代的需求，需要重新思考如何設計和交付架構。
+*   AI 帶來了新的資安威脅，包括資料中毒、模型外洩、提示注入、基礎設施攻擊和治理問題。
+*   企業需要採取系統性的方法來應對這些威脅，並在 AI 應用程式的設計初期就考慮安全性。
+*   安全不僅僅是技術問題，更是一個共享責任模型，需要雲端供應商、基礎設施供應商、安全廠商和企業共同努力。","Security
+"
+Secure enterprise browsing: There’s no place like Chrome,https://www.youtube.com/watch?v=pKSpqIsJR5Q,BRK1-071,"本次會議主要討論如何確保企業環境中的瀏覽器使用安全，特別是 Chrome 瀏覽器。核心觀點包括：
+
+*   瀏覽器已成為新的端點，企業需要關注瀏覽器安全。
+*   AI 帶來新風險，需要積極應對。
+*   Chrome Enterprise 提供核心控制、可見性以及預防措施。
+*   Chrome Enterprise Premium 提供信任存取、資料外洩防護規則以及威脅情報。
+*   Chrome Enterprise 易於使用和部署，可快速提供靈活的存取管理和深度瀏覽器資料外洩防護。
+*   透過 Chrome 收集的遙測數據，可以增強整體端點安全策略。","Security
+"
+Secure from code to cloud with Security Command Center,https://www.youtube.com/watch?v=7keYMKlRYPU,BRK3-042,"本次會議主要介紹 Gemini Remediation Recommender，這是一個旨在簡化和自動化安全警報修復流程的創新工具。核心觀點包括：
+
+*   Gemini Remediation Recommender 能夠創建包含 IEC 程式碼所需確切變更的 Pull Request。
+*   該工具為 DevOps 團隊提供安全背景資訊，以便他們做出充分知情的選擇。
+*   透過將執行階段問題映射回其起源的 IEC 程式碼，Gemini Remediation Recommender 將修復工作提前。
+*   該工具減少了安全管理員的負擔，並賦予 DevOps 團隊更多權力，同時從根本上解決問題，降低問題再次發生的機率。","Gemini
+"
+Secure your AI deployments from creation to consumption,https://www.youtube.com/watch?v=Z4cmbIQU_3g,BRK1-032,"本次會議主要探討如何保護人工智慧（AI）的部署，涵蓋從創建到使用的整個生命週期。講者們分享了來自 Mandiant Consulting 的威脅情資、Google Cloud 的安全解決方案，以及 Global 公司在安全採用 AI 方面的經驗。核心觀點包括：
+
+*   **AI 威脅情勢：** 威脅行為者正在利用 AI 進行社交工程、惡意程式碼生成、目標偵察和入侵後活動。同時，他們也直接攻擊 AI 模型，試圖破解模型或洩漏敏感資訊。
+*   **防禦者的優勢：** 儘管攻擊者利用 AI，但 AI 對於防禦者來說具有更大的優勢，可以加速事件調查、建立檢測規則、自動化工作流程等。
+*   **Google Cloud 的 AI 安全策略：** Google Cloud 致力於確保客戶能夠以安全、私密和合規的方式使用 AI。他們推出了 AI Protection 產品，提供風險中心視圖和單一管理介面，幫助客戶發現、保護和檢測 AI 資產的威脅。
+*   **Model Armor：** Model Armor 是一種保護 LLM 提示和回應的機制，可以防止惡意 URL、提示注入、越獄攻擊和敏感資料洩漏。
+*   **SDP Discovery：** SDP Discovery 是一種資料探索工具，可以幫助客戶了解其生態系統中的資料，並識別哪些資料正在用於訓練 AI 模型。
+*   **安全 AI 部署的最佳實踐：** 包括主動預測問題、驗證安全控制、優先考慮整合期間的安全性、採用分層防禦、記錄和監控，以及審查 RAC 資料來源。
+*   **建立 AI 安全治理結構：** 包括建立清晰的責任歸屬指南和風險緩解策略，並在整個堆疊中實施安全措施。","Security
+"
+Secure your cloud posture with built-in policy management platform,https://www.youtube.com/watch?v=ay-Di_WEP5A,BRK1-067,"本次會議主要介紹 Google Cloud 的內建策略管理功能，重點在於如何利用組織政策（Organization Policy）來確保雲端資源的安全與合規性，同時不影響開發者的效率。核心觀點包括：
+
+*   組織政策是資源導向的治理控制，可確保環境中不存在不合規的資源。
+*   Managed Constraints 和 Custom Org Policies 提供彈性和靈活性，以滿足不同的需求。
+*   Google Cloud Security Baseline 提供預設啟用的安全控制，作為強大的基礎。
+*   SafeRollR 工具（Simulator 和 DryRun）可安全地推出策略變更。","Security
+"
+Secure your cloud with Google Cloud’s security and compliance innovations,https://www.youtube.com/watch?v=0G82Mlxkp5s,BRK2-187,本次會議主要介紹 Google Cloud 在安全性與合規性方面的創新，展示如何利用 Google Cloud 的安全構建模塊來保護雲端工作負載，滿足基本安全要求，保護 PII 和其他敏感資料，以及建立安全防護網。會議透過實際應用案例，深入探討 Google Cloud 在硬體和軟體層面的安全措施，強調 Google 與客戶共同承擔安全責任的理念。,"Security
+"
+"Secure, compliant gen AI deployment with Gemini and Google Workspace",https://www.youtube.com/watch?v=TJYVJbeJjaI,BRK3-048,,
+"Secure, compliant gen AI deployment with Gemini and Google Workspace (Recap)",https://www.youtube.com/watch?v=zfzvvtnmWYY,BRK3-048-RC,,
+Security agents: Revolutionize cyber defense with AI,https://www.youtube.com/watch?v=-X2TnRh0LuM,BRK1-065,"本次會議主要探討了 AI 代理（Security agents）如何革新網路安全防禦。核心觀點包括：
+
+*   **從手動到半自動：** 從傳統繁瑣的手動安全工作流程轉向由 AI 代理輔助甚至部分自動化的模式。
+*   **AI 代理的潛力：** AI 代理能夠處理大量數據、自動執行調查、修復漏洞和配置錯誤，從而減輕安全團隊的負擔。
+*   **人機協作：** 強調在安全領域中，AI 代理應保持「半自主」狀態，讓人類專家參與決策迴圈，確保精確性和安全性。
+*   **使用者體驗的轉變：** 隨著 AI 代理接管更多任務，安全產品的使用者介面將從「待辦事項儀表板」轉變為「已完成事項儀表板」，重點從監控轉向審查和例外處理。
+*   **解決三大挑戰：** 利用 AI 應對威脅的指數級增長、減少工具使用的繁瑣性，並提升安全人才的技能水平。","Security
+"
+See how millions of websites are protected against identity attacks and fraud,https://www.youtube.com/watch?v=-d2e6CEcGK0,BRK3-044,"本次會議主要討論 reCAPTCHA 如何保護網站免受身份攻擊和詐欺。核心觀點包括：
+
+*   網站面臨多種威脅，包括網站內容抓取、假帳號建立、帳號盜用、簡訊詐騙、信用卡盜刷等。
+*   reCAPTCHA 提供多層防禦，包括網路訊號分析、行為分析、帳號保護、交易風險評估等。
+*   reCAPTCHA 被超過 1500 萬個網站使用，每月收集超過 1000 億個事件和訊號，以訓練模型。
+*   企業使用 reCAPTCHA 平均每年可節省 500 萬美元，投資報酬率高達 545%。
+*   可口可樂公司分享了他們如何使用 reCAPTCHA 保護其全球品牌免受各種威脅。
+*   Google 正在開發新的 AI 驅動的防禦機制，包括異常偵測、政策引擎、跨裝置驗證等。","Security
+"
+Serve open models on TPUs and GKE with superior portability and price-performance,https://www.youtube.com/watch?v=FoW_ub6bwsQ,BRK2-125,"本次會議主要探討如何在 Google Cloud 的 TPU (Tensor Processing Unit) 和 GKE (Google Kubernetes Engine) 上，以更佳的可移植性和價格效能來服務開放模型。核心觀點包括：
+
+*   **TPU v5e Trillium 的優勢：** 新一代 TPU Trillium 在推論吞吐量、效能和成本效益方面都有顯著提升，尤其是在影像擴散和大型語言模型 (LLM) 方面。
+*   **GKE 的優化：** GKE 提供了多項優化功能，例如次要啟動磁碟、GCSFuse、HyperDisk 和推論閘道，以提高啟動速度、資料載入速度和推論效率。
+*   **VLLM 的支援：** TPU 現在支援 VLLM，這是一個廣泛採用的開源 LLM 推論引擎，讓使用者更容易在 TPU 和 GPU 之間移植模型。
+*   **動態工作負載排程器 (DWS)：** DWS Flex 和 Calendar 允許使用者根據需求付費，從而降低 TPU 的成本。
+*   **容器運算類別：** 容器運算類別提高了可用性，允許使用者在 TPU 和 GPU 之間切換，並根據資源可用性自動調整。
+*   **HubX 的案例研究：** HubX 分享了他們如何使用 TPU 和 GKE 來優化影像生成應用程式 Momo 的效能和成本。","Applied AI
+"
+"Shhh, my AI’s got secrets: Keep them safe with confidential computing",https://www.youtube.com/watch?v=L2gQcB0M5Og,BRK3-006,"本次會議主要探討了機密運算在保護人工智慧（AI）模型、資料和應用程式方面的作用。核心觀點包括：
+
+*   機密運算有助於在雲端環境中保護資料的隱私和安全，即使是雲端供應商也無法存取。
+*   隨著AI應用的普及，機密運算變得越來越重要，因為它可以保護敏感資料免受未經授權的存取和濫用。
+*   NVIDIA和Google Cloud正在合作，將機密運算技術整合到其AI平台中，使開發人員能夠更輕鬆地構建和部署安全的AI應用程式。
+*   機密運算不僅適用於保護資料，還適用於保護AI模型本身，防止模型被竊取或篡改。
+*   未來的AI應用程式將更加依賴多個模型和資料來源，機密運算將在建立這些協作實體之間的信任方面發揮關鍵作用。","AI
+"
+Shift down: A practical guide to platform engineering,https://www.youtube.com/watch?v=UkgfuXNzUh4,BRK2-172,"本次演講主要探討平台工程在 Google 內部的實踐，以及如何透過「Shift Down」策略，將常見問題的解決方案嵌入平台，從而提升開發效率、降低成本並促進創新。核心觀點包括：
+
+- **平台工程的核心目標：** 改善開發者體驗、提升長期可持續性、對抗軟體熵。
+- **Shift Down 的概念：** 將已解決的、可重複使用的問題解決方案嵌入平台，讓開發者專注於更具創新性的工作。
+- **平台不僅僅是技術：** 它是一個社會技術學科，結合了工具、流程和人員，以驅動創新。
+- **質量屬性是架構的體現：** 安全性、可靠性、效能等質量屬性深深植根於系統架構中。
+- **共享命運需要共享責任：** 生態系統的成功取決於平台和使用者的共同努力。
+- **持續改進的重要性：** 開發生態系統不斷演進，需要不斷調整和改進。","Architecture
+"
+Shift down: A practical guide to platform engineering (Recap),https://www.youtube.com/watch?v=FqBuYUeJkxE,BRK2-172-RC,,
+Simplify compliance in the cloud,https://www.youtube.com/watch?v=qIBkU4uiDvY,BRK3-062,,
+Simplify compliance in the cloud (Recap),https://www.youtube.com/watch?v=kJ9XxJ2RkSA,BRK3-062-RC,,
+Simplify operational and AI data pipelines with SQL in Bigtable,https://www.youtube.com/watch?v=N8MAvo5Ivug,BRK2-104,"本次會議主要探討如何利用 Bigtable 及其新增功能，特別是 SQL 支援，來簡化運營和 AI 數據管道，實現即時分析。核心觀點包括：
+
+*   **Bigtable 適用於即時分析：** 儘管通常被認為是鍵值儲存，但 Bigtable 在即時分析方面有著廣泛的應用，例如 ML 特徵儲存、生成式 AI 的上下文儲存以及應用內分析。
+*   **關鍵能力：** 成功的即時分析解決方案需要快速攝取大量數據、轉換不同形狀的數據，以及支援多種存取模式（點查詢和批次讀取）。
+*   **SQL 支援：** Bigtable 增加了對 SQL 的支援，允許使用者在非結構化數據上執行轉換和查詢，從而簡化了 ELT 流程。
+*   **DataBoost：** DataBoost 允許在不影響操作延遲的情況下進行大規模批次讀取，從而消除了將數據匯出到其他系統進行 ML 模型訓練的需求。
+*   **持續物化視圖：** 持續物化視圖允許建立同一數據的不同視圖，適用於大規模運營報告、廣告技術和媒體、零售和支付平台以及應用內指標和儀表板。
+*   **與 BigQuery 的整合：** Bigtable 可以與 BigQuery 整合，用於反向 ETL，將批次計算的特徵快速提供給即時應用程式。","Databases
+"
+Simplify the move to Google Threat Intelligence,https://www.youtube.com/watch?v=An4mHebBbEg,BRK2-167,"本次會議主要討論了簡化遷移至 Google 威脅情報（GTI）的必要性與方法。GTI 整合了 VirusTotal、Mandiant 威脅情報以及 Google 安全瀏覽的數據，提供更全面的威脅情報視角。核心觀點包括：
+
+*   **GTI 的優勢：** 整合多方數據，提供更廣泛、深入的威脅情報，並透過自動化和情境分析，提升威脅偵測和應對效率。
+*   **遷移的簡便性：** 從 VirusTotal 遷移至 GTI 非常簡單，用戶的配置、SSO 和 API 金鑰保持不變。從 Mandiant 遷移配置也很容易。
+*   **數據驅動的威脅情報：** GTI 是一個數據驅動的產品，能夠處理大量數據，並透過自動化流程提供可操作的情報。
+*   **情境的重要性：** GTI 提供威脅情境，幫助用戶了解攻擊的目標和影響，從而更有效地應對威脅。
+*   **適用性廣泛：** 無論企業規模大小或所處行業，GTI 都有相應的解決方案，可以根據企業的需求進行定制。","Security
+"
+Solve real-time AI challenges: Bigtable and BigQuery in Spotify’s music recommendation engine,https://www.youtube.com/watch?v=-rxMDSgsSQU,BRK2-105,"本次會議主要探討了如何利用 Bigtable 和 BigQuery 解決 Spotify 音樂推薦引擎中的即時 AI 挑戰。核心觀點包括：
+
+*   **Bigtable 和 BigQuery 的結合：** 強調了這兩種資料庫結合所產生的即時分析能力，以及如何滿足對資料即時性的需求。
+*   **Bigtable SQL 的通用性：** 介紹了 Bigtable SQL 的通用性，使得具備 SQL 專業知識的人員也能夠輕鬆構建全託管的即時應用後端。
+*   **連續具體化視圖（Continuous Materialized Views）的優勢：** 強調了連續具體化視圖在加速資料檢索和改善存取方面的作用，尤其是在需要快速存取複雜查詢結果的場景中。
+*   **Spotify 的使用者理解：** 強調使用者理解在個性化推薦系統中的核心地位，以及如何透過不同層次的複雜度來實現個性化。
+*   **特徵工程的重要性：** 探討了從批次推論到即時推論的演進，以及在特徵工程中需要考慮的延遲、新鮮度和複雜性之間的權衡。
+*   **Goldilocks 區域模型：** 介紹了推薦系統模型的 Goldilocks 區域，強調了資料新鮮度、等待時間之間的平衡，並預測了 LLM 代理在未來推薦系統中的作用。
+*   **BigQuery 數據框架（BigQuery DataFrames）：** 介紹了 BigQuery 數據框架如何簡化 Python 中的大規模資料科學，並利用 BigQuery 的分散式計算能力。
+*   **AI 查詢引擎（AI Query Engine）：** 介紹了 BigQuery 的 AI 查詢引擎，它將 LLM 技術整合到核心查詢引擎中，以便從非結構化資料中獲取語義洞察。","Data Analytics
+"
+Spanner Graph: Graph databases reimagined,https://www.youtube.com/watch?v=tIYO0aTmv20,BRK2-017,"本次會議主要介紹了 Google Cloud 的 Spanner Graph，一個專為圖形工作負載設計的資料庫解決方案。會議涵蓋了 Spanner Graph 的設計理念、核心功能、實際應用案例以及未來發展方向。核心觀點包括：
+
+*   **Spanner Graph 的獨特優勢：** Spanner 的全球規模、高可用性和強一致性使其成為運行圖形工作負載的理想平台。
+*   **解決圖形資料庫的挑戰：** Spanner Graph 旨在解決傳統圖形資料庫在操作開銷、可擴展性和學習曲線方面的挑戰。
+*   **GQL 和 SQL 的互操作性：** Spanner Graph 支援 GQL（Graph Query Language）標準，並提供與 SQL 的無縫整合，降低學習門檻。
+*   **搜尋圖形的能力：** Spanner Graph 整合了搜尋功能，方便使用者快速找到圖形中的起始節點，並利用圖形關係進行更深入的探索。
+*   **與生成式 AI 的整合：** Spanner Graph 可以與生成式 AI 模型結合，提供更豐富的上下文資訊，提升 AI 應用程式的效能。
+*   **Snapchat 的實際應用：** Snapchat 使用 Spanner Graph 來管理其龐大的身份圖，實現更精確的廣告歸因和使用者識別。","Databases
+"
+"Start secure, stay secure: Build a strong cloud security foundation",https://www.youtube.com/watch?v=MvoLvTZiNAk,BRK1-072,"本次會議主要探討 Google Cloud 提供的基礎安全控制，以及 Google 如何將安全方案打包，協助使用者有效管理風險。核心觀點包括：
+
+*   **AI 時代雲端安全的重要性：** 隨著 AI 技術的快速發展，雲端採用率不斷提高，雲端安全變得至關重要。
+*   **客戶對雲端安全的三大需求：** 主動威脅防護、平衡雲端創新與合規需求、以及獲得客製化的安全指導。
+*   **Google 的共享信任模型：** Google 不僅提供基礎設施，更積極與客戶合作，共同管理雲端安全和風險。
+*   **Security Foundation 的核心價值：** 提供一套精心策劃的產品和功能，為 Google Cloud 環境提供堅實的保護。
+*   **Security Blueprints 的加速作用：** 提供可公開下載的指南和程式碼，協助使用者快速部署安全系統，並符合多種法規標準。
+*   **DBS 銀行在雲端安全上的實踐：** 分享了 DBS 銀行在 Google Cloud 上的雲端安全策略演進，以及如何平衡風險控制與開發效率。
+*   **Google 的風險保護計畫：** 透過與網路保險公司的合作，提供客戶風險轉移機制，管理技術無法完全緩解的殘餘風險。","Security
+"
+Stop data exfiltration with cloud-first security controls,https://www.youtube.com/watch?v=Qlg5890_Qrk,BRK3-005,"本次會議主要探討了當今安全專業人員面臨的資料外洩風險，並介紹了 Google Cloud Platform (GCP) 提供的工具和技術，以協助組織保護其資料。核心觀點包括：
+
+*   資料外洩的嚴重性與日俱增，造成的損失巨大。
+*   釣魚和憑證竊取是主要的攻擊途徑。
+*   需要多層次的安全防護，涵蓋資源、身分、網路、應用程式和瀏覽器層。
+*   VPC Service Controls (VPC SC) 是 GCP 的獨特功能，可有效防止資料外洩。
+*   Identity Threat Detection and Response (ITDR) 結合 Context-Aware Access (CAA) 能夠即時偵測和應對異常使用者行為。
+*   採用縱深防禦策略，結合多種安全控制，才能有效保護資料。","Security
+"
+Strengthen data privacy: Multiparty confidential collaboration at scale,https://www.youtube.com/watch?v=oxjCeghgGtY,BRK2-148,"本次會議主要介紹了 Google Cloud 的機密空間（Confidential Space）產品，以及它如何幫助不同行業的公司實現新的應用場景，尤其是在多方協作和保護數據隱私方面。核心觀點包括：
+
+*   機密空間創建了一個安全的協作環境，稱為可信任執行環境（Trusted Execution Environment，TEE），數據僅由受信任和批准的程式碼處理。
+*   允許多個實體在無需完全信任彼此的情況下進行協作，各方保留對其數據的控制權、所有權和機密性。
+*   機密空間不僅適用於廣告技術中的安全數據匹配、跨銀行的欺詐檢測、醫療保健環境中的聯合模型訓練或聯合分析，還能加強 SaaS 公司的基礎設施安全，防止內部人員未經授權訪問用戶數據。
+*   支援各種機器學習和生成式 AI 用例，例如與第三方共享專有機器學習模型，同時保留對智慧財產權的完全控制。","Security
+"
+Structure your unstructured content: Gemini for scaling business,https://www.youtube.com/watch?v=oyg_kFuFEOI,BRK3-050,本次演講主要介紹了如何利用 Gemini 來結構化非結構化內容，以幫助企業擴展業務。講者分享了 Gemini 2.0 的強大功能，以及如何利用 Box AI 和 SimpleStack 等工具來簡化流程、提高效率和確保安全合規。,"Gemini
+"
+Supercharge research and accelerate breakthroughs with AI,https://www.youtube.com/watch?v=DBRtpJRhwvw,BRK1-011,,
+Supercharge your development workflow with Gemini Code Assist tools,https://www.youtube.com/watch?v=mt_SRR58VnU,BRK2-059,本次會議主要介紹 Gemini Code Assist 工具，這是一款在 IDE 中為開發者提供的 AI 助手，旨在簡化開發任務，特別是在處理繁瑣或需要集思廣益的複雜問題時。CME 集團分享了他們如何利用 Gemini Code Assist 作為加速器，提升開發效率和創新能力。會議強調了 Gemini Code Assist 工具如何透過提供相關上下文資訊、簡化流程和提高程式碼品質來改善開發體驗。,"AI
+"
+Supercharge your development workflow with Gemini Code Assist tools (Recap),https://www.youtube.com/watch?v=_rrEfHA5rRo,BRK2-059-RC,,
+Supercharge your Oracle databases and applications with Google Cloud,https://www.youtube.com/watch?v=3lKvqRJWvEY,BRK2-115,"本次會議主要探討如何透過 Google Cloud 平台，強化 Oracle 數據庫及應用程式的效能、擴展性與安全性。核心觀點包括：
+
+*   **Google Cloud 與 Oracle 的戰略合作：** 透過合作，將 Oracle 的 Exadata、Autonomous Database 和 RAC 等關鍵技術引入 Google Cloud，為客戶提供更多選擇和靈活性。
+*   **多種部署選項：** 提供 Oracle 數據庫在 Google Cloud 上的多種部署方式，包括在 Google Cloud 數據中心內原生運行 Oracle 數據庫、透過跨雲互連連接 OCI 中的 Oracle 數據庫，以及自帶授權在 Google Cloud 上運行 Oracle 數據庫。
+*   **AI 整合：** 強調將 Google 的 AI 技術（例如 Gemini）整合到 Oracle 數據庫中，以提升數據分析、應用程式開發和客戶體驗。
+*   **簡化遷移和管理：** 透過 Google Cloud Marketplace 提供簡化的 Oracle 數據庫採購和部署流程，並提供與 Google Cloud 服務的無縫整合，降低管理複雜度。
+*   **企業級功能：** 提供企業級的可用性、安全性和效能，包括多區域支援、加密和災難恢復功能。","Databases
+"
+Supercharge your Oracle databases and applications with Google Cloud (Recap),https://www.youtube.com/watch?v=qMJncD_iyVY,BRK2-115-RC,,
+Support disaster resilience with integrated AI-driven geospatial analytics,https://www.youtube.com/watch?v=N71tiXvLvrM,BRK2-207,"本次會議主要探討如何利用 Google 的地理空間技術，特別是 Earth Engine 和 BigQuery，結合 AI 模型（如 Weather Next），來提升災害生命週期各階段的應對能力，從災害風險評估、應急響應到災後重建。核心觀點包括：
+
+*   地理空間技術在災害管理中的重要性：強調利用地理空間技術改善災害預測和應對流程。
+*   Earth Engine 和 BigQuery 的整合應用：展示如何結合這兩個平台的強大功能，進行向量和柵格數據分析。
+*   AI 模型在災害預測中的作用：介紹 Weather Next 等 AI 模型如何提供高解析度的全球天氣數據，用於災害相關的應用。
+*   數據驅動決策的重要性：強調利用數據分析結果來制定更有效的災害應對策略。","Applied AI
+"
+Support disaster resilience with integrated AI-driven geospatial analytics (Recap),https://www.youtube.com/watch?v=j1PfuY2EOfw,BRK2-207-RC,,
+Tackle the complexities of managing GKE at scale,https://www.youtube.com/watch?v=vsm5uDONJWA,BRK2-034,"本次會議主要探討了在大規模環境下管理 Google Kubernetes Engine (GKE) 所面臨的挑戰與解決方案，並分享了 Dun & Bradstreet (D&B) 如何在其生產環境中實施這些解決方案的案例。核心觀點包括：
+
+*   **規模化運行的複雜性：** 在應用程式數量和規模不斷增長的情況下，如何有效地管理和擴展 GKE 叢集。
+*   **成本效益：** 在滿足擴展需求的同時，如何降低成本並優化資源利用率。
+*   **異構部署：** 如何在不同的環境（多個叢集、多個專案、多個區域、甚至本地部署）中管理應用程式。
+*   **AI/ML 工作負載的特殊需求：** 如何應對 AI/ML 模型訓練對 GPU 資源和大規模運算的需求。
+*   **Fleet 和 Team 的概念：** 利用 Fleet 管理多個叢集，並使用 Team 管理應用程式團隊的權限和配置。
+*   **集中化平台的重要性：** 建立集中化的 AI 平台，以實現對 AI 開發和部署的控制、安全和合規性。","Compute
+"
+Take multimodal data to gen AI with cloud databases and serverless runtimes,https://www.youtube.com/watch?v=20THk0ZzNBA,BRK2-180,,
+Taking Gemini to the skies to redefine customer support at United Airlines,https://www.youtube.com/watch?v=6OQT-Q1-smY,BRK1-114,"本次會議主要探討聯合航空（United Airlines）如何運用 Google 的 Gemini 模型，革新其客戶服務與支援體系。核心觀點包括：
+
+*   **客戶期望轉變：** 客戶期望更快速、更個人化、更無縫的服務體驗。
+*   **數據孤島挑戰：** 大型企業面臨數據分散，難以提供客戶全貌。
+*   **賦能客服人員：** 提供客服人員更佳工具與資訊，提升效率與客戶滿意度。
+*   **AI 的轉型力量：** 利用 AI 簡化複雜流程、預測客戶需求、並提供個人化服務。
+*   **提升客戶終身價值：** 優質的客戶服務能顯著提升客戶忠誠度與終身價值。
+*   **持續改進：** 透過數據分析與 AI 持續優化客戶體驗。","Gemini
+"
+Tales of cloud compromise: Lessons from recent Mandiant investigations,https://www.youtube.com/watch?v=sXajZd8J1qg,BRK1-036,"本次會議主要探討了雲端和混合環境中，威脅行為者如何進行入侵，並從 Mandiant 的實際應對經驗中提取實用教訓，以加強安全性和恢復能力。核心觀點包括：
+
+*   混合基礎設施的普遍性：大多數組織同時運行內部部署和雲端系統，需要將兩者視為一個整體來進行安全管理。
+*   攻擊者策略的演變：從簡單的勒索軟體部署轉向多方面的勒索，包括資料竊取和多重施壓。
+*   安全計畫的三個層面：人員、流程和技術，成功的攻擊往往是這三個層面系統性失效的結果。
+*   機會主義目標：攻擊者主要關注機會，針對擁有敏感資訊的行業，如金融服務、商業和專業服務、高科技、零售和酒店業。
+*   快速的攻擊時間：從初始存取到勒索軟體部署的時間窗口非常短，需要快速的檢測和響應。
+*   常見的入侵途徑：包括弱身份驗證、資訊竊取惡意軟體、商品後門程式和針對外部可存取系統的漏洞利用。
+*   法律和技術響應的重要性：需要建立全面的網路和法律響應策略，包括法律、鑑識和修復。","Security
+"
+The AI revolution in BI: A deep dive into Gemini in Looker,https://www.youtube.com/watch?v=lAbDDUrCzwU,BRK2-013,,
+The blueprint for successful enterprise AI transformation,https://www.youtube.com/watch?v=t9SojVZ3S_4,BRK1-126,本次會議主要探討企業如何成功轉型為AI驅動的組織。講者Ben Kessler，66 Degrees的CEO，分享了在Google Cloud Next 2025上關於企業AI轉型的藍圖。核心觀點包括：建立強大的技術基礎、關注AI模型的產出(Yield)與投資回報率(ROI)、以及為AI做好工作場所和組織的準備。,"Applied AI
+"
+The cloud threat landscape in 2025: What every organization needs to know,https://www.youtube.com/watch?v=gXsFLCt-Nhw,BRK1-074,"本次演講主要探討過去一年針對雲端環境的網路威脅，以及未來威脅情勢的演變。核心觀點如下：
+
+*   **身分驗證漏洞是雲端安全的核心問題：** 釣魚、竊取憑證、SIM 卡交換等攻擊手段，最終目標都是為了盜用身分，進而存取雲端資源。
+*   **複雜的攻擊手法背後，往往是簡單的身分盜用：** 即使是技術高超的駭客組織，也可能利用零日漏洞入侵後，再竊取密碼來橫向移動。
+*   **網路犯罪集團更容易透過竊取憑證獲利：** 相較於過去複雜的信用卡盜竊，現在竊取憑證並植入勒索軟體，就能輕鬆獲取高額利潤。
+*   **現有的雲端安全措施未能有效阻止身分盜用：** 組織需要重新思考如何驗證使用者身分，確保存取雲端資源的人確實是本人。
+*   **勒索軟體攻擊中，近半數源於身分驗證漏洞：** 強化身分驗證機制，能有效降低勒索軟體入侵的風險。","Security
+"
+The data-driven C-suite: Lead with insights in the age of disruption,https://www.youtube.com/watch?v=eZgGqVMQKs8,BRK1-001,"本次會議主要探討了在當今時代，數據和分析如何成為轉型和創造業務價值的關鍵加速器。與會者包括來自 CME Group、KeyBank 和 BNY Mellon 等金融機構的資訊長、數據長和分析長，他們分享了各自公司在數據和人工智慧方面的實踐經驗，以及如何向董事會和高層管理團隊展示這些舉措的價值。核心觀點包括：
+
+*   **數據是新的石油：** 數據本身沒有價值，需要透過創新和理解來轉化為可用的能量。
+*   **AI 的應用：** 金融服務業正在積極探索 AI 的應用，包括傳統 AI 和生成式 AI，以提高效率、降低風險和改善客戶體驗。
+*   **價值衡量：** 衡量數據和 AI 專案的價值是一個挑戰，需要與業務目標緊密結合，並關注生產力提升、市場份額增加和風險降低等指標。
+*   **風險管理：** 在擁抱 AI 的同時，必須謹慎管理風險，包括數據隱私、模型準確性和道德考量。
+*   **治理結構：** 建立有效的數據治理結構至關重要，以確保數據的品質、安全和合規性。
+*   **客戶信任：** 維護客戶信任是金融機構的基石，必須以負責任的方式使用數據，並確保透明度和隱私保護。","Data Analytics
+"
+The enterprise AI playbook: Five must-have strategies,https://www.youtube.com/watch?v=ocyFONwoJQg,BRK2-168,本次會議主要探討企業在成功應用人工智慧（AI）時應採取的五大關鍵策略。與會者分享了他們在AI領域的經驗、觀察以及對未來的展望，強調了數據基礎、問題定義、人才培養、安全隱私以及系統整合的重要性。,"AI
+"
+The future of AI and databases: How Target transformed their retail experience with AlloyDB AI,https://www.youtube.com/watch?v=R4xyyK0JkFo,BRK1-058,"本次會議主要探討了 AI 與資料庫的未來發展趨勢，以及 Target 如何利用 Google Cloud 的 AlloyDB AI 轉型其零售體驗。核心觀點包括：
+
+*   **AI 在資料庫中的關鍵作用：** 強調了操作型資料庫在 AI 應用中的重要性，它們包含關鍵的企業數據，是構建準確、相關且基於企業真實情況的 Gen.AI 應用程式的基礎。
+*   **AlloyDB AI 的突破性創新：** AlloyDB AI 作為首個將 AI 整合到操作型資料庫中的產品，為資料庫領域帶來了根本性的變革，它不僅提升了效能，還提供了更豐富的 AI 功能。
+*   **Target 的成功案例：** Target 透過在生產環境中大規模部署 AlloyDB AI，顯著提升了客戶參與度，改善了搜尋體驗，並實現了業務指標的提升。
+*   **Google Cloud 在 AI 領域的領先地位：** Google Cloud 擁有全面的資料庫產品組合，並將最先進的 AI 技術直接融入到資料庫中，幫助企業構建智慧型 AI 應用程式。
+*   **AI 驅動的 SQL 的未來：** AI 查詢引擎的引入，將生成式 AI 的力量帶入 SQL，使得開發人員能夠利用 Gemini 模型執行更複雜的查詢，並實現更豐富的資料互動。","Databases
+"
+The future of AI for startups,https://www.youtube.com/watch?v=CUOjorCu6Mc,BRK1-095,"本次會議探討了人工智慧（AI）對新創公司的影響與未來發展。講者們分享了他們對 AI 領域的獨到見解，包括反直覺的觀察、未來的機會、以及新創公司如何在這個快速發展的領域中取得成功。核心觀點包括：
+
+*   **AI 應用碎片化與專業化：** AI 基礎設施將更加碎片化和專業化，新創公司有機會在特定領域深耕。
+*   **人機互動的重要性：** 隨著 AI 系統變得更加自主，如何設計良好的人機互動介面至關重要。
+*   **軟體工程師的需求將會增加：** AI 工具將提高軟體開發的抽象層次，從而增加對軟體工程師的需求。
+*   **基礎設施完善，是新創公司發展的好時機：** AI 基礎設施日趨完善，現在是新創公司利用 AI 技術的絕佳時機。
+*   **關注客戶問題，而非僅僅是技術能力：** 新創公司應該專注於解決客戶的實際問題，而不僅僅是追求技術上的突破。
+*   **數據與領域知識是護城河：** 擁有獨特的數據來源和深厚的領域知識，是新創公司建立競爭優勢的關鍵。
+*   **AI 將深入各行各業：** AI 的應用將會普及到各行各業，為各個領域帶來變革。","AI
+"
+The future of AI-powered data is autonomous and agent-driven,https://www.youtube.com/watch?v=-Uda0ldaVbA,SPTL100,,
+The future of AI-powered data is autonomous and agent-driven (Recap),https://www.youtube.com/watch?v=u0cuBoiw0PQ,SPTL100-RC,,
+The future of app development with Firebase,https://www.youtube.com/watch?v=iP6yZEGYOSw,BRK1-022,"本次會議主要探討 Firebase 如何演進以協助開發者更輕鬆地建構新一代的應用程式，特別是結合生成式 AI 的應用。重點包括：
+
+*   **Firebase Studio 的推出：** 一個整合的開發環境，利用 AI 簡化應用程式的建立、執行和部署流程。
+*   **App Hosting 正式發布 (GA)：** 提供 Git 中心化的伺服器端無伺服器託管解決方案，加速現代全端 Web 應用程式的開發和部署。
+*   **Data Connect 正式發布 (GA)：** 為應用程式提供安全且可擴展的 SQL 資料庫解決方案，並支援向量嵌入 (vector embeddings)。
+*   **GenKit 的持續發展：** 提供 SDK、外掛程式和開發工具，協助開發者建構 AI 驅動的應用程式。
+*   **Google 開發者計畫 (GDP) 的新優惠：** 提供 AI 增強的工具、資源和技能提升，協助開發者規模化其應用程式。","Firebase
+"
+The future of compute: The right VMs for every workload,https://www.youtube.com/watch?v=fCu0aAoC9X0,BRK2-136,"本次會議主要探討 Google Cloud 在運算領域的最新進展，以及如何針對不同的工作負載選擇最適合的虛擬機器（VM）。核心觀點包括：
+
+*   AI 正在快速發展，需要更強大和專業的運算能力。
+*   現代應用程式需要高度可擴展性，並充分利用 Google Cloud 的所有功能。
+*   傳統企業工作負載仍然至關重要，需要持續關注。
+*   Google Compute Engine 的目標是為每個工作負載設計和優化系統，包括運算、儲存和網路。
+*   Google Cloud 提供廣泛的 VM 產品組合，以滿足各種客戶需求。","Compute
+"
+The future of compute: The right VMs for every workload (Recap),https://www.youtube.com/watch?v=_Fzr7azZKhs,BRK2-136-RC,,
+The future of HPC is on Google Cloud,https://www.youtube.com/watch?v=sAdoJUexdDo,BRK2-019,Google Cloud正在大力投資高效能運算（HPC），透過基礎設施、軟體工具和合作夥伴解決方案的持續創新，支援HPC的未來發展。人工智慧（AI）已成為科學研究的第四個支柱，而量子運算將在運算和AI領域實現變革性能力。Google Cloud推出新的超級運算平台，包括H4D VM、Google Cloud Managed Luster、最新的NVIDIA GPU VM，以及AlphaFold 3和WeatherNext兩個AI驅動的科學應用，旨在加速科學發現和AI模型訓練。,"Applied AI
+"
+"The future of work: AI agents unleashed with UKG, Google Cloud, and MongoDB",https://www.youtube.com/watch?v=ZpSN1F9ESvQ,BRK1-127,"本次會議主要探討了 UKG 如何利用 AI 代理（AI Agents）來改善人力資源、薪資和勞動力管理解決方案，並結合 Google Cloud 和 MongoDB 的技術，打造 Bright AI 平台。核心觀點包括：
+
+*   **AI 在人力資源管理中的應用：** AI 可以應用於員工職業生涯的各個階段，從求職、入職、排班到技能提升和晉升，提供更佳的體驗和成果。
+*   **Bright AI 平台的價值：** Bright AI 旨在成為值得信賴的顧問，協助員工獲得更好的工作成果，並透過 Flex AI 代理提供各種服務，例如排班協助、員工福利查詢和提升公司晉升流程公平性建議。
+*   **代理框架（Agent Framework）的重要性：** 代理框架能夠集中知識、確保安全且負責任的 AI 使用，並賦能領域團隊（例如薪資團隊）提供專業價值。
+*   **檢索增強生成（Retrieval Augmented Generation, RAG）平台的必要性：** RAG 平台能夠有效搜尋企業內部文件，提供更精確、更符合情境的回應，解決大型語言模型（LLM）在靜態資料集上訓練的局限性。
+*   **MongoDB Atlas Vector Search 的優勢：** MongoDB Atlas Vector Search 提供雲原生、全託管的向量資料庫，與 MongoDB 的文件模型整合，簡化了開發流程，並提供儀表板和分析功能以優化檢索效果。","Applied AI
+"
+The Gemini effect: Increase business value with Google AI,https://www.youtube.com/watch?v=ZxkzU3RbnLQ,BRK2-045,本次會議主要探討 Google Workspace 與 Gemini AI 如何透過提升投資報酬率（ROI）、增強創造力、生產力及員工滿意度來驅動商業價值。會議強調了 AI 在重塑工作方式上的巨大影響，並指出企業應將重點從 AI 願景轉向實際的 AI 成果，以提升員工生產力。此外，會議還分享了早期採用 Gemini 的客戶案例，展示了 AI 在銷售、行銷和客戶服務等領域的巨大潛力。,"Gemini
+"
+The multipliers for AI success (Hint: they're already on your team),https://www.youtube.com/watch?v=DOSpl1Tq0co,SPTL102,本次會議主要探討了 AI 對於聯絡中心帶來的變革性影響，並提出了兩種對立的未來願景：一是 AI 賦能人類客服，使其更高效、準確且具備同理心；二是完全由自主 AI 客服主導，無需人工介入。會議強調了擁抱 AI 的重要性，並探討了如何利用 AI 提升業務效率、客戶滿意度和投資回報率。,"Applied AI
+"
+The next frontier: Unleash the power of AI-native development with GitHub,https://www.youtube.com/watch?v=HqD6AUoB5eo,SPTL209,"本次會議主要探討了 AI 原生開發的未來，以及 GitHub 如何透過 AI 技術，特別是 Copilot，來改變軟體開發生命週期（SDLC）。核心觀點包括：
+
+*   **AI 原生開發的定義：** 強調 AI 應深入系統核心，而非僅是輔助工具，如同母語般自然流暢。
+*   **GitHub 的願景：** 讓每個人都能創造軟體，確保軟體預設具備高品質、安全性和可擴展性，並讓 AI 在軟體的建構和運作中扮演關鍵角色。
+*   **Copilot 的演進：** 從 AI 輔助（AI-infused）轉向 AI 原生（AI-native），成為開發過程中的積極協作者。
+*   **Project Padawan：** 將 Copilot 整合到 GitHub 的每個儲存庫，使其成為每個專案的貢獻者。
+*   **Copilot Code Review：** 提供即時程式碼審查，協助開發者更快交付更穩健的軟體。
+*   **Verily 的 VIDA：** 一個 VS Code 插件，利用 Copilot 執行特定指令，將開發者留在 IDE 內，提高效率。","Applied AI
+"
+The ROI of continuous learning: Build and validate skills to close the AI skills gap,https://www.youtube.com/watch?v=JieZ-Kv4lMc,BRK1-109,,
+The startup’s guide to AI agents: Turn potential into productivity,https://www.youtube.com/watch?v=SEfqGv_b5mk,BRK1-019,"本次會議主要探討了人工智慧代理（AI agents）的定義、應用、投資回報（ROI）、建構方法以及對新創公司和更廣泛生態系統的影響。核心觀點包括：
+
+*   **AI 代理的定義：** 從廣義上講，AI 代理是基於大型語言模型（LLM）的軟體，具有工具存取權限，並能根據設定的自主程度解決複雜或簡單的問題。
+*   **ROI 的重要性：** 採用 AI 代理的目標是創造實際的商業價值，例如提高收入、增加使用率或降低成本。對於傳統企業而言，未能採用 AI 代理可能構成生存風險。
+*   **建構 AI 代理的步驟：** 包括明確用例、與 LLM 進行有效溝通、簡化設計、進行測試，並建立防護措施。
+*   **新創公司的機會：** 相較於大型企業，新創公司在決定 AI 代理的自主程度方面擁有更大的彈性和機會。
+*   **未來趨勢：** 未來 AI 代理的發展重點將放在使用者體驗（UX）的改善，以及建立使用者對 AI 代理的信任感。","Applied AI
+"
+The ultimate Cloud Run guide: From zero to production,https://www.youtube.com/watch?v=a459I_qUF3Q,BRK2-175,"本次演講主要介紹 Google Cloud 的無伺服器引擎 Cloud Run，涵蓋其核心功能、部署選項、定價模式以及如何在生產環境中使用。核心觀點包括：
+
+*   Cloud Run 允許在無需管理基礎設施的情況下運行任何容器。
+*   Cloud Run 提供多種部署選項，包括直接部署容器映像、從 GitHub 部署、使用 Buildpacks 從原始碼構建容器映像，以及使用 Cloud Run Functions。
+*   Cloud Run 提供服務 (Services) 和任務 (Jobs) 兩種資源類型，分別適用於請求驅動的應用程式和需要運行至完成的容器。
+*   Cloud Run 支援自動擴展、流量遷移、Secret Manager 集成以及 VPC 網路整合。
+*   Cloud Run 提供基於請求和基於實例的兩種定價模式，並提供成本建議功能。","Serverless
+"
+Transform cloud operations and management with generative AI,https://www.youtube.com/watch?v=_uAzRxTlq8U,BRK2-032,"本次會議主要探討如何利用生成式 AI（Generative AI）來轉型雲端運營與管理。核心觀點包括：
+
+*   **AI 的定位：** AI 不是獨立存在的「東西」，而是使現有「東西」（例如應用程式或平台）變得更好的工具，如同醬料或香料之於菜餚。
+*   **應用程式中心管理：** 強調以應用程式為中心，而非以專案為中心來管理雲端環境，以便更全面地了解應用程式的成本、健康狀況和效能。
+*   **Gemini Cloud Assist 的應用：** 介紹 Gemini Cloud Assist 如何透過自然語言聊天、智慧操作和調查功能，協助使用者設計、操作和優化雲端環境。
+*   **新工具的整合：** 介紹 App Hub、Application Design Center、Cloud Hub、Application Monitoring 和 Cost Explorer 等新工具，以及它們如何與 Gemini Cloud Assist 整合，以提供更強大的雲端管理能力。
+*   **AI 輔助的故障排除：** 強調利用 AI 提供的上下文資訊，加速故障排除流程，縮短平均修復時間（MTTR）。","Applied AI
+"
+Transform the food ordering experience with AI agents,https://www.youtube.com/watch?v=SsQ4pcJeePw,BRK2-054,"本次會議主要探討如何利用 Google 的最新 AI 模型來轉變餐飲訂購體驗，特別是在得來速場景。核心觀點包括：
+
+*   利用 AI 提升顧客體驗，提供更自然、高效的訂購流程。
+*   透過 AI 提高餐廳生產力，將人力重新分配到更高價值的工作上。
+*   建立可擴展的 AI 訂購平台，適用於大規模連鎖餐廳。
+*   透過個性化和情境感知，使 AI 代理更具人情味。
+*   利用自適應 AI 代理，根據不同情況優化訂購流程，提高速度和平均訂單金額。","Applied AI
+"
+Transforming Day 2 ops on Google Cloud: What’s new,https://www.youtube.com/watch?v=jCI10s42has,BRK2-038,本次會議主要介紹了 Google Cloud 在 Day 2 運營方面的新功能，重點圍繞統一的可觀測性平台和以應用為中心的管理。透過自動化的可觀測性、OpenTelemetry 原生路由以及新的雲應用管理平台，旨在簡化資料收集、路由和儲存，並提升資料的可用性。此外，Gemini Cloud Assist 的引入，為雲端運營帶來了生成式 AI 的能力，協助使用者設計、修改架構，並解決問題。,"Applied AI
+"
+Transforming retail with AI-powered customer engagement,https://www.youtube.com/watch?v=XS6Dkx9YSZQ,BRK2-189,,
+Transforming your business with AI: The Kubernetes advantage,https://www.youtube.com/watch?v=8lveNvUEdGk,SPTL204,本次會議主要探討如何利用現有的 Kubernetes 專業知識，在 AI 時代優化業務。Google Cloud 的 Gabe Munroy 分享了 GKE 的最新進展，以及如何透過 GKE Autopilot、Gemini Cloud Assist 和新的推論功能，節省時間和資源，專注於創新。Spotify 的 Christian Lindwall 也分享了他們如何利用 GKE 驅動 AI DJ 等功能。AnyScale 的 Robert Nishihara 宣布與 Google Cloud 建立合作夥伴關係，共同為 AI 開發人員提供最佳的 Ray 體驗。,"Applied AI
+"
+Transforming your business with AI: The Kubernetes advantage (Recap),https://www.youtube.com/watch?v=0mP33Jpihog,SPTL204-RC,,
+Troubleshoot issues on Google Cloud with Gemini Cloud Assist Investigations,https://www.youtube.com/watch?v=vK_7jWNDoh8,BRK2-021,,
+Truth or dare: Grounding your LLM outputs,https://www.youtube.com/watch?v=OiX_3WbwX6o,BRK2-197,本次會議主要探討如何透過 Grounding（將 LLM 連接到外部資訊來源）來提升 LLM 輸出的準確性、即時性和可靠性。Grounding 可以有效降低 LLM 產生幻覺的風險，並讓 LLM 能夠利用企業自身的資料、即時資訊和第三方資料。,"Applied AI
+"
+Turning AI into true operational efficiency: Inside Nokia’s transformation,https://www.youtube.com/watch?v=lK2qGjNpG7E,SPTL108,"本次會議探討了諾基亞如何透過與 Google Cloud 及 HCL Tech 等合作夥伴的合作，將人工智慧（AI）融入其雲端轉型之旅，以實現更高的營運效率和創新。會議重點包括：
+
+*   **清晰的策略：** 諾基亞制定了明確的雲端策略，涵蓋了目標、原因和執行方法，旨在建立安全、可擴展且具成本效益的基礎設施，以支援現有業務系統和未來數位服務。
+*   **強大的平台基礎：** 建立穩健的平台至關重要，不僅在技術上，也在戰略上。諾基亞在 Google Cloud 上構建了可擴展、模組化且安全可靠的平台，並將安全性和合規性從一開始就納入設計中。
+*   **持續學習的環境：** 雲端和 AI 服務快速發展，因此持續學習和適應至關重要。諾基亞鼓勵跨領域的持續學習文化，並從技術和業務角度評估新工具和服務。
+*   **AI 賦能的現代化：** 利用 AI 工具分析和轉換傳統系統，使其更快、更具成本效益地遷移到現代雲原生平台。
+*   **自主營運：** 透過智慧代理主動監控系統、觸發自動化操作，甚至即時優化資源，實現自我管理基礎設施的願景。
+*   **GenAI 的產業演進：** 分為三個階段，從雲端服務的工業化和簡化，到應用程式現代化的平台主導工業化，再到代理技術 AI 的大規模工業化。
+*   **HCL Tech 的角色：** 作為諾基亞的轉型合作夥伴，HCL Tech 透過雲端智慧工業化服務模型和 AI Force 平台，協助諾基亞實現雲端轉型和應用程式現代化。","Applied AI
+"
+Uncover the reality: Actionable AI solutions for healthcare,https://www.youtube.com/watch?v=M-qSFBCVm50,BRK1-124,"本次會議主要討論了AI在醫療保健領域的應用，重點介紹了HCA Healthcare和Verily在AI應用方面的實踐經驗。核心觀點包括：
+
+*   HCA Healthcare透過策略性規劃，與內部使用者合作，有目的地測試和改進AI解決方案，以改善醫護人員的工作體驗和提升患者護理品質。
+*   Verily發現，相較於與真人醫護人員互動，患者在某些情況下更願意與AI教練交流，這表明AI不僅能節省時間，還能提供更有效率的解決方案。
+*   AI專案需要更多的前期規劃、理解和預算，並且需要持續的關注和維護，更像是產品管理而非專案管理。","Applied AI
+"
+"Under the Iceberg: Simple, unified Cloud Storage for analytics data lakes",https://www.youtube.com/watch?v=ewI3Z8PYV_Y,BRK2-026,本次會議主要探討了客戶如何利用 Apache Iceberg 等開放表格格式來統一其分析資料湖，並使用雲端儲存作為資料湖的通用資料平台。重點在於雲端儲存如何在簡化性、效能和智慧方面進行創新，以促進這些分析資料湖的發展。,"Storage
+"
+Unify data: AlloyDB for startups,https://www.youtube.com/watch?v=E0bPhxrv_JY,BRK1-097,"本次會議主要討論如何將不同類型的資料，例如關聯式資料和向量嵌入，整合到單一的 AlloyDB 資料庫中。以 Neuro 這家自動駕駛新創公司為例，說明如何協助他們整合資料並打破資料孤島。核心觀點包括：
+
+*   將關聯式資料和向量嵌入整合到單一資料庫可以簡化應用程式複雜性，提高效能，並降低管理成本。
+*   Scan indexes 的引入大幅縮短了索引重建時間，使得資料整合更加可行。
+*   AlloyDB 在處理大量資料和高併發使用者方面表現出色，能夠實現亞秒級延遲。","Databases
+"
+Unleash the power of Gemini for Google Workspace with expert prompting,https://www.youtube.com/watch?v=XfZXv42pQV8,BRK2-044,,
+Unleash the power of Gemini for Google Workspace with expert prompting (Recap),https://www.youtube.com/watch?v=T4zPcNIydsU,BRK2-044-RC,,
+Unleash the power of serverless GPUs with Cloud Run,https://www.youtube.com/watch?v=PKmoD3Gv31w,BRK2-070,本次演講主要介紹 Cloud Run GPU 的功能和優勢，以及如何在 Cloud Run 上使用 GPU 來構建高效能且具成本效益的 AI 應用程式。Cloud Run GPU 現已正式推出，可以在生產環境中大規模部署 AI 工作負載。它具有快速冷啟動、快速部署速度和低延遲等優勢，並支援全球多個地區。,"Applied AI
+"
+Unleashing graph analytics in BigQuery,https://www.youtube.com/watch?v=9wVoBhmhtp8,BRK1-057,,
+Unleashing graph analytics in BigQuery (Recap),https://www.youtube.com/watch?v=PgzTDPYKIGo,BRK1-057-RC,,
+Unleashing the power of Apache Spark integrated with BigQuery,https://www.youtube.com/watch?v=DIZn6Nuur7k,BRK2-094,"本次會議主要探討了如何將 Apache Spark 的強大功能與 Google Cloud 的 BigQuery 整合，以提供更高效、更靈活的數據處理和分析能力。核心觀點包括：
+
+*   **Serverless Spark 的優勢：** 強調 Serverless Spark 在簡化 Spark 應用開發、部署和管理方面的優勢，包括無需管理叢集、快速啟動、動態自動擴展以及按實際使用量付費。
+*   **BigQuery 作為統一平台：** 強調 BigQuery 作為一個統一的數據和 AI 平台，整合了數據、分析和 AI 功能，並支援多種引擎，包括 SQL 和 Spark。
+*   **客戶價值導向：** 強調客戶最關心的是快速交付價值、易於使用以及對數據平台的信心。
+*   **SQL 和 Spark 的互補性：** 強調 SQL 和 Spark 是互補的工具，可以根據不同的使用場景選擇最適合的工具。
+*   **AI 輔助開發：** 強調 AI 在簡化 Spark 開發方面的作用，例如使用自然語言生成 PySpark 程式碼。
+*   **性能優化：** 強調 Google 在 Spark 性能優化方面所做的努力，包括原生查詢執行、IO 優化和查詢優化。","Data Analytics
+"
+Unlock cloud savings: Gemini Cloud Assist and FinOps hub 2.0,https://www.youtube.com/watch?v=7_FVCPKpa7o,BRK1-063,"本次會議主要介紹 Google Cloud 如何透過 Gemini Cloud Assist 和 FinOps Hub 2.0 協助企業解鎖雲端節省。核心觀點包括：
+
+*   **FinOps 的重要性：** FinOps 已成為管理雲端支出和評估雲端價值的必要實踐。
+*   **Google Cloud 的 FinOps 工具演進：** 從 2022 年至今，Google Cloud 不斷推出新工具以支援 FinOps，並與 FinOps 的發展趨勢緊密結合。
+*   **Gemini Cloud Assist 的應用：** 利用 Gemini Cloud Assist 簡化成本報告的建立，並提供更深入的成本洞察。
+*   **FinOps Hub 2.0 的新功能：** FinOps Hub 2.0 透過利用率洞察 (Utilization Insights) 識別和減少浪費，並提供 Gemini 驅動的體驗以節省時間。
+*   **專案計費成本管理員角色：** 允許專案負責人存取成本報告和 FinOps Hub 2.0，以便更好地管理其專案的雲端支出。
+*   **Lloyd's Banking Group 的 FinOps 實踐：** Lloyd's Banking Group 分享了如何利用 FinOps Hub 提升其 Google Cloud 上的成本優化實踐。","Cost Optimization
+"
+Unlock developer productivity with AI,https://www.youtube.com/watch?v=BIBO4lqzCxs,BRK1-107,"本次演講主要探討 Google 如何利用 AI 提升內部開發者的生產力，並分享了相關的經驗和觀察到的典範轉移。核心觀點包括：
+
+*   AI 對開發者生產力的顯著提升：使用 AI 最多的開發者（前四分之一）在程式碼提交量和開發速度上都有明顯提升。
+*   開發者對 AI 的積極態度：大多數 Google 工程師認為 AI 對他們的生產力產生了積極影響。
+*   從增強到轉型的典範轉移：業界需要從利用 AI 增強軟體開發，轉向利用 AI 轉型軟體開發，最終實現軟體普及化。
+*   擁抱新的軟體開發模式：例如透過自然語言提示與 IDE 互動的「Vibe Coding」。
+*   AI 在減少技術債務中的作用：AI 可以幫助改善程式碼品質、測試和修復錯誤。
+*   變革需要擁抱、投資和教育：擁抱新的典範、投資使用者體驗、結合輔助型和代理型 AI 技術，並加強開發者教育。","Applied AI
+"
+Unlock productivity: AI strategies for Google Workspace transformation,https://www.youtube.com/watch?v=IhrA-I9ZJ4Y,BRK2-043,"本次會議主要探討如何利用生成式 AI (Gen AI) 提升 Google Workspace 的生產力，並協助企業轉型。核心觀點包括：
+
+*   克服對 AI 技術的恐懼，專注於如何利用 AI 解決實際問題。
+*   AI 可以作為第二大腦，減輕認知負擔，讓人們專注於更重要的任務。
+*   透過客製化的 Gemini 應用，快速回應資訊請求，建立知識庫。
+*   利用 AI 提升溝通技巧，避免誤解，並考量文化敏感性。
+*   AI 可以協助企業收集、分享和利用組織內的專業知識。
+*   AI 可以作為數據分析師，協助使用者從試算表中發現隱藏的資訊。
+*   AI 可以複製專家經驗，賦能組織內更多人執行複雜任務。
+*   AI 可以提供更全面的視角，協助發現工作中可能遺漏的資訊。
+*   管理員應積極推動 AI 的採用，並建立 AI 委員會。
+*   AI 不是要取代人類，而是要幫助人類更有效率、更有能力。","Applied AI
+"
+Unlock the power of compelling video storytelling with Google Vids,https://www.youtube.com/watch?v=YezXM-dm5Bg,BRK1-040,"本次會議主要介紹 Google Vids，一款由 AI 驅動的全新影片創作應用，旨在讓使用者能夠輕鬆地在工作場景中講述引人入勝的故事。會議重點包括：
+
+*   影片在工作中的重要性：影片比文字更能吸引注意力，提高溝通效率。
+*   Google Vids 的核心功能：利用生成式 AI 簡化影片製作流程，包括腳本生成、影片編輯、語音旁白等。
+*   Google Vids 的應用場景：涵蓋員工培訓、市場行銷、領導者溝通等多個方面。
+*   Mercer 公司使用 Google Vids 的案例分享：展示了如何利用 Google Vids 提升員工安全培訓的效果。
+*   Google Vids 的易用性：強調即使非技術人員也能輕鬆上手，製作出高品質的影片。","Gemini
+"
+Unlock the power of Looker: Performance secrets and modeling mastery,https://www.youtube.com/watch?v=1Fh2TBVTjJw,BRK2-012,"本次會議主要探討如何提升 Looker 的效能，並精進 LookML 模型的建立技巧。會議涵蓋了 Looker 平台架構、管理員職責、HubSpot 的 Looker 使用經驗，以及開發者工具和 Spectacles 的演示。核心觀點包括：
+
+*   Looker 能夠擴展至最嚴苛的工作負載，其關鍵在於其資料庫內架構，能充分利用資料庫的規模。
+*   效能是共同的責任，Looker 管理員、使用者和模型開發者都會對其產生影響。
+*   LookML 的撰寫方式會直接影響查詢的效率，因此優化 LookML 至關重要。
+*   管理員可以透過設定限制、監控排程等方式來管理 Looker 執行個體的效能。
+*   Spectacles 等工具可以協助開發者驗證 LookML，並確保程式碼變更不會破壞現有內容。","Business Intelligence
+"
+Unlock the power of secure data sharing with BigQuery,https://www.youtube.com/watch?v=ApVV-9gJ2Ik,BRK2-091,"本次會議主要介紹了 BigQuery 在資料治理和安全方面的新功能，旨在幫助使用者更安全、更方便地共享資料，從而加速 AI 專案的發展。核心觀點包括：
+
+*   **統一治理：** BigQuery 平台內建統一的治理機制，簡化資料和 AI 資產的查找、理解、保護和使用。
+*   **多層安全防護：** BigQuery 提供多層安全防護，包括 VPCSC 網路邊界控制、靜態和傳輸加密、通用目錄、細粒度的欄位級別存取控制、資料遮罩和監控。
+*   **資料產品：** 推出資料產品概念，允許資料生產者將 BigQuery 表格和視圖打包成針對特定用例的集合，從而更好地管理資料。
+*   **查詢範本：** 在資料淨室中引入查詢範本，允許資料生產者建立、發布和共享預定義的查詢，簡化分析並降低資料洩露風險。
+*   **Google Maps Places 整合：** 透過資料淨室提供 Google Maps Places 的資訊，使用者可以安全地將 Google 的位置資料與自己的第一方資料結合，進行強大的地理空間分析。","Data Analytics
+"
+Unlock the power of threat intelligence for critical industries,https://www.youtube.com/watch?v=Fon5n06bd9A,BRK2-154,"本次會議主要探討了威脅情報在保護關鍵產業中的重要性，以及如何利用威脅情報來提升網路安全防禦能力。核心觀點包括：
+
+*   **威脅情報的重要性：** 強調了理解威脅情勢對於有效防禦的重要性，特別是在營運技術（OT）環境中。
+*   **IT 與 OT 的整合：** 強調了 IT 系統是 OT 攻擊的起點，因此需要整合 IT 和 OT 安全策略。
+*   **主動檢測的重要性：** 強調了在 OT 層面檢測到威脅之前，就應該在 IT 層面主動檢測威脅。
+*   **與威脅情報供應商合作：** 強調了與 Google Threat Intelligence 等威脅情報供應商合作，可以增強防禦能力。
+*   **生活在土地上（Living off the Land）的攻擊：** 強調了攻擊者越來越多地使用現有工具和漏洞，而不是引入惡意軟體。
+*   **勒索軟體的威脅：** 強調了勒索軟體對關鍵產業的持續威脅，以及需要採取措施來預防和應對勒索軟體攻擊。","Security
+"
+"Unlock value for your workloads: Microsoft, Oracle, OpenShift, and more",https://www.youtube.com/watch?v=epnQ7Rm40lE,BRK1-028,本次會議主要探討如何在 Google Cloud 上釋放企業工作負載的價值，特別是 Microsoft、Oracle 和 OpenShift 等。講者強調 Google Cloud 提供的基礎設施優勢、降低總體擁有成本 (TCO) 的方法，以及利用 AI 驅動現代化的能力。客戶案例 Blackline 和 Kinaxis 分享了他們將工作負載遷移到 Google Cloud 的經驗，以及如何從中受益。,"Migration
+"
+Unmasking the AI cyberthreats with tales from the trenches,https://www.youtube.com/watch?v=nyDOyZGGs8A,BRK2-169,本次會議主要探討了生成式AI（Gen AI）在網路安全領域的應用，包括企業如何採用Gen AI、安全團隊如何應對Gen AI帶來的挑戰，以及不良行為者如何利用AI來提升攻擊能力。會議涵蓋了不同行業的實例，並展望了Gen AI對網路安全產業的未來影響。,"Security
+"
+Use BigQuery ML to build gen AI and predictive ML applications,https://www.youtube.com/watch?v=_jH01He_yxU,BRK2-093,本次會議主要介紹了 BigQuery ML 的生成式 AI 和預測性 ML 功能，以及如何使用這些功能構建有用的應用程式。BigQuery ML 是一個功能集合，允許使用者僅用幾行 SQL 語句在 BigQuery 中執行端到端的 AI 和 ML。它簡化了 ML 流程，擴大了組織內使用者對 ML 的訪問，並降低了複雜性。BigQuery ML 整合了 Vertex AI 和 GCP Cloud AI 服務，讓使用者可以直接從 BigQuery 使用 SQL 消耗 LLM 和其他模型。,"Applied AI
+"
+Use real-time data for AI/ML workloads in BigQuery,https://www.youtube.com/watch?v=SKv6bbwSL5I,BRK2-226,"本次會議主要探討如何利用 BigQuery 和 PubSub 等 Google Cloud 服務，構建高效、可擴展的即時資料處理平台，以支援 AI/ML 工作負載。核心觀點包括：
+
+*   **AI 的普及與即時性的重要性：** 各行各業都在擁抱 AI，而即時能力是 AI 發展的關鍵驅動力。
+*   **簡化串流架構：** 透過 PubSub 和 BigQuery 的整合，可以簡化事件驅動的 AI/ML 工作負載。
+*   **BigQuery 的核心地位：** BigQuery 在資料擷取、分析和事件驅動處理中都扮演著核心角色。
+*   **PubSub 的關鍵作用：** PubSub 提供可擴展、可靠的訊息傳遞服務，支援各種事件串流和擷取場景。
+*   **Flipkart 的成功案例：** Flipkart 利用 BigQuery 和 PubSub 構建了大規模的串流資料平台，支援其電商業務。
+*   **BigQuery Continuous Queries 的強大功能：** Continuous Queries 能夠以 SQL 為基礎，即時處理串流資料，並與 Vertex AI 模型整合，實現即時 AI 應用。","Data Analytics
+"
+Use the power of AI to migrate your SQL Server databases to PostgreSQL,https://www.youtube.com/watch?v=v_CbAwp0jGg,BRK2-116,"本次會議主要探討如何利用 AI 技術加速將 SQL Server 資料庫遷移至 PostgreSQL 的過程。核心觀點包括：
+
+*   傳統資料庫遷移的挑戰：組織結構、技術知識、以及手動操作帶來的時間和資源成本。
+*   AI 如何加速遷移：透過 Gemini 等 AI 模型，自動化程式碼轉換、提供程式碼解釋、以及優化程式碼。
+*   Google Cloud Database Migration Service (DMS) 的作用：提供一站式解決方案，涵蓋評估、規劃、轉換、遷移和測試等階段。
+*   低停機時間遷移的重要性：利用 Change Data Capture (CDC) 技術，確保應用程式在遷移過程中持續運行。
+*   Google Cloud 的投資與支援：提供資金和專家團隊 (Black Belt team) 協助客戶完成遷移。","Migration
+"
+Use threat profiles for a more proactive security approach,https://www.youtube.com/watch?v=C34csEMUfWA,BRK2-155,,
+Using AI to drive app quality across the SDLC,https://www.youtube.com/watch?v=1vTOG5QFOWY,SPTL207,"本次會議主要探討如何利用人工智慧（AI）來提升軟體開發生命週期（SDLC）中應用程式的品質。核心觀點包括：
+
+*   **AI 不僅用於編寫程式碼，更用於構建更優質的應用程式：** 強調 AI 的應用不應僅限於提高程式碼產出速度，更應著重於提升應用程式的整體品質，包括穩定性、安全性及效能。
+*   **利用 AI 代理（Agent）簡化複雜任務：** 介紹如何使用 AI 代理自動執行程式碼現代化、文件更新等任務，從而提高開發效率和應用程式品質。
+*   **應用程式設計中心（Application Design Center）加速基礎設施部署：** 展示如何利用 AI 輔助工具設計和部署應用程式的基礎設施，簡化配置過程並遵循最佳實踐。
+*   **CloudHub 和 Cloud Assist 簡化故障排除和成本優化：** 介紹如何使用 AI 驅動的工具快速診斷和解決雲端環境中的問題，並優化資源利用率以降低成本。
+*   **Firebase Studio 快速構建全端 AI 應用程式：** 展示如何使用 Firebase Studio 快速原型化和構建全端 AI 應用程式，簡化開發流程並加速產品上市。","Applied AI
+"
+Using AI to drive app quality across the SDLC (Recap),https://www.youtube.com/watch?v=xyDieEzxkzY,SPTL207-RC,,
+Virgin Media O2 partners with TCS for cloud-first data strategy,https://www.youtube.com/watch?v=AprIsuZFWn0,BRK1-150,"本次會議主要討論 Virgin Media O2 (VMO2) 與 TCS (Tata Consultancy Services) 及 Google Cloud 合作，實施雲優先數據策略的經驗與挑戰。重點包括：
+
+*   VMO2 透過與 TCS 及 Google Cloud 的合作，克服了傳統數據架構的限制，建立了現代化的雲原生數據平台。
+*   遷移過程面臨了技術複雜性、數據量龐大、以及需要整合新舊系統等多重挑戰。
+*   雲優先策略幫助 VMO2 提升了客戶體驗、加速了產品上市時間，並優化了網路投資。
+*   未來電信產業的發展趨勢包括人工智慧的應用、網路即服務 (NaaS) 的興起，以及物聯網 (IoT) 的擴展。
+*   組織需要建立穩固的數據基礎，才能充分利用人工智慧等新技術。","Data Analytics
+"
+vLLM on Google Cloud: Fast and easy-to-use LLM inference serving on TPUs and GPUs,https://www.youtube.com/watch?v=DqT2TTJxlDs,BRK2-225,"本次會議主要介紹了 vLLM 在 Google Cloud 上的應用，特別是針對 TPU 的支援，以及 vLLM 如何成為業界標準的 LLM 推論引擎。核心觀點包括：
+
+*   **vLLM 的重要性：** vLLM 解決了企業在部署和運行開源 LLM 時面臨的基礎設施挑戰，提供高效能、易於使用的推論服務。
+*   **TPU 支援：** vLLM 現在支援 Google 的 TPU，提供極具競爭力的效能價格比，並降低了開發者的使用門檻。
+*   **開源社群的力量：** vLLM 受益於活躍的開源社群，包括模型提供者、硬體供應商和使用者，共同推動專案的快速發展。
+*   **持續創新：** vLLM 不斷引入新的優化技術和硬體支援，以保持其在 LLM 推論領域的領先地位。
+*   **未來展望：** vLLM 將繼續優化對新硬體（如 Ironwood TPU）的支援，並探索新的模型架構和推論技術。","Applied AI
+"
+What’s new in BigQuery,https://www.youtube.com/watch?v=ds7fNK3m_dg,BRK1-023,本次會議主要介紹 BigQuery 的最新功能和創新，涵蓋三大重點：AI 輔助的智能體驗、統一的數據與 AI 基礎，以及靈活且面向未來的架構。Mattel 公司分享了他們如何利用 BigQuery 建立數據到 AI 的平台，將消費者意見轉化為可衡量的關鍵績效指標（KPI），並將原本需要一個月的工作縮短到一分鐘。Google Cloud 的產品負責人則詳細介紹了 BigQuery 在 Gemini 模型、數據工程代理、AI 查詢引擎、Spark 整合、BigQuery ML 和向量搜尋等方面的最新進展。,"Data Analytics
+"
+What’s new in Cloud Run,https://www.youtube.com/watch?v=PWPvX25R6dM,BRK2-057,"本次會議主要介紹了 Cloud Run 的最新功能和更新，涵蓋了開發者體驗、新的工作負載類型以及在 AI 應用方面的應用。重點包括：
+
+*   **Cloud Run Functions:** 將 Cloud Run 和 Cloud Functions 合併，提供更簡化的函數部署選項，並支援單一用途函數。
+*   **Cloud Storage 磁碟區掛載:** 允許將 Cloud Storage 儲存桶掛載為本地檔案系統，方便讀取大型媒體檔案和載入設定檔。
+*   **Firebase App Hosting:** 與 Firebase 團隊合作，為 Angular、Next.js 和 Astro 等框架提供量身打造的部署體驗。
+*   **Gemini Cloud Assist 整合:** 透過視覺化介面設計 Cloud Run 應用程式，產生 Terraform 設定和 G Cloud CLI 命令，並協助最佳化和疑難排解 Cloud Run 資源。
+*   **VPC 網路改進:** 降低了 Cloud Run 服務連接到 VPC 時所需的 IP 位址數量，並增加了對 Cloud Run Jobs 的直接 VPC 支援。
+*   **內建 Identity-Aware Proxy (IAP) 整合:** 透過單一核取方塊即可為內部 Cloud Run 服務啟用 IAP，簡化了身份驗證流程。
+*   **Cloud Run 威脅偵測:** 持續監控執行中的容器執行個體，以偵測惡意行為和已知漏洞。
+*   **多區域部署與服務健康狀態:** 結合多區域部署和服務健康狀態檢查，實現跨區域故障轉移，提高應用程式的可用性。
+*   **Cloud Run Worker Pools:** 推出新的 Worker Pool 資源，用於執行持續的背景工作，例如 Kafka 消費者、PubSub 拉取和 GitHub Actions 執行器。
+*   **Vertex AI Studio 整合:** 透過一鍵部署功能，將 Vertex AI Studio 中的原型部署到 Cloud Run。
+*   **Cloud Run GPUs:** Cloud Run 現在支援 GPU，可用於執行 AI 推論工作負載，例如即時 LLM 推論、影像生成和媒體處理。","Serverless
+"
+What’s new in Cloud Run (Recap),https://www.youtube.com/watch?v=fjgDwwGqvWw,BRK2-057-RC,,
+What’s new in Cross-Cloud Network security,https://www.youtube.com/watch?v=7hAjDvA4fpQ,BRK1-035,本次會議主要介紹了 Cross-Cloud Network 安全性的最新進展，重點關注兩個核心使用案例：保護分散式應用程式和保護全球前端應用程式。Google Cloud 強調在現有資料路徑上提供保護，同時避免增加網路複雜性。產品組合圍繞三大主題：實現強大的姿態管理、提供進階威脅防護，以及促進開放生態系統。,"Security
+"
+What’s new in data and AI governance,https://www.youtube.com/watch?v=yrKez5h4PWY,BRK1-025,"本次會議主要探討了數據和AI治理的最新趨勢，強調了AI時代下治理的重要性，以及Google Cloud在治理方面的創新。核心觀點包括：
+
+*   AI正在快速改變世界，但AI專案的失敗率很高，治理是成功的關鍵。
+*   數據孤島、快速變化和文化差異是治理面臨的主要挑戰。
+*   治理的目的是理解、信任和發現數據，從而簡化數據管理、加速洞察、符合法規並支持AI/ML專案。
+*   Google認為治理應該是普遍的、智能的、開放的。
+*   BigQuery Universal Catalog和Knowledge Engine是Google在治理方面的重要創新。","Applied AI
+"
+What’s new in Gemini Code Assist,https://www.youtube.com/watch?v=WjFJr5mLxsY,BRK1-037,"本次會議主要介紹 Gemini Code Assist 的最新功能和未來發展方向，強調其在提升開發者生產力、改善程式碼品質以及簡化軟體開發生命週期中的作用。核心觀點包括：
+
+*   **以開發者為中心：** 致力於提供快速、簡單且易於使用的開發者體驗。
+*   **企業級解決方案：** 專為大型企業設計，提供安全、可靠且可擴展的服務。
+*   **涵蓋完整軟體開發生命週期：** 不僅僅關注程式碼編寫，更涵蓋規劃、建構、測試、部署和監控等各個階段。
+*   **情境感知程式碼輔助：** 根據企業特定的程式碼風格、標準和函式庫，提供客製化的程式碼建議和自動完成功能。
+*   **品質與效能並重：** 將生產力提升作為提高軟體交付效能的關鍵指標。
+*   **AI 驅動的工具與代理：** 利用 AI 技術自動化重複性任務，並提供智慧化的程式碼審查和問題解決方案。","AI
+"
+What’s new in Looker: AI for BI,https://www.youtube.com/watch?v=wUPgHQMe8tk,BRK1-024,本次會議主要介紹了 Looker 平台在 AI 方面的最新進展，包括統一 Looker Studio 和 Looker、在整個平台中融入 Gemini AI，以及強化 Looker 的開放語義模型。重點在於利用 AI 簡化 BI 的使用，使其更易於存取，並解決資料專家和分析師不足的問題。,"Applied AI
+"
+What’s new with Cloud Storage,https://www.youtube.com/watch?v=owvXIIl8LdU,BRK2-025,"本次會議主要介紹 Google Cloud Storage 在 AI 時代下的最新發展與功能，涵蓋高效能儲存、AI 驅動的儲存智慧、以及簡化雲端遷移的解決方案。核心觀點包括：
+
+- **AI 需求推動儲存創新：** AI 工作負載需要更高的吞吐量、更低的延遲和並行處理能力，促使 Google Cloud Storage 不斷創新。
+- **高效能儲存解決方案：** 推出 Rapid Storage 和 Managed Lustre 等產品，滿足 AI 和資料湖分析對速度和規模的需求。
+- **儲存智慧提升管理效率：** 利用 AI 自動化儲存管理，提供更深入的資料洞察和簡化的操作流程。
+- **簡化雲端遷移：** 提供 Google Cloud NetApp Volumes 等解決方案，協助企業輕鬆將檔案資料遷移至雲端。
+- **資料保護與備份：** 推出中央備份服務，提供跨多種工作負載的一致性備份和勒索軟體防護。","Storage
+"
+What’s new with Gemini 2.5,https://www.youtube.com/watch?v=d-1qpufoano,BRK2-146,本次會議主要介紹了 Gemini 2.5 Pro 的最新進展，包括其卓越的推理能力、動態思考特性，以及在編碼、長文本處理和多模態應用方面的改進。同時也預告了即將推出的 Gemini 2.5 Flash，強調其混合思考模式和可調整的思考預算。Shopify 的產品副總裁 David Bushermann 展示了基於 Gemini 的即時 API 如何為商家提供無限支援，並強調人機協作的重要性。,"Gemini
+"
+What’s new with Google Agentspace,https://www.youtube.com/watch?v=G7yjAAHQ2FU,BRK2-217,Google Agent Space 旨在解決企業導入生成式 AI 時面臨的數據分散、安全隱私、以及 Agent 擴散等挑戰。它提供一個統一的平台，整合企業內部的各種應用程式和數據，並結合 Google 最先進的 AI 模型和 Agent 技術，協助企業提升員工生產力、改善整體營運效率。Agent Space 的核心功能包括：跨應用程式的單一搜尋介面、基於企業數據的生成式 AI 應用、以及 Agent 的建置、部署和管理。,"Applied AI
+"
+What’s new with Google Distributed Cloud,https://www.youtube.com/watch?v=Wlvllf4RidE,BRK2-186,"本次會議主要介紹 Google 分散式雲端（Google Distributed Cloud, GDC）的最新進展，強調 GDC 如何協助客戶在雲端環境之外，也能夠運用 Google Cloud 的強大功能，特別是在生成式 AI 領域。會議重點包括：
+
+*   **GDC 的定位與價值：** 解決客戶因延遲、頻寬、資料落地性、資料安全等因素，無法將工作負載遷移至公有雲的問題，讓客戶在本地環境也能使用 Google Cloud 的服務。
+*   **Gemini 在 GDC 上的推出：** 將 Google 最強大的 AI 模型 Gemini 引入本地環境，讓客戶在本地也能使用最先進的 AI 技術。
+*   **GDC 的多種部署模式：** 提供軟體、連線、氣隙等多種部署模式，滿足不同客戶的需求。
+*   **Vertex AI 平台在 GDC 上的應用：** 提供完整的 AI 開發和部署平台，加速客戶在本地環境開發和部署 AI 應用。
+*   **Agent Space Search 在 GDC 上的推出：** 提供企業級的搜尋能力，讓員工能夠更輕鬆地找到所需的資訊。
+*   **GDC 在邊緣運算上的應用：** 透過 GDC 連線伺服器和氣隙設備，支援零售和製造業客戶在邊緣進行推論。
+*   **HTX 的 GDC 採用案例：** 分享新加坡政府機構 HTX 如何利用 GDC 滿足其在公共安全和安全領域的需求。","Applied AI
+"
+What's new with grounding LLMs in Vertex AI,https://www.youtube.com/watch?v=eqmmbLNuGkQ,BRK2-199,,
+"What’s new with IAM and Org Policy: Access risk, at-scale governance and AI",https://www.youtube.com/watch?v=Lourkw64AVM,BRK1-068,"本次會議主要討論了 Google Cloud Platform (GCP) 中 IAM (Identity and Access Management) 和 Org Policy 的最新發展，涵蓋了存取風險管理、資源的大規模治理，以及人工智慧 (AI) 在這些領域的應用。重點包括：
+
+*   **安全平台：** GCP 的安全平台由資源管理、雲端治理、身分平台和存取管理組成，並透過 AI 加強。
+*   **資源管理：** 資源管理正在轉向以應用程式為中心，允許使用者直接在資料夾層級管理應用程式，跨越多個專案。
+*   **雲端治理：** 透過組織政策 (Org Policy) 和自訂限制 (Custom Constraints) 確保資源的安全配置，並推出 Google Cloud Security Baseline 以提供預設的安全設定。
+*   **身分平台：** 強調非人類身分 (Non-Human Identities, NHI) 的重要性，並提供 Workforce Identity Federation 以簡化人類身分驗證。
+*   **存取管理：** 除了傳統的允許 (Allow) 之外，還強調特權存取管理 (Privileged Access Management, PAM)、即時存取 (Just-In-Time Access, JIT)、權限管理 (Entitlement Management) 和主體存取邊界 (Principal Access Boundary, PAB) 等防禦縱深策略。
+*   **存取風險：** 透過多重驗證 (Multi-Factor Authentication, MFA)、重新驗證 (Re-authentication) 和內建於 IAM 的身分威脅偵測與回應 (Identity Threat Detection and Response, ITDR) 來降低存取風險。
+*   **AI 應用：** 利用 Gemini AI 協助撰寫自訂限制、選擇角色和改善整體安全態勢。","Security
+"
+What’s new with Memorystore for Valkey,https://www.youtube.com/watch?v=R6ohpekfiRo,BRK2-110,本次會議主要介紹了 Google Cloud 的 Memorystore for Valkey 的最新進展，包括 Valkey 的起源、GA（正式發布）的重要意義、相較於 Redis 的優勢、以及 Memorystore for Valkey 提供的各種功能和未來發展方向。重點強調 Valkey 作為 Redis 的開源替代方案，在性能、可靠性和企業級功能方面都進行了優化，並且與 Google Cloud 深度整合，為使用者提供更強大的緩存解決方案。,"Databases
+"
+What's next for Google Cloud databases in the AI era,https://www.youtube.com/watch?v=L9WmdZD6z8E,SPTL200,"本次會議聚焦於 Google Cloud 資料庫在 AI 時代的最新創新，以及如何協助客戶建構資料驅動的應用程式。核心觀點包括：
+
+*   **AI 應用程式與代理程式的建構：** 強調資料庫在代理工作流程中的重要性，以及如何利用即時資料做出高品質的決策。
+*   **更多 API 提供給開發者：** 致力於開放性，提供多樣的資料庫引擎和資料模型選擇，以及跨平台部署的自由。
+*   **加速遷移與現代化至 Google Cloud：** 提供業界領先的託管服務，簡化資料庫管理，並提供具成本效益的解決方案。
+*   **AlloyDB 的 AI 創新：** 整合 Agent Space、自然語言支援、向量搜尋等功能，使開發者能更輕鬆地建構智慧型應用程式。
+*   **Spanner 的多模型支援：** 結合關聯式、圖形、鍵值、全文檢索和向量搜尋，提供高度擴展性的 AI 工作負載解決方案。
+*   **Firestore 的 MongoDB 相容性：** 為開發者提供更多選擇，利用現有的 MongoDB 應用程式程式碼和工具，同時享受 Firestore 的可擴展性和高可用性。","Databases
+"
+What's next for Google Cloud databases in the AI era (Recap),https://www.youtube.com/watch?v=YAHTNVYhAJo,SPTL200-RC,,
+What’s next for security professionals,https://www.youtube.com/watch?v=xE1MmoiHiLc,SPTL206,"本次會議聚焦網路安全領域的最新趨勢、挑戰與應對策略，強調了威脅情資的重要性、全方位可視性的必要性、整合優化的安全工作流程，以及人工智慧在網路安全防禦中的關鍵作用。會議重點包括：
+
+*   **威脅情資的重要性：** 掌握最新的威脅資訊，持續監控潛在風險。
+*   **全方位可視性：** 實現對所有網路介面（包括網路、SaaS、端點、OT 等）的安全數據可視性，以便快速搜尋和偵測威脅。
+*   **整合優化的工作流程：** 整合威脅偵測、調查和回應（TDIR）流程，並利用人工智慧加速流程。
+*   **人工智慧的應用：** 利用人工智慧提升網路安全防禦能力，並應對攻擊者使用人工智慧發動的攻擊。
+*   **Google Unified Security (GUS)：** 整合 Google 的安全產品和服務，提供統一的安全解決方案。
+*   **與生態系統合作：** 強調與第三方安全廠商合作，共同提升網路安全防禦能力。
+*   **零信任安全：** 強調零信任安全模型的重要性，並提供相應的解決方案。
+*   **雲安全：** 強調雲安全的重要性，並提供相應的解決方案。
+*   **AI安全：** 強調AI安全的重要性，並提供相應的解決方案。","Security
+"
+What’s next for security professionals (Recap),https://www.youtube.com/watch?v=_4rSGvISsCA,SPTL206-RC,,
+What’s next in compute and AI infrastructure,https://www.youtube.com/watch?v=2LPUgszg_jk,SPTL203,本次會議主要探討 Google 在運算和 AI 基礎設施方面的最新進展，旨在幫助企業創新並釋放業務價值。Google 強調以工作負載優化的基礎設施為中心，並在 AI 領域提供端到端的整合系統，包括 AI 優化的硬體、軟體和消費模式，稱之為 AI 超級電腦。重點包括新一代 TPU（Ironwood）、GPU 策略、Cluster Director 軟體、HyperDisk EXA pools、GKE Inference Gateway 以及 Pathways 的應用。同時也關注通用計算資源的優化，以及如何幫助客戶遷移企業工作負載到 Google Cloud。,"Applied AI
+"
+What’s next in compute and AI infrastructure (Recap),https://www.youtube.com/watch?v=7pSIjdGUV38,SPTL203-RC,,
+What’s next with generative AI at Google Cloud,https://www.youtube.com/watch?v=3UWUaEJy7QE,SPTL201,本次會議聚焦於 Google Cloud 在生成式 AI 領域的最新進展，特別是圍繞 Agent Space 和 Vertex AI 兩大核心平台。重點強調了 Google Cloud 如何透過提供最全面的平台，賦能企業快速、高效且負責任地構建和採用 AI Agents。會議中發布了多項新功能和服務，旨在簡化模型開發、連接、部署和運營的流程，並強調了企業級的安全性、資料治理和合規性。,"Applied AI
+"
+What’s next with generative AI at Google Cloud (Recap),https://www.youtube.com/watch?v=Y7Y6ZqL1VmA,SPTL201-RC,,
+Why leading enterprises migrate to BigQuery and what they learned along the way,https://www.youtube.com/watch?v=XxOjvZdoCgY,BRK3-022,"本次會議主要探討了企業遷移到 Google BigQuery 的原因、方法以及過程中獲得的經驗教訓。核心觀點包括：
+
+*   **現代化的必要性：** BigQuery 提供數據、AI 和各種類型的數據於單一平台，是企業現代化的理想選擇。
+*   **BigQuery 遷移服務的優勢：** Google 提供一系列免費的遷移服務，並透過 Gemini 和 AI 來減少人工干預和錯誤。
+*   **遷移的考量因素：** 企業在決定遷移時，需要考慮風險、價格效能和複雜性等因素。
+*   **遷移生命週期的全面性：** BigQuery 遷移服務涵蓋遷移生命週期的所有階段，並提供自動化和智慧化的工具。
+*   **自動化程度高：** BigQuery 遷移服務在自動評估和程式碼翻譯方面具有很高的自動化率。
+*   **Gemini 的應用：** 透過 Gemini 增強的翻譯功能，可以處理各種程式碼，並提供優化的建議。
+*   **資料治理的重要性：** 資料沿襲 (Lineage) 功能對於資料治理和符合法規至關重要。
+*   **成本效益：** BigQuery 在成本效益方面具有優勢，可以降低企業的總體擁有成本 (TCO)。
+*   **遷移是一個大型專案：** 遷移是一個複雜的過程，需要充分的溝通、盤點和規劃。","Migration
+"
+Why leading enterprises migrate to BigQuery and what they learned along the way (Recap),https://www.youtube.com/watch?v=zT1RbLtaY5M,BRK3-022-RC,,
+World models: What lies ahead,https://www.youtube.com/watch?v=DhWYqPPt7JQ,BRK3-021,"本次演講主要探討世界模型（World Models）的概念、應用以及未來發展方向。講者 Tim 強調世界模型對於人工智慧理解和互動物理世界的重要性，並介紹了 Google 和 DeepMind 在此領域的三個重要項目：Genie 2、Veo 2 和 Gemini 2.0 的原生圖像生成能力。核心觀點包括：
+
+*   **世界模型的重要性：** 使 AI 能夠像人類一樣理解、互動和推理物理世界。
+*   **Genie 2 的能力：** 作為一個大型基礎世界模型，能夠根據鍵盤和滑鼠操作生成互動式環境，並具備長期記憶和物件互動能力。
+*   **Veo 2 的進展：** 作為 Google 的前沿影片生成模型，在真實感、運動能力和相機控制方面取得了顯著進展，有助於建立更精確的物理世界模型。
+*   **Gemini 2.0 的圖像生成：** 透過語言模型直接生成和編輯圖像，展現了對物理世界的理解和推理能力，例如模擬開門步驟和不同視角的場景生成。
+*   **物理智能（Physical Intelligence）的未來：** 世界模型與語言模型的結合，將推動 AI 在物理世界中更好地推理和行動，並與機器人技術結合，實現更有用的機器人應用。
+*   **世界模擬（World Simulation）的願景：** 隨著模型變得越來越真實和強大，最終可能實現對現實世界的模擬。","Applied AI
+"
+You can’t spell entertainment without AI: What's behind game-changing strategies,https://www.youtube.com/watch?v=QpenHcPR82I,SPTL211,"本次會議邀請了 Sherlock Company 的 CEO Simon Clark，以及 Weather Channel 的 IT 戰略與創新副總裁 Doran Schmidt，共同探討 AI 如何在娛樂產業中發揮作用。核心觀點包括：
+
+*   AI 不僅僅是炒作，而是已經在實際應用中創造價值，改變商業模式，甚至拯救生命。
+*   AI 的應用需要跨部門的協作，才能充分發揮其價值。
+*   AI 的發展需要不斷的實驗和學習，才能找到最適合的應用場景。
+*   AI 的應用需要考慮成本效益，並不斷優化模型和流程。
+*   AI 的普及需要提高員工的 AI 素養，讓每個人都能夠有效地使用 AI 工具。","Applied AI
+"
+"Your model, your data: Security and privacy protection for the Quantum Age",https://www.youtube.com/watch?v=jvWPfrhRUbM,BRK1-066,"本次會議主要探討在人工智慧時代，如何保障模型和數據的安全與隱私。核心觀點包括：
+
+*   **隱私保護的重要性：** 在AI應用中，無論是模型訓練、微調還是推理，數據的機密性至關重要。
+*   **不同行業的獨特需求：** 金融、醫療、政府等行業在數據安全和隱私方面有各自不同的挑戰和需求。
+*   **機密運算的價值：** 機密運算技術能夠保護模型的智慧財產權，並促進安全的數據協作。
+*   **量子計算的威脅與應對：** 量子計算的發展對現有加密體系構成威脅，需要提前部署量子安全加密技術。
+*   **行業合作的重要性：** 需要整個行業共同努力，推動機密運算技術的發展和應用。","Security
+"

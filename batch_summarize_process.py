@@ -14,11 +14,14 @@ from datetime import datetime, timedelta
 
 # 常量配置
 MAX_REQUESTS_PER_MINUTE = 15  # Gemini API 限制: 15 RPM
-DEFAULT_INPUT_DIR = "/Users/cfh00896102/Github/google_next/data/test"
+DEFAULT_INPUT_DIR = "/Users/cfh00896102/Github/google_next/data/google_next_txt"
 DEFAULT_OUTPUT_DIR = "/Users/cfh00896102/Github/google_next/summaries"
 DEFAULT_OUTPUT_FORMAT = "md"
 DEFAULT_WORKERS = 4
 SUPPORTED_FILE_EXTENSIONS = ['.txt', '.md', '.text']
+REQUEST_INTERVAL = 4  # 每個請求間隔秒數，對應 15RPM
+MAX_RETRIES = 3
+RETRY_DELAY = 10  # 重試間隔秒數
 
 # 鎖對象
 print_lock = threading.Lock()
@@ -81,33 +84,51 @@ def save_html_summary(summarizer, summary, file_path):
     summarizer.save_email_html(summary, html_output_path, meeting_title)
     safe_print(f"HTML格式總結已保存到: {html_output_path}")
 
+def retry_on_exception(max_retries=3, wait_seconds=5):
+    """裝飾器：遇到例外時自動重試"""
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for attempt in range(1, max_retries + 1):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    safe_print(f"錯誤：{e}，第 {attempt} 次重試...")
+                    if attempt < max_retries:
+                        time.sleep(wait_seconds * attempt)
+                    else:
+                        safe_print(f"重試失敗，放棄該任務。")
+                        return None
+        return wrapper
+    return decorator
+
+@retry_on_exception(max_retries=3, wait_seconds=5)
 def process_file(file_info):
-    """處理單個逐字稿文件"""
+    """處理單個逐字稿文件（自動重試與API限速）"""
     file_path, output_dir, output_format, total_files, file_index = file_info
     summarizer = TranscriptSummarizer()
     safe_print(f"處理 ({file_index + 1}/{total_files}): {file_path.name}")
-    
+
     transcript_text = read_transcript(file_path)
     if not transcript_text:
         return False
 
-    if not wait_for_api_quota():
-        safe_print(f"無法獲取 API 配額，跳過處理 {file_path.name}")
-        return False
-
-    summary = None
-    for retry_count in range(3):
+    for attempt in range(1, MAX_RETRIES + 1):
         try:
             print(file_path.name)
             summary = summarizer.summarize(transcript_text, file_path.name[:-4])
+            if not summary or summary.get("status") == "error":
+                raise Exception(summary.get("error_message", "未知錯誤"))
             break
         except Exception as e:
-            safe_print(f"生成總結時出錯 (嘗試 {retry_count + 1}/3): {e}")
-            time.sleep(5 * (retry_count + 1))
-    
-    if not summary:
-        safe_print(f"無法為 {file_path.name} 生成總結，跳過")
-        return False
+            safe_print(f"生成總結時出錯 (嘗試第{attempt}次): {e}")
+            if attempt < MAX_RETRIES:
+                safe_print(f"{RETRY_DELAY}秒後重試...")
+                time.sleep(RETRY_DELAY)
+            else:
+                safe_print(f"{file_path.name} 已達最大重試次數，跳過。")
+                return False
+        finally:
+            time.sleep(REQUEST_INTERVAL)  # 每次API請求後都sleep，確保不超速
 
     output_filename = file_path.stem + f"_summary.{output_format}"
     format_dir = os.path.join(output_dir, output_format)

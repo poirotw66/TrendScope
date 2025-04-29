@@ -7,6 +7,7 @@ import sys
 import json
 import google.generativeai as genai
 from pathlib import Path
+import re
 
 # 添加專案根目錄到系統路徑
 sys.path.append(str(Path(__file__).parent.parent))
@@ -36,8 +37,8 @@ class TranscriptSummarizer:
         """
         if len(transcript_text) > MAX_TRANSCRIPT_LENGTH:
             print(f"警告: 文本長度超過{MAX_TRANSCRIPT_LENGTH}字符，可能需要分段處理")
-        url = meeting_list.get_url_by_meeting_name(meeting_title)
-        print(f"URL: {url}, MEETing: {meeting_title}")
+        url = meeting_list.get_url(meeting_title)
+        print(f"URL: {url}, ,Meeting: {meeting_title}")
         prompt = f"""
         請遵循以下步驟處理提供的會議逐字稿：
 
@@ -72,7 +73,7 @@ class TranscriptSummarizer:
         3.  輸出要求：
             *   最終輸出內容僅包含步驟 2所述的會議總結。
             *   請勿輸出校對過程、校對後的逐字稿、或任何非總結內容的額外說明文字。
-            *   輸出格式必須為Markdown格式。
+            *   請產生純文字形式的 markdown 內容，不要加上程式碼區塊（例如 markdown 或 ），只要直接輸出結果。
             *   輸出語言必須為繁體中文。
             *   總結的段落之間要有明確的分隔。
         會議逐字稿:
@@ -231,13 +232,13 @@ class TranscriptSummarizer:
         in_key_takeaways = False
         
         for i, line in enumerate(lines):
-            if line.startswith('## Key Takeaways'):
+            if line.startswith('## 1. 核心觀點'):
                 in_key_takeaways = True
                 continue
             
             if in_key_takeaways:
                 # 如果遇到下一個段落標題，結束提取
-                if line.startswith('## ') and not line.startswith('## Key Takeaways'):
+                if line.startswith('## ') and not line.startswith('## 1. 核心觀點'):
                     break
                 key_takeaways += line + '\n'
         
@@ -276,9 +277,14 @@ class TranscriptSummarizer:
                 df['Key'] = ""
             
             # 尋找對應的會議標題並更新 Key 欄位
+            def normalize_filename(title):
+                # 移除不合法字元，只保留中英文、數字、空格、底線、點
+                title = re.sub(r'[\\/:*?"<>|]', '', title)
+                title = title.strip()
+                return title
             found = False
             for i, row in df.iterrows():
-                if str(row['Meeting']) == meeting_title:
+                if normalize_filename(str(row['Meeting'])) == normalize_filename(meeting_title):
                     df.at[i, 'Key'] = key_takeaways
                     found = True
                     break
@@ -310,7 +316,7 @@ class TranscriptSummarizer:
     def generate_email_html(self, summary_text, meeting_title=None):
         url = ""
         if meeting_title:
-            url = meeting_list.get_url_by_meeting_name(meeting_title)
+            url = meeting_list.get_url(meeting_title)
         # 解析 markdown，提取標題、影片連結、中文標題與三大段落
         lines = summary_text.strip().split('\n')
         en_title = ""
@@ -640,7 +646,7 @@ class TranscriptSummarizer:
         # 獲取會議URL
         url = ""
         if meeting_title:
-            url = meeting_list.get_url_by_meeting_name(meeting_title)
+            url = meeting_list.get_url(meeting_title)
         
         html_content = self.generate_email_html(summary["summary"], meeting_title)
         

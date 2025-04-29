@@ -1,2 +1,8 @@
 /.DS_Store
 /~$google_next_sessions.xlsx
+*.html
+output/
+google_next_sessions/
+google_next25_reports
+.DS_Store
+__pycache__/
