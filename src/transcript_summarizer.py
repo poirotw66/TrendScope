@@ -257,7 +257,7 @@ class TranscriptSummarizer:
             from pathlib import Path
             
             # Excel 檔案路徑
-            excel_path = Path.home() / "Github" / "google_next" / "google_next_sessions.xlsx"
+            excel_path = Path.home() / "Github" / "google_next" / "GTC25.xlsx"
             
             # 檢查檔案是否存在
             if not excel_path.exists():
@@ -279,7 +279,7 @@ class TranscriptSummarizer:
             # 尋找對應的會議標題並更新 Key 欄位
             def normalize_filename(title):
                 # 移除不合法字元，只保留中英文、數字、空格、底線、點
-                title = re.sub(r'[\\/:*?"<>|]', '', title)
+                title = re.sub(r'[\\/:*?"_<>|]', '', title)
                 title = title.strip()
                 return title
             found = False

@@ -16,7 +16,7 @@ class MeetingList:
     def __init__(self, excel_path=None):
         if excel_path is None:
             project_root = Path(__file__).parent.parent
-            excel_path = os.path.join(project_root, "google_next_sessions.xlsx")
+            excel_path = os.path.join(project_root, "GTC25.xlsx")
         self.excel_path = excel_path
         self.df = self._load_excel()
 
@@ -40,7 +40,7 @@ class MeetingList:
             return ""
         # 標準化查詢字串
         def normalize(title):
-            title = re.sub(r'[\\/:*?"<>|]', '', title)
+            title = re.sub(r'[\\/:_*?"<>|]', '', title)
             title = title.strip()
             return title
         target = normalize(meeting_name)

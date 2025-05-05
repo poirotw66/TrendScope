@@ -3,15 +3,15 @@ import os
 import re
 from src.batch_md_to_html import batch_md_to_html
 
-output_md_dir = "./output/topic_md"
-output_html_dir = "./report/topic"
-session_html_dir = "./report/topic/session"
+output_md_dir = "./GTC_summary/topic_md"
+output_html_dir = "./GTC_report/topic"
+session_html_dir = "./GTC_summary/topic/session"
 # 確保輸出資料夾存在
 os.makedirs(output_md_dir, exist_ok=True)
 
 def normalize_filename(title):
     # 移除不合法字元，只保留中英文、數字、空格、底線、點
-    title = re.sub(r'[\\/:*?"<>|]', '', title)
+    title = re.sub(r'[\\/:*?"_<>|]', '', title)
     title = title.strip()
     return title
 
@@ -52,6 +52,8 @@ def export_topic_markdown(df, output_md_dir, top_n=3):
         print(f"已儲存 {md_path}")
 
 # 讀取 CSV 檔案
-df = pd.read_csv("google_next_sessions.csv")
+df = pd.read_csv("GTC25.csv")
 export_topic_markdown(df, output_md_dir, top_n=20)
-batch_md_to_html(output_md_dir, output_html_dir, 2)
+batch_md_to_html(output_md_dir, output_html_dir, 1)
+# google next 2
+# gtc25 1

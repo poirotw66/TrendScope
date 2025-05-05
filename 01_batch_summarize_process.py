@@ -14,8 +14,10 @@ from datetime import datetime, timedelta
 
 # 常量配置
 MAX_REQUESTS_PER_MINUTE = 15  # Gemini API 限制: 15 RPM
-DEFAULT_INPUT_DIR = "/Users/cfh00896102/Github/google_next/data/google_next_txt"
-DEFAULT_OUTPUT_DIR = "/Users/cfh00896102/Github/google_next/summaries"
+# DEFAULT_INPUT_DIR = "/Users/cfh00896102/Github/google_next/data/google_next_txt"
+# DEFAULT_OUTPUT_DIR = "/Users/cfh00896102/Github/google_next/summaries"
+DEFAULT_INPUT_DIR = "/Users/cfh00896102/Github/google_next/data/test"
+DEFAULT_OUTPUT_DIR = "/Users/cfh00896102/Github/google_next/GTC_summary"
 DEFAULT_OUTPUT_FORMAT = "md"
 DEFAULT_WORKERS = 4
 SUPPORTED_FILE_EXTENSIONS = ['.txt', '.md', '.text']
@@ -96,7 +98,7 @@ def retry_on_exception(max_retries=3, wait_seconds=5):
                     if attempt < max_retries:
                         time.sleep(wait_seconds * attempt)
                     else:
-                        safe_print(f"重試失敗，放棄該任務。")
+                        safe_print("重試失敗，放棄該任務。")
                         return None
         return wrapper
     return decorator
@@ -115,7 +117,7 @@ def process_file(file_info):
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             print(file_path.name)
-            summary = summarizer.summarize(transcript_text, file_path.name[:-4])
+            summary = summarizer.summarize(transcript_text, file_path.name[4:-4])
             if not summary or summary.get("status") == "error":
                 raise Exception(summary.get("error_message", "未知錯誤"))
             break
