@@ -1,10 +1,26 @@
-"""
-配置文件，儲存API密鑰和其他設置
-"""
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-# Gemini API配置
-GEMINI_API_KEY = "AIzaSyCTiN1A16TmHtZnC4tXGkzYzzAhN3bREOU"  # 請替換為您的實際API密鑰
+# 載入 .env 檔案中的環境變數
+load_dotenv()
 
-# 應用配置
-MAX_TRANSCRIPT_LENGTH = 1048576  # 單次處理的最大文本長度
-DEFAULT_LANGUAGE = "zh-TW"  # 預設語言
+# 專案根目錄
+PROJECT_ROOT = Path(__file__).parent.parent
+
+# API 配置
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+MAX_REQUESTS_PER_MINUTE = int(os.environ.get("MAX_REQUESTS_PER_MINUTE", "15"))
+REQUEST_INTERVAL = float(os.environ.get("REQUEST_INTERVAL", "4"))
+MAX_RETRIES = int(os.environ.get("MAX_RETRIES", "3"))
+RETRY_DELAY = int(os.environ.get("RETRY_DELAY", "10"))
+
+# 檔案路徑
+DEFAULT_INPUT_DIR = os.environ.get("DEFAULT_INPUT_DIR", os.path.join(PROJECT_ROOT, "data/test"))
+DEFAULT_OUTPUT_DIR = os.environ.get("DEFAULT_OUTPUT_DIR", os.path.join(PROJECT_ROOT, "output/summaries"))
+SUPPORTED_FILE_EXTENSIONS = ['.txt', '.md', '.text']
+
+# 處理配置
+DEFAULT_OUTPUT_FORMAT = os.environ.get("DEFAULT_OUTPUT_FORMAT", "md")
+DEFAULT_WORKERS = int(os.environ.get("DEFAULT_WORKERS", "4"))
+MAX_TRANSCRIPT_LENGTH = int(os.environ.get("MAX_TRANSCRIPT_LENGTH", "30000"))

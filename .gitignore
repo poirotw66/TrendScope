@@ -8,4 +8,8 @@ google_next25_reports
 __pycache__/
 總覽/
 data/
-
+.env
+*.log
+__pycache__/
+*.py[cod]
+*$py.class

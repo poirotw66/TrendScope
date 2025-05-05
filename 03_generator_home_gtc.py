@@ -100,7 +100,7 @@ def markdown_to_email_html(md_content):
         # safe_filename = re.sub(r'[^\w\s-]', '', meeting_title)
         meeting_title_link = re.sub(r'[\\/:*?_"<>|]', '', meeting_title)
         meeting_title_link = meeting_title_link.strip()
-        link = f"./topic/session/{meeting_title_link}_summary.html"
+        link = f"./topic/session/{meeting_title_link}.html"
         return f'<div class="meeting-item"><h2><a href="{link}" class="meeting-title-link">{meeting_title}</a></h2>'
     
     html_content = re.sub(
