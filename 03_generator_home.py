@@ -221,7 +221,7 @@ def markdown_to_email_html(md_content, config):
     processed_html_content = meeting_items_split[0]
     for i in range(1, len(meeting_items_split), 2):
         item_start_tag = meeting_items_split[i]
-        item_content = meeting_items_split[i+1] if (i+1) < len(meeting_items_split) else ""
+        item_content = meeting_items_split[i + 1] if (i + 1) < len(meeting_items_split) else ""
         next_item_match = re.search(r'<div class="(?:meeting-item|category-section)">', item_content)
         if next_item_match:
             current_item_content = item_content[:next_item_match.start()]
@@ -242,7 +242,7 @@ def markdown_to_email_html(md_content, config):
     processed_html_content_cat = category_sections_split[0]
     for i in range(1, len(category_sections_split), 2):
         section_start_tag = category_sections_split[i]
-        section_content = category_sections_split[i+1] if (i+1) < len(category_sections_split) else ""
+        section_content = category_sections_split[i + 1] if (i + 1) < len(category_sections_split) else ""
         next_section_match = re.search(r'<div class="category-section">', section_content)
         if next_section_match:
             current_section_content = section_content[:next_section_match.start()]
