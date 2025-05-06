@@ -9,6 +9,8 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from src.utils.logging_utils import logger
 from bs4 import BeautifulSoup
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 CONFERENCE_CONFIG = {
     "google_next": {

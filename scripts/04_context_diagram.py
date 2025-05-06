@@ -2,6 +2,8 @@ import pandas as pd
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # 載入 .env 文件中的環境變數
 load_dotenv()

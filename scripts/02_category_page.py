@@ -3,6 +3,8 @@ import os
 import re
 from pathlib import Path
 from dotenv import load_dotenv
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 load_dotenv()
 
