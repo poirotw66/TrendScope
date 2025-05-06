@@ -70,7 +70,7 @@ def export_topic_markdown(df: pd.DataFrame, md_dir: Path, session_dir: Path, out
             if html_path:
                 md_content += f"### <a href=\"{html_path}\" style=\"text-decoration: none; color: inherit;\">Detailed Summary Page</a>\n"
             else:
-                md_content += f"### Detailed Summary Page (Not Found)\n"
+                md_content += "### Detailed Summary Page (Not Found)\n"
             md_content += f"- Link: [{url}]({url})\n"
             md_content += f"- Summary: {keytakeway}\n\n"
 

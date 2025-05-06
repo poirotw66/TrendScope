@@ -74,8 +74,8 @@ def markdown_to_email_html(md_content, index=0):
     """Converts Markdown content to a styled HTML email format using a template."""
     # Check if template loading failed during module import
     if "Error:" in EMAIL_TEMPLATE_CONTENT:
-         logger.error("Cannot generate HTML because the email template failed to load.")
-         return EMAIL_TEMPLATE_CONTENT
+        logger.error("Cannot generate HTML because the email template failed to load.")
+        return EMAIL_TEMPLATE_CONTENT
 
     html_content = markdown.markdown(md_content)
     title_match = re.search(r'<h1>(.*?)</h1>', html_content)
@@ -160,8 +160,8 @@ def batch_md_to_html(md_dir_str, html_dir_str, index_param=0):
 
         # Check if markdown_to_email_html returned an error string
         if isinstance(html_content, str) and "Error:" in html_content:
-             logger.error(f"Skipping {md_file.name} due to template loading error.")
-             continue # Skip this file if template had issues
+            logger.error(f"Skipping {md_file.name} due to template loading error.")
+            continue # Skip this file if template had issues
 
         html_filename = md_file.stem + '.html'
         html_path = html_dir / html_filename
