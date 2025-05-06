@@ -1,48 +1,65 @@
 import logging
 import threading
 from datetime import datetime
+from pathlib import Path
+import os
 
-# 線程安全的日誌設定
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+
 class ThreadSafeLogger:
-    def __init__(self, name="google_next", level=logging.INFO):
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(level)
-        self.lock = threading.Lock()
-        
-        # 避免重複設定
-        if not self.logger.handlers:
-            # 控制台輸出
-            console = logging.StreamHandler()
-            console.setLevel(level)
-            formatter = logging.Formatter(
-                '%(asctime)s - %(levelname)s - %(message)s',
-                datefmt='%Y-%m-%d %H:%M:%S'
-            )
-            console.setFormatter(formatter)
-            self.logger.addHandler(console)
-            
-            # 檔案輸出
-            log_file = f"google_next_{datetime.now().strftime('%Y%m%d')}.log"
-            file_handler = logging.FileHandler(log_file, encoding='utf-8')
-            file_handler.setLevel(level)
-            file_handler.setFormatter(formatter)
-            self.logger.addHandler(file_handler)
-    
-    def info(self, message):
-        with self.lock:
-            self.logger.info(message)
-    
-    def error(self, message):
-        with self.lock:
-            self.logger.error(message)
-    
-    def warning(self, message):
-        with self.lock:
-            self.logger.warning(message)
-    
-    def debug(self, message):
-        with self.lock:
-            self.logger.debug(message)
+    """Thread-safe logging class."""
+    _instance = None
+    _lock = threading.Lock()
 
-# 全域日誌實例
+    def __new__(cls, name="google_next", level=logging.INFO, log_dir=None):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super(ThreadSafeLogger, cls).__new__(cls)
+                cls._instance.logger = logging.getLogger(name)
+                cls._instance.logger.setLevel(level)
+                cls._instance.lock = threading.Lock()
+
+                if not cls._instance.logger.handlers:
+                    console = logging.StreamHandler()
+                    console.setLevel(level)
+                    formatter = logging.Formatter(
+                        '%(asctime)s - %(levelname)s - [%(threadName)s] - %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S'
+                    )
+                    console.setFormatter(formatter)
+                    cls._instance.logger.addHandler(console)
+
+                    if log_dir is None:
+                        log_dir = PROJECT_ROOT / "logs"
+                    else:
+                        log_dir = Path(log_dir)
+
+                    log_dir.mkdir(parents=True, exist_ok=True)
+                    log_file = log_dir / f"batch_process_{datetime.now().strftime('%Y%m%d')}.log"
+                    file_handler = logging.FileHandler(log_file, encoding='utf-8')
+                    file_handler.setLevel(level)
+                    file_handler.setFormatter(formatter)
+                    cls._instance.logger.addHandler(file_handler)
+        return cls._instance
+
+    def info(self, message):
+        """Logs an info level message."""
+        with self._lock:
+            self._instance.logger.info(message)
+
+    def error(self, message):
+        """Logs an error level message."""
+        with self._lock:
+            self._instance.logger.error(message)
+
+    def warning(self, message):
+        """Logs a warning level message."""
+        with self._lock:
+            self._instance.logger.warning(message)
+
+    def debug(self, message):
+        """Logs a debug level message."""
+        with self._lock:
+            self._instance.logger.debug(message)
+
 logger = ThreadSafeLogger()

@@ -1,5 +1,5 @@
 import pandas as pd
-import google.generativeai as genai # 建議使用 genai 作為別名
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
@@ -7,10 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-csv_path = os.getenv("INPUT_CSV_PATH", "gtc_session.csv") # 從 .env 讀取 CSV 路徑，預設為 "gtc_session.csv"
-output_path = os.getenv("CONTEXT_DIAGRAM_OUTPUT_PATH", "context_diagram.md") # 從 .env 讀取輸出路徑，預設為 "context_diagram.md"
-model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash") # 從 .env 讀取模型名稱
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY","yur_api_key") # 從.env 讀取 API key
+csv_path = os.getenv("INPUT_CSV_PATH", "gtc_session.csv")
+output_path = os.getenv("CONTEXT_DIAGRAM_OUTPUT_PATH", "context_diagram.md")
+model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "yur_api_key")
 # --- 主要邏輯 ---
 try:
     # 讀取 CSV 檔案
@@ -20,7 +20,7 @@ try:
     session_keys = df["Key"].dropna().tolist()
 
     # 將所有 session 摘要合併為一個脈絡描述
-    context_text = "\n\n".join([f"Session {i+1}: {key}" for i, key in enumerate(session_keys)])
+    context_text = "\n\n".join([f"Session {i + 1}: {key}" for i, key in enumerate(session_keys)])
 
     # Gemini prompt (保持不變)
     prompt = f"""請根據以下研討會內容，輸出一份**技術趨勢脈絡圖**，以**Markdown 階層式結構（# / ## / ###）**撰寫，並以**繁體中文**呈現。
@@ -82,7 +82,7 @@ try:
 
     # 呼叫 Gemini API
     model = genai.GenerativeModel(model_name)
-    response = model.generate_content(prompt) # 直接傳遞 prompt 字串
+    response = model.generate_content(prompt)
 
     # 將結果寫入 markdown 檔案
     with open(output_path, "w", encoding="utf-8") as f:
@@ -91,14 +91,15 @@ try:
             f.write(response.text)
             print(f"脈絡圖已產生並儲存於 {output_path}")
         elif hasattr(response, 'prompt_feedback') and response.prompt_feedback.block_reason:
-             print(f"內容生成被阻止：{response.prompt_feedback.block_reason}")
-             print(f"詳細資訊：{response.prompt_feedback.block_reason_message}")
+            print(f"內容生成被阻止：{response.prompt_feedback.block_reason}")
+            print(f"詳細資訊：{response.prompt_feedback.block_reason_message}")
         else:
-             print("錯誤：無法從 Gemini API 獲取有效的回應內容。")
-             print("API 回應:", response)
+            print("錯誤：無法從 Gemini API 獲取有效的回應內容。")
+            print("API 回應:", response)
 
 
 except FileNotFoundError:
     print(f"錯誤：找不到 CSV 檔案 '{csv_path}'。請檢查 .env 文件中的 CONTEXT_CSV_PATH 設定。")
 except Exception as e:
     print(f"執行過程中發生錯誤：{e}")
+
