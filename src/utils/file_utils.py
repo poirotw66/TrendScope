@@ -45,5 +45,5 @@ class FileUtils:
     @staticmethod
     def normalize_filename(title):
         """Normalizes the filename by removing illegal characters."""
-        title = re.sub(r'[\\/:*?"<>|]', '', str(title))
+        title = re.sub(r'[\\/:*?"<>|_]', '', str(title))
         return title.strip()

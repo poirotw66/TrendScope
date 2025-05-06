@@ -24,3 +24,11 @@ SUPPORTED_FILE_EXTENSIONS = ['.txt', '.md', '.text']
 DEFAULT_OUTPUT_FORMAT = os.environ.get("DEFAULT_OUTPUT_FORMAT", "md")
 DEFAULT_WORKERS = int(os.environ.get("DEFAULT_WORKERS", "4"))
 MAX_TRANSCRIPT_LENGTH = int(os.environ.get("MAX_TRANSCRIPT_LENGTH", "30000"))
+
+OUTPUT_MD_DIR = os.getenv("OUTPUT_MD_DIR", "./GTC_summary/topic_md")
+OUTPUT_HTML_DIR = os.getenv("OUTPUT_HTML_DIR", "./GTC_summary/topic")
+SESSION_HTML_DIR = os.getenv("SESSION_HTML_DIR", "./GTC_summary/topic/session")
+INPUT_CSV_PATH = os.getenv("INPUT_CSV_PATH", "./data/sheet/GTC25.csv")
+TOP_N_MEETINGS = int(os.getenv("TOP_N_MEETINGS", 5)) # 從環境變數讀取 top_n，預設為 3
+BATCH_MD_TO_HTML_INDEX = int(os.getenv("BATCH_MD_TO_HTML_INDEX", 1)) # 從環境變數讀取 index，預設為 1
+
