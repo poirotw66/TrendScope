@@ -3,7 +3,7 @@
 """
 
 # Gemini API配置
-GEMINI_API_KEY = "AIzaSyCTiN1A16TmHtZnC4tXGkzYzzAhN3bREOU"  # 請替換為您的實際API密鑰
+GEMINI_API_KEY = ""  # 請替換為您的實際API密鑰
 
 # 應用配置
 MAX_TRANSCRIPT_LENGTH = 1048576  # 單次處理的最大文本長度
