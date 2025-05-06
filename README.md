@@ -27,3 +27,6 @@ python 01_batch_summarize_process.py -i 輸入目錄 -o 輸出目錄 --format md
 
 python 01_batch_summarize_process.py -i data/test/ -o test/ --format md --workers 4
 
+python 02_generator_topic.py 
+
+python 03_generator_home.py -i data/sheet/GTC25.csv -c gtc
