@@ -7,10 +7,12 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.utils.logging_utils import logger
 from bs4 import BeautifulSoup
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 CONFERENCE_CONFIG = {
     "google_next": {
@@ -38,7 +40,7 @@ CONFERENCE_CONFIG = {
             "Serverless": "./topic/Serverless.html",
         },
         "category_link_formatter": lambda cat: cat.replace(" ", "_"),
-        "meeting_link_prefix": "./session/",
+        "meeting_link_prefix": "./topic/session/",
         "topic_link_prefix": "./topic/",
     },
     "gtc": {
@@ -52,26 +54,25 @@ CONFERENCE_CONFIG = {
         ],
         "category_links": {
             "開發人員人工智慧大會|NVIDIA GTC 2025": "https://www.nvidia.com/zh-tw/gtc/",
-            "Development and Optimization": "./topic/Development_and_Optimization_-_Performance_Optimization.html",
-            "Generative AI": "./topic/Generative_AI_-_Text_Generation.html",
-            "Training AI Models": "./topic/Development_and_Optimization_-_Training_AI_Models.html",
-            "Simulation Modeling Design": "./topic/Simulation___Modeling___Design_-_Industrial_Digitalization___Digital_Twin.html",
-            "AI Platforms": "./topic/AI_Platforms___Deployment_-_AI_Platform.html",
-            "Models Libraries Frameworks": "./topic/Models___Libraries___Frameworks_-_Large_Language_Models__LLMs_.html",
-            "Retrieval-Augmented Generation": "./topic/Generative_AI_-_Retrieval-Augmented_Generation__RAG_.html",
-            "AI Inference": "./topic/AI_Platforms___Deployment_-_AI_Inference___Inference_Microservices.html",
-            "Data Center": "./topic/Data_Center___Cloud_-_Infrastructure.html",
-            "Computer Vision": "./topic/Computer_Vision___Video_Analytics_-_Image___Video_Detection___Recognition.html",
-            "Robotics": "./topic/Robotics_-_Robotics_Simulation.html",
-            "Data Science": "./topic/Data_Science_-_Data_Analytics___Processing.html",
+            "Quantum Computing": "./topic/Simulation  Modeling  Design - Quantum Computing.html",
+            "Generative AI - Code  Software Generation": "./topic/Generative AI - Code  Software Generation.html",
+            "Generative AI - Retrieval-Augmented Generation (RAG)": "./topic/Generative AI - Retrieval-Augmented Generation (RAG).html",
+            "Simulation  Modeling  Design - Industrial Digitalization  Digital Twin": "./topic/Simulation  Modeling  Design - Industrial Digitalization  Digital Twin.html",
+            "Simulation  Modeling  Design - Climate  Weather  Ocean Modeling": "./topic/Simulation  Modeling  Design - Climate  Weather  Ocean Modeling.html",
+            "Data Center  Cloud - Data Storage": "./topic/Data Center  Cloud - Data Storage.html",
+            "Conversational AI - Natural Language Processing (NLP)": "./topic/Conversational AI - Natural Language Processing (NLP).html",
+            "Data Center  Cloud - Infrastructure": "./topic/Data Center  Cloud - Infrastructure.html",
+            "Edge Computing - Autonomous Machines": "./topic/Edge Computing - Autonomous Machines.html",
+            "Simulation  Modeling  Design - Supercomputing": "./topic/Simulation  Modeling  Design - Supercomputing.html",
+            "Data Center  Cloud - Sustainable Computing": "./topic/Data Center  Cloud - Sustainable Computing.html",
+            "Computer Vision  Video Analytics - Computation Imaging": "./topic/Computer Vision  Video Analytics - Computation Imaging.html",
         },
         "category_link_formatter": lambda cat: cat,
-        "meeting_link_prefix": "./session/",
+        "meeting_link_prefix": "./topic/session/",
         "topic_link_prefix": "./topic/",
     }
 }
-
-TEMPLATE_DIR = Path(__file__).parent / 'src' / 'templates'
+TEMPLATE_DIR = Path(__file__).parent.parent / 'src' / 'templates'
 try:
     if not TEMPLATE_DIR.is_dir():
         raise FileNotFoundError(f"Template directory not found: {TEMPLATE_DIR}")
@@ -137,7 +138,25 @@ def generate_markdown(selected_meetings, config):
     Returns:
         str: The generated Markdown content.
     """
-    df = pd.DataFrame(selected_meetings.values())
+    # 過濾掉 Key 為空的會議
+    filtered_meetings = {}
+    for category, meeting in selected_meetings.items():
+        key_value = meeting.get('Key')
+        # 檢查各種可能的空值情況
+        if key_value and key_value != 'nan' and key_value != 'N/A' and str(key_value).strip() != '':
+            # 額外檢查是否為 pandas 的 NaN 值
+            try:
+                if pd.isna(key_value):
+                    continue
+            except:
+                pass
+            filtered_meetings[category] = meeting
+    
+    # 如果過濾後沒有會議，則返回基本內容
+    if not filtered_meetings:
+        return f"# {config['title']}\n{config['date_info']}\n\n{config['intro_text']}\n\n"
+    
+    df = pd.DataFrame(filtered_meetings.values())
     md_content = f"# {config['title']}\n{config['date_info']}\n\n{config['intro_text']}\n\n"
 
     for _, row in df.iterrows():
@@ -199,9 +218,14 @@ def markdown_to_email_html(md_content, config):
             link_target = link
         category_links_html += f'<a href="{link_target}" class="category-link">{cat}</a>\n'
 
+    def normalize_filename(title):
+        """Normalizes the filename by removing illegal characters."""
+        title = re.sub(r'[\\/:*?"<>|_]', '', str(title))
+        return title.strip()
+
     def add_category_link(match):
         category = match.group(1).strip()
-        safe_cat_link = link_formatter(category)
+        safe_cat_link = normalize_filename(link_formatter(category))
         link = category_links.get(category, f"{topic_prefix}{safe_cat_link}.html")
         return f'<div class="category-section"><h1><a href="{link}" class="category-title-link">{category}</a></h1>'
     html_content = re.sub(r'<h1>(.*?)</h1>', add_category_link, html_content)
@@ -210,7 +234,7 @@ def markdown_to_email_html(md_content, config):
         meeting_title = match.group(1).strip()
         meeting_title_link = re.sub(r'[\\/:*?"<>|]', '', meeting_title).strip()
         session_prefix = config['meeting_link_prefix']
-        link = f"{session_prefix}{meeting_title_link}_summary.html"
+        link = f"{session_prefix}{meeting_title_link}.html"
         return f'<div class="meeting-item"><h2><a href="{link}" class="meeting-title-link">{meeting_title}</a></h2>'
     html_content = re.sub(r'<h2>(.*?)</h2>', add_meeting_link, html_content)
 

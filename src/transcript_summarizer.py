@@ -13,7 +13,7 @@ import logging # 引入 logging 模組
 # 添加專案根目錄到系統路徑
 sys.path.append(str(Path(__file__).parent.parent))
 
-from config.config import GEMINI_API_KEY, MAX_TRANSCRIPT_LENGTH
+from config.config import GEMINI_API_KEY, MAX_TRANSCRIPT_LENGTH, GEMINI_MODEL_NAME,INPUT_CSV_PATH
 from src.meeting_list_reader import meeting_list # 暫時保留，後續考慮注入
 from src.utils.summary_parser import SummaryParser
 from src.utils.excel_writer import ExcelWriter
@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 class TranscriptSummarizer:
     """使用 Gemini API 總結會議逐字稿的類"""
 
-    def __init__(self, model_name='gemini-1.5-flash', api_key=GEMINI_API_KEY): # 允許傳入 model_name 和 api_key
+    def __init__(self, model_name=GEMINI_MODEL_NAME, api_key=GEMINI_API_KEY): # 允許傳入 model_name 和 api_key
         """初始化 Gemini 客戶端"""
         try:
             genai.configure(api_key=api_key)
@@ -57,8 +57,8 @@ class TranscriptSummarizer:
             *   基於內部校對後的逐字稿內容，撰寫一份有完整脈絡的會議總結。具體要求如下：
             - 總結標題：
                 - 第一行輸出提供的 {meeting_title} 原文。
-                - 第三行輸出格式： `[會議影片連結]({url})`
-                - 第四行繁體中文翻譯的{meeting_title}
+                - 第二行輸出格式： `[會議影片連結]({url})`
+                - 第三行繁體中文翻譯的{meeting_title}
                 - 範例：
                 ```
                 # OpenAI Developer Day 2024
@@ -67,9 +67,9 @@ class TranscriptSummarizer:
                 ```
 
             - 內容結構（需依下列順序分段撰寫、並且儘量詳細）：
-            - **1. 核心觀點**
-            - **2. 詳細內容**
-            - **3. 重要結論**
+            - ## 1. 核心觀點
+            - ## 2. 詳細內容
+            - ## 3. 重要結論
 
             - 各段落之間需有明確分隔（如空行）。
 
@@ -84,7 +84,6 @@ class TranscriptSummarizer:
 
         輸出範例：
         # "谈故障色变”到有章可循：美图 SRE 故障应急与复盘实践
-        主題演講
         [會議影片連結](TEST.com)
         "談故障色變"到有章可循：美圖SRE故障排除與複盤實踐
 
@@ -102,7 +101,7 @@ class TranscriptSummarizer:
         ... (範例內容省略) ...
         """
 
-    def summarize(self, transcript_text, meeting_title, excel_path=None): # <<< 添加 excel_path 參數
+    def summarize(self, transcript_text, meeting_title, excel_path=INPUT_CSV_PATH): # <<< 添加 excel_path 參數
         """
         總結會議逐字稿
 
@@ -117,7 +116,7 @@ class TranscriptSummarizer:
         if len(transcript_text) > MAX_TRANSCRIPT_LENGTH:
             logger.warning(f"Transcript length ({len(transcript_text)}) exceeds MAX_TRANSCRIPT_LENGTH ({MAX_TRANSCRIPT_LENGTH}). Consider chunking.")
 
-        url = meeting_list.get_url(meeting_title)# 後續應改為注入或傳遞
+        url = meeting_list.get_url(meeting_title)
         logger.info(f"Summarizing meeting: {meeting_title} (URL: {url})")
 
         prompt = self._build_prompt(transcript_text, meeting_title, url)

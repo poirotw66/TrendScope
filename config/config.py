@@ -10,6 +10,7 @@ PROJECT_ROOT = Path(__file__).parent.parent
 
 # API 配置
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL_NAME = os.environ.get("GEMINI_MODEL_NAME", "gemini-2.0-flash")
 MAX_REQUESTS_PER_MINUTE = int(os.environ.get("MAX_REQUESTS_PER_MINUTE", "15"))
 REQUEST_INTERVAL = float(os.environ.get("REQUEST_INTERVAL", "4"))
 MAX_RETRIES = int(os.environ.get("MAX_RETRIES", "3"))
