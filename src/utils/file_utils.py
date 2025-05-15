@@ -2,6 +2,7 @@ import os
 import re
 from pathlib import Path
 from src.utils.logging_utils import logger
+from src.utils.string_utils import normalize_string
 
 class FileUtils:
     """File processing utility class."""
@@ -45,5 +46,4 @@ class FileUtils:
     @staticmethod
     def normalize_filename(title):
         """Normalizes the filename by removing illegal characters."""
-        title = re.sub(r'[\\/:*?"<>|_]', '', str(title))
-        return title.strip()
+        return normalize_string(title)

@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.utils.logging_utils import logger
 from bs4 import BeautifulSoup
 import sys
-
+from src.utils.string_utils import normalize_string
 
 CONFERENCE_CONFIG = {
     "google_next": {
@@ -220,8 +220,7 @@ def markdown_to_email_html(md_content, config):
 
     def normalize_filename(title):
         """Normalizes the filename by removing illegal characters."""
-        title = re.sub(r'[\\/:*?"<>|_]', '', str(title))
-        return title.strip()
+        return normalize_string(title)
 
     def add_category_link(match):
         category = match.group(1).strip()

@@ -2,6 +2,7 @@ import pandas as pd
 from pathlib import Path
 import re
 import logging
+from src.utils.string_utils import normalize_string
 
 logger = logging.getLogger(__name__)
 
@@ -11,8 +12,7 @@ class ExcelWriter:
     @staticmethod
     def normalize_title(title):
         """正規化標題，移除不適用於檔名的字元"""
-        title = re.sub(r'[\\/:*?"_<>|]', '', str(title))
-        return title.strip()
+        return normalize_string(title)
 
     def save_key_takeaways(self, meeting_title, key_takeaways, excel_path):
         """
@@ -66,10 +66,6 @@ class ExcelWriter:
 
             if not found:
                 logger.warning(f"在 Excel 檔案中未找到會議標題 '{meeting_title}' (正規化後: '{normalized_meeting_title}')。")
-                # 可以選擇是否要新增一行
-                # new_row = pd.DataFrame([{'Meeting': meeting_title, 'Key': key_takeaways}])
-                # df = pd.concat([df, new_row], ignore_index=True)
-                # logger.info(f"已新增 '{meeting_title}' 的核心觀點於 {excel_path}")
                 return False # 目前行為是不新增
 
             try:

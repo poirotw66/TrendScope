@@ -8,6 +8,7 @@ from pathlib import Path
 import logging
 import re
 from dotenv import load_dotenv
+from src.utils.string_utils import normalize_string
 
 # 載入環境變數
 load_dotenv()
@@ -45,13 +46,9 @@ class MeetingList:
         if self.df.empty:
             return ""
         # 標準化查詢字串
-        def normalize(title):
-            title = re.sub(r'[\\/:_*?"<>|]', '', title)
-            title = title.strip()
-            return title
-        target = normalize(meeting_name)
+        target = normalize_string(meeting_name)
         for idx, row in self.df.iterrows():
-            if normalize(row[MEETING_COL]) == target:
+            if normalize_string(row[MEETING_COL]) == target:
                 return str(row[URL_COL]) if pd.notna(row[URL_COL]) else ""
         return ""
 

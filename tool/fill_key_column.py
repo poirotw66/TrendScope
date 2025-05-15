@@ -3,6 +3,14 @@ import re
 import csv
 import pandas as pd
 from pathlib import Path
+import sys
+import os
+
+# 添加项目根目录到Python路径
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
+
+from src.utils.string_utils import normalize_string
 
 def extract_core_points(md_content):
     """從 Markdown 內容中提取核心觀點區塊"""
@@ -14,9 +22,7 @@ def extract_core_points(md_content):
     return None
 
 def normalize(title):
-    title = re.sub(r'[\\/“:_\'*?\"<>()-|]', '', title)
-    title = title.strip()
-    return title
+    return normalize_string(title, r'[\\/":_\'*?\"<>()-|]')
 
 def get_meeting_name_from_filename(filename):
     """從文件名中獲取會議名稱"""

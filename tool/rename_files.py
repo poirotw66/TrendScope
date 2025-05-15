@@ -4,10 +4,9 @@ import argparse
 from pathlib import Path
 import re
 
-def normalize(title):
-    title = re.sub(r'[\\/“:_*?"<>|]', '', title)
-    title = title.strip()
-    return title
+# 添加项目根目录到Python路径
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
 
 def rename_files(directory, prefix_length=4, file_extension='.txt', dry_run=False):
     """
