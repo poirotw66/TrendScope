@@ -33,7 +33,7 @@ class ExcelWriter:
                 return False # 或 raise FileNotFoundError
 
             try:
-                df = pd.read_excel(excel_file)
+                df = pd.read_csv(excel_file)
             except Exception as read_err:
                 logger.error(f"讀取 Excel 檔案 {excel_path} 時出錯: {read_err}")
                 return False
@@ -69,7 +69,7 @@ class ExcelWriter:
                 return False # 目前行為是不新增
 
             try:
-                df.to_excel(excel_file, index=False, engine='openpyxl') # 指定 engine
+                df.to_csv(excel_file, index=False, encoding='utf-8-sig') # 指定 engine
                 return True
             except Exception as write_err:
                  logger.error(f"寫入 Excel 檔案 {excel_path} 時出錯: {write_err}")

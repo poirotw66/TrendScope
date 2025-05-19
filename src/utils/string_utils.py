@@ -1,6 +1,6 @@
 import re
 
-def normalize_string(text, remove_chars=r'[\\/":_\'*?\"<>()-|]', keep_extension=False):
+def normalize_string(text, remove_chars=r'[\\/:*?"<>_|]', keep_extension=False):
     """
     标准化字符串，移除不需要的字符。
     

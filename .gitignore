@@ -16,3 +16,4 @@ __pycache__/
 *.DS_Store
 *.pyc
 *__pycache__/
+consensus_2025_summary/*
