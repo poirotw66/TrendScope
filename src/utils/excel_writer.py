@@ -3,6 +3,7 @@ from pathlib import Path
 import re
 import logging
 from src.utils.string_utils import normalize_string
+import chardet
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +14,12 @@ class ExcelWriter:
     def normalize_title(title):
         """正規化標題，移除不適用於檔名的字元"""
         return normalize_string(title)
+
+    def get_excel_encoding(self, csv_path):
+        """檢測並返回 Excel 文件的編碼"""
+        with open(csv_path, 'rb') as rawdata:
+            result = chardet.detect(rawdata.read(100000))
+        return result['encoding']
 
     def save_key_takeaways(self, meeting_title, key_takeaways, excel_path):
         """
@@ -33,7 +40,7 @@ class ExcelWriter:
                 return False # 或 raise FileNotFoundError
 
             try:
-                df = pd.read_csv(excel_file)
+                df = pd.read_csv(excel_file, encoding=self.get_excel_encoding(excel_path))
             except Exception as read_err:
                 logger.error(f"讀取 Excel 檔案 {excel_path} 時出錯: {read_err}")
                 return False
@@ -69,7 +76,7 @@ class ExcelWriter:
                 return False # 目前行為是不新增
 
             try:
-                df.to_csv(excel_file, index=False, encoding='utf-8-sig') # 指定 engine
+                df.to_csv(excel_file, index=False, encoding=self.get_excel_encoding(excel_file)) # 指定 engine
                 return True
             except Exception as write_err:
                  logger.error(f"寫入 Excel 檔案 {excel_path} 時出錯: {write_err}")

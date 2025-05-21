@@ -70,6 +70,35 @@ CONFERENCE_CONFIG = {
         "category_link_formatter": lambda cat: cat,
         "meeting_link_prefix": "./topic/session/",
         "topic_link_prefix": "./topic/",
+    },
+    "consensus": {
+        "title": "Consensus HONG KONG 2025",
+        "date_info": "2025 年 2 月 18 日 ─ 2 月 20 日",
+        "intro_text": """
+        自2015年以來，「共識峰會」(Consensus) 不僅僅是一個活動，更是各方人士的年度盛會。它是區塊鏈、數位資產和Web3領域中最具影響力的公司齊聚一堂，共同推動產業發展的平台。
+        2025年，「共識峰會」將拓展至香港，連繫東西方，展開關鍵對話並促成交易，共同定義未來的發展方向。
+        由屢獲殊榮的媒體機構CoinDesk主辦，「共識峰會」以獨立、客觀的新聞報導為基礎，推動變革性理念和坦誠的對話。
+        """,
+        "title_regex": r'\s*<h1[^>]*>\s*Consensus HONG KONG 2025\s*</h1>\s*',
+        "date_regex": r'\s*<p[^>]*>\s*2025\s*年\s*2\s*月\s*18\s*日\s*[─—–-]\s*2\s*月\s*20s*日\s*</p>\s*',
+        "intro_regex_list": [
+            r'\s*(自2015年以來.*?坦誠的對話(?:。|\.))\s*'
+        ],
+        "category_links": {
+            "Consensus HONG KONG 2025": "https://consensus-hongkong2025.coindesk.com/",
+            "AI": "./topic/AI.html",
+            "Blockchain": "./topic/Blockchain.html",
+            "Community": "./topic/Community.html",
+            "Crypto / Web3 Software": "./topic/Crypto  Web3 Software.html",
+            "DeFi": "./topic/DeFi.html",
+            "Gaming": "./topic/Gaming.html",
+            "Policy": "./topic/Policy.html",
+            "Smart Contracts": "./topic/Smart Contracts.html",
+            "Web3 Software": "./topic/Web3 Software.html",
+        },
+        "category_link_formatter": lambda cat: cat,
+        "meeting_link_prefix": "./topic/session/",
+        "topic_link_prefix": "./topic/",
     }
 }
 TEMPLATE_DIR = Path(__file__).parent.parent / 'src' / 'templates'

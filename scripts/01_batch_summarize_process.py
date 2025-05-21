@@ -127,7 +127,6 @@ class BatchProcessor:
     def process(self):
         """Processes all transcript files in the specified directory using multithreading."""
         self.output_dir.mkdir(parents=True, exist_ok=True)
-
         transcript_files = FileUtils.get_files_by_extensions(str(self.input_dir), SUPPORTED_FILE_EXTENSIONS)
 
         if not transcript_files:
@@ -135,7 +134,6 @@ class BatchProcessor:
             return
 
         total_files = len(transcript_files)
-
         effective_workers = max(1, min(self.max_workers, total_files))
         logger.info(f"Found {total_files} transcript files, processing with up to {effective_workers} threads (API Limit: {MAX_REQUESTS_PER_MINUTE} RPM, Request Interval: {REQUEST_INTERVAL}s)")
 
@@ -183,7 +181,6 @@ def main():
     if not input_path.is_dir():
         logger.error(f"Error: Input path {args.input} is not a valid directory")
         return 1
-
     processor = BatchProcessor(args.input, args.output, args.format, args.workers)
     processor.process()
     return 0

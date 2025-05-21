@@ -115,8 +115,8 @@ class TranscriptSummarizer:
         """
         if len(transcript_text) > MAX_TRANSCRIPT_LENGTH:
             logger.warning(f"Transcript length ({len(transcript_text)}) exceeds MAX_TRANSCRIPT_LENGTH ({MAX_TRANSCRIPT_LENGTH}). Consider chunking.")
-
         url = meeting_list.get_url(meeting_title)
+        meeting_title = meeting_list.get_title(meeting_title)
         logger.info(f"Summarizing meeting: {meeting_title} (URL: {url})")
 
         prompt = self._build_prompt(transcript_text, meeting_title, url)
@@ -156,74 +156,6 @@ class TranscriptSummarizer:
                 "error_message": str(e)
             }
 
-    # <<< 移除 _save_key_takeaways_to_excel 方法 >>>
-
-    def save_summary_json(self, summary, output_path): # 改名以更清晰表示格式
-        """
-        保存總結到 JSON 文件
-
-        Args:
-            summary (dict): 總結內容
-            output_path (str): 輸出文件路徑
-        """
-        try:
-            output_dir = Path(output_path).parent
-            output_dir.mkdir(parents=True, exist_ok=True) # 確保目錄存在
-            with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(summary, f, ensure_ascii=False, indent=2)
-            logger.info(f"Summary saved to JSON: {output_path}")
-        except Exception as e:
-            logger.error(f"Error saving summary to JSON '{output_path}': {e}")
-
-
-    # generate_email_html 和 save_email_html 應移至 HTMLGenerator
-    # Placeholder for HTML generation logic
-    # _generate_email_html_content 方法保持不變
-
-    # def save_summary_html(self, summary, output_path, meeting_title=None): # 改名
-    #     """
-    #     將會議摘要保存為 HTML 文件
-
-    #     Args:
-    #         summary (dict): 包含摘要內容和狀態的字典
-    #         output_path (str): 輸出文件路徑
-    #         meeting_title (str, optional): 會議標題. Defaults to None.
-    #     """
-    #     if summary.get("status") != "success":
-    #         logger.error(f"無法生成 HTML：'{meeting_title}' 的摘要生成失敗。")
-    #         return
-    
-    #         summary_markdown = summary.get("summary", "")
-    #         if not summary_markdown:
-    #             logger.warning(f"無法生成 HTML：'{meeting_title}' 的摘要內容為空。")
-    #             return
-    
-    #         # 獲取 URL (後續應改為注入或傳遞)
-    #         url = meeting_list.get_url(meeting_title) if meeting_title else ""
-    
-    #         # 檢查輸出路徑是否只有副檔名
-    #         output_path_obj = Path(output_path)
-    #         if output_path_obj.name.startswith('.'):
-    #             # 如果檔案名只有副檔名，則使用會議標題作為檔案名
-    #             safe_title = self.excel_writer.normalize_title(meeting_title) if meeting_title else "untitled"
-    #             # 確保檔案名不為空
-    #             if not safe_title:
-    #                 safe_title = "untitled"
-    #             # 構建新的輸出路徑
-    #             new_output_path = output_path_obj.parent / f"{safe_title}{output_path_obj.suffix}"
-    #             logger.info(f"檔案名為空，使用會議標題作為檔案名: {new_output_path}")
-    #             output_path = str(new_output_path)
-    
-    #         # 使用 HtmlGenerator 保存 HTML
-    #         save_success = self.html_generator.save_summary_html(
-    #             summary_markdown,
-    #             output_path,
-    #             meeting_title=meeting_title,
-    #             url=url
-    #         )
-    
-    #         if not save_success:
-    #             logger.error(f"未能將 '{meeting_title}' 的摘要保存為 HTML 文件到 {output_path}。")
     def save_summary_html(self, summary, output_path, meeting_title=None):
         """將會議摘要保存為 HTML 文件"""
         if summary.get("status") != "success":

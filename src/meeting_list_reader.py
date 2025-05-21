@@ -9,6 +9,7 @@ import logging
 import re
 from dotenv import load_dotenv
 from src.utils.string_utils import normalize_string
+import chardet
 
 # 載入環境變數
 load_dotenv()
@@ -27,19 +28,25 @@ class MeetingList:
         self.csv_path = csv_path
         self.df = self._load_excel()
 
+    def get_excel_encoding(self):
+        """檢測並返回 Excel 文件的編碼"""
+        with open(self.csv_path, 'rb') as rawdata:
+            result = chardet.detect(rawdata.read(100000))
+        return result['encoding']
+        
     def _load_excel(self):
         if not os.path.isfile(self.csv_path):
             logging.error(f"找不到檔案 {self.csv_path}")
             return pd.DataFrame()
-        try:
-            df = pd.read_csv(self.csv_path)
-            if MEETING_COL not in df.columns or URL_COL not in df.columns:
-                logging.warning(f"Excel 檔案缺少必要欄位: {MEETING_COL} 或 {URL_COL}")
-                return pd.DataFrame()
-            return df
-        except Exception as e:
-            logging.error(f"讀取 Excel 發生錯誤: {e}")
-            return pd.DataFrame()
+        # try:
+        df = pd.read_csv(self.csv_path, encoding=self.get_excel_encoding())
+            # if MEETING_COL not in df.columns or URL_COL not in df.columns:
+            #     logging.warning(f"Excel 檔案缺少必要欄位: {MEETING_COL} 或 {URL_COL}")
+            #     return pd.DataFrame()
+        return df
+        # except Exception as e:
+        #     logging.error(f"讀取 Excel 發生錯誤: {e}")
+        #     return pd.DataFrame()
 
     def get_url(self, meeting_name):
         """根據會議名稱查詢 URL，找不到則回傳空字串（忽略前後空白與全半形引號）"""
@@ -50,6 +57,17 @@ class MeetingList:
         for idx, row in self.df.iterrows():
             if normalize_string(row[MEETING_COL]) == target:
                 return str(row[URL_COL]) if pd.notna(row[URL_COL]) else ""
+        return ""
+
+    def get_title(self, meeting_name):
+        """返回會議名稱"""
+        if self.df.empty:
+            return ""
+        # 標準化查詢字串
+        target = normalize_string(meeting_name)
+        for idx, row in self.df.iterrows():
+            if normalize_string(row[MEETING_COL]) == target:
+                return str(row[MEETING_COL]) if pd.notna(row[URL_COL]) else ""
         return ""
 
 # 提供一個函數來獲取 MeetingList 實例，可選擇性地傳入 csv_path
