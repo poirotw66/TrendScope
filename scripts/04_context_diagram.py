@@ -9,13 +9,42 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 load_dotenv()
 
 
-csv_path = os.getenv("INPUT_CSV_PATH", "gtc_session.csv")
+csv_path = os.getenv("INPUT_CSV_PATH", "gtc_session.csv") # 這個變數現在可能不再使用，取決於您是否完全替換了輸入源
 output_path = os.getenv("CONTEXT_DIAGRAM_OUTPUT_PATH", "context_diagram.md")
-model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash")
+# model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash")
+# model_name = "gemini-2.5-flash-preview-05-20"
+model_name = "gemini-2.5-pro-preview-05-06"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "yur_api_key")
-# --- 主要邏輯 ---
-try:
-    # 讀取 CSV 檔案
+
+# 指定存放 txt 檔案的目錄
+txt_dir = '/Users/cfh00896102/Github/TrendScope/data/Google IO'
+
+def get_all_chunk():
+    """
+    讀取指定目錄下所有 .txt 檔案的內容並合併。
+
+    Returns:
+        str: 合併後的檔案內容，以換行符分隔。
+    """
+    all_content = []
+    if not os.path.isdir(txt_dir):
+        print(f"錯誤：找不到目錄 '{txt_dir}'")
+        return ""
+
+    for filename in os.listdir(txt_dir):
+        if filename.endswith(".txt"):
+            filepath = os.path.join(txt_dir, filename)
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    all_content.append(f"--- 檔案: {filename} ---\n{content}") # 可以在每個檔案內容前加上標示
+            except Exception as e:
+                print(f"讀取檔案 '{filepath}' 時發生錯誤：{e}")
+
+    return "\n\n".join(all_content)
+
+def get_all_key(csv_path):
+   # 讀取 CSV 檔案
     df = pd.read_csv(csv_path)
 
     # 取得所有 Key 欄位非空的摘要
@@ -23,6 +52,16 @@ try:
 
     # 將所有 session 摘要合併為一個脈絡描述
     context_text = "\n\n".join([f"Session {i + 1}: {key}" for i, key in enumerate(session_keys)])
+    return context_text
+# --- 主要邏輯 ---
+try:
+    
+    # 呼叫 get_all_chunk 函式來取得所有 txt 檔案的內容
+    context_text = get_all_chunk()
+
+    if not context_text:
+        print("沒有讀取到任何有效的檔案內容，無法生成脈絡圖。")
+        sys.exit(1) # 退出腳本
 
     # Gemini prompt (保持不變)
     prompt = f"""請根據以下研討會內容，輸出一份**技術趨勢脈絡圖**，以**Markdown 階層式結構（# / ## / ###）**撰寫，並以**繁體中文**呈現。
@@ -60,7 +99,8 @@ try:
    - 根據研討會中頻繁出現的重要關鍵字（如 AI、LLM、自動化、隱私）生成詞雲
    - 詞頻大小代表熱度
 
-2. **技術趨勢分類圖（樹狀圖或旭日圖）**
+2. **技術趨勢分類圖**
+   - 樹狀圖
    - 主趨勢 → 子趨勢 → 應用領域
    - 可視化顯示趨勢間的層級與分佈
 
@@ -101,7 +141,8 @@ try:
 
 
 except FileNotFoundError:
-    print(f"錯誤：找不到 CSV 檔案 '{csv_path}'。請檢查 .env 文件中的 CONTEXT_CSV_PATH 設定。")
+    # 這個錯誤處理現在主要針對輸出路徑，因為輸入來源改為 txt 檔案
+    print(f"錯誤：無法寫入輸出檔案 '{output_path}'。請檢查路徑或權限。")
 except Exception as e:
     print(f"執行過程中發生錯誤：{e}")
 

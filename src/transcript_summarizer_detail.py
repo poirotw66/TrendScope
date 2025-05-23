@@ -66,15 +66,22 @@ class TranscriptSummarizer:
                 OpenAI 開發者日 2024
                 ```
 
-            - 內容結構（需依下列順序分段撰寫、並且儘量詳細）：
-            - ## 1. 核心觀點
-            - ## 2. 詳細內容
-            - ## 3. 重要結論
-
-            - 各段落之間需有明確分隔（如空行）。
+            - 內容結構（請依下列段落標題分段、並以條列式撰寫,包含詳細技術細節）：
+            - ## 座談重點摘要
+                - 梳理該會議中討論的核心議題與觀點，適合快速掌握重點。
+                - 每點需涵蓋清楚的觀點與其背景，避免僅寫一句話。
+                - 可從發言者立場、討論角度、現場互動等面向總結。
+                - ...
+            - ## 講座內容
+                - 詳細重述講者的內容，逐條說明。
+                - 請涵蓋 技術細節，例如提到的架構設計、工具名稱、流程步驟、數據分析、實作範例、應用場景等。
+                - 每一條內容都應該是資訊完整、能幫助讀者理解主題的段落，而非片段式記錄。
+                - 若講者有補充背景、引用案例、介紹概念等，請一併詳列。
+                - ...
+            - ## 重要結論
+                - 總結該場會議或講座的核心觀點與後續可能的應用影響。
 
         3.  輸出要求：
-            *   請確保總結標題的正確性，並且符合格式要求。
             *   最終輸出內容僅包含步驟 2所述的會議總結。
             *   請勿輸出校對過程、校對後的逐字稿、或任何非總結內容的額外說明文字。
             *   請產生純文字形式的 markdown 內容，不要加上程式碼區塊（例如 ```markdown``` 或 ```），只要直接輸出結果。
@@ -84,17 +91,19 @@ class TranscriptSummarizer:
         {transcript_text}
 
         輸出範例：
-        # OpenAI Developer Day 2024
-        [會議影片連結](https://example.com)
-        OpenAI 開發者日 2024
-
+        # Google I/O '25 Keynotes
+        [會議影片連結](TEST.com)
+        Google I/O '25 主題講座
         ---
 
-        ## 1. 核心觀點
+        ## 座談重點摘要
         ... (範例內容省略) ...
         ---
 
-        ## 2. 詳細內容
+        ## 講座內容
+        - 1.
+        - 2.
+        - 3.        
         ... (範例內容省略) ...
         ---
 
@@ -118,7 +127,6 @@ class TranscriptSummarizer:
             logger.warning(f"Transcript length ({len(transcript_text)}) exceeds MAX_TRANSCRIPT_LENGTH ({MAX_TRANSCRIPT_LENGTH}). Consider chunking.")
         url = meeting_list.get_url(meeting_title)
         meeting_title = meeting_list.get_title(meeting_title)
-        print(f"*****meeting_title: {meeting_title}")
         logger.info(f"Summarizing meeting: {meeting_title} (URL: {url})")
 
         prompt = self._build_prompt(transcript_text, meeting_title, url)
