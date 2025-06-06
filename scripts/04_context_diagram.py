@@ -10,14 +10,14 @@ load_dotenv()
 
 
 csv_path = os.getenv("INPUT_CSV_PATH", "gtc_session.csv") # 這個變數現在可能不再使用，取決於您是否完全替換了輸入源
-output_path = os.getenv("CONTEXT_DIAGRAM_OUTPUT_PATH", "context_diagram.md")
+output_path = os.getenv("CONTEXT_DIAGRAM_OUTPUT_PATH", "2025_aicon.md")
 # model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash")
 # model_name = "gemini-2.5-flash-preview-05-20"
 model_name = "gemini-2.5-pro-preview-05-06"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "yur_api_key")
 
 # 指定存放 txt 檔案的目錄
-txt_dir = '/Users/cfh00896102/Github/TrendScope/data/Google IO'
+txt_dir = '/Users/cfh00896102/Github/TrendScope/data/202505_aicon/md'
 
 def get_all_chunk():
     """
@@ -32,7 +32,7 @@ def get_all_chunk():
         return ""
 
     for filename in os.listdir(txt_dir):
-        if filename.endswith(".txt"):
+        if filename.endswith(".txt") or filename.endswith(".md"):
             filepath = os.path.join(txt_dir, filename)
             try:
                 with open(filepath, 'r', encoding='utf-8') as f:
