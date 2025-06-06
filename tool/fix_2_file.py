@@ -2,6 +2,7 @@ import os
 import re
 import difflib
 import pandas as pd
+import sys
 
 # 1. 讀取 Excel 檔案，取得 session 標題
 excel_path = "google_next_sessions.xlsx"
@@ -14,11 +15,16 @@ txt_dir = "google_next_txt"
 txt_files = [f for f in os.listdir(txt_dir) if f.endswith(".txt")]
 
 # 3. 標準化 session 標題為檔名
+# 添加项目根目录到Python路径
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
+
+from src.utils.string_utils import normalize_string
+
 def normalize_filename(title):
     # 移除不合法字元，只保留中英文、數字、空格、底線、點
-    title = re.sub(r'[\\/:*?"<>|]', '', title)
-    title = title.strip()
-    return title + ".txt"
+    normalized = normalize_string(title)
+    return normalized + ".txt"
 
 # 4. 建立對應關係
 mapping = {}

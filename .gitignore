@@ -9,3 +9,11 @@ __pycache__/
 總覽/
 data/
 .env
+*.log
+__pycache__/
+*.py[cod]
+*$py.class
+*.DS_Store
+*.pyc
+*__pycache__/
+consensus_2025_summary/*
