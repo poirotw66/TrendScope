@@ -1,0 +1,5 @@
+{
+  "name": "TrendScope – 趨勢收集平台後台管理系統",
+  "description": "A backend management system for the TrendScope platform, designed for internal technical personnel to manage data, reports, crawlers, and system settings.",
+  "requestFramePermissions": []
+}

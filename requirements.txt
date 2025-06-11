@@ -5,3 +5,11 @@ markdown>=3.3.0
 python-dotenv>=0.19.0
 Jinja2
 beautifulsoup4
+selenium>=4.0.0
+google-cloud-bigquery>=3.0.0
+fastapi>=0.95.0
+uvicorn[standard]>=0.20.0
+pydantic>=1.10.0
+openpyxl>=3.0.0
+python-multipart
+httpx>=0.23.0
