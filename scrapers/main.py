@@ -9,6 +9,7 @@ from datetime import datetime
 # 導入所有爬蟲
 from scrapers.parsers.aws_london import AWSLondonScraper
 from scrapers.parsers.aicon_infoq import AiconInfoqScraper
+from scrapers.parsers.qcon_infoq import QconInfoqScraper
 
 def main():
     """
@@ -17,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description='運行各種爬蟲')
     
     # 添加爬蟲選擇參數
-    parser.add_argument('scraper', choices=['aws_london'], help='選擇要運行的爬蟲')
+    parser.add_argument('scraper', choices=['aws_london', 'aicon_infoq', 'qcon_infoq'], help='選擇要運行的爬蟲')
     
     # 添加通用參數
     parser.add_argument('--headless', action='store_true', help='是否使用無頭模式（不顯示瀏覽器窗口）')
@@ -37,6 +38,24 @@ def main():
     # 根據選擇運行相應的爬蟲
     if args.scraper == 'aws_london':
         scraper = AWSLondonScraper(
+            headless=args.headless,
+            wait_time=args.wait_time,
+            use_bigquery=args.use_bigquery,
+            bq_credentials=args.bq_credentials,
+            bq_project_id=args.bq_project_id
+        )
+        scraper.run(output_dir=args.output_dir)
+    elif args.scraper == 'aicon_infoq':
+        scraper = AiconInfoqScraper(
+            headless=args.headless,
+            wait_time=args.wait_time,
+            use_bigquery=args.use_bigquery,
+            bq_credentials=args.bq_credentials,
+            bq_project_id=args.bq_project_id
+        )
+        scraper.run(output_dir=args.output_dir)
+    elif args.scraper == 'qcon_infoq':
+        scraper = QconInfoqScraper(
             headless=args.headless,
             wait_time=args.wait_time,
             use_bigquery=args.use_bigquery,

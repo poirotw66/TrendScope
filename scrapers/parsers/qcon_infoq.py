@@ -1,6 +1,6 @@
 """
-AICon InfoQ 會議爬蟲
-用於爬取 AICon (InfoQ) 會議議程與摘要
+QCon InfoQ 會議爬蟲
+用於爬取 QCon (InfoQ) 會議議程與摘要
 """
 import time
 import threading
@@ -14,9 +14,9 @@ from selenium.common.exceptions import TimeoutException
 from scrapers.base_scraper import BaseScraper
 from scrapers.utils.driver_setup import setup_driver
 
-class AiconInfoqScraper(BaseScraper):
+class QconInfoqScraper(BaseScraper):
     """
-    AICon InfoQ 會議爬蟲類
+    QCon InfoQ 會議爬蟲類
     """
     def __init__(self, headless=False, wait_time=10, use_bigquery=False, bq_credentials=None, bq_project_id=None):
         super().__init__(
@@ -26,14 +26,14 @@ class AiconInfoqScraper(BaseScraper):
             bq_credentials=bq_credentials,
             bq_project_id=bq_project_id
         )
-        self.url = "https://aicon.infoq.cn/2025/shanghai/track"
-        self.seminar = "202503 AICon Shanghai"
+        self.url = "https://qcon.infoq.cn/2025/beijing/track"
+        self.seminar = "202503 QCon Beijing"
         self.data_lock = threading.Lock()
         self.data = []
         self.max_workers = 5  # 預設工作線程數
 
     def get_scraper_name(self):
-        return "202503 AICon Shanghai"
+        return "202503 QCon Beijing"
 
     def get_filename_prefix(self):
         return self.seminar
@@ -136,9 +136,8 @@ class AiconInfoqScraper(BaseScraper):
         
         # 所有重試都失敗
         return "爬取失敗，已達最大重試次數", None
-        
+
     def process_link(self, link_info, driver, index, total_links):
-        """處理單個演講連結，為多線程設計"""
         try:
             text, href = link_info
             print(f"正在處理第 {index + 1}/{total_links} 個項目: {text}")

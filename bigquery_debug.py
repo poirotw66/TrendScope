@@ -30,38 +30,15 @@ except Exception as e:
 
 print("\nRunning the scraper...")
 from scrapers.parsers.aicon_infoq import AiconInfoqScraper
+from scrapers.parsers.qcon_infoq import QconInfoqScraper
 from bigquery.client import BigQueryClient
 from bigquery.upload import ConferenceUploader
 import uuid
 from datetime import datetime
 
-# Test data for direct upload
-test_data = [{
-    "conference_id": str(uuid.uuid4()),
-    "seminar": "202503 AICon Shanghai",
-    "name": "Test Session",
-    "description": "This is a test session",
-    "url": "https://example.com",
-    "pdf_url": "https://example.com/test.pdf",
-    "tags": ["AI", "ML", "Test"],
-    "created_at": datetime.now().isoformat()
-}]
-
-# Test direct upload first
-print("\nTesting direct upload...")
-try:
-    uploader = ConferenceUploader(
-        credentials_path='itr-aimasteryhub-lab-1a116262496d.json',
-        project_id="itr-aimasteryhub-lab"
-    )
-    result = uploader.upload_sessions(test_data, "Test")
-    print(f"Direct upload result: {result}")
-except Exception as e:
-    print(f"Direct upload error: {e}")
-
 # Now run the full scraper
 print("\nRunning the full scraper...")
-scraper = AiconInfoqScraper(
+scraper = QconInfoqScraper(
     use_bigquery=True,
     bq_credentials='itr-aimasteryhub-lab-1a116262496d.json',
     bq_project_id="itr-aimasteryhub-lab"

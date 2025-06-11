@@ -17,6 +17,7 @@ import uuid
 # 導入爬蟲
 from scrapers.parsers.aws_london import AWSLondonScraper
 from scrapers.parsers.aicon_infoq import AiconInfoqScraper
+from scrapers.parsers.qcon_infoq import QconInfoqScraper
 from bigquery.client import BigQueryClient
 
 # 配置日誌
@@ -108,6 +109,14 @@ def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time:
             )
         elif scraper_type == "aicon_infoq":
             scraper = AiconInfoqScraper(
+                headless=headless,
+                wait_time=wait_time,
+                use_bigquery=use_bigquery,
+                bq_credentials=bq_credentials,
+                bq_project_id=bq_project_id
+            )
+        elif scraper_type == "qcon_infoq":
+            scraper = QconInfoqScraper(
                 headless=headless,
                 wait_time=wait_time,
                 use_bigquery=use_bigquery,
@@ -206,6 +215,11 @@ def list_available_scrapers():
                 "id": "aicon_infoq",
                 "name": "AICon InfoQ 2025 Shanghai",
                 "description": "爬取 AICon (InfoQ) 2025 上海議程與摘要"
+            },
+            {
+                "id": "qcon_infoq",
+                "name": "QCon InfoQ 2025 Beijing",
+                "description": "爬取 QCon (InfoQ) 2025 北京議程與摘要"
             }
         ]
     }
