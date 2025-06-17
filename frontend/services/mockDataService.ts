@@ -3,11 +3,21 @@ import { TrendData, Report, ReportStatus, Crawler, CrawlerStatus, ChartDataPoint
 
 export const getMockTrendData = (count: number = 20): TrendData[] => {
   return Array.from({ length: count }, (_, i) => ({
+    // BigQuery schema fields
+    conference_id: `mock-${i + 1}`,
+    seminar: `Mock Conference ${2023 + (i % 3)}`,
+    name: `Session ${String.fromCharCode(65 + (i % 5))}-${i + 1}`,
+    description: `This is a mock abstract for trend data item ${i + 1}. It discusses innovative approaches to AI and machine learning.`,
+    url: `https://example.com/conf/${2023 + (i % 3)}/session${i + 1}`,
+    pdf_url: i % 3 === 0 ? `https://example.com/pdf/session${i + 1}.pdf` : '',
+    tags: [['AI', 'Machine Learning', 'Big Data', 'Cloud Computing', 'Cybersecurity'][i % 5]],
+    created_at: new Date(2023, i % 12, (i % 28) + 1).toISOString(),
+
+    // Legacy fields for backward compatibility
     id: `trend-${i + 1}`,
     conference: `Tech Conference ${2023 + (i % 3)}`,
     date: new Date(2023, i % 12, (i % 28) + 1).toISOString().split('T')[0],
     meeting: `Session ${String.fromCharCode(65 + (i % 5))}-${i + 1}`,
-    url: `https://example.com/conf/${2023 + (i % 3)}/session${i + 1}`,
     abstract: `This is a mock abstract for trend data item ${i + 1}. It discusses innovative approaches to AI and machine learning.`,
     topic: ['AI', 'Machine Learning', 'Big Data', 'Cloud Computing', 'Cybersecurity'][i % 5],
     other: i % 4 === 0 ? `Some additional notes for item ${i+1}` : undefined,

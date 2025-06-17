@@ -64,15 +64,23 @@ export interface Notification {
   timestamp: Date;
 }
 
-// Data types for DatabasePage
+// Data types for DatabasePage - Updated to match BigQuery schema
 export interface TrendData {
-  id: string;
-  conference: string;
-  date: string;
-  meeting: string;
-  url: string;
-  abstract: string;
-  topic: string;
+  conference_id: string;
+  seminar: string;
+  name: string;
+  description?: string;
+  url?: string;
+  pdf_url?: string;
+  tags?: string[];
+  created_at: string;
+  // Legacy fields for backward compatibility
+  id?: string;
+  conference?: string;
+  date?: string;
+  meeting?: string;
+  abstract?: string;
+  topic?: string;
   other?: string;
 }
 

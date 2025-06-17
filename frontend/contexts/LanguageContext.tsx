@@ -86,6 +86,7 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
     database: {
       title: 'Database Management',
       conference: 'Conference',
+      seminar: 'Seminar',
       date: 'Date',
       meeting: 'Meeting',
       url: 'URL',
@@ -235,6 +236,7 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
     database: {
       title: '資料庫管理',
       conference: '研討會',
+      seminar: '研討會',
       date: '日期',
       meeting: '會議',
       url: 'URL',

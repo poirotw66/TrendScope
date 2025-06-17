@@ -3,10 +3,11 @@
  * 提供與後端 API 通信的方法
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { TrendData } from '../types';
 
 // API 基礎配置
 const apiConfig = {
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8000',
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8001',
   timeout: 30000,
 };
 
@@ -41,24 +42,28 @@ export interface ScraperResult {
   data?: any[];
 }
 
-// 會議類型
+// 會議類型 - 匹配 BigQuery schema
 export interface Session {
-  id: string;
+  conference_id: string;
+  seminar: string;
   name: string;
-  source: string;
-  url?: string;
   description?: string;
+  url?: string;
+  pdf_url?: string;
+  tags?: string[];
+  created_at: string;
+  // Legacy fields for backward compatibility
+  id?: string;
+  source?: string;
   start_date?: string;
   end_date?: string;
   location?: string;
-  tags?: string[];
   speakers?: {
     name: string;
     title?: string;
     company?: string;
   }[];
-  created_at: string;
-  updated_at: string;
+  updated_at?: string;
 }
 
 /**
@@ -138,6 +143,44 @@ class ApiService {
 
     const response = await this.api.get('/data/sessions', { params });
     return response.data.sessions;
+  }
+
+  /**
+   * 獲取資料庫管理頁面的會議資料 (轉換為 TrendData 格式)
+   * @param source 可選的資料來源過濾
+   * @param limit 最大結果數量
+   * @returns TrendData 格式的會議資料列表
+   */
+  public async getTrendData(source?: string, limit: number = 100): Promise<TrendData[]> {
+    const params: Record<string, any> = { limit };
+    if (source) {
+      params.source = source;
+    }
+
+    const response = await this.api.get('/data/sessions', { params });
+    const sessions: Session[] = response.data.sessions;
+
+    // 轉換 Session 資料為 TrendData 格式
+    return sessions.map((session, index) => ({
+      // BigQuery schema fields - 直接使用 BigQuery 返回的欄位
+      conference_id: session.conference_id || `session-${index}`,
+      seminar: session.seminar || 'Unknown Seminar',
+      name: session.name || 'Untitled Session',
+      description: session.description || '',
+      url: session.url || '',
+      pdf_url: session.pdf_url || '',
+      tags: session.tags || [],
+      created_at: session.created_at,
+
+      // Legacy fields for backward compatibility
+      id: session.conference_id || session.id || `session-${index}`,
+      conference: session.seminar || session.source || 'Unknown Conference',
+      date: session.created_at ? new Date(session.created_at).toISOString().split('T')[0] : '',
+      meeting: session.name || 'Untitled Session',
+      abstract: session.description || '',
+      topic: session.tags?.[0] || 'General',
+      other: session.location || undefined,
+    }));
   }
 }
 
