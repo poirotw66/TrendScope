@@ -72,6 +72,7 @@ export interface TrendData {
   description?: string;
   url?: string;
   pdf_url?: string;
+  ppt_context?: string;
   tags?: string[];
   created_at: string;
   // Legacy fields for backward compatibility

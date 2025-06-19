@@ -37,10 +37,14 @@ export const DatabasePage: React.FC = () => {
     try {
       if (useMockData) {
         // 使用 mock 資料作為備用
+        console.log('使用模擬資料');
         setData(getMockTrendData(50));
       } else {
         // 嘗試從 BigQuery 獲取真實資料
-        const trendData = await apiService.getTrendData();
+        console.log('嘗試從 BigQuery 獲取資料...');
+        // 獲取包含 PPT 內容的 AICon Shanghai 會議
+        const trendData = await apiService.getTrendData(undefined, '202505 AICon Shanghai');
+        console.log('成功獲取 BigQuery 資料:', trendData.length, '筆記錄');
         setData(trendData);
       }
     } catch (error: any) {
@@ -84,7 +88,7 @@ export const DatabasePage: React.FC = () => {
     setSelectedItem(null);
   };
 
-  const tableHeaderKeys = ['seminar', 'meeting', 'abstract', 'topic', 'action'];
+  const tableHeaderKeys = ['seminar', 'meeting', 'abstract', 'topic', 'ppt', 'action'];
 
   // 重新整理資料的處理函數
   const handleRefresh = () => {
@@ -156,6 +160,17 @@ export const DatabasePage: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-600 dark:text-neutral-300">
                     {item.topic || (item.tags && item.tags.length > 0 ? item.tags[0] : 'General')}
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                    {item.ppt_context ? (
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                        PPT
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
+                        -
+                      </span>
+                    )}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <Button variant="ghost" size="sm" onClick={() => handleViewDetails(item)} leftIcon={<EyeIcon className="w-4 h-4"/>}>
                       {t('viewDetails')}
@@ -218,6 +233,19 @@ export const DatabasePage: React.FC = () => {
             )}
             <p><strong className="font-medium text-neutral-800 dark:text-neutral-100">{t('abstract', 'database')}:</strong> {selectedItem.abstract || selectedItem.description || 'No description available'}</p>
             <p><strong className="font-medium text-neutral-800 dark:text-neutral-100">{t('topic', 'database')}:</strong> {selectedItem.topic || (selectedItem.tags && selectedItem.tags.length > 0 ? selectedItem.tags.join(', ') : 'General')}</p>
+            {selectedItem.ppt_context && (
+              <div className="mt-4">
+                <strong className="font-medium text-neutral-800 dark:text-neutral-100">PPT 內容:</strong>
+                <div className="mt-2 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-md max-h-60 overflow-y-auto">
+                  <pre className="text-xs text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap">
+                    {selectedItem.ppt_context.length > 1000
+                      ? `${selectedItem.ppt_context.substring(0, 1000)}...`
+                      : selectedItem.ppt_context
+                    }
+                  </pre>
+                </div>
+              </div>
+            )}
             {selectedItem.other && <p><strong className="font-medium text-neutral-800 dark:text-neutral-100">{t('other', 'database')}:</strong> {selectedItem.other}</p>}
           </div>
            {/* Footer moved to Modal component's footer prop for consistent styling */}

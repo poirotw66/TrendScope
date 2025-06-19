@@ -227,6 +227,7 @@ def list_available_scrapers():
 @app.get("/data/sessions")
 def get_sessions(
     source: Optional[str] = None,
+    seminar: Optional[str] = None,
     limit: int = Query(20, ge=1, le=100),
     bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
 ):
@@ -235,12 +236,23 @@ def get_sessions(
         raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
     
     try:
-        # 構建查詢
-        query = "SELECT * FROM `conference_data.sessions`"
+        # 構建查詢 - 添加項目 ID 和排序
+        project_id = bq_client.project_id
+        query = f"SELECT * FROM `{project_id}.conference_data.sessions`"
+
+        # 添加 WHERE 條件
+        where_conditions = []
         if source:
-            query += f" WHERE source = '{source}'"
-        query += f" LIMIT {limit}"
-        
+            where_conditions.append(f"source = '{source}'")
+        if seminar:
+            where_conditions.append(f"seminar = '{seminar}'")
+
+        if where_conditions:
+            query += " WHERE " + " AND ".join(where_conditions)
+
+        # 添加排序和限制
+        query += f" ORDER BY created_at DESC LIMIT {limit}"
+
         # 執行查詢
         results = bq_client.query(query)
         

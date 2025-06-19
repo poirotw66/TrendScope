@@ -12,6 +12,7 @@ CONFERENCE_SCHEMA = [
     bigquery.SchemaField("description", "STRING", description="會議描述"),
     bigquery.SchemaField("url", "STRING", description="會議連結"),
     bigquery.SchemaField("pdf_url", "STRING", description="PDF 連結"),
+    bigquery.SchemaField("ppt_context", "STRING", description="PPT 簡報內容"),
     bigquery.SchemaField("tags", "STRING", mode="REPEATED", description="會議標籤"),
     bigquery.SchemaField("created_at", "TIMESTAMP", mode="REQUIRED", description="創建時間")
 ]

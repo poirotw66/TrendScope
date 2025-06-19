@@ -2,6 +2,14 @@
 import { TrendData, Report, ReportStatus, Crawler, CrawlerStatus, ChartDataPoint, Notification } from '../types';
 
 export const getMockTrendData = (count: number = 20): TrendData[] => {
+  const mockPptContent = [
+    '# AI 技術創新簡報\n\n## 概述\n本簡報介紹最新的 AI 技術發展趨勢...',
+    '# 大模型應用實踐\n\n## 背景\n隨著大語言模型的快速發展...',
+    '# 數據架構設計\n\n## 核心理念\n構建現代化的數據架構需要考慮...',
+    '',  // 空內容表示沒有 PPT
+    '# 雲端技術演進\n\n## 技術棧\n- 容器化\n- 微服務\n- 服務網格...'
+  ];
+
   return Array.from({ length: count }, (_, i) => ({
     // BigQuery schema fields
     conference_id: `mock-${i + 1}`,
@@ -10,6 +18,7 @@ export const getMockTrendData = (count: number = 20): TrendData[] => {
     description: `This is a mock abstract for trend data item ${i + 1}. It discusses innovative approaches to AI and machine learning.`,
     url: `https://example.com/conf/${2023 + (i % 3)}/session${i + 1}`,
     pdf_url: i % 3 === 0 ? `https://example.com/pdf/session${i + 1}.pdf` : '',
+    ppt_context: mockPptContent[i % mockPptContent.length],
     tags: [['AI', 'Machine Learning', 'Big Data', 'Cloud Computing', 'Cybersecurity'][i % 5]],
     created_at: new Date(2023, i % 12, (i % 28) + 1).toISOString(),
 

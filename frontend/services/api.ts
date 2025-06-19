@@ -50,6 +50,7 @@ export interface Session {
   description?: string;
   url?: string;
   pdf_url?: string;
+  ppt_context?: string;
   tags?: string[];
   created_at: string;
   // Legacy fields for backward compatibility
@@ -148,13 +149,17 @@ class ApiService {
   /**
    * 獲取資料庫管理頁面的會議資料 (轉換為 TrendData 格式)
    * @param source 可選的資料來源過濾
+   * @param seminar 可選的研討會過濾
    * @param limit 最大結果數量
    * @returns TrendData 格式的會議資料列表
    */
-  public async getTrendData(source?: string, limit: number = 100): Promise<TrendData[]> {
+  public async getTrendData(source?: string, seminar?: string, limit: number = 100): Promise<TrendData[]> {
     const params: Record<string, any> = { limit };
     if (source) {
       params.source = source;
+    }
+    if (seminar) {
+      params.seminar = seminar;
     }
 
     const response = await this.api.get('/data/sessions', { params });
@@ -169,6 +174,7 @@ class ApiService {
       description: session.description || '',
       url: session.url || '',
       pdf_url: session.pdf_url || '',
+      ppt_context: session.ppt_context || '',
       tags: session.tags || [],
       created_at: session.created_at,
 
