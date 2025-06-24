@@ -466,14 +466,14 @@ async def upload_ppt_files(
     if not pdf_files:
         print("❌ 沒有有效的 PDF 檔案")
         raise HTTPException(status_code=400, detail="請上傳 PDF 檔案")
-    
+
     # 生成任務 ID
     task_id = str(uuid.uuid4())
-    
+
     # 保存檔案到臨時目錄
     temp_dir = Path(tempfile.mkdtemp())
     file_paths = []
-    
+
     try:
         # 快速保存檔案，避免前端超時
         for file in pdf_files:
@@ -490,7 +490,7 @@ async def upload_ppt_files(
 
             file_paths.append(file_path)
             print(f"✅ 檔案保存完成: {file.filename}")
-        
+
         # 初始化任務狀態
         task_status[task_id] = ProcessingStatus(
             task_id=task_id,
@@ -498,7 +498,7 @@ async def upload_ppt_files(
             progress=0,
             message=f"已接收 {len(file_paths)} 個檔案，準備處理..."
         )
-        
+
         # 啟動背景處理
         background_tasks.add_task(process_files_background, task_id, file_paths, seminar)
 
@@ -509,7 +509,7 @@ async def upload_ppt_files(
             message=f"已接收 {len(file_paths)} 個檔案，開始處理...",
             files_count=len(file_paths)
         )
-        
+
     except Exception as e:
         # 清理臨時檔案
         for file_path in file_paths:
@@ -517,7 +517,7 @@ async def upload_ppt_files(
                 file_path.unlink()
         if temp_dir.exists():
             temp_dir.rmdir()
-        
+
         raise HTTPException(status_code=500, detail=f"檔案處理失敗: {str(e)}")
 
 @router.get("/status/{task_id}", response_model=ProcessingStatus)

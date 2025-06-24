@@ -1,0 +1,1 @@
+# Scrapers utils package initialization

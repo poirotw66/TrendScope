@@ -7,7 +7,7 @@ import { TrendData } from '../types';
 
 // API 基礎配置
 const apiConfig = {
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8001',
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8002',
   timeout: 60000, // 增加到 60 秒，給上傳請求更多時間
 };
 

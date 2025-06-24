@@ -3,33 +3,43 @@ FastAPI 應用程式
 提供 API 端點以供前端呼叫爬蟲和查詢 BigQuery 資料
 """
 import os
-os.makedirs(os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs"), exist_ok=True)
+import sys
+
+# 添加專案根目錄到 Python 路徑
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.insert(0, project_root)
+
+os.makedirs(os.path.join(project_root, "logs"), exist_ok=True)
 from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
-import os
 import logging
 from datetime import datetime
 import json
 import uuid
 
 # 導入爬蟲
-from scrapers.parsers.aws_london import AWSLondonScraper
-from scrapers.parsers.aicon_infoq import AiconInfoqScraper
-from scrapers.parsers.qcon_infoq import QconInfoqScraper
-from bigquery.client import BigQueryClient
+from backend.scrapers.parsers.aws_london import AWSLondonScraper
+from backend.scrapers.parsers.aicon_infoq import AiconInfoqScraper
+from backend.scrapers.parsers.qcon_infoq import QconInfoqScraper
+from backend.bigquery.client import BigQueryClient
 
 # 導入 PPT 上傳路由器
-from api.ppt_upload import router as ppt_router
+from backend.api.ppt_upload import router as ppt_router
 
 # 配置日誌
+# 確保日誌目錄存在
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+logs_dir = os.path.join(project_root, "logs")
+os.makedirs(logs_dir, exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler(f"logs/api_{datetime.now().strftime('%Y%m%d')}.log")
+        logging.FileHandler(os.path.join(logs_dir, f"api_{datetime.now().strftime('%Y%m%d')}.log"))
     ]
 )
 logger = logging.getLogger("trendscope-api")
