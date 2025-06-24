@@ -135,6 +135,14 @@ export const PPTUploadPage: React.FC = () => {
     });
   };
 
+  const triggerFileSelect = () => {
+    if (isProcessing) return;
+    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
   const startProcessing = async () => {
     if (files.length === 0) return;
 
@@ -151,48 +159,102 @@ export const PPTUploadPage: React.FC = () => {
       // 準備檔案列表
       const fileList = files.map(f => f.file);
 
+      console.log('開始上傳檔案...', { fileCount: fileList.length, seminar: selectedSeminar });
+
       // 調用 API 上傳檔案
       const uploadResponse = await apiService.uploadPPTFiles(fileList, selectedSeminar);
       const taskId = uploadResponse.task_id;
 
+      console.log('上傳成功，獲得任務ID:', taskId);
+
       // 更新所有檔案狀態為處理中
-      setFiles(prev => prev.map(f => ({ ...f, status: 'processing', progress: 0 })));
+      setFiles(prev => prev.map(f => ({
+        ...f,
+        status: 'processing',
+        progress: 0,
+        error: undefined // 清除之前的錯誤
+      })));
       setProcessingStats(prev => ({
         ...prev,
         pending: 0,
         processing: prev.total
       }));
 
+      console.log('檔案狀態已更新為處理中，開始輪詢...');
+
       // 輪詢處理狀態
+      let pollCount = 0;
+      const maxPollCount = 200; // 最多輪詢 200 次 (10分鐘) - 為 PPT 處理預留充足時間
+
       const pollStatus = async () => {
         try {
-          const statusResponse = await apiService.getPPTProcessingStatus(taskId);
+          pollCount++;
+          console.log(`輪詢狀態 ${pollCount}/${maxPollCount}, 任務ID: ${taskId}`);
 
-          // 更新進度
-          setFiles(prev => prev.map(f => ({ ...f, progress: statusResponse.progress })));
+          const statusResponse = await apiService.getPPTProcessingStatus(taskId);
+          console.log('狀態響應:', statusResponse);
+
+          // 更新進度和檔案狀態
+          if (statusResponse.files && statusResponse.files.length > 0) {
+            // 使用後端返回的詳細檔案狀態
+            setFiles(prev => prev.map(f => {
+              const backendFile = statusResponse.files.find((bf: any) => bf.filename === f.file.name);
+              if (backendFile) {
+                return {
+                  ...f,
+                  status: backendFile.status,
+                  progress: backendFile.progress,
+                  matchedSession: backendFile.matched_session,
+                  similarity: backendFile.similarity,
+                  error: backendFile.error,
+                  result: backendFile.ppt_length ? {
+                    conference_id: `conf-${f.id}`,
+                    session_name: backendFile.matched_session || f.file.name.replace('.pdf', ''),
+                    ppt_length: backendFile.ppt_length
+                  } : undefined
+                };
+              }
+              return { ...f, progress: statusResponse.progress || 0 };
+            }));
+          } else {
+            // 回退到總體進度
+            setFiles(prev => prev.map(f => ({ ...f, progress: statusResponse.progress || 0 })));
+          }
 
           if (statusResponse.status === 'success') {
             // 處理成功
             const result = statusResponse.result;
-            setFiles(prev => prev.map(f => ({
-              ...f,
-              status: 'success',
-              progress: 100,
-              matchedSession: f.file.name.replace('.pdf', ''),
-              similarity: 0.85 + Math.random() * 0.15,
-              result: {
-                conference_id: `conf-${f.id}`,
-                session_name: f.file.name.replace('.pdf', ''),
-                ppt_length: Math.floor(Math.random() * 5000) + 1000
-              }
-            })));
+            console.log('並行處理成功:', result);
+
+            // 如果沒有詳細檔案狀態，使用總體結果
+            if (!statusResponse.files || statusResponse.files.length === 0) {
+              setFiles(prev => prev.map(f => ({
+                ...f,
+                status: 'success',
+                progress: 100,
+                matchedSession: f.file.name.replace('.pdf', ''),
+                similarity: 0.85 + Math.random() * 0.15,
+                result: {
+                  conference_id: `conf-${f.id}`,
+                  session_name: f.file.name.replace('.pdf', ''),
+                  ppt_length: Math.floor(Math.random() * 5000) + 1000
+                }
+              })));
+            }
+
+            // 根據實際檔案狀態計算統計
+            const currentFiles = statusResponse.files || [];
+            const successCount = currentFiles.filter((f: any) => f.status === 'success').length;
+            const errorCount = currentFiles.filter((f: any) => f.status === 'error').length;
+            const processingCount = currentFiles.filter((f: any) => f.status === 'processing').length;
+            const pendingCount = currentFiles.filter((f: any) => f.status === 'pending').length;
 
             setProcessingStats({
               total: files.length,
-              pending: 0,
-              processing: 0,
-              success: result?.success || files.length,
-              error: result?.failed || 0
+              pending: pendingCount,
+              processing: processingCount,
+              success: successCount,
+              error: errorCount
             });
 
             setIsProcessing(false);
@@ -200,10 +262,12 @@ export const PPTUploadPage: React.FC = () => {
 
           } else if (statusResponse.status === 'error') {
             // 處理失敗
+            console.log('處理失敗:', statusResponse.error);
+
             setFiles(prev => prev.map(f => ({
               ...f,
               status: 'error',
-              error: statusResponse.error || '處理失敗'
+              error: statusResponse.error || statusResponse.message || '處理失敗'
             })));
 
             setProcessingStats(prev => ({
@@ -215,31 +279,109 @@ export const PPTUploadPage: React.FC = () => {
             setIsProcessing(false);
             setShowResults(true);
 
-          } else if (statusResponse.status === 'processing') {
-            // 繼續輪詢
-            setTimeout(pollStatus, 2000);
+          } else if (statusResponse.status === 'processing' || statusResponse.status === 'pending') {
+            // 更新處理中的統計
+            if (statusResponse.files && statusResponse.files.length > 0) {
+              const currentFiles = statusResponse.files;
+              const successCount = currentFiles.filter((f: any) => f.status === 'success').length;
+              const errorCount = currentFiles.filter((f: any) => f.status === 'error').length;
+              const processingCount = currentFiles.filter((f: any) => f.status === 'processing').length;
+              const pendingCount = currentFiles.filter((f: any) => f.status === 'pending').length;
+
+              setProcessingStats({
+                total: files.length,
+                pending: pendingCount,
+                processing: processingCount,
+                success: successCount,
+                error: errorCount
+              });
+            }
+
+            // 繼續輪詢 - 使用動態間隔
+            if (pollCount < maxPollCount) {
+              // 前30次每3秒輪詢，之後每5秒輪詢（因為 PPT 處理需要更長時間）
+              const pollInterval = pollCount < 30 ? 3000 : 5000;
+              console.log(`繼續輪詢，${pollInterval/1000}秒後再次查詢...`);
+              setTimeout(pollStatus, pollInterval);
+            } else {
+              // 輪詢超時
+              console.log('輪詢超時 - 已等待超過10分鐘');
+              setFiles(prev => prev.map(f => ({
+                ...f,
+                status: 'error',
+                error: '處理時間超過10分鐘，請稍後查看資料庫管理頁面確認結果'
+              })));
+              setIsProcessing(false);
+            }
+          } else {
+            // 未知狀態
+            console.log('未知狀態:', statusResponse.status);
+            if (pollCount < maxPollCount) {
+              const pollInterval = pollCount < 30 ? 3000 : 5000;
+              setTimeout(pollStatus, pollInterval);
+            } else {
+              setFiles(prev => prev.map(f => ({
+                ...f,
+                status: 'error',
+                error: '處理狀態未知，已超時'
+              })));
+              setIsProcessing(false);
+            }
           }
 
-        } catch (error) {
+        } catch (error: any) {
           console.error('獲取處理狀態失敗:', error);
-          setFiles(prev => prev.map(f => ({
-            ...f,
-            status: 'error',
-            error: '無法獲取處理狀態'
-          })));
-          setIsProcessing(false);
+
+          // 如果是網絡錯誤且還沒超時，繼續重試
+          if (pollCount < maxPollCount) {
+            const retryInterval = pollCount < 30 ? 3000 : 5000;
+            console.log(`網絡錯誤，${retryInterval/1000}秒後重試... (${pollCount}/${maxPollCount})`);
+            setTimeout(pollStatus, retryInterval);
+          } else {
+            // 超時，但給用戶更友好的提示
+            console.log('輪詢超時，但處理可能仍在進行中');
+            setFiles(prev => prev.map(f => ({
+              ...f,
+              status: 'error',
+              error: '⚠️ 檔案已成功上傳，但無法獲取處理狀態。處理可能仍在進行中，請稍後查看資料庫管理頁面確認結果。'
+            })));
+            setProcessingStats(prev => ({
+              ...prev,
+              processing: 0,
+              error: prev.total
+            }));
+            setIsProcessing(false);
+          }
         }
       };
 
       // 開始輪詢
       setTimeout(pollStatus, 1000);
 
-    } catch (error) {
-      console.error('上傳失敗:', error);
+    } catch (error: any) {
+      console.error('上傳過程中發生錯誤:', error);
+
+      // 檢查錯誤類型，如果是網絡錯誤，給用戶更友好的提示
+      let errorMessage = '上傳失敗';
+      if (error?.response) {
+        // 服務器響應了錯誤狀態碼
+        errorMessage = `❌ 服務器錯誤: ${error.response.status} - ${error.response.data?.detail || '未知錯誤'}`;
+      } else if (error?.request) {
+        // 請求已發出但沒有收到響應 - 這可能是超時
+        if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+          errorMessage = '⏰ 上傳超時，檔案可能較大或網絡較慢。如果後端正在處理，請稍後查看資料庫管理頁面確認結果。';
+        } else {
+          errorMessage = '🌐 網絡連接失敗，請檢查網絡連接或稍後重試';
+        }
+      } else {
+        // 其他錯誤
+        errorMessage = `⚙️ 請求配置錯誤: ${error?.message || '未知錯誤'}`;
+      }
+
       setFiles(prev => prev.map(f => ({
         ...f,
         status: 'error',
-        error: '上傳失敗'
+        error: errorMessage
       })));
 
       setProcessingStats(prev => ({
@@ -296,6 +438,13 @@ export const PPTUploadPage: React.FC = () => {
         <p className="text-neutral-600 dark:text-neutral-300">
           上傳 PPT 檔案（PDF 格式），系統會自動匹配對應的會議記錄並提取簡報內容到 BigQuery
         </p>
+        {isProcessing && (
+          <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <p className="text-blue-800 dark:text-blue-200 text-sm">
+              ⏳ 正在處理 PPT 內容，這可能需要 3-10 分鐘時間，請耐心等待...
+            </p>
+          </div>
+        )}
       </div>
 
       {/* 研討會選擇 */}
@@ -353,16 +502,19 @@ export const PPTUploadPage: React.FC = () => {
               id="file-upload"
               disabled={isProcessing}
             />
-            <label htmlFor="file-upload">
-              <Button
-                variant="primary"
-                size="md"
-                disabled={isProcessing}
-                className="cursor-pointer"
-              >
-                選擇檔案
-              </Button>
-            </label>
+            <div
+              onClick={triggerFileSelect}
+              className={`
+                inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md
+                transition-colors duration-200 cursor-pointer
+                ${isProcessing
+                  ? 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
+                  : 'bg-primary-600 hover:bg-primary-700 text-white'
+                }
+              `}
+            >
+              選擇檔案
+            </div>
           </div>
 
           {/* 檔案列表 */}

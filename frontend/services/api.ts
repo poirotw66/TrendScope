@@ -8,7 +8,7 @@ import { TrendData } from '../types';
 // API 基礎配置
 const apiConfig = {
   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8001',
-  timeout: 30000,
+  timeout: 60000, // 增加到 60 秒，給上傳請求更多時間
 };
 
 // API 響應類型定義
@@ -203,8 +203,11 @@ class ApiService {
     });
     formData.append('seminar', seminar);
 
-    // 不要手動設置 Content-Type，讓瀏覽器自動設置 multipart/form-data 的邊界
-    const response = await this.api.post('/ppt/upload', formData);
+    // PPT 上傳需要更長的超時時間，因為檔案可能較大
+    // 但實際上後端會立即返回 task_id，真正的處理在背景進行
+    const response = await this.api.post('/ppt/upload', formData, {
+      timeout: 120000, // 2分鐘超時，足夠檔案上傳和任務創建
+    });
 
     return response.data;
   }
@@ -215,7 +218,10 @@ class ApiService {
    * @returns 處理狀態
    */
   public async getPPTProcessingStatus(taskId: string): Promise<any> {
-    const response = await this.api.get(`/ppt/status/${taskId}`);
+    // 狀態查詢應該很快，使用較短的超時時間
+    const response = await this.api.get(`/ppt/status/${taskId}`, {
+      timeout: 15000, // 15秒超時
+    });
     return response.data;
   }
 
