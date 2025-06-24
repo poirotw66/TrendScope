@@ -20,6 +20,9 @@ from scrapers.parsers.aicon_infoq import AiconInfoqScraper
 from scrapers.parsers.qcon_infoq import QconInfoqScraper
 from bigquery.client import BigQueryClient
 
+# 導入 PPT 上傳路由器
+from api.ppt_upload import router as ppt_router
+
 # 配置日誌
 logging.basicConfig(
     level=logging.INFO,
@@ -46,6 +49,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 包含路由器
+app.include_router(ppt_router)
 
 # 模型定義
 class ScraperRequest(BaseModel):

@@ -59,6 +59,7 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
     sidebar: {
       dashboard: 'Dashboard',
       databaseManagement: 'Database',
+      pptUpload: 'PPT Upload',
       reportManagement: 'Reports',
       reportGenerator: 'Report Generator',
       crawlerManagement: 'Crawlers',
@@ -210,6 +211,7 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
     sidebar: {
       dashboard: '總覽',
       databaseManagement: '資料庫管理',
+      pptUpload: 'PPT 上傳',
       reportManagement: '報告管理',
       reportGenerator: '報告產生器',
       crawlerManagement: '爬蟲管理',

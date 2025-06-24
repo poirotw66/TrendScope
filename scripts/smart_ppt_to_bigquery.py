@@ -17,6 +17,7 @@ sys.path.append(str(pathlib.Path(__file__).parent.parent))
 from google import genai
 from google.cloud import bigquery
 from config.config import GEMINI_API_KEY
+import opencc
 from bigquery.client import BigQueryClient
 
 # 配置
@@ -39,8 +40,11 @@ TABLE_ID = "sessions"
 genai_client = genai.Client(api_key=GEMINI_API_KEY)
 semaphore = threading.Semaphore(MAX_THREADS)
 
-# 繁簡對照表（常用字）
-TRADITIONAL_TO_SIMPLIFIED = {
+# 初始化 OpenCC 轉換器
+cc = opencc.OpenCC('t2s')  # 繁體轉簡體
+
+# 保留原有的繁簡對照表作為備用（如果 OpenCC 失敗時使用）
+TRADITIONAL_TO_SIMPLIFIED_BACKUP = {
     '產': '产', '設': '设', '計': '计', '領': '领', '域': '域',
     '過': '过', '現': '现', '來': '来', '數': '数', '據': '据',
     '應': '应', '用': '用', '實': '实', '踐': '践', '開': '开',
@@ -102,10 +106,16 @@ TRADITIONAL_TO_SIMPLIFIED = {
 
 def convert_traditional_to_simplified(text: str) -> str:
     """將繁體中文轉換為簡體中文"""
-    result = ""
-    for char in text:
-        result += TRADITIONAL_TO_SIMPLIFIED.get(char, char)
-    return result
+    try:
+        # 優先使用 OpenCC 進行轉換
+        return cc.convert(text)
+    except Exception as e:
+        print(f"OpenCC 轉換失敗，使用備用方法: {e}")
+        # 如果 OpenCC 失敗，使用備用字典
+        result = ""
+        for char in text:
+            result += TRADITIONAL_TO_SIMPLIFIED_BACKUP.get(char, char)
+        return result
 
 def calculate_similarity(text1: str, text2: str) -> float:
     """計算兩個文本的相似度"""

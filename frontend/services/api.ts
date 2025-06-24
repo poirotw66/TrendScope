@@ -188,6 +188,45 @@ class ApiService {
       other: session.location || undefined,
     }));
   }
+
+  /**
+   * 上傳 PPT 檔案
+   * @param files 要上傳的檔案列表
+   * @param seminar 目標研討會
+   * @returns 上傳響應
+   */
+  public async uploadPPTFiles(files: File[], seminar: string): Promise<any> {
+    const formData = new FormData();
+
+    files.forEach(file => {
+      formData.append('files', file);
+    });
+    formData.append('seminar', seminar);
+
+    // 不要手動設置 Content-Type，讓瀏覽器自動設置 multipart/form-data 的邊界
+    const response = await this.api.post('/ppt/upload', formData);
+
+    return response.data;
+  }
+
+  /**
+   * 獲取 PPT 處理狀態
+   * @param taskId 任務 ID
+   * @returns 處理狀態
+   */
+  public async getPPTProcessingStatus(taskId: string): Promise<any> {
+    const response = await this.api.get(`/ppt/status/${taskId}`);
+    return response.data;
+  }
+
+  /**
+   * 獲取可用的研討會列表
+   * @returns 研討會列表
+   */
+  public async getAvailableSeminars(): Promise<any> {
+    const response = await this.api.get('/ppt/seminars');
+    return response.data;
+  }
 }
 
 // 導出 API 服務實例
