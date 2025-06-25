@@ -31,8 +31,8 @@ if __name__ == "__main__":
     
     # 啟動 API 服務
     uvicorn.run(
-        app, 
-        host="0.0.0.0", 
+        "backend.api.app:app",
+        host="0.0.0.0",
         port=8001,
         reload=True,
         log_level="info"
