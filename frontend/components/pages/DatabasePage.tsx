@@ -9,7 +9,7 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Modal } from '../ui/Modal';
-import { SearchIcon, FilterIcon, SortAscIcon, EyeIcon, ChevronDownIcon } from '../../constants';
+import { SearchIcon, EyeIcon, ChevronDownIcon } from '../../constants';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -166,8 +166,6 @@ export const DatabasePage: React.FC = () => {
               {useMockData ? '模擬資料' : 'BigQuery'}
             </Button>
             <Button variant="secondary" size="md" onClick={handleRefresh}>重新整理</Button>
-            <Button variant="secondary" size="md" leftIcon={<FilterIcon className="w-4 h-4" />}>{t('filter')}</Button>
-            <Button variant="secondary" size="md" leftIcon={<SortAscIcon className="w-4 h-4" />}>{t('sort')}</Button>
           </div>
         </div>
 

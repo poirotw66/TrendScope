@@ -2,7 +2,7 @@
  * API 服務
  * 提供與後端 API 通信的方法
  */
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { TrendData } from '../types';
 
 // API 基礎配置

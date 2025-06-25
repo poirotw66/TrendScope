@@ -39,14 +39,7 @@ export const SIDENAV_GROUPS: NavGroup[] = [
       { path: '/report-generator', labelKey: 'reportGenerator', icon: (props) => <PlusCircleIcon {...props} /> },
     ]
   },
-  // 系統管理分組
-  {
-    groupKey: 'systemManagement',
-    items: [
-      { path: '/settings', labelKey: 'systemSettings', icon: (props) => <CogIcon {...props} /> },
-      { path: '/logs', labelKey: 'logQuery', icon: (props) => <TerminalIcon {...props} /> },
-    ]
-  }
+
 ];
 
 // 保持向後兼容的平面結構

@@ -8,8 +8,7 @@ import { PPTUploadPage } from './components/pages/PPTUploadPage';
 import { ReportPage } from './components/pages/ReportPage';
 import { ReportGeneratorPage } from './components/pages/ReportGeneratorPage'; // Added import
 import { CrawlerManagementPage } from './components/pages/CrawlerManagementPage';
-import { SystemSettingsPage } from './components/pages/SystemSettingsPage';
-import { LogQueryPage } from './components/pages/LogQueryPage';
+
 import { NotFoundPage } from './components/pages/NotFoundPage';
 
 const App: React.FC = () => {
@@ -23,8 +22,7 @@ const App: React.FC = () => {
           <Route path="/reports" element={<ReportPage />} />
           <Route path="/report-generator" element={<ReportGeneratorPage />} /> {/* Added route */}
           <Route path="/crawlers" element={<CrawlerManagementPage />} />
-          <Route path="/settings" element={<SystemSettingsPage />} />
-          <Route path="/logs" element={<LogQueryPage />} />
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </MainLayout>
