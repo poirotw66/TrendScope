@@ -244,7 +244,7 @@ def list_available_scrapers():
 def get_sessions(
     source: Optional[str] = None,
     seminar: Optional[str] = None,
-    limit: int = Query(20, ge=1, le=100),
+    limit: int = Query(20, ge=1, le=500),
     bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
 ):
     """從 BigQuery 獲取會議資料
@@ -252,7 +252,7 @@ def get_sessions(
     Args:
         source: 可選的資料來源過濾
         seminar: 可選的研討會過濾
-        limit: 最大結果數量 (1-100)
+        limit: 最大結果數量 (1-500)
 
     Returns:
         包含會議資料列表的 JSON 響應

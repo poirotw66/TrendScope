@@ -65,6 +65,9 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       crawlerManagement: 'Crawlers',
       systemSettings: 'Settings',
       logQuery: 'Log Query',
+      // 分組標題
+      dataCollection: 'Data Collection',
+      systemManagement: 'System Management',
     },
     dashboard: {
       title: 'Dashboard',
@@ -217,6 +220,9 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       crawlerManagement: '爬蟲管理',
       systemSettings: '系統設定',
       logQuery: '日誌查詢',
+      // 分組標題
+      dataCollection: '數據搜集',
+      systemManagement: '系統管理',
     },
     dashboard: {
       title: '儀表板',

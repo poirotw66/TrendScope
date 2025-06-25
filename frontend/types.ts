@@ -11,11 +11,7 @@ export enum Theme {
   DARK = 'dark',
 }
 
-export interface NavItem {
-  path: string;
-  labelKey: string;
-  icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactNode;
-}
+// NavItem 定義已移至 constants.tsx
 
 export interface User {
   name: string;

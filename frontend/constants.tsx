@@ -1,16 +1,56 @@
 
 import React from 'react';
 
-export const SIDENAV_ITEMS: { path: string; labelKey: string; icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactNode }[] = [
-  { path: '/', labelKey: 'dashboard', icon: (props) => <HomeIcon {...props} /> },
-  { path: '/database', labelKey: 'databaseManagement', icon: (props) => <DatabaseIcon {...props} /> },
-  { path: '/ppt-upload', labelKey: 'pptUpload', icon: (props) => <CloudUploadIcon {...props} /> },
-  { path: '/reports', labelKey: 'reportManagement', icon: (props) => <DocumentReportIcon {...props} /> },
-  { path: '/report-generator', labelKey: 'reportGenerator', icon: (props) => <PlusCircleIcon {...props} /> },
-  { path: '/crawlers', labelKey: 'crawlerManagement', icon: (props) => <ChipIcon {...props} /> },
-  { path: '/settings', labelKey: 'systemSettings', icon: (props) => <CogIcon {...props} /> },
-  { path: '/logs', labelKey: 'logQuery', icon: (props) => <TerminalIcon {...props} /> },
+// 導航項目類型定義
+export interface NavItem {
+  path: string;
+  labelKey: string;
+  icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactNode;
+}
+
+export interface NavGroup {
+  groupKey: string;
+  items: NavItem[];
+}
+
+// 分組導航結構
+export const SIDENAV_GROUPS: NavGroup[] = [
+  // 主要功能（無分組標題）
+  {
+    groupKey: '',
+    items: [
+      { path: '/', labelKey: 'dashboard', icon: (props) => <HomeIcon {...props} /> },
+    ]
+  },
+  // 數據搜集分組
+  {
+    groupKey: 'dataCollection',
+    items: [
+      { path: '/database', labelKey: 'databaseManagement', icon: (props) => <DatabaseIcon {...props} /> },
+      { path: '/ppt-upload', labelKey: 'pptUpload', icon: (props) => <CloudUploadIcon {...props} /> },
+      { path: '/crawlers', labelKey: 'crawlerManagement', icon: (props) => <ChipIcon {...props} /> },
+    ]
+  },
+  // 報告管理分組
+  {
+    groupKey: 'reportManagement',
+    items: [
+      { path: '/reports', labelKey: 'reportManagement', icon: (props) => <DocumentReportIcon {...props} /> },
+      { path: '/report-generator', labelKey: 'reportGenerator', icon: (props) => <PlusCircleIcon {...props} /> },
+    ]
+  },
+  // 系統管理分組
+  {
+    groupKey: 'systemManagement',
+    items: [
+      { path: '/settings', labelKey: 'systemSettings', icon: (props) => <CogIcon {...props} /> },
+      { path: '/logs', labelKey: 'logQuery', icon: (props) => <TerminalIcon {...props} /> },
+    ]
+  }
 ];
+
+// 保持向後兼容的平面結構
+export const SIDENAV_ITEMS: NavItem[] = SIDENAV_GROUPS.flatMap(group => group.items);
 
 export const APP_NAME = "TrendScope";
 

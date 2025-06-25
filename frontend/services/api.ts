@@ -73,6 +73,11 @@ export interface Session {
 class ApiService {
   private api: AxiosInstance;
 
+  // 公開 api 實例以供直接訪問
+  public get axiosInstance() {
+    return this.api;
+  }
+
   constructor() {
     // 創建 axios 實例
     this.api = axios.create(apiConfig);

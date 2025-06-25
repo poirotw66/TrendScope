@@ -23,12 +23,30 @@ export const DatabasePage: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<TrendData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [useMockData, setUseMockData] = useState(false);
+  const [availableSeminars, setAvailableSeminars] = useState<{name: string, session_count: number}[]>([]);
+  const [selectedSeminar, setSelectedSeminar] = useState<string>('all');
 
   useEffect(() => {
     setPageTitle(t('databaseManagement', 'sidebar'));
-    loadData();
+    loadSeminars();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setPageTitle, t]);
+
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSeminar, useMockData]);
+
+  const loadSeminars = async () => {
+    try {
+      if (!useMockData) {
+        const response = await apiService.axiosInstance.get('/data/seminars');
+        setAvailableSeminars(response.data.seminars);
+      }
+    } catch (error) {
+      console.error('載入研討會列表失敗:', error);
+    }
+  };
 
   const loadData = async () => {
     setLoading(true);
@@ -42,8 +60,11 @@ export const DatabasePage: React.FC = () => {
       } else {
         // 嘗試從 BigQuery 獲取真實資料
         console.log('嘗試從 BigQuery 獲取資料...');
-        // 獲取包含 PPT 內容的 AICon Shanghai 會議
-        const trendData = await apiService.getTrendData(undefined, '202505 AICon Shanghai');
+
+        // 根據選擇的研討會獲取資料
+        const seminarFilter = selectedSeminar === 'all' ? undefined : selectedSeminar;
+        const trendData = await apiService.getTrendData(undefined, seminarFilter, 200);
+
         console.log('成功獲取 BigQuery 資料:', trendData.length, '筆記錄');
         setData(trendData);
       }
@@ -107,16 +128,35 @@ export const DatabasePage: React.FC = () => {
   return (
     <div className="space-y-6 md:space-y-8">
       <Card>
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <Input
-            type="text"
-            placeholder={t('search') + '...'}
-            value={searchTerm}
-            onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1);}}
-            icon={<SearchIcon className="w-5 h-5" />}
-            className="max-w-md w-full md:w-auto"
-            wrapperClassName="flex-grow md:flex-grow-0"
-          />
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+            <Input
+              type="text"
+              placeholder={t('search') + '...'}
+              value={searchTerm}
+              onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1);}}
+              icon={<SearchIcon className="w-5 h-5" />}
+              className="max-w-md w-full sm:w-auto"
+              wrapperClassName="flex-grow sm:flex-grow-0"
+            />
+
+            {/* 研討會選擇器 */}
+            {!useMockData && (
+              <select
+                value={selectedSeminar}
+                onChange={(e) => setSelectedSeminar(e.target.value)}
+                className="px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 min-w-[200px]"
+              >
+                <option value="all">所有研討會</option>
+                {availableSeminars.map(seminar => (
+                  <option key={seminar.name} value={seminar.name}>
+                    {seminar.name} ({seminar.session_count})
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+
           <div className="flex space-x-2">
             <Button
               variant={useMockData ? "secondary" : "primary"}

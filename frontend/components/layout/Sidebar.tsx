@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { SIDENAV_ITEMS, APP_NAME, XIcon } from '../../constants';
-import { NavItem } from '../../types';
+import { SIDENAV_GROUPS, APP_NAME, XIcon, NavItem, NavGroup } from '../../constants';
 import { useLanguage } from '../../hooks/useLanguage';
 
 interface SidebarProps {
@@ -38,24 +37,45 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
             <XIcon className="w-6 h-6" />
           </button>
         </div>
-        <nav className="flex-1 p-4 space-y-1.5">
-          {SIDENAV_ITEMS.map((item: NavItem) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              onClick={() => { if (window.innerWidth < 1024) toggleSidebar(); }}
-              className={({ isActive }) =>
-                `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-all duration-150 group
-                ${
-                  isActive
-                    ? 'bg-primary-500 text-white shadow-md hover:bg-primary-600'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-300'
-                }`
-              }
-            >
-              <item.icon className="w-5 h-5 mr-3 transition-colors duration-150 group-hover:text-primary-500" />
-              {t(item.labelKey, 'sidebar')}
-            </NavLink>
+        <nav className="flex-1 p-4 space-y-2">
+          {SIDENAV_GROUPS.map((group: NavGroup, groupIndex) => (
+            <div key={group.groupKey || `group-${groupIndex}`} className="space-y-1.5">
+              {/* 分組標題 */}
+              {group.groupKey && (
+                <div className="px-4 py-2">
+                  <h3 className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+                    {t(group.groupKey, 'sidebar')}
+                  </h3>
+                </div>
+              )}
+
+              {/* 分組項目 */}
+              {group.items.map((item: NavItem) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => { if (window.innerWidth < 1024) toggleSidebar(); }}
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-all duration-150 group
+                    ${
+                      isActive
+                        ? 'bg-primary-500 text-white shadow-md hover:bg-primary-600'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-300'
+                    }`
+                  }
+                >
+                  <item.icon className="w-5 h-5 mr-3 transition-colors duration-150 group-hover:text-primary-500" />
+                  {t(item.labelKey, 'sidebar')}
+                </NavLink>
+              ))}
+
+              {/* 分組間的分隔線（除了最後一組） */}
+              {groupIndex < SIDENAV_GROUPS.length - 1 && group.groupKey && (
+                <div className="pt-2">
+                  <hr className="border-neutral-200 dark:border-neutral-700" />
+                </div>
+              )}
+            </div>
           ))}
         </nav>
         <div className="p-6 border-t border-neutral-200 dark:border-neutral-800">
