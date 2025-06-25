@@ -180,7 +180,7 @@ def read_root():
     """API 根端點"""
     return {"message": "歡迎使用 TrendScope API"}
 
-@app.post("/scrapers/run", response_model=ScraperResponse)
+@app.post("/scrapers/run", response_model=ScraperResponse, tags=["Scrapers"])
 def run_scraper(request: ScraperRequest, background_tasks: BackgroundTasks):
     """啟動爬蟲任務"""
     task_id = str(uuid.uuid4())
@@ -209,7 +209,7 @@ def run_scraper(request: ScraperRequest, background_tasks: BackgroundTasks):
         status="pending"
     )
 
-@app.get("/scrapers/status/{task_id}", response_model=ScraperResult)
+@app.get("/scrapers/status/{task_id}", response_model=ScraperResult, tags=["Scrapers"])
 def get_scraper_status(task_id: str):
     """獲取爬蟲任務狀態"""
     if task_id not in tasks:
@@ -217,7 +217,7 @@ def get_scraper_status(task_id: str):
     
     return ScraperResult(**tasks[task_id])
 
-@app.get("/scrapers/list")
+@app.get("/scrapers/list", tags=["Scrapers"])
 def list_available_scrapers():
     """列出可用的爬蟲"""
     return {
@@ -240,17 +240,26 @@ def list_available_scrapers():
         ]
     }
 
-@app.get("/data/sessions")
+@app.get("/data/sessions", tags=["BigQuery Data"])
 def get_sessions(
     source: Optional[str] = None,
     seminar: Optional[str] = None,
     limit: int = Query(20, ge=1, le=100),
     bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
 ):
-    """從 BigQuery 獲取會議資料"""
+    """從 BigQuery 獲取會議資料
+
+    Args:
+        source: 可選的資料來源過濾
+        seminar: 可選的研討會過濾
+        limit: 最大結果數量 (1-100)
+
+    Returns:
+        包含會議資料列表的 JSON 響應
+    """
     if not bq_client:
         raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
-    
+
     try:
         # 構建查詢 - 添加項目 ID 和排序
         project_id = bq_client.project_id
@@ -271,7 +280,7 @@ def get_sessions(
 
         # 執行查詢
         results = bq_client.query(query)
-        
+
         # 轉換為列表
         sessions = []
         for row in results:
@@ -282,11 +291,118 @@ def get_sessions(
             if "updated_at" in session:
                 session["updated_at"] = session["updated_at"].isoformat()
             sessions.append(session)
-            
+
         return {"sessions": sessions}
     except Exception as e:
         logger.exception(f"查詢 BigQuery 時發生錯誤: {str(e)}")
         raise HTTPException(status_code=500, detail=f"查詢資料時發生錯誤: {str(e)}")
+
+@app.get("/data/seminars", tags=["BigQuery Data"])
+def get_seminars(
+    bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
+):
+    """從 BigQuery 獲取所有可用的研討會列表
+
+    Returns:
+        包含研討會列表的 JSON 響應，每個研討會包含名稱和會議數量
+    """
+    if not bq_client:
+        raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+    try:
+        project_id = bq_client.project_id
+        query = f"""
+        SELECT seminar, COUNT(*) as session_count
+        FROM `{project_id}.conference_data.sessions`
+        GROUP BY seminar
+        ORDER BY session_count DESC
+        """
+
+        results = bq_client.query(query)
+        seminars = [{"name": row['seminar'], "session_count": row['session_count']} for row in results]
+
+        return {"seminars": seminars}
+    except Exception as e:
+        logger.exception(f"查詢研討會列表時發生錯誤: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"查詢研討會列表時發生錯誤: {str(e)}")
+
+@app.get("/data/stats", tags=["BigQuery Data"])
+def get_data_stats(
+    bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
+):
+    """從 BigQuery 獲取資料統計資訊
+
+    Returns:
+        包含總會議數、研討會數等統計資訊的 JSON 響應
+    """
+    if not bq_client:
+        raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+    try:
+        project_id = bq_client.project_id
+
+        # 獲取總會議數
+        total_sessions_query = f"SELECT COUNT(*) as total FROM `{project_id}.conference_data.sessions`"
+        total_sessions_result = list(bq_client.query(total_sessions_query))
+        total_sessions = total_sessions_result[0]['total'] if total_sessions_result else 0
+
+        # 獲取研討會數
+        seminars_query = f"SELECT COUNT(DISTINCT seminar) as total FROM `{project_id}.conference_data.sessions`"
+        seminars_result = list(bq_client.query(seminars_query))
+        total_seminars = seminars_result[0]['total'] if seminars_result else 0
+
+        # 獲取有 PPT 內容的會議數
+        ppt_sessions_query = f"SELECT COUNT(*) as total FROM `{project_id}.conference_data.sessions` WHERE ppt_context IS NOT NULL AND ppt_context != ''"
+        ppt_sessions_result = list(bq_client.query(ppt_sessions_query))
+        ppt_sessions = ppt_sessions_result[0]['total'] if ppt_sessions_result else 0
+
+        return {
+            "total_sessions": total_sessions,
+            "total_seminars": total_seminars,
+            "sessions_with_ppt": ppt_sessions,
+            "sessions_without_ppt": total_sessions - ppt_sessions
+        }
+    except Exception as e:
+        logger.exception(f"查詢統計資訊時發生錯誤: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"查詢統計資訊時發生錯誤: {str(e)}")
+
+@app.get("/bigquery/health", tags=["BigQuery Data"])
+def check_bigquery_health(
+    bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
+):
+    """檢查 BigQuery 連接健康狀態
+
+    Returns:
+        BigQuery 連接狀態和基本資訊
+    """
+    if not bq_client:
+        return {
+            "status": "error",
+            "message": "無法連接到 BigQuery",
+            "connected": False
+        }
+
+    try:
+        # 測試連接
+        project_id = bq_client.project_id
+        test_query = "SELECT 1 as test"
+        list(bq_client.query(test_query))
+
+        return {
+            "status": "healthy",
+            "message": "BigQuery 連接正常",
+            "connected": True,
+            "project_id": project_id,
+            "dataset": "conference_data",
+            "table": "sessions"
+        }
+    except Exception as e:
+        logger.exception(f"BigQuery 健康檢查失敗: {str(e)}")
+        return {
+            "status": "error",
+            "message": f"BigQuery 連接異常: {str(e)}",
+            "connected": False
+        }
 
 if __name__ == "__main__":
     import uvicorn
