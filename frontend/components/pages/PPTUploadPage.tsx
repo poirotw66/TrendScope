@@ -45,7 +45,7 @@ export const PPTUploadPage: React.FC = () => {
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedSeminar, setSelectedSeminar] = useState('202505 AICon Shanghai');
+  const [selectedSeminar, setSelectedSeminar] = useState('');
   const [availableSeminars, setAvailableSeminars] = useState<Array<{name: string, session_count: number}>>([]);
   const [showResults, setShowResults] = useState(false);
   const [processingStats, setProcessingStats] = useState<ProcessingStats>({
@@ -72,10 +72,12 @@ export const PPTUploadPage: React.FC = () => {
       } catch (error) {
         console.error('載入研討會列表失敗:', error);
         // 使用默認值
-        setAvailableSeminars([
-          { name: '202505 AICon Shanghai', session_count: 57 },
-          { name: '202503 QCon Beijing', session_count: 120 }
-        ]);
+        const defaultSeminars = [
+          { name: '202503 QCon Beijing', session_count: 120 },
+          { name: '202505 AICon Shanghai', session_count: 57 }
+        ];
+        setAvailableSeminars(defaultSeminars);
+        setSelectedSeminar(defaultSeminars[0].name);
       }
     };
 
@@ -459,6 +461,9 @@ export const PPTUploadPage: React.FC = () => {
             className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             disabled={isProcessing}
           >
+            {availableSeminars.length === 0 && (
+              <option value="" disabled>載入研討會列表中...</option>
+            )}
             {availableSeminars.map(seminar => (
               <option key={seminar.name} value={seminar.name}>
                 {seminar.name} ({seminar.session_count} 個會議)

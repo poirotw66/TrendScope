@@ -105,10 +105,7 @@ class ApiService {
     return response.data;
   }
 
-  async getReportFiles() {
-    const response = await this.api.get('/reports/files');
-    return response.data;
-  }
+
 
   constructor() {
     // 設置 baseURL
