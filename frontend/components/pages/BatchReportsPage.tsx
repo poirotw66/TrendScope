@@ -44,6 +44,8 @@ export const BatchReportsPage: React.FC = () => {
   const [currentTask, setCurrentTask] = useState<BatchReportTask | null>(null);
   const [limit, setLimit] = useState<string>('');
   const [includeHtml, setIncludeHtml] = useState(true);
+  const [analysisMode, setAnalysisMode] = useState<string>('comprehensive');
+  const [outputTemplate, setOutputTemplate] = useState<string>('professional');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -98,7 +100,9 @@ export const BatchReportsPage: React.FC = () => {
         seminars: selectedSeminars,
         limit: limit ? parseInt(limit) : undefined,
         output_format: 'markdown',
-        include_html: includeHtml
+        include_html: includeHtml,
+        analysis_mode: analysisMode,
+        output_template: outputTemplate
       };
 
       const response = await apiService.generateBatchReports(request);
@@ -261,6 +265,48 @@ export const BatchReportsPage: React.FC = () => {
             生成選項
           </h2>
           
+          {/* 分析模式選擇 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              分析模式
+            </label>
+            <select
+              value={analysisMode}
+              onChange={(e) => setAnalysisMode(e.target.value)}
+              disabled={generating}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="technical">技術深度分析 - 專注於技術實現細節和架構分析</option>
+              <option value="business">商業價值分析 - 重點分析商業應用和市場價值</option>
+              <option value="trend">趨勢洞察分析 - 著重於技術趨勢和未來發展方向</option>
+              <option value="comprehensive">綜合全面分析 - 包含技術、商業和趨勢的全方位分析</option>
+            </select>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              選擇報告分析的深度和重點方向
+            </p>
+          </div>
+
+          {/* 輸出樣板選擇 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              輸出樣板
+            </label>
+            <select
+              value={outputTemplate}
+              onChange={(e) => setOutputTemplate(e.target.value)}
+              disabled={generating}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="professional">專業商務風格 - 正式的企業報告格式</option>
+              <option value="technical">技術文檔風格 - 適合技術團隊的詳細文檔格式</option>
+              <option value="concise">簡潔摘要風格 - 重點突出的簡潔版本</option>
+              <option value="presentation">演示文稿風格 - 適合展示的視覺化格式</option>
+            </select>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              選擇生成報告的外觀和格式風格
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -275,7 +321,7 @@ export const BatchReportsPage: React.FC = () => {
                 min="1"
               />
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <input
                 type="checkbox"

@@ -89,6 +89,8 @@ class BatchReportRequest(BaseModel):
     limit: Optional[int] = None  # 每個研討會的會議數量限制
     output_format: str = "markdown"  # "markdown", "html", "both"
     include_html: bool = True
+    analysis_mode: str = "comprehensive"  # "technical", "business", "trend", "comprehensive"
+    output_template: str = "professional"  # "professional", "technical", "concise", "presentation"
 
 class BatchReportResponse(BaseModel):
     """批量報告生成響應模型"""
@@ -158,9 +160,15 @@ def get_sessions_from_bigquery_for_reports(bq_client: BigQueryClient, seminars: 
         logger.error(f"從 BigQuery 獲取會議數據失敗: {e}")
         raise
 
-def generate_session_report(session_data: Dict[str, Any], genai_client) -> Dict[str, Any]:
+def generate_session_report(session_data: Dict[str, Any], genai_client, analysis_mode: str = "comprehensive", output_template: str = "professional") -> Dict[str, Any]:
     """
     為單個會議生成報告
+
+    Args:
+        session_data: 會議數據
+        genai_client: Gemini 客戶端
+        analysis_mode: 分析模式 ("technical", "business", "trend", "comprehensive")
+        output_template: 輸出樣板 ("professional", "technical", "concise", "presentation")
     """
     try:
         # 使用正確的欄位名稱
@@ -173,9 +181,63 @@ def generate_session_report(session_data: Dict[str, Any], genai_client) -> Dict[
 
         category = "主題演講"  # 默認類型
 
+        # 根據分析模式構建不同的提示詞
+        analysis_prompts = {
+            "technical": """
+請根據以下會議的 PPT 內容，生成一份專注於技術深度的分析報告。
+
+重點分析方向：
+1. 技術架構和實現細節
+2. 核心算法和技術原理
+3. 系統設計和性能優化
+4. 技術挑戰和解決方案
+5. 代碼實現和最佳實踐
+
+請深入分析技術實現細節，適合技術專家閱讀。
+""",
+            "business": """
+請根據以下會議的 PPT 內容，生成一份專注於商業價值的分析報告。
+
+重點分析方向：
+1. 商業應用場景和價值主張
+2. 市場機會和競爭優勢
+3. 投資回報和成本效益
+4. 商業模式和盈利潛力
+5. 行業影響和市場前景
+
+請重點分析商業價值和市場應用，適合商業決策者閱讀。
+""",
+            "trend": """
+請根據以下會議的 PPT 內容，生成一份專注於技術趨勢的洞察報告。
+
+重點分析方向：
+1. 技術發展趨勢和未來方向
+2. 行業變革和創新機會
+3. 新興技術和前沿研究
+4. 技術演進路徑和時間線
+5. 對未來技術生態的影響
+
+請重點分析技術趨勢和未來發展，適合戰略規劃者閱讀。
+""",
+            "comprehensive": """
+請根據以下會議的 PPT 內容，生成一份全方位的綜合分析報告。
+
+重點分析方向：
+1. 會議概述和核心內容
+2. 技術要點和實現細節
+3. 商業價值和應用場景
+4. 創新亮點和技術突破
+5. 趨勢洞察和未來展望
+
+請提供技術、商業和趨勢的全面分析，適合各類讀者。
+"""
+        }
+
         # 構建提示詞
+        analysis_instruction = analysis_prompts.get(analysis_mode, analysis_prompts["comprehensive"])
+
         prompt = f"""
-請根據以下會議的 PPT 內容，生成一份詳細的技術報告。
+{analysis_instruction}
 
 會議信息：
 - 標題：{title}
@@ -186,14 +248,7 @@ def generate_session_report(session_data: Dict[str, Any], genai_client) -> Dict[
 PPT 內容：
 {ppt_context}
 
-請生成一份包含以下部分的技術報告：
-1. 會議概述
-2. 主要技術要點
-3. 創新亮點
-4. 實際應用場景
-5. 技術趨勢分析
-
-請用繁體中文撰寫，內容要專業且具有技術深度。
+請用繁體中文撰寫，內容要專業且具有深度。
 """
 
         # 調用 Gemini API
@@ -207,22 +262,86 @@ PPT 內容：
         else:
             report_content = f"無法生成 {title} 的報告內容"
 
-        # 構建 Markdown 格式的報告
-        markdown_content = f"""# {title}
+        # 根據輸出樣板構建不同格式的 Markdown 報告
+        template_formats = {
+            "professional": f"""# {title}
 
-**講者：** {speaker}  
-**研討會：** {seminar}  
-**類型：** {category}  
-**來源：** [{url}]({url})
+## 會議資訊
+- **講者：** {speaker}
+- **研討會：** {seminar}
+- **類型：** {category}
+- **來源：** [{url}]({url})
 
 ---
+
+## 報告內容
 
 {report_content}
 
 ---
 
-*本報告由 TrendScope 自動生成*
+<div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 2em;">
+<em>本報告由 TrendScope 自動生成 | 生成時間：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</em>
+</div>
+""",
+            "technical": f"""# 技術分析報告：{title}
+
+```yaml
+會議資訊:
+  講者: {speaker}
+  研討會: {seminar}
+  類型: {category}
+  來源: {url}
+```
+
+## 📋 執行摘要
+
+{report_content}
+
+## 🔗 參考資料
+- 原始來源：[{url}]({url})
+
+---
+*技術文檔 | TrendScope 自動生成*
+""",
+            "concise": f"""# {title}
+
+**{speaker}** | {seminar}
+
+{report_content}
+
+[查看原始資料]({url})
+""",
+            "presentation": f"""<div style="text-align: center;">
+
+# 🎯 {title}
+
+### 👤 {speaker}
+### 📅 {seminar}
+
+</div>
+
+---
+
+## 📊 重點內容
+
+{report_content}
+
+---
+
+<div style="text-align: center;">
+
+### 🔗 更多資訊
+[點擊查看原始資料]({url})
+
+<small>*由 TrendScope 自動生成*</small>
+
+</div>
 """
+        }
+
+        # 選擇對應的樣板格式
+        markdown_content = template_formats.get(output_template, template_formats["professional"])
 
         return {
             "status": "completed",
@@ -242,7 +361,8 @@ PPT 內容：
         }
 
 def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Optional[int],
-                         include_html: bool, output_format: str):
+                         include_html: bool, output_format: str, analysis_mode: str = "comprehensive",
+                         output_template: str = "professional"):
     """
     執行批量報告生成任務（多線程版本）
     """
@@ -287,7 +407,7 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
         with ThreadPoolExecutor(max_workers=3) as executor:
             # 提交所有任務
             future_to_session = {
-                executor.submit(generate_session_report, session, genai_client): (session, i)
+                executor.submit(generate_session_report, session, genai_client, analysis_mode, output_template): (session, i)
                 for i, session in enumerate(sessions)
             }
 
@@ -336,8 +456,8 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             try:
                 tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
 
-                # 使用 SSG 將 Markdown 轉換為 HTML
-                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3)
+                # 使用 SSG 將 Markdown 轉換為 HTML，傳遞樣板參數
+                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3, template_style=output_template)
 
                 # 收集生成的 HTML 文件
                 for html_file in output_html_dir.glob("*.html"):
@@ -348,7 +468,7 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             except ImportError as e:
                 logger.warning(f"[任務 {task_id}] 無法導入 SSG 模組，跳過 HTML 生成: {e}")
                 # 使用備用的簡單 HTML 生成
-                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3)
+                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3, template_style=output_template)
                 for html_file in output_html_dir.glob("*.html"):
                     html_files.append(str(html_file))
             except Exception as e:
@@ -493,7 +613,9 @@ def generate_batch_reports(
             seminars_to_process,
             request.limit,
             request.include_html,
-            request.output_format
+            request.output_format,
+            request.analysis_mode,
+            request.output_template
         )
 
         return BatchReportResponse(

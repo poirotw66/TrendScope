@@ -90,6 +90,8 @@ class ApiService {
     limit?: number;
     output_format?: string;
     include_html?: boolean;
+    analysis_mode?: string;
+    output_template?: string;
   }) {
     const response = await this.api.post('/reports/generate-batch', request);
     return response.data;

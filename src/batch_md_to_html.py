@@ -10,6 +10,166 @@ from src.utils.file_utils import FileUtils
 TEMPLATE_DIR = Path(__file__).parent / "templates"
 EMAIL_TEMPLATE_PATH = TEMPLATE_DIR / "email_template.html"
 
+def get_template_css(template_style="professional"):
+    """根據樣板風格返回對應的 CSS 樣式"""
+    css_styles = {
+        "professional": """
+        body {
+            font-family: 'Roboto', 'Microsoft JhengHei', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: #fff;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px 10px 0 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        """,
+        "technical": """
+        /* Technical Documentation Style */
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        header {
+            text-align: left;
+            padding: 20px;
+            background: #252526;
+            color: #cccccc;
+            border-bottom: 2px solid #007acc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: #569cd6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #252526;
+            border: 1px solid #3c3c3c;
+            min-height: 100vh;
+        }
+        .content {
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #569cd6;
+            border-left: 3px solid #007acc;
+            padding-left: 10px;
+        }
+        h2 { color: #4ec9b0; }
+        h3 { color: #dcdcaa; }
+        p { margin: 10px 0; }
+        code {
+            background-color: #3c3c3c;
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #ce9178;
+        }
+        pre {
+            background-color: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .meeting-item {
+            background-color: #2d2d30;
+            border: 1px solid #3c3c3c;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .video-link {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 15px;
+            background-color: #007acc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        .video-link:hover {
+            background-color: #005a9e;
+        }
+        """,
+        "concise": """
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        header {
+            text-align: center;
+            padding: 15px;
+            background: #f5f5f5;
+            border-bottom: 3px solid #007acc;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        h1 { font-size: 1.8em; margin-bottom: 10px; }
+        h2 { font-size: 1.4em; margin: 15px 0 8px 0; }
+        """,
+        "presentation": """
+        body {
+            font-family: 'Segoe UI', 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        h1 { font-size: 2.5em; color: #4a5568; }
+        h2 { color: #667eea; border-left: 4px solid #667eea; padding-left: 15px; }
+        """
+    }
+
+    return css_styles.get(template_style, css_styles["professional"])
+
 # Preload template content at module level
 try:
     with open(EMAIL_TEMPLATE_PATH, 'r', encoding='utf-8') as f:
@@ -70,8 +230,14 @@ def wrap_sections_to_meeting_items(html):
         html_meetings += f'<div class="meeting-item">{section}</div>'
     return html_meetings
 
-def markdown_to_email_html(md_content, index=0):
-    """Converts Markdown content to a styled HTML email format using a template."""
+def markdown_to_email_html(md_content, index=0, template_style="professional"):
+    """Converts Markdown content to a styled HTML email format using a template.
+
+    Args:
+        md_content: Markdown content to convert
+        index: Index parameter for processing
+        template_style: Template style for CSS ("professional", "technical", "concise", "presentation")
+    """
     # Check if template loading failed during module import
     if "Error:" in EMAIL_TEMPLATE_CONTENT:
         logger.error("Cannot generate HTML because the email template failed to load.")
@@ -127,10 +293,29 @@ def markdown_to_email_html(md_content, index=0):
     email_html = email_html.replace('{{html_body_content}}', html_body_content)
     email_html = email_html.replace('{{footer_image}}', footer_image_html)
 
+    # 根據樣板風格替換 CSS 樣式
+    custom_css = get_template_css(template_style)
+    # 查找並替換現有的 CSS 樣式部分
+    css_pattern = r'<style>.*?</style>'
+    if re.search(css_pattern, email_html, re.DOTALL):
+        email_html = re.sub(css_pattern, f'<style>{custom_css}</style>', email_html, flags=re.DOTALL)
+    else:
+        # 如果沒有找到 style 標籤，在 head 中添加
+        head_pattern = r'</head>'
+        if re.search(head_pattern, email_html):
+            email_html = re.sub(head_pattern, f'<style>{custom_css}</style></head>', email_html)
+
     return email_html
 
-def batch_md_to_html(md_dir_str, html_dir_str, index_param=0):
-    """Converts all Markdown files in a directory to HTML files."""
+def batch_md_to_html(md_dir_str, html_dir_str, index_param=0, template_style="professional"):
+    """Converts all Markdown files in a directory to HTML files.
+
+    Args:
+        md_dir_str: Path to markdown directory
+        html_dir_str: Path to output HTML directory
+        index_param: Index parameter for processing
+        template_style: Template style ("professional", "technical", "concise", "presentation")
+    """
     md_dir = Path(md_dir_str)
     html_dir = Path(html_dir_str)
 
@@ -156,7 +341,7 @@ def batch_md_to_html(md_dir_str, html_dir_str, index_param=0):
             logger.warning(f"Could not read file {md_file.name}, skipping.")
             continue
 
-        html_content = markdown_to_email_html(md_content, index=index_param)
+        html_content = markdown_to_email_html(md_content, index=index_param, template_style=template_style)
 
         # Check if markdown_to_email_html returned an error string
         if isinstance(html_content, str) and "Error:" in html_content:
