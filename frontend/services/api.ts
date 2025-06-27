@@ -78,6 +78,32 @@ class ApiService {
     return this.api;
   }
 
+  // 批量報告生成相關 API
+  async getAvailableSeminarsForReports() {
+    const response = await this.api.get('/reports/seminars');
+    return response.data;
+  }
+
+  async generateBatchReports(request: {
+    seminars?: string[];
+    limit?: number;
+    output_format?: string;
+    include_html?: boolean;
+  }) {
+    const response = await this.api.post('/reports/generate-batch', request);
+    return response.data;
+  }
+
+  async getBatchReportStatus(taskId: string) {
+    const response = await this.api.get(`/reports/status/${taskId}`);
+    return response.data;
+  }
+
+  async listBatchReportTasks() {
+    const response = await this.api.get('/reports/list');
+    return response.data;
+  }
+
   constructor() {
     // 創建 axios 實例
     this.api = axios.create(apiConfig);

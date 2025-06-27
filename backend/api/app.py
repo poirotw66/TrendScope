@@ -18,6 +18,12 @@ import logging
 from datetime import datetime
 import json
 import uuid
+import pathlib
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+from google import genai
+from config.config import GEMINI_API_KEY
 
 # 導入爬蟲
 from backend.scrapers.parsers.aws_london import AWSLondonScraper
@@ -85,8 +91,204 @@ class ScraperResult(BaseModel):
     message: Optional[str] = None
     data: Optional[List[Dict[str, Any]]] = None
 
+
+# 批量報告生成相關模型
+class SeminarInfo(BaseModel):
+    """研討會信息模型"""
+    name: str
+    session_count: int
+    sessions_with_ppt: int
+
+
+class BatchReportRequest(BaseModel):
+    """批量報告生成請求模型"""
+    seminars: Optional[List[str]] = None  # 如果為 None 則處理所有研討會
+    limit: Optional[int] = None  # 每個研討會的會議數量限制
+    output_format: str = "markdown"  # "markdown", "html", "both"
+    include_html: bool = True
+
+
+class BatchReportResponse(BaseModel):
+    """批量報告生成響應模型"""
+    task_id: str
+    message: str
+    status: str
+    seminars_to_process: List[str]
+    estimated_sessions: int
+    estimated_time: Optional[str] = None
+
+
+class BatchReportStatus(BaseModel):
+    """批量報告狀態模型"""
+    task_id: str
+    status: str  # "pending", "running", "completed", "failed"
+    progress: Dict[str, Any]  # 進度信息
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    error_message: Optional[str] = None
+    results: Optional[Dict[str, Any]] = None  # 完成後的結果信息
+
 # 保存運行中的任務
 tasks = {}
+
+# 初始化 Gemini 客戶端
+genai_client = genai.Client(api_key=GEMINI_API_KEY)
+
+# 批量報告生成相關函數
+def get_sessions_from_bigquery_for_reports(bq_client: BigQueryClient, seminars: Optional[List[str]] = None,
+                                          limit: Optional[int] = None) -> List[Dict[str, Any]]:
+    """
+    從 BigQuery 獲取會議數據用於報告生成
+    """
+    try:
+        project_id = bq_client.project_id
+        query = f"SELECT * FROM `{project_id}.conference_data.sessions`"
+
+        # 添加過濾條件
+        where_conditions = []
+        if seminars:
+            seminar_list = "', '".join(seminars)
+            where_conditions.append(f"seminar IN ('{seminar_list}')")
+
+        # 只處理有 PPT 內容的會議
+        where_conditions.append("ppt_context IS NOT NULL AND LENGTH(TRIM(ppt_context)) > 0")
+
+        if where_conditions:
+            query += " WHERE " + " AND ".join(where_conditions)
+
+        # 添加排序
+        query += " ORDER BY seminar, created_at DESC"
+
+        # 添加限制
+        if limit:
+            query += f" LIMIT {limit}"
+
+        logger.info(f"執行查詢: {query}")
+        results = bq_client.query(query)
+
+        sessions = []
+        for row in results:
+            session = dict(row.items())
+            # 處理時間戳
+            if "created_at" in session and session["created_at"]:
+                session["created_at"] = session["created_at"].isoformat()
+            if "updated_at" in session and session["updated_at"]:
+                session["updated_at"] = session["updated_at"].isoformat()
+            sessions.append(session)
+
+        logger.info(f"獲取到 {len(sessions)} 個會議數據")
+        return sessions
+
+    except Exception as e:
+        logger.error(f"從 BigQuery 獲取數據時發生錯誤: {e}")
+        raise
+
+
+def summarize_session_for_api(session_data: Dict[str, Any], output_dir: str) -> Dict[str, Any]:
+    """
+    使用 BigQuery 中的會議數據生成摘要（API 版本）
+    """
+    try:
+        conference_id = session_data.get('conference_id', 'unknown')
+        name = session_data.get('name', 'Unknown Session')
+        seminar = session_data.get('seminar', 'Unknown Seminar')
+        url = session_data.get('url', 'TEST.com')
+        ppt_context = session_data.get('ppt_context', '')
+        description = session_data.get('description', '')
+
+        category = "主題演講"  # 默認類型
+
+        if not ppt_context:
+            return {"status": "skipped", "reason": "沒有 PPT 內容"}
+
+        logger.info(f"正在處理會議: {name}")
+
+        # 構建 Gemini 提示詞
+        prompt = f"""
+## 處理指示
+
+請依照以下步驟處理我提供的「簡報內容」，並遵循所有格式要求：
+
+### 1. 內部校對（不輸出）
+- 仔細閱讀提供的「簡報內容」。
+- 將簡報內容中的簡體中文翻譯成繁體中文。
+- 僅作為後續撰寫會議總結的依據，不需要輸出校對結果或任何校對過程。
+
+### 2. 撰寫會議總結（僅輸出此部分）
+根據內部校對後的簡報內容，撰寫一份有完整脈絡的簡報內容。具體要求如下：
+
+- 總結標題：
+  - 第一行輸出提供的 {name} 原文。
+  - 第二行輸出{category}
+  - 第三行輸出格式： `[會議影片連結]({url})`
+  - 第四行中文翻譯：{name}
+
+- 內容結構（需依下列順序分段撰寫、並且儘量詳細）：
+  - **1. 核心觀點**
+  - **2. 詳細內容**
+  - **3. 重要結論**
+
+- 各段落之間需有明確分隔（如空行）。
+
+### 3. 輸出要求
+- 請僅輸出步驟2的「會議總結」。
+- 嚴禁輸出校對內容、校對過程、任何額外說明或多餘文字。
+- 使用 Markdown 格式。
+- 全文必須使用繁體中文。
+
+---
+
+## 簡報內容：
+
+{ppt_context}
+
+---
+
+請根據以上簡報內容生成會議總結。
+"""
+
+        # 調用 Gemini API
+        response = genai_client.models.generate_content(
+            model="gemini-2.5-flash-preview-05-20",
+            contents=[prompt]
+        )
+
+        markdown_content = response.text
+
+        # 保存到文件
+        output_dir = pathlib.Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # 使用 conference_id 作為文件名，確保唯一性
+        safe_filename = f"{conference_id}_{name}".replace("/", "_").replace("\\", "_")
+        # 限制文件名長度
+        if len(safe_filename) > 100:
+            safe_filename = safe_filename[:100]
+
+        output_filename = safe_filename + ".md"
+        output_path = output_dir / output_filename
+
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(markdown_content)
+
+        logger.info(f"已將摘要儲存至 {output_path}")
+
+        return {
+            "status": "completed",
+            "file_path": str(output_path),
+            "conference_id": conference_id,
+            "session_name": name,
+            "seminar": seminar
+        }
+
+    except Exception as e:
+        logger.error(f"處理會議 {session_data.get('name', 'unknown')} 時發生錯誤: {e}")
+        return {
+            "status": "failed",
+            "error": str(e),
+            "conference_id": session_data.get('conference_id', 'unknown'),
+            "session_name": session_data.get('name', 'unknown')
+        }
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():
@@ -104,6 +306,94 @@ def get_bigquery_client():
     except Exception as e:
         logger.error(f"初始化 BigQuery 客戶端失敗: {str(e)}")
         return None
+
+
+def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Optional[int],
+                         include_html: bool, output_format: str):
+    """
+    執行批量報告生成任務
+    """
+    try:
+        # 更新任務狀態
+        tasks[task_id]["status"] = "running"
+        tasks[task_id]["progress"] = {"current": 0, "total": 0, "current_session": "初始化中..."}
+
+        # 獲取 BigQuery 客戶端
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise Exception("無法連接到 BigQuery")
+
+        # 獲取會議數據
+        sessions = get_sessions_from_bigquery_for_reports(bq_client, seminars, limit)
+
+        if not sessions:
+            tasks[task_id]["status"] = "completed"
+            tasks[task_id]["progress"]["current_session"] = "沒有找到符合條件的會議"
+            tasks[task_id]["end_time"] = datetime.now().isoformat()
+            tasks[task_id]["results"] = {"processed_sessions": 0, "generated_reports": 0}
+            return
+
+        # 更新總數
+        tasks[task_id]["progress"]["total"] = len(sessions)
+
+        # 創建輸出目錄
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_base_dir = pathlib.Path(f"reports/batch_{timestamp}")
+        output_md_dir = output_base_dir / "md"
+        output_html_dir = output_base_dir / "html"
+
+        # 處理會議
+        processed_sessions = []
+        failed_sessions = []
+
+        for i, session in enumerate(sessions):
+            try:
+                session_name = session.get('name', 'Unknown Session')
+                tasks[task_id]["progress"]["current"] = i + 1
+                tasks[task_id]["progress"]["current_session"] = f"處理中: {session_name}"
+
+                # 生成摘要
+                result = summarize_session_for_api(session, str(output_md_dir))
+
+                if result["status"] == "completed":
+                    processed_sessions.append(result)
+                else:
+                    failed_sessions.append(result)
+
+                # 添加延遲避免 API 限制
+                time.sleep(4)
+
+            except Exception as e:
+                logger.error(f"處理會議時發生錯誤: {e}")
+                failed_sessions.append({
+                    "status": "failed",
+                    "error": str(e),
+                    "conference_id": session.get('conference_id', 'unknown'),
+                    "session_name": session.get('name', 'unknown')
+                })
+
+        # 完成任務
+        tasks[task_id]["status"] = "completed"
+        tasks[task_id]["end_time"] = datetime.now().isoformat()
+        tasks[task_id]["progress"]["current_session"] = "完成"
+        tasks[task_id]["results"] = {
+            "processed_sessions": len(processed_sessions),
+            "failed_sessions": len(failed_sessions),
+            "output_directory": str(output_base_dir),
+            "md_directory": str(output_md_dir),
+            "html_directory": str(output_html_dir) if include_html else None,
+            "processed_files": [s["file_path"] for s in processed_sessions if s["status"] == "completed"],
+            "failed_files": failed_sessions
+        }
+
+        logger.info(f"批量報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
+
+    except Exception as e:
+        logger.error(f"批量報告生成任務失敗: {e}")
+        tasks[task_id]["status"] = "failed"
+        tasks[task_id]["error_message"] = str(e)
+        tasks[task_id]["end_time"] = datetime.now().isoformat()
+
 
 # 爬蟲任務函數
 def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time: int, use_bigquery: bool):
@@ -403,6 +693,182 @@ def check_bigquery_health(
             "message": f"BigQuery 連接異常: {str(e)}",
             "connected": False
         }
+
+
+# 批量報告生成 API 端點
+@app.get("/reports/seminars", tags=["Batch Reports"])
+def get_available_seminars_for_reports(
+    bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
+):
+    """獲取可用於報告生成的研討會列表
+
+    Returns:
+        包含研討會信息的列表，包括會議總數和有PPT內容的會議數
+    """
+    if not bq_client:
+        raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+    try:
+        project_id = bq_client.project_id
+        query = f"""
+        SELECT
+            seminar,
+            COUNT(*) as session_count,
+            SUM(CASE WHEN ppt_context IS NOT NULL AND LENGTH(TRIM(ppt_context)) > 0 THEN 1 ELSE 0 END) as sessions_with_ppt
+        FROM `{project_id}.conference_data.sessions`
+        GROUP BY seminar
+        ORDER BY session_count DESC
+        """
+
+        results = bq_client.query(query)
+        seminars = []
+
+        for row in results:
+            seminars.append(SeminarInfo(
+                name=row['seminar'],
+                session_count=row['session_count'],
+                sessions_with_ppt=row['sessions_with_ppt']
+            ))
+
+        return {"seminars": seminars}
+
+    except Exception as e:
+        logger.exception(f"獲取研討會列表時發生錯誤: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"獲取研討會列表時發生錯誤: {str(e)}")
+
+
+@app.post("/reports/generate-batch", tags=["Batch Reports"])
+def generate_batch_reports(
+    request: BatchReportRequest,
+    background_tasks: BackgroundTasks,
+    bq_client: Optional[BigQueryClient] = Depends(get_bigquery_client)
+):
+    """啟動批量報告生成任務
+
+    Args:
+        request: 批量報告生成請求
+        background_tasks: FastAPI 背景任務
+        bq_client: BigQuery 客戶端
+
+    Returns:
+        任務信息和預估完成時間
+    """
+    if not bq_client:
+        raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+    try:
+        task_id = str(uuid.uuid4())
+
+        # 獲取項目 ID
+        project_id = bq_client.project_id
+
+        # 如果沒有指定研討會，獲取所有研討會
+        seminars_to_process = request.seminars
+        if not seminars_to_process:
+            # 獲取所有有PPT內容的研討會
+            query = f"""
+            SELECT DISTINCT seminar
+            FROM `{project_id}.conference_data.sessions`
+            WHERE ppt_context IS NOT NULL AND LENGTH(TRIM(ppt_context)) > 0
+            ORDER BY seminar
+            """
+            results = bq_client.query(query)
+            seminars_to_process = [row['seminar'] for row in results]
+
+        # 估算會議數量
+        seminar_list = "', '".join(seminars_to_process)
+        count_query = f"""
+        SELECT COUNT(*) as total_sessions
+        FROM `{project_id}.conference_data.sessions`
+        WHERE seminar IN ('{seminar_list}')
+        AND ppt_context IS NOT NULL AND LENGTH(TRIM(ppt_context)) > 0
+        """
+        if request.limit:
+            count_query += f" LIMIT {request.limit}"
+
+        count_results = list(bq_client.query(count_query))
+        estimated_sessions = count_results[0]['total_sessions'] if count_results else 0
+
+        # 估算完成時間（每個會議約需要30秒）
+        estimated_minutes = (estimated_sessions * 30) // 60
+        estimated_time = f"約 {estimated_minutes} 分鐘" if estimated_minutes > 0 else "少於 1 分鐘"
+
+        # 初始化任務狀態
+        tasks[task_id] = {
+            "task_id": task_id,
+            "type": "batch_report",
+            "status": "pending",
+            "seminars": seminars_to_process,
+            "estimated_sessions": estimated_sessions,
+            "start_time": datetime.now().isoformat(),
+            "progress": {"current": 0, "total": 0, "current_session": "等待開始..."}
+        }
+
+        # 添加背景任務
+        background_tasks.add_task(
+            run_batch_report_task,
+            task_id,
+            seminars_to_process,
+            request.limit,
+            request.include_html,
+            request.output_format
+        )
+
+        return BatchReportResponse(
+            task_id=task_id,
+            message=f"已啟動批量報告生成任務，將處理 {len(seminars_to_process)} 個研討會",
+            status="pending",
+            seminars_to_process=seminars_to_process,
+            estimated_sessions=estimated_sessions,
+            estimated_time=estimated_time
+        )
+
+    except Exception as e:
+        logger.exception(f"啟動批量報告生成任務時發生錯誤: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"啟動任務時發生錯誤: {str(e)}")
+
+
+@app.get("/reports/status/{task_id}", tags=["Batch Reports"])
+def get_batch_report_status(task_id: str):
+    """獲取批量報告生成任務狀態
+
+    Args:
+        task_id: 任務 ID
+
+    Returns:
+        任務狀態信息
+    """
+    if task_id not in tasks:
+        raise HTTPException(status_code=404, detail=f"找不到任務 ID: {task_id}")
+
+    task_data = tasks[task_id]
+
+    return BatchReportStatus(
+        task_id=task_id,
+        status=task_data.get("status", "unknown"),
+        progress=task_data.get("progress", {}),
+        start_time=task_data.get("start_time"),
+        end_time=task_data.get("end_time"),
+        error_message=task_data.get("error_message"),
+        results=task_data.get("results")
+    )
+
+
+@app.get("/reports/list", tags=["Batch Reports"])
+def list_batch_report_tasks():
+    """列出所有批量報告生成任務
+
+    Returns:
+        所有任務的列表
+    """
+    batch_tasks = {
+        task_id: task_data
+        for task_id, task_data in tasks.items()
+        if task_data.get("type") == "batch_report"
+    }
+
+    return {"tasks": batch_tasks}
+
 
 if __name__ == "__main__":
     import uvicorn

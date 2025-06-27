@@ -7,6 +7,7 @@ import { DatabasePage } from './components/pages/DatabasePage';
 import { PPTUploadPage } from './components/pages/PPTUploadPage';
 import { ReportPage } from './components/pages/ReportPage';
 import { ReportGeneratorPage } from './components/pages/ReportGeneratorPage'; // Added import
+import { BatchReportsPage } from './components/pages/BatchReportsPage';
 import { CrawlerManagementPage } from './components/pages/CrawlerManagementPage';
 
 import { NotFoundPage } from './components/pages/NotFoundPage';
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           <Route path="/ppt-upload" element={<PPTUploadPage />} />
           <Route path="/reports" element={<ReportPage />} />
           <Route path="/report-generator" element={<ReportGeneratorPage />} /> {/* Added route */}
+          <Route path="/batch-reports" element={<BatchReportsPage />} />
           <Route path="/crawlers" element={<CrawlerManagementPage />} />
 
           <Route path="*" element={<NotFoundPage />} />

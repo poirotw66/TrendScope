@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 基本樣式 */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+/* 確保文字可見 */
+.text-neutral-900 {
+  color: #0f172a !important;
+}
+
+.text-neutral-100 {
+  color: #f1f5f9 !important;
+}
+
+.text-gray-900 {
+  color: #111827 !important;
+}
+
+.text-gray-100 {
+  color: #f3f4f6 !important;
+}
+
+/* 確保背景可見 */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+
+/* 確保邊框可見 */
+.border {
+  border-width: 1px !important;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem !important;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 確保間距 */
+.p-4 {
+  padding: 1rem !important;
+}
+
+.p-6 {
+  padding: 1.5rem !important;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem !important;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem !important;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem !important;
+}
+
+/* 確保 flex 佈局 */
+.flex {
+  display: flex !important;
+}
+
+.items-center {
+  align-items: center !important;
+}
+
+.justify-between {
+  justify-content: space-between !important;
+}
+
+.space-x-3 > * + * {
+  margin-left: 0.75rem !important;
+}
+
+.space-x-2 > * + * {
+  margin-left: 0.5rem !important;
+}
+
+/* 確保文字大小 */
+.text-2xl {
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
+}
+
+.text-3xl {
+  font-size: 1.875rem !important;
+  line-height: 2.25rem !important;
+}
+
+.text-xl {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+}
+
+.text-sm {
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+
+/* 確保字重 */
+.font-bold {
+  font-weight: 700 !important;
+}
+
+.font-semibold {
+  font-weight: 600 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}

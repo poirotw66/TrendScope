@@ -37,6 +37,7 @@ export const SIDENAV_GROUPS: NavGroup[] = [
     items: [
       { path: '/reports', labelKey: 'reportManagement', icon: (props) => <DocumentReportIcon {...props} /> },
       { path: '/report-generator', labelKey: 'reportGenerator', icon: (props) => <PlusCircleIcon {...props} /> },
+      { path: '/batch-reports', labelKey: 'batchReports', icon: (props) => <DocumentReportIcon {...props} /> },
     ]
   },
 
@@ -122,6 +123,12 @@ export const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
 </svg>
 );
 
+export const CheckIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+  </svg>
+);
+
 export const ChevronDownIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -185,6 +192,12 @@ export const DownloadIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.935-1.393 1.665-.925l11.125 6.563a1.125 1.125 0 010 1.85l-11.125 6.563A1.125 1.125 0 015.25 18.347V5.653z" />
+  </svg>
+);
+
+export const ClockIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
 );
 
