@@ -19,9 +19,8 @@ from datetime import datetime
 import json
 import uuid
 import pathlib
-import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from google import genai
 from config.config import GEMINI_API_KEY
 
@@ -247,9 +246,13 @@ def summarize_session_for_api(session_data: Dict[str, Any], output_dir: str) -> 
 請根據以上簡報內容生成會議總結。
 """
 
-        # 調用 Gemini API
+        # 調用 Gemini API（添加隨機延遲避免並發限制）
+        import random
+        delay = random.uniform(1, 3)  # 1-3秒隨機延遲
+        time.sleep(delay)
+
         response = genai_client.models.generate_content(
-            model="gemini-2.5-flash-preview-05-20",
+            model="gemini-2.5-flash",
             contents=[prompt]
         )
 
@@ -308,10 +311,40 @@ def get_bigquery_client():
         return None
 
 
+def process_single_session(session_data: Dict[str, Any], output_dir: str, task_id: str, session_index: int) -> Dict[str, Any]:
+    """
+    處理單個會議的函數（用於多線程）
+    """
+    try:
+        session_name = session_data.get('name', 'Unknown Session')
+        logger.info(f"[任務 {task_id}] 開始處理會議 {session_index}: {session_name}")
+
+        # 生成摘要
+        result = summarize_session_for_api(session_data, output_dir)
+
+        # 更新進度（線程安全）
+        if task_id in tasks:
+            current_progress = tasks[task_id]["progress"]["current"]
+            tasks[task_id]["progress"]["current"] = current_progress + 1
+            tasks[task_id]["progress"]["current_session"] = f"已完成: {session_name}"
+
+        logger.info(f"[任務 {task_id}] 完成處理會議 {session_index}: {session_name}")
+        return result
+
+    except Exception as e:
+        logger.error(f"[任務 {task_id}] 處理會議 {session_index} 時發生錯誤: {e}")
+        return {
+            "status": "failed",
+            "error": str(e),
+            "conference_id": session_data.get('conference_id', 'unknown'),
+            "session_name": session_data.get('name', 'unknown')
+        }
+
+
 def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Optional[int],
                          include_html: bool, output_format: str):
     """
-    執行批量報告生成任務
+    執行批量報告生成任務（多線程版本）
     """
     try:
         # 更新任務狀態
@@ -335,6 +368,7 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
 
         # 更新總數
         tasks[task_id]["progress"]["total"] = len(sessions)
+        tasks[task_id]["progress"]["current_session"] = f"準備處理 {len(sessions)} 個會議..."
 
         # 創建輸出目錄
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -342,35 +376,46 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
         output_md_dir = output_base_dir / "md"
         output_html_dir = output_base_dir / "html"
 
-        # 處理會議
+        # 確保輸出目錄存在
+        output_md_dir.mkdir(parents=True, exist_ok=True)
+        if include_html:
+            output_html_dir.mkdir(parents=True, exist_ok=True)
+
+        # 使用多線程處理會議
         processed_sessions = []
         failed_sessions = []
 
-        for i, session in enumerate(sessions):
-            try:
-                session_name = session.get('name', 'Unknown Session')
-                tasks[task_id]["progress"]["current"] = i + 1
-                tasks[task_id]["progress"]["current_session"] = f"處理中: {session_name}"
+        # 設置線程池大小（根據 API 限制調整）
+        max_workers = min(4, len(sessions))  # 最多4個並發線程，避免 API 限制
 
-                # 生成摘要
-                result = summarize_session_for_api(session, str(output_md_dir))
+        logger.info(f"[任務 {task_id}] 使用 {max_workers} 個線程並行處理 {len(sessions)} 個會議")
+        tasks[task_id]["progress"]["current_session"] = f"使用 {max_workers} 個線程並行處理中..."
 
-                if result["status"] == "completed":
-                    processed_sessions.append(result)
-                else:
-                    failed_sessions.append(result)
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # 提交所有任務
+            future_to_session = {
+                executor.submit(process_single_session, session, str(output_md_dir), task_id, i): (session, i)
+                for i, session in enumerate(sessions)
+            }
 
-                # 添加延遲避免 API 限制
-                time.sleep(4)
+            # 收集結果
+            for future in as_completed(future_to_session):
+                session, session_index = future_to_session[future]
+                try:
+                    result = future.result()
+                    if result["status"] == "completed":
+                        processed_sessions.append(result)
+                    else:
+                        failed_sessions.append(result)
 
-            except Exception as e:
-                logger.error(f"處理會議時發生錯誤: {e}")
-                failed_sessions.append({
-                    "status": "failed",
-                    "error": str(e),
-                    "conference_id": session.get('conference_id', 'unknown'),
-                    "session_name": session.get('name', 'unknown')
-                })
+                except Exception as e:
+                    logger.error(f"[任務 {task_id}] 線程執行失敗: {e}")
+                    failed_sessions.append({
+                        "status": "failed",
+                        "error": str(e),
+                        "conference_id": session.get('conference_id', 'unknown'),
+                        "session_name": session.get('name', 'unknown')
+                    })
 
         # 完成任務
         tasks[task_id]["status"] = "completed"
@@ -386,10 +431,10 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             "failed_files": failed_sessions
         }
 
-        logger.info(f"批量報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
+        logger.info(f"[任務 {task_id}] 批量報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
 
     except Exception as e:
-        logger.error(f"批量報告生成任務失敗: {e}")
+        logger.error(f"[任務 {task_id}] 批量報告生成任務失敗: {e}")
         tasks[task_id]["status"] = "failed"
         tasks[task_id]["error_message"] = str(e)
         tasks[task_id]["end_time"] = datetime.now().isoformat()
