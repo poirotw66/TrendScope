@@ -72,6 +72,7 @@ export interface Session {
  */
 class ApiService {
   private api: AxiosInstance;
+  public readonly baseURL: string;
 
   // 公開 api 實例以供直接訪問
   public get axiosInstance() {
@@ -104,7 +105,15 @@ class ApiService {
     return response.data;
   }
 
+  async getReportFiles() {
+    const response = await this.api.get('/reports/files');
+    return response.data;
+  }
+
   constructor() {
+    // 設置 baseURL
+    this.baseURL = apiConfig.baseURL;
+
     // 創建 axios 實例
     this.api = axios.create(apiConfig);
 
@@ -263,6 +272,73 @@ class ApiService {
   public async getAvailableSeminars(): Promise<any> {
     const response = await this.api.get('/ppt/seminars');
     return response.data;
+  }
+
+  /**
+   * 獲取所有生成的報告文件列表
+   * @returns 報告文件列表
+   */
+  public async getReportFiles(): Promise<any> {
+    const response = await this.api.get('/reports/files');
+    return response.data;
+  }
+
+  /**
+   * 預覽報告文件
+   * @param filePath 文件路徑
+   * @returns 文件內容或 HTML 響應
+   */
+  public async previewReportFile(filePath: string): Promise<any> {
+    const encodedPath = encodeURIComponent(filePath);
+    const response = await this.api.get(`/reports/preview/${encodedPath}`);
+    return response.data;
+  }
+
+  /**
+   * 獲取報告文件的預覽 URL
+   * @param filePath 文件路徑
+   * @returns 預覽 URL
+   */
+  public getReportPreviewUrl(filePath: string): string {
+    const encodedPath = encodeURIComponent(filePath);
+    return `${this.baseURL}/reports/preview/${encodedPath}`;
+  }
+
+  /**
+   * 獲取報告文件的下載 URL
+   * @param filePath 文件路徑
+   * @returns 下載 URL
+   */
+  public getReportDownloadUrl(filePath: string): string {
+    const encodedPath = encodeURIComponent(filePath);
+    return `${this.baseURL}/reports/download/${encodedPath}`;
+  }
+
+  /**
+   * 下載報告文件
+   * @param filePath 文件路徑
+   * @param filename 下載時的文件名
+   */
+  public async downloadReportFile(filePath: string, filename?: string): Promise<void> {
+    try {
+      const encodedPath = encodeURIComponent(filePath);
+      const response = await this.api.get(`/reports/download/${encodedPath}`, {
+        responseType: 'blob'
+      });
+
+      // 創建下載連結
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename || filePath.split('/').pop() || 'report');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('下載文件失敗:', error);
+      throw error;
+    }
   }
 }
 

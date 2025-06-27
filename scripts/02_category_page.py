@@ -91,7 +91,7 @@ def run_category_page_generation():
 
         df = pd.read_csv(input_csv_path)
         export_topic_markdown(df, output_md_dir, session_html_dir, output_html_dir, top_n=TOP_N_MEETINGS)
-        batch_md_to_html(str(output_md_dir), str(output_html_dir), BATCH_MD_TO_HTML_INDEX)
+        batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=BATCH_MD_TO_HTML_INDEX)
         logger.info("Category page generation process completed.")
     except FileNotFoundError:
         logger.error(f"Error: CSV file not found {input_csv_path}")

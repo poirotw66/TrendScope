@@ -10,7 +10,8 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, project_root)
 
 os.makedirs(os.path.join(project_root, "logs"), exist_ok=True)
-from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query, Response
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
@@ -20,9 +21,51 @@ import json
 import uuid
 import pathlib
 import time
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from google import genai
 from config.config import GEMINI_API_KEY
+
+# 添加項目根目錄到 Python 路徑以導入 SSG 模組
+project_root = pathlib.Path(__file__).parent.parent.parent
+sys.path.append(str(project_root))
+
+try:
+    from src.batch_md_to_html import batch_md_to_html
+except ImportError:
+    # 如果無法導入，創建一個簡單的替代函數
+    def batch_md_to_html(md_dir, html_dir, index_param=0):
+        """簡單的 Markdown 到 HTML 轉換函數"""
+        import markdown
+        md_path = pathlib.Path(md_dir)
+        html_path = pathlib.Path(html_dir)
+        html_path.mkdir(parents=True, exist_ok=True)
+
+        for md_file in md_path.glob('*.md'):
+            with open(md_file, 'r', encoding='utf-8') as f:
+                md_content = f.read()
+
+            html_content = markdown.markdown(md_content)
+            html_file = html_path / f"{md_file.stem}.html"
+
+            with open(html_file, 'w', encoding='utf-8') as f:
+                f.write(f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{md_file.stem}</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }}
+        h1, h2, h3 {{ color: #333; }}
+        pre {{ background: #f4f4f4; padding: 10px; border-radius: 5px; }}
+    </style>
+</head>
+<body>
+    {html_content}
+</body>
+</html>
+                """)
 
 # 導入爬蟲
 from backend.scrapers.parsers.aws_london import AWSLondonScraper
@@ -417,6 +460,26 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
                         "session_name": session.get('name', 'unknown')
                     })
 
+        # 生成 HTML 報告（如果需要）
+        html_files = []
+        if include_html and processed_sessions:
+            try:
+                tasks[task_id]["progress"]["current_session"] = "生成 HTML 報告中..."
+                logger.info(f"[任務 {task_id}] 開始生成 HTML 報告...")
+
+                # 使用 SSG 將 Markdown 轉換為 HTML
+                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3)
+
+                # 收集生成的 HTML 文件
+                for html_file in output_html_dir.glob('*.html'):
+                    html_files.append(str(html_file))
+
+                logger.info(f"[任務 {task_id}] HTML 報告生成完成，共 {len(html_files)} 個文件")
+
+            except Exception as e:
+                logger.error(f"[任務 {task_id}] 生成 HTML 報告時發生錯誤: {e}")
+                # HTML 生成失敗不影響整體任務狀態
+
         # 完成任務
         tasks[task_id]["status"] = "completed"
         tasks[task_id]["end_time"] = datetime.now().isoformat()
@@ -428,7 +491,8 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             "md_directory": str(output_md_dir),
             "html_directory": str(output_html_dir) if include_html else None,
             "processed_files": [s["file_path"] for s in processed_sessions if s["status"] == "completed"],
-            "failed_files": failed_sessions
+            "failed_files": failed_sessions,
+            "html_files": html_files if include_html else []
         }
 
         logger.info(f"[任務 {task_id}] 批量報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
@@ -913,6 +977,161 @@ def list_batch_report_tasks():
     }
 
     return {"tasks": batch_tasks}
+
+
+@app.get("/reports/files", tags=["Batch Reports"])
+def list_report_files():
+    """獲取所有生成的報告文件列表，包含任務狀態信息"""
+    try:
+        reports_dir = pathlib.Path("reports")
+        if not reports_dir.exists():
+            return {"reports": []}
+
+        report_batches = []
+        for batch_dir in reports_dir.iterdir():
+            if batch_dir.is_dir() and batch_dir.name.startswith("batch_"):
+                batch_info = {
+                    "batch_id": batch_dir.name,
+                    "created_time": batch_dir.stat().st_ctime,
+                    "md_files": [],
+                    "html_files": [],
+                    "task_info": None,
+                    "seminars": [],
+                    "session_count": 0,
+                    "status": "completed"  # 默認為已完成，因為文件夾存在
+                }
+
+                # 嘗試從任務記錄中找到對應的任務信息
+                for task_id, task_data in tasks.items():
+                    if (task_data.get("type") == "batch_report" and
+                        task_data.get("results", {}).get("output_directory", "").endswith(batch_dir.name)):
+                        batch_info["task_info"] = {
+                            "task_id": task_id,
+                            "status": task_data.get("status", "unknown"),
+                            "start_time": task_data.get("start_time"),
+                            "end_time": task_data.get("end_time"),
+                            "seminars": task_data.get("seminars", []),
+                            "results": task_data.get("results", {})
+                        }
+                        batch_info["seminars"] = task_data.get("seminars", [])
+                        batch_info["status"] = task_data.get("status", "completed")
+                        if task_data.get("results"):
+                            batch_info["session_count"] = task_data["results"].get("processed_sessions", 0)
+                        break
+
+                # 收集 Markdown 文件
+                md_dir = batch_dir / "md"
+                if md_dir.exists():
+                    for md_file in md_dir.glob("*.md"):
+                        # 使用相對於 reports 目錄的路徑
+                        relative_path = md_file.relative_to(reports_dir)
+                        batch_info["md_files"].append({
+                            "filename": md_file.name,
+                            "path": str(relative_path),
+                            "size": md_file.stat().st_size
+                        })
+
+                # 收集 HTML 文件
+                html_dir = batch_dir / "html"
+                if html_dir.exists():
+                    for html_file in html_dir.glob("*.html"):
+                        # 使用相對於 reports 目錄的路徑
+                        relative_path = html_file.relative_to(reports_dir)
+                        batch_info["html_files"].append({
+                            "filename": html_file.name,
+                            "path": str(relative_path),
+                            "size": html_file.stat().st_size
+                        })
+
+                report_batches.append(batch_info)
+
+        # 按創建時間排序（最新的在前）
+        report_batches.sort(key=lambda x: x["created_time"], reverse=True)
+
+        return {"reports": report_batches}
+
+    except Exception as e:
+        logger.error(f"獲取報告文件列表失敗: {e}")
+        raise HTTPException(status_code=500, detail=f"獲取報告文件列表失敗: {str(e)}")
+
+
+@app.get("/reports/preview/{file_path:path}", tags=["Batch Reports"])
+def preview_report_file(file_path: str):
+    """預覽報告文件內容"""
+    try:
+        # 安全檢查：確保文件路徑在 reports 目錄內
+        file_path = pathlib.Path(file_path)
+        reports_dir = pathlib.Path("reports")
+
+        # 解析相對路徑
+        if not file_path.is_absolute():
+            full_path = reports_dir / file_path
+        else:
+            full_path = file_path
+
+        # 確保文件在 reports 目錄內
+        try:
+            full_path.resolve().relative_to(reports_dir.resolve())
+        except ValueError:
+            raise HTTPException(status_code=403, detail="訪問被拒絕：文件不在允許的目錄內")
+
+        if not full_path.exists():
+            raise HTTPException(status_code=404, detail="文件不存在")
+
+        # 讀取文件內容
+        with open(full_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 根據文件類型返回不同的響應
+        if full_path.suffix.lower() == '.html':
+            return Response(content=content, media_type="text/html")
+        elif full_path.suffix.lower() == '.md':
+            return {"content": content, "type": "markdown"}
+        else:
+            return {"content": content, "type": "text"}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"預覽文件失敗: {e}")
+        raise HTTPException(status_code=500, detail=f"預覽文件失敗: {str(e)}")
+
+
+@app.get("/reports/download/{file_path:path}", tags=["Batch Reports"])
+def download_report_file(file_path: str):
+    """下載報告文件"""
+    try:
+        # 安全檢查：確保文件路徑在 reports 目錄內
+        file_path = pathlib.Path(file_path)
+        reports_dir = pathlib.Path("reports")
+
+        # 解析相對路徑
+        if not file_path.is_absolute():
+            full_path = reports_dir / file_path
+        else:
+            full_path = file_path
+
+        # 確保文件在 reports 目錄內
+        try:
+            full_path.resolve().relative_to(reports_dir.resolve())
+        except ValueError:
+            raise HTTPException(status_code=403, detail="訪問被拒絕：文件不在允許的目錄內")
+
+        if not full_path.exists():
+            raise HTTPException(status_code=404, detail="文件不存在")
+
+        # 返回文件下載響應
+        return FileResponse(
+            path=str(full_path),
+            filename=full_path.name,
+            media_type='application/octet-stream'
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"下載文件失敗: {e}")
+        raise HTTPException(status_code=500, detail=f"下載文件失敗: {str(e)}")
 
 
 if __name__ == "__main__":

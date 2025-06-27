@@ -63,6 +63,8 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       reportManagement: 'Reports',
       reportGenerator: 'Report Generator',
       batchReports: 'Batch Reports',
+      batchReportTasks: 'Batch Report Tasks',
+
       crawlerManagement: 'Crawlers',
       systemSettings: 'Settings',
       logQuery: 'Log Query',
@@ -218,6 +220,8 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       reportManagement: '報告管理',
       reportGenerator: '報告產生器',
       batchReports: '批量報告',
+      batchReportTasks: '批量報告任務',
+
       crawlerManagement: '爬蟲管理',
       systemSettings: '系統設定',
       logQuery: '日誌查詢',
