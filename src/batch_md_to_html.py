@@ -14,145 +14,194 @@ def get_template_css(template_style="professional"):
     """根據樣板風格返回對應的 CSS 樣式"""
     css_styles = {
         "professional": """
-        /* Professional Business Style - Modern Corporate Design */
+        /* Professional Business Style - Modern Flat Design 2024-2025 */
         * {
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #2d3748;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
             margin: 0;
             padding: 24px;
-            line-height: 1.7;
+            line-height: 1.75;
             font-size: 18px;
             min-height: 100vh;
+            letter-spacing: 0.01em;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
             color: white;
             padding: 64px 48px;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
         }
 
-        header::before {
+        header::after {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
         }
 
         header h1 {
             font-size: 2.75rem;
-            font-weight: 700;
-            margin: 0 0 20px 0;
-            letter-spacing: -0.025em;
+            font-weight: 800;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
             position: relative;
             z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .content {
             padding: 56px 48px;
+            background: #ffffff;
         }
 
         h1, h2, h3, h4, h5, h6 {
-            color: #1a202c;
-            font-weight: 600;
-            line-height: 1.3;
-            margin-top: 2.4em;
-            margin-bottom: 1.2em;
+            color: #0f172a;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+            letter-spacing: -0.01em;
         }
 
-        h1 { font-size: 2.75rem; }
+        h1 {
+            font-size: 2.75rem;
+            color: #1e293b;
+        }
         h2 {
             font-size: 2rem;
-            color: #667eea;
-            border-left: 4px solid #667eea;
-            padding-left: 24px;
-            margin-top: 3.2em;
+            color: #3b82f6;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 20px 28px;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+            margin: 2.5em 0 1.5em 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         h3 {
-            font-size: 1.625rem;
-            color: #4a5568;
+            font-size: 1.5rem;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
         }
 
         p {
-            margin: 1.6em 0;
-            color: #4a5568;
+            margin: 1.5em 0;
+            color: #475569;
             font-size: 1.125rem;
+            line-height: 1.8;
         }
 
         .meeting-item {
-            background: #f8fafc;
+            background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 32px;
-            margin: 32px 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            margin: 24px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .meeting-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            border-radius: 2px 0 0 2px;
         }
 
         .meeting-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-color: #cbd5e1;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin: 24px 0;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            gap: 8px;
+            margin: 20px 0;
+            padding: 12px 24px;
+            background: #3b82f6;
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            border: none;
         }
 
         .video-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
         }
 
         code {
-            background: #edf2f7;
-            color: #e53e3e;
-            padding: 4px 8px;
-            border-radius: 6px;
+            background: #f1f5f9;
+            color: #dc2626;
+            padding: 3px 6px;
+            border-radius: 4px;
             font-family: 'JetBrains Mono', 'Fira Code', monospace;
             font-size: 0.9em;
+            border: 1px solid #e2e8f0;
         }
 
         pre {
-            background: #1a202c;
+            background: #0f172a;
             color: #e2e8f0;
             padding: 24px;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow-x: auto;
             margin: 2em 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #1e293b;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        ul, ol {
+            margin: 1.5em 0;
+            padding-left: 1.5em;
+        }
+
+        li {
+            margin: 0.5em 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        blockquote {
+            border-left: 4px solid #3b82f6;
+            background: #f8fafc;
+            padding: 16px 24px;
+            margin: 2em 0;
+            border-radius: 0 8px 8px 0;
+            color: #475569;
+            font-style: italic;
         }
 
         /* 統一的頁面頭部和頁腳圖標樣式 */
@@ -192,102 +241,108 @@ def get_template_css(template_style="professional"):
         }
         """,
         "technical": """
-        /* Technical Documentation Style - Modern Dark Theme */
+        /* Technical Documentation Style - Modern Dark Theme 2024-2025 */
         * {
             box-sizing: border-box;
         }
 
         body {
             font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            background: #0d1117;
-            color: #e6edf3;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
             margin: 0;
             padding: 24px;
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 16px;
             min-height: 100vh;
+            letter-spacing: 0.025em;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: #161b22;
-            border: 1px solid #30363d;
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 12px;
-            box-shadow: 0 16px 32px rgba(1, 4, 9, 0.85);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
         header {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            color: #f9fafb;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
             padding: 48px;
-            border-bottom: 1px solid #30363d;
+            border-bottom: 1px solid #475569;
             position: relative;
         }
 
-        header::before {
+        header::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #58a6ff 0%, #1f6feb 50%, #388bfd 100%);
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
         }
 
         header h1 {
             font-size: 2rem;
-            font-weight: 600;
+            font-weight: 700;
             margin: 0;
-            color: #58a6ff;
+            color: #06b6d4;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.01em;
         }
 
         .content {
             padding: 48px;
+            background: #1e293b;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-            margin-top: 2.8em;
-            margin-bottom: 1.2em;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+            letter-spacing: -0.01em;
         }
 
         h1 {
             font-size: 2.75rem;
-            color: #58a6ff;
+            color: #06b6d4;
         }
         h2 {
             font-size: 2rem;
-            color: #7dd3fc;
-            border-left: 4px solid #58a6ff;
-            padding-left: 20px;
-            background: rgba(88, 166, 255, 0.1);
-            padding: 16px 20px;
-            border-radius: 6px;
-            margin: 2.4em 0 1.2em 0;
+            color: #0891b2;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
+            padding: 20px 24px;
+            border-radius: 8px;
+            border-left: 4px solid #06b6d4;
+            margin: 2.5em 0 1.5em 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
         h3 {
             font-size: 1.5rem;
-            color: #a5f3fc;
+            color: #22d3ee;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 8px;
         }
 
         p {
-            margin: 1.6em 0;
-            color: #c9d1d9;
-            line-height: 1.7;
+            margin: 1.5em 0;
+            color: #cbd5e1;
+            line-height: 1.8;
             font-size: 1rem;
         }
 
         .meeting-item {
-            background: #21262d;
-            border: 1px solid #30363d;
+            background: #334155;
+            border: 1px solid #475569;
             border-radius: 8px;
             padding: 28px;
-            margin: 28px 0;
+            margin: 24px 0;
             transition: all 0.2s ease;
             position: relative;
         }
@@ -299,30 +354,31 @@ def get_template_css(template_style="professional"):
             left: 0;
             width: 4px;
             height: 100%;
-            background: linear-gradient(180deg, #58a6ff 0%, #1f6feb 100%);
+            background: linear-gradient(180deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 2px 0 0 2px;
         }
 
         .meeting-item:hover {
-            background: #262c36;
-            border-color: #58a6ff;
+            background: #3f4b5b;
+            border-color: #06b6d4;
             transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             margin: 20px 0;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 10px 18px;
+            background: #059669;
             color: #ffffff;
             text-decoration: none;
             border-radius: 6px;
-            font-weight: 500;
-            font-size: 15px;
+            font-weight: 600;
+            font-size: 14px;
             transition: all 0.2s ease;
-            border: 1px solid #2ea043;
+            border: none;
         }
 
         .video-link:hover {
@@ -398,36 +454,38 @@ def get_template_css(template_style="professional"):
         }
         """,
         "concise": """
-        /* Concise Summary Style - Modern Minimalist */
+        /* Concise Summary Style - Modern Minimalist 2024-2025 */
         * {
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: #fafafa;
-            color: #1f2937;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #0f172a;
             margin: 0;
             padding: 24px;
-            line-height: 1.6;
+            line-height: 1.75;
             font-size: 18px;
+            letter-spacing: 0.01em;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             overflow: hidden;
+            border: 1px solid #e2e8f0;
         }
 
         header {
-            background: #ffffff;
-            color: #1f2937;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            color: #0f172a;
             padding: 48px 36px 36px;
             text-align: center;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e2e8f0;
             position: relative;
         }
 
@@ -437,49 +495,60 @@ def get_template_css(template_style="professional"):
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: #3b82f6;
-            border-radius: 2px;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 1px;
         }
 
         header h1 {
             font-size: 2.25rem;
-            font-weight: 700;
+            font-weight: 800;
             margin: 0;
-            color: #111827;
-            letter-spacing: -0.025em;
+            color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
         .content {
             padding: 48px 36px;
+            background: #ffffff;
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-weight: 600;
-            line-height: 1.3;
-            margin-top: 2.4em;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-top: 2.5em;
             margin-bottom: 1em;
-            color: #111827;
+            color: #0f172a;
+            letter-spacing: -0.01em;
         }
 
-        h1 { font-size: 2.75rem; }
+        h1 {
+            font-size: 2.75rem;
+            color: #0f172a;
+        }
         h2 {
             font-size: 2rem;
-            color: #3b82f6;
-            margin-top: 2.8em;
-            padding-bottom: 0.6em;
-            border-bottom: 2px solid #e5e7eb;
+            color: #6366f1;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin: 2.5em 0 1.5em 0;
+            border-left: 4px solid #6366f1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         h3 {
             font-size: 1.5rem;
-            color: #4b5563;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
         }
 
         p {
-            margin: 1.4em 0;
-            color: #374151;
+            margin: 1.5em 0;
+            color: #334155;
             font-size: 1.125rem;
+            line-height: 1.8;
         }
 
         .meeting-item {
@@ -591,21 +660,22 @@ def get_template_css(template_style="professional"):
         }
         """,
         "presentation": """
-        /* Presentation Style - Modern Visual Design */
+        /* Presentation Style - Modern Visual Design 2024-2025 */
         * {
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            color: #1a202c;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            color: #0f172a;
             margin: 0;
             padding: 24px;
-            line-height: 1.7;
+            line-height: 1.75;
             font-size: 18px;
             min-height: 100vh;
             position: relative;
+            letter-spacing: 0.01em;
         }
 
         body::before {
@@ -615,58 +685,58 @@ def get_template_css(template_style="professional"):
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
             z-index: -1;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             overflow: hidden;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         header {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
             color: white;
             padding: 72px 48px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        header::before {
+        header::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
         }
 
         header h1 {
             font-size: 3.25rem;
-            font-weight: 800;
+            font-weight: 900;
             margin: 0;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.02em;
             position: relative;
             z-index: 1;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .content {
             padding: 56px 48px;
+            background: rgba(255, 255, 255, 0.98);
         }
 
         h1, h2, h3, h4, h5, h6 {
