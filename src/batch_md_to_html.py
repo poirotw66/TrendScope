@@ -14,146 +14,359 @@ def get_template_css(template_style="professional"):
     """根據樣板風格返回對應的 CSS 樣式"""
     css_styles = {
         "professional": """
-        /* Professional Business Style - Modern Flat Design 2024-2025 */
+        /* Professional Business Style - Inspired by sample.html */
         * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: #1e293b;
+            font-family: 'Roboto', 'Microsoft JhengHei', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
             margin: 0;
-            padding: 24px;
-            line-height: 1.75;
-            font-size: 18px;
-            min-height: 100vh;
-            letter-spacing: 0.01em;
+            padding: 0;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         header {
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-            color: white;
-            padding: 64px 48px;
             text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: #fff;
             position: relative;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px 10px 0 0;
         }
 
         header h1 {
-            font-size: 2.75rem;
-            font-weight: 800;
-            margin: 0 0 16px 0;
-            letter-spacing: -0.02em;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            margin: 0;
+            opacity: 0.9;
         }
 
         .content {
-            padding: 56px 48px;
-            background: #ffffff;
+            background-color: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            color: #0f172a;
-            font-weight: 700;
-            line-height: 1.25;
-            margin-top: 2.5em;
-            margin-bottom: 1em;
-            letter-spacing: -0.01em;
-        }
-
-        h1 {
-            font-size: 2.75rem;
-            color: #1e293b;
-        }
-        h2 {
-            font-size: 2rem;
-            color: #3b82f6;
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            padding: 20px 28px;
+        /* 基礎區塊樣式 */
+        .section-block {
+            background-color: #fff;
+            padding: 30px;
             border-radius: 12px;
-            border-left: 4px solid #3b82f6;
-            margin: 2.5em 0 1.5em 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        h3 {
-            font-size: 1.5rem;
-            color: #475569;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
-        }
-
-        p {
-            margin: 1.5em 0;
-            color: #475569;
-            font-size: 1.125rem;
-            line-height: 1.8;
-        }
-
-        .meeting-item {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 32px;
-            margin: 24px 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
+            margin-bottom: 30px;
+            border-left: 5px solid #4b6cb7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
 
-        .meeting-item::before {
+        .section-block::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-            border-radius: 2px 0 0 2px;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4b6cb7 0%, #3498db 50%, #2ecc71 100%);
+            opacity: 0.6;
         }
 
-        .meeting-item:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-color: #cbd5e1;
+        .section-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 會議資訊區塊 */
+        .section-block.meeting-info {
+            border-left-color: #3498db;
+            background: linear-gradient(135deg, #f8fcff 0%, #e3f2fd 100%);
+        }
+
+        .section-block.meeting-info::before {
+            background: linear-gradient(90deg, #3498db 0%, #2196f3 100%);
+        }
+
+        /* 內容章節區塊 */
+        .section-block.content-section {
+            border-left-color: #2ecc71;
+            background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+        }
+
+        .section-block.content-section::before {
+            background: linear-gradient(90deg, #2ecc71 0%, #4caf50 100%);
+        }
+
+        /* 技術背景區塊 */
+        .section-block.tech-background {
+            border-left-color: #9c27b0;
+            background: linear-gradient(135deg, #faf8ff 0%, #f3e5f5 100%);
+        }
+
+        .section-block.tech-background::before {
+            background: linear-gradient(90deg, #9c27b0 0%, #673ab7 100%);
+        }
+
+        /* 核心觀點區塊 */
+        .section-block.core-insights {
+            border-left-color: #ff9800;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff3e0 100%);
+        }
+
+        .section-block.core-insights::before {
+            background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%);
+        }
+
+        /* 實踐經驗區塊 */
+        .section-block.practical-experience {
+            border-left-color: #e91e63;
+            background: linear-gradient(135deg, #fff8fa 0%, #fce4ec 100%);
+        }
+
+        .section-block.practical-experience::before {
+            background: linear-gradient(90deg, #e91e63 0%, #c2185b 100%);
+        }
+
+        /* 區塊標題樣式 */
+        .section-title {
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4b6cb7;
+            display: flex;
+            align-items: center;
+            color: #4b6cb7;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '📋';
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .section-block.meeting-info .section-title {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+
+        .section-block.meeting-info .section-title::before {
+            content: '📊';
+        }
+
+        .section-block.content-section .section-title {
+            color: #2ecc71;
+            border-bottom-color: #2ecc71;
+        }
+
+        .section-block.content-section .section-title::before {
+            content: '📝';
+        }
+
+        .section-block.tech-background .section-title {
+            color: #9c27b0;
+            border-bottom-color: #9c27b0;
+        }
+
+        .section-block.tech-background .section-title::before {
+            content: '⚙️';
+        }
+
+        .section-block.core-insights .section-title {
+            color: #ff9800;
+            border-bottom-color: #ff9800;
+        }
+
+        .section-block.core-insights .section-title::before {
+            content: '💡';
+        }
+
+        .section-block.practical-experience .section-title {
+            color: #e91e63;
+            border-bottom-color: #e91e63;
+        }
+
+        .section-block.practical-experience .section-title::before {
+            content: '🛠️';
+        }
+
+        /* 章節內容樣式 */
+        h1, h2, h3, h4, h5, h6 {
+            color: #2c3e50;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #4b6cb7;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #f8faff 0%, #e8f0fe 100%);
+            border-radius: 8px;
+            border-left: 4px solid #4b6cb7;
+            margin: 25px 0 20px 0;
+            position: relative;
+        }
+
+        h2::before {
+            content: '🎯';
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin: 20px 0 15px 0;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            color: #495057;
+            margin: 15px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 18px;
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+        }
+
+        /* 特殊段落樣式 */
+        .highlight-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3d4 100%);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.1);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);
         }
 
         .video-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 20px 0;
-            padding: 12px 24px;
-            background: #3b82f6;
-            color: white;
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
             text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .video-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-link i {
+            margin-right: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 25px;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4b6cb7;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .section-block.meeting-info li::before { color: #3498db; }
+        .section-block.content-section li::before { color: #2ecc71; }
+
+        strong {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        code {
+            background: #f4f4f4;
+            color: #e74c3c;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #f8f9fa;
+            color: #2c3e50;
+            padding: 20px;
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            border: none;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            border-left: 4px solid #4b6cb7;
+        }
+
+        blockquote {
+            border-left: 4px solid #4b6cb7;
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 1.5em 0;
+            border-radius: 0 6px 6px 0;
+            color: #2c3e50;
+            font-style: italic;
         }
 
         .video-link:hover {
@@ -241,144 +454,363 @@ def get_template_css(template_style="professional"):
         }
         """,
         "technical": """
-        /* Technical Documentation Style - Modern Dark Theme 2024-2025 */
+        /* Technical Documentation Style - Dark Theme Inspired by sample.html */
         * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
+            font-family: 'JetBrains Mono', 'Roboto', 'Microsoft JhengHei', monospace;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             margin: 0;
-            padding: 24px;
-            line-height: 1.7;
-            font-size: 16px;
-            min-height: 100vh;
-            letter-spacing: 0.025em;
+            padding: 0;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #f1f5f9;
-            padding: 48px;
-            border-bottom: 1px solid #475569;
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #ecf0f1;
             position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 10px 10px 0 0;
         }
 
-        header::after {
+        header h1 {
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        header p {
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .content {
+            background-color: #2c2c2c;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* 技術文檔區塊樣式 */
+        .section-block {
+            background-color: #2c3e50;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e67e22;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-block::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
+            background: linear-gradient(90deg, #e67e22 0%, #3498db 50%, #27ae60 100%);
+            opacity: 0.8;
         }
 
-        header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 0;
-            color: #06b6d4;
+        .section-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* 會議資訊區塊 */
+        .section-block.meeting-info {
+            border-left-color: #3498db;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c3e50 100%);
+        }
+
+        .section-block.meeting-info::before {
+            background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+        }
+
+        /* 內容章節區塊 */
+        .section-block.content-section {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #1e4d2b 0%, #2c3e50 100%);
+        }
+
+        .section-block.content-section::before {
+            background: linear-gradient(90deg, #27ae60 0%, #229954 100%);
+        }
+
+        /* 技術背景區塊 */
+        .section-block.tech-background {
+            border-left-color: #8e44ad;
+            background: linear-gradient(135deg, #3d2a4d 0%, #2c3e50 100%);
+        }
+
+        .section-block.tech-background::before {
+            background: linear-gradient(90deg, #8e44ad 0%, #7d3c98 100%);
+        }
+
+        /* 核心觀點區塊 */
+        .section-block.core-insights {
+            border-left-color: #f39c12;
+            background: linear-gradient(135deg, #5d4e37 0%, #2c3e50 100%);
+        }
+
+        .section-block.core-insights::before {
+            background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+        }
+
+        /* 實踐經驗區塊 */
+        .section-block.practical-experience {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, #5d2c2c 0%, #2c3e50 100%);
+        }
+
+        .section-block.practical-experience::before {
+            background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        /* 區塊標題樣式 */
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e67e22;
+            display: flex;
+            align-items: center;
+            color: #e67e22;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            letter-spacing: -0.01em;
+            font-weight: 700;
         }
 
-        .content {
-            padding: 48px;
-            background: #1e293b;
+        .section-title::before {
+            content: '⚡';
+            margin-right: 12px;
+            font-size: 1.2em;
         }
 
+        .section-block.meeting-info .section-title {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+
+        .section-block.meeting-info .section-title::before {
+            content: '📊';
+        }
+
+        .section-block.content-section .section-title {
+            color: #27ae60;
+            border-bottom-color: #27ae60;
+        }
+
+        .section-block.content-section .section-title::before {
+            content: '💻';
+        }
+
+        .section-block.tech-background .section-title {
+            color: #8e44ad;
+            border-bottom-color: #8e44ad;
+        }
+
+        .section-block.tech-background .section-title::before {
+            content: '🔧';
+        }
+
+        .section-block.core-insights .section-title {
+            color: #f39c12;
+            border-bottom-color: #f39c12;
+        }
+
+        .section-block.core-insights .section-title::before {
+            content: '🧠';
+        }
+
+        .section-block.practical-experience .section-title {
+            color: #e74c3c;
+            border-bottom-color: #e74c3c;
+        }
+
+        .section-block.practical-experience .section-title::before {
+            content: '⚙️';
+        }
+
+        /* 技術文檔章節內容樣式 */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #ecf0f1;
             font-weight: 700;
-            line-height: 1.25;
-            margin-top: 2.5em;
-            margin-bottom: 1em;
-            letter-spacing: -0.01em;
+            line-height: 1.3;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin-top: 0;
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 2.75rem;
-            color: #06b6d4;
-        }
-        h2 {
             font-size: 2rem;
-            color: #0891b2;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
-            padding: 20px 24px;
-            border-radius: 8px;
-            border-left: 4px solid #06b6d4;
-            margin: 2.5em 0 1.5em 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-        h3 {
-            font-size: 1.5rem;
-            color: #22d3ee;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #3498db;
         }
 
-        p {
-            margin: 1.5em 0;
-            color: #cbd5e1;
-            line-height: 1.8;
-            font-size: 1rem;
-        }
-
-        .meeting-item {
-            background: #334155;
-            border: 1px solid #475569;
+        h2 {
+            font-size: 1.6rem;
+            color: #e67e22;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
             border-radius: 8px;
-            padding: 28px;
-            margin: 24px 0;
-            transition: all 0.2s ease;
+            border-left: 4px solid #e67e22;
+            margin: 25px 0 20px 0;
             position: relative;
         }
 
-        .meeting-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #06b6d4 0%, #0891b2 100%);
-            border-radius: 2px 0 0 2px;
+        h2::before {
+            content: '🔍';
+            margin-right: 10px;
+            font-size: 0.9em;
         }
 
-        .meeting-item:hover {
-            background: #3f4b5b;
-            border-color: #06b6d4;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        h3 {
+            font-size: 1.3rem;
+            color: #ecf0f1;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 8px;
+            margin: 20px 0 15px 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+            margin: 15px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 18px;
+            line-height: 1.8;
+            color: #bdc3c7;
+            text-align: justify;
+        }
+
+        /* 技術文檔特殊樣式 */
+        .code-block {
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #5d4037 0%, #3e2723 100%);
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
         }
 
         .video-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 20px 0;
-            padding: 10px 18px;
-            background: #059669;
-            color: #ffffff;
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ecf0f1;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s ease;
-            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .video-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-link i {
+            margin-right: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 25px;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #e67e22;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .section-block.meeting-info li::before { color: #3498db; }
+        .section-block.content-section li::before { color: #27ae60; }
+
+        strong {
+            color: #ecf0f1;
+            font-weight: bold;
+        }
+
+        code {
+            background: #34495e;
+            color: #e74c3c;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            border-left: 4px solid #e67e22;
+        }
+
+        blockquote {
+            border-left: 4px solid #e67e22;
+            background: #34495e;
+            padding: 15px 20px;
+            margin: 1.5em 0;
+            border-radius: 0 6px 6px 0;
+            color: #bdc3c7;
+            font-style: italic;
         }
 
         .video-link:hover {
@@ -454,130 +886,295 @@ def get_template_css(template_style="professional"):
         }
         """,
         "concise": """
-        /* Concise Summary Style - Modern Minimalist 2024-2025 */
+        /* Concise Summary Style - Clean Minimalist Inspired by sample.html */
         * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            color: #0f172a;
+            font-family: 'Roboto', 'Microsoft JhengHei', sans-serif;
+            background-color: #fafafa;
+            color: #333;
             margin: 0;
-            padding: 24px;
-            line-height: 1.75;
-            font-size: 18px;
-            letter-spacing: 0.01em;
+            padding: 0;
+            line-height: 1.6;
         }
 
         .container {
             max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         header {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            color: #0f172a;
-            padding: 48px 36px 36px;
             text-align: center;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: #fff;
             position: relative;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
-            border-radius: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px 10px 0 0;
         }
 
         header h1 {
-            font-size: 2.25rem;
-            font-weight: 800;
+            font-size: 1.8rem;
+            margin: 0 0 8px 0;
+            letter-spacing: 0.3px;
+        }
+
+        header p {
+            font-size: 1rem;
             margin: 0;
-            color: #0f172a;
-            letter-spacing: -0.02em;
+            opacity: 0.9;
         }
 
         .content {
-            padding: 48px 36px;
-            background: #ffffff;
+            background-color: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* 簡潔摘要區塊樣式 */
+        .section-block {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #95a5a6;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #95a5a6 0%, #3498db 50%, #2ecc71 100%);
+            opacity: 0.7;
+        }
+
+        .section-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 會議資訊區塊 */
+        .section-block.meeting-info {
+            border-left-color: #3498db;
+            background: linear-gradient(135deg, #f8fcff 0%, #e3f2fd 100%);
+        }
+
+        .section-block.meeting-info::before {
+            background: linear-gradient(90deg, #3498db 0%, #2196f3 100%);
+        }
+
+        /* 內容章節區塊 */
+        .section-block.content-section {
+            border-left-color: #2ecc71;
+            background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+        }
+
+        .section-block.content-section::before {
+            background: linear-gradient(90deg, #2ecc71 0%, #4caf50 100%);
+        }
+
+        /* 技術背景區塊 */
+        .section-block.tech-background {
+            border-left-color: #9c27b0;
+            background: linear-gradient(135deg, #faf8ff 0%, #f3e5f5 100%);
+        }
+
+        .section-block.tech-background::before {
+            background: linear-gradient(90deg, #9c27b0 0%, #673ab7 100%);
+        }
+
+        /* 核心觀點區塊 */
+        .section-block.core-insights {
+            border-left-color: #ff9800;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff3e0 100%);
+        }
+
+        .section-block.core-insights::before {
+            background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%);
+        }
+
+        /* 實踐經驗區塊 */
+        .section-block.practical-experience {
+            border-left-color: #e91e63;
+            background: linear-gradient(135deg, #fff8fa 0%, #fce4ec 100%);
+        }
+
+        .section-block.practical-experience::before {
+            background: linear-gradient(90deg, #e91e63 0%, #c2185b 100%);
+        }
+
+        /* 區塊標題樣式 */
+        .section-title {
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #95a5a6;
+            display: flex;
+            align-items: center;
+            color: #95a5a6;
+            font-weight: 600;
+        }
+
+        .section-title::before {
+            content: '📄';
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .section-block.meeting-info .section-title {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+
+        .section-block.meeting-info .section-title::before {
+            content: '📋';
+        }
+
+        .section-block.content-section .section-title {
+            color: #2ecc71;
+            border-bottom-color: #2ecc71;
+        }
+
+        .section-block.content-section .section-title::before {
+            content: '📝';
+        }
+
+        .section-block.tech-background .section-title {
+            color: #9c27b0;
+            border-bottom-color: #9c27b0;
+        }
+
+        .section-block.tech-background .section-title::before {
+            content: '🔧';
+        }
+
+        .section-block.core-insights .section-title {
+            color: #ff9800;
+            border-bottom-color: #ff9800;
+        }
+
+        .section-block.core-insights .section-title::before {
+            content: '💡';
+        }
+
+        .section-block.practical-experience .section-title {
+            color: #e91e63;
+            border-bottom-color: #e91e63;
+        }
+
+        .section-block.practical-experience .section-title::before {
+            content: '🛠️';
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            line-height: 1.25;
-            margin-top: 2.5em;
-            margin-bottom: 1em;
-            color: #0f172a;
-            letter-spacing: -0.01em;
+            color: #2c3e50;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
-        h1 {
-            font-size: 2.75rem;
-            color: #0f172a;
-        }
-        h2 {
-            font-size: 2rem;
-            color: #6366f1;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
-            padding: 16px 24px;
-            border-radius: 8px;
-            margin: 2.5em 0 1.5em 0;
-            border-left: 4px solid #6366f1;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        h3 {
-            font-size: 1.5rem;
-            color: #475569;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
-        }
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.2rem; }
 
         p {
-            margin: 1.5em 0;
-            color: #334155;
-            font-size: 1.125rem;
-            line-height: 1.8;
-        }
-
-        .meeting-item {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            padding: 24px;
-            margin: 24px 0;
-            transition: all 0.2s ease;
-        }
-
-        .meeting-item:hover {
-            background: #f3f4f6;
-            border-color: #d1d5db;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #333;
+            font-size: 1rem;
         }
 
         .video-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 20px 0;
-            padding: 10px 20px;
-            background: #3b82f6;
-            color: #ffffff;
+            display: inline-block;
+            margin: 8px 0;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 4px;
             font-weight: 500;
-            font-size: 15px;
-            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .video-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-link i {
+            margin-right: 4px;
+        }
+
+        ul {
+            padding-left: 18px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #95a5a6;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .section-block.meeting-info li::before { color: #3498db; }
+        .section-block.content-section li::before { color: #2ecc71; }
+
+        strong {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        code {
+            background: #ecf0f1;
+            color: #e74c3c;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+        }
+
+        pre {
+            background: #f8f9fa;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1.2em 0;
+            border-left: 3px solid #95a5a6;
+        }
+
+        blockquote {
+            border-left: 3px solid #95a5a6;
+            background: #f8f9fa;
+            padding: 12px 16px;
+            margin: 1.2em 0;
+            border-radius: 0 4px 4px 0;
+            color: #2c3e50;
+            font-style: italic;
         }
 
         .video-link:hover {
@@ -660,161 +1257,180 @@ def get_template_css(template_style="professional"):
         }
         """,
         "presentation": """
-        /* Presentation Style - Modern Visual Design 2024-2025 */
+        /* Presentation Style - Vibrant Visual Design Inspired by sample.html */
         * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            color: #0f172a;
+            font-family: 'Roboto', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #333;
             margin: 0;
-            padding: 24px;
-            line-height: 1.75;
-            font-size: 18px;
+            padding: 0;
+            line-height: 1.6;
             min-height: 100vh;
-            position: relative;
-            letter-spacing: 0.01em;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-            z-index: -1;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 950px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         header {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
-            color: white;
-            padding: 72px 48px;
             text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
             position: relative;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 10px 0 0;
         }
 
         header h1 {
-            font-size: 3.25rem;
-            font-weight: 900;
+            font-size: 2.4rem;
+            margin: 0 0 12px 0;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
             margin: 0;
-            letter-spacing: -0.02em;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            opacity: 0.95;
         }
 
         .content {
-            padding: 56px 48px;
-            background: rgba(255, 255, 255, 0.98);
+            background-color: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 35px;
+            margin-bottom: 30px;
+        }
+
+        .section-block {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 6px solid #e74c3c;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-block.meeting-info {
+            border-left-color: #f39c12;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3d4 100%);
+        }
+
+        .section-block.content-section {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #f0fff4 0%, #e6ffed 100%);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #e74c3c;
+            display: inline-block;
+            color: #e74c3c;
+            font-weight: 700;
+        }
+
+        .section-block.meeting-info .section-title {
+            color: #f39c12;
+            border-bottom-color: #f39c12;
+        }
+
+        .section-block.content-section .section-title {
+            color: #27ae60;
+            border-bottom-color: #27ae60;
         }
 
         h1, h2, h3, h4, h5, h6 {
+            color: #2c3e50;
             font-weight: 700;
-            line-height: 1.2;
-            margin-top: 2.8em;
-            margin-bottom: 1.2em;
+            line-height: 1.3;
         }
 
-        h1 {
-            font-size: 2.75rem;
-            color: #667eea;
-            text-align: center;
-            margin-bottom: 1.6em;
-        }
-
-        h2 {
-            font-size: 2.25rem;
-            color: #667eea;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            padding: 24px 36px;
-            border-radius: 16px;
-            border-left: 6px solid #667eea;
-            margin: 2.4em 0 1.6em 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        h2::before {
-            content: '🎯';
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2em;
-            opacity: 0.6;
-        }
-
-        h3 {
-            font-size: 1.75rem;
-            color: #764ba2;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.6em;
-        }
+        h1 { font-size: 2.4rem; text-align: center; }
+        h2 { font-size: 1.9rem; }
+        h3 { font-size: 1.5rem; }
 
         p {
-            margin: 1.6em 0;
-            color: #4a5568;
-            font-size: 1.125rem;
+            margin-bottom: 18px;
+            line-height: 1.7;
+            color: #34495e;
+            font-size: 1.1rem;
             text-align: justify;
         }
 
-        .meeting-item {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 36px;
-            margin: 36px 0;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 12px;
             position: relative;
-            overflow: hidden;
+            list-style-type: none;
+            padding-left: 28px;
         }
 
-        .meeting-item::before {
-            content: '';
+        li::before {
+            content: "•";
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: #e74c3c;
+            font-size: 1.3rem;
+            font-weight: bold;
         }
 
-        .meeting-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        .section-block.meeting-info li::before { color: #f39c12; }
+        .section-block.content-section li::before { color: #27ae60; }
+
+        strong {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        code {
+            background: #f8f9fa;
+            color: #e74c3c;
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            border: 1px solid #e9ecef;
+        }
+
+        pre {
+            background: #f8f9fa;
+            color: #2c3e50;
+            padding: 25px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 2em 0;
+            border-left: 6px solid #e74c3c;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        blockquote {
+            border-left: 6px solid #e74c3c;
+            background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+            padding: 20px 25px;
+            margin: 2em 0;
+            border-radius: 0 8px 8px 0;
+            color: #2c3e50;
+            font-style: italic;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .video-link {

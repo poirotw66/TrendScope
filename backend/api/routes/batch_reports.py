@@ -174,7 +174,6 @@ def generate_session_report(session_data: Dict[str, Any], genai_client, analysis
         # 使用正確的欄位名稱
         session_id = session_data.get('conference_id', session_data.get('id', 'unknown'))
         title = session_data.get('name', session_data.get('title', 'Unknown Title'))
-        speaker = session_data.get('speaker', 'Unknown Speaker')
         seminar = session_data.get('seminar', 'Unknown Seminar')
         url = session_data.get('url', 'TEST.com')
         ppt_context = session_data.get('ppt_context', '')
@@ -241,7 +240,6 @@ def generate_session_report(session_data: Dict[str, Any], genai_client, analysis
 
 會議信息：
 - 標題：{title}
-- 講者：{speaker}
 - 研討會：{seminar}
 - 類型：{category}
 
@@ -267,7 +265,6 @@ PPT 內容：
             "professional": f"""# {title}
 
 ## 會議資訊
-- **講者：** {speaker}
 - **研討會：** {seminar}
 - **類型：** {category}
 - **來源：** [{url}]({url})
@@ -288,7 +285,6 @@ PPT 內容：
 
 ```yaml
 會議資訊:
-  講者: {speaker}
   研討會: {seminar}
   類型: {category}
   來源: {url}
@@ -306,7 +302,7 @@ PPT 內容：
 """,
             "concise": f"""# {title}
 
-**{speaker}** | {seminar}
+**{seminar}** | {category}
 
 {report_content}
 
@@ -316,8 +312,8 @@ PPT 內容：
 
 # 🎯 {title}
 
-### 👤 {speaker}
 ### 📅 {seminar}
+### 📋 {category}
 
 </div>
 
