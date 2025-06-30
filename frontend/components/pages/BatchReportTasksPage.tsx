@@ -74,9 +74,9 @@ export const BatchReportTasksPage: React.FC = () => {
   const [autoRefresh, setAutoRefresh] = useState(true);
 
   useEffect(() => {
-    setPageTitle('批量報告任務');
+    setPageTitle(t('batchReportTasks', 'sidebar'));
     loadTasks();
-  }, [setPageTitle]);
+  }, [setPageTitle, t]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -202,7 +202,7 @@ export const BatchReportTasksPage: React.FC = () => {
         <div className="flex items-center space-x-3">
           <DocumentReportIcon className="w-8 h-8 text-blue-600" />
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            批量報告任務
+            {t('batchReportTasks', 'sidebar')}
           </h1>
         </div>
         <div className="flex items-center space-x-4">
@@ -549,7 +549,7 @@ export const BatchReportTasksPage: React.FC = () => {
         <Card>
           <div className="text-center py-8">
             <FolderIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">沒有找到任何批量報告任務或已生成的報告</p>
+            <p className="text-gray-500">沒有找到任何報告處理任務或已生成的報告</p>
           </div>
         </Card>
       )}

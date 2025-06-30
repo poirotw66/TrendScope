@@ -49,9 +49,9 @@ export const BatchReportsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setPageTitle('批量報告生成');
+    setPageTitle(t('batchReports', 'sidebar'));
     loadSeminars();
-  }, [setPageTitle]);
+  }, [setPageTitle, t]);
 
   const loadSeminars = async () => {
     setLoading(true);
@@ -176,7 +176,7 @@ export const BatchReportsPage: React.FC = () => {
       <div className="flex items-center space-x-3">
         <DocumentReportIcon className="w-8 h-8 text-blue-600" />
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-          批量報告生成
+          {t('batchReports', 'sidebar')}
         </h1>
       </div>
 

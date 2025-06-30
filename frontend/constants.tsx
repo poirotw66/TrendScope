@@ -35,11 +35,8 @@ export const SIDENAV_GROUPS: NavGroup[] = [
   {
     groupKey: 'reportManagement',
     items: [
-      { path: '/reports', labelKey: 'reportManagement', icon: (props) => <DocumentReportIcon {...props} /> },
-      { path: '/report-generator', labelKey: 'reportGenerator', icon: (props) => <PlusCircleIcon {...props} /> },
       { path: '/batch-reports', labelKey: 'batchReports', icon: (props) => <DocumentReportIcon {...props} /> },
-      { path: '/batch-report-tasks', labelKey: 'batchReportTasks', icon: (props) => <ClockIcon {...props} /> },
-
+      { path: '/reports', labelKey: 'batchReportTasks', icon: (props) => <ClockIcon {...props} /> },
     ]
   },
 

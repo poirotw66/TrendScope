@@ -5,8 +5,8 @@ import { MainLayout } from './components/layout/MainLayout';
 import { DashboardPage } from './components/pages/DashboardPage';
 import { DatabasePage } from './components/pages/DatabasePage';
 import { PPTUploadPage } from './components/pages/PPTUploadPage';
-import { ReportPage } from './components/pages/ReportPage';
-import { ReportGeneratorPage } from './components/pages/ReportGeneratorPage'; // Added import
+
+ // Added import
 import { BatchReportsPage } from './components/pages/BatchReportsPage';
 import { BatchReportTasksPage } from './components/pages/BatchReportTasksPage';
 
@@ -22,10 +22,8 @@ const App: React.FC = () => {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/database" element={<DatabasePage />} />
           <Route path="/ppt-upload" element={<PPTUploadPage />} />
-          <Route path="/reports" element={<ReportPage />} />
-          <Route path="/report-generator" element={<ReportGeneratorPage />} /> {/* Added route */}
           <Route path="/batch-reports" element={<BatchReportsPage />} />
-          <Route path="/batch-report-tasks" element={<BatchReportTasksPage />} />
+          <Route path="/reports" element={<BatchReportTasksPage />} />
 
           <Route path="/crawlers" element={<CrawlerManagementPage />} />
 

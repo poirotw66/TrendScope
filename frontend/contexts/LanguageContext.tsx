@@ -61,9 +61,9 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       databaseManagement: 'Database',
       pptUpload: 'PPT Upload',
       reportManagement: 'Reports',
-      reportGenerator: 'Report Generator',
-      batchReports: 'Batch Reports',
-      batchReportTasks: 'Batch Report Tasks',
+
+      batchReports: 'Report Processing',
+      batchReportTasks: 'Report Management',
 
       crawlerManagement: 'Crawlers',
       systemSettings: 'Settings',
@@ -102,31 +102,8 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       other: 'Other',
       trendDataDetails: 'Trend Data Details',
     },
-    reports: {
-      title: 'Report Management',
-      reportTitle: 'Report Title',
-      date: 'Date',
-      responsible: 'Responsible',
-      status: 'Status',
-      draft: 'Draft',
-      published: 'Published',
-      reportDetails: 'Report Details',
-      downloadPdf: 'Download PDF',
-      downloadJson: 'Download JSON',
-      dataSources: 'Data Sources',
-      analysisCharts: 'Analysis Charts',
-      newReport: 'New Report', // This key might be unused now or could be repurposed
-      selectDataRange: '1. Select Data Range',
-      setAnalysisTemplate: '2. Set Analysis Template',
-      previewAndSave: '3. Preview & Save/Publish',
-    },
-    reportGenerator: {
-      title: 'Report Generator',
-      generateReport: 'Generate Report',
-      formSectionDataRange: '1. Select Data Range for New Report',
-      formSectionTemplate: '2. Choose Analysis Template',
-      formSectionDetails: '3. Define Report Details & Generate',
-    },
+
+
     crawlers: {
       title: 'Crawler Management',
       name: 'Name',
@@ -218,9 +195,9 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       databaseManagement: '資料庫管理',
       pptUpload: 'PPT 上傳',
       reportManagement: '報告管理',
-      reportGenerator: '報告產生器',
-      batchReports: '批量報告',
-      batchReportTasks: '批量報告任務',
+
+      batchReports: '報告處理',
+      batchReportTasks: '報告管理',
 
       crawlerManagement: '爬蟲管理',
       systemSettings: '系統設定',
@@ -259,31 +236,8 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       other: '其他',
       trendDataDetails: '趨勢資料詳情',
     },
-    reports: {
-      title: '報告管理',
-      reportTitle: '報告標題',
-      date: '日期',
-      responsible: '負責人',
-      status: '狀態',
-      draft: '草稿',
-      published: '已發布',
-      reportDetails: '報告詳情',
-      downloadPdf: '下載 PDF',
-      downloadJson: '下載 JSON',
-      dataSources: '資料來源摘要',
-      analysisCharts: '分析圖表',
-      newReport: '新增報告', // This key might be unused now or could be repurposed
-      selectDataRange: '1. 選擇資料範圍',
-      setAnalysisTemplate: '2. 設定分析模板',
-      previewAndSave: '3. 預覽與儲存/發布',
-    },
-    reportGenerator: {
-      title: '報告產生器',
-      generateReport: '產生報告',
-      formSectionDataRange: '1. 為新報告選擇資料範圍',
-      formSectionTemplate: '2. 選擇分析模板',
-      formSectionDetails: '3. 定義報告詳細資訊並產生',
-    },
+
+
     crawlers: {
       title: '爬蟲管理',
       name: '名稱',
