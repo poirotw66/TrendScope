@@ -44,10 +44,10 @@ project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
 sys.path.append(str(project_root_path))
 
 try:
-    from src.batch_md_to_html import batch_md_to_html
+    from src.batch_md_to_html import batch_convert_markdown_files
 except ImportError:
     # 如果無法導入，創建一個簡單的替代函數
-    def batch_md_to_html(md_dir, html_dir, index_param=0):
+    def batch_convert_markdown_files(md_dir, html_dir, template_style="professional"):
         """簡單的 Markdown 到 HTML 轉換函數"""
         import markdown
         md_path = pathlib.Path(md_dir)
@@ -453,7 +453,7 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
                 tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
 
                 # 使用 SSG 將 Markdown 轉換為 HTML，傳遞樣板參數
-                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3, template_style=output_template)
+                batch_convert_markdown_files(str(output_md_dir), str(output_html_dir), template_style=output_template)
 
                 # 收集生成的 HTML 文件
                 for html_file in output_html_dir.glob("*.html"):
@@ -464,7 +464,7 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             except ImportError as e:
                 logger.warning(f"[任務 {task_id}] 無法導入 SSG 模組，跳過 HTML 生成: {e}")
                 # 使用備用的簡單 HTML 生成
-                batch_md_to_html(str(output_md_dir), str(output_html_dir), index_param=3, template_style=output_template)
+                batch_convert_markdown_files(str(output_md_dir), str(output_html_dir), template_style=output_template)
                 for html_file in output_html_dir.glob("*.html"):
                     html_files.append(str(html_file))
             except Exception as e:
