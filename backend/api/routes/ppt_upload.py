@@ -287,7 +287,7 @@ async def process_single_file(file_path: Path, seminar: str, task_id: str) -> Di
         print(f"為檔案 {file_path.name} 尋找匹配的會議...")
         best_match, score = find_best_matching_session(file_path.name, seminar)
 
-        if not best_match or score < 0.3:  # 相似度閾值
+        if not best_match or score < 0.6:  # 相似度閾值
             update_file_status(task_id, file_path.name, {
                 "status": "error",
                 "progress": 100,
