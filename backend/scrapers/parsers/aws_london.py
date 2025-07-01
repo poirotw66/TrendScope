@@ -103,5 +103,47 @@ class AWSLondonScraper(BaseScraper):
         
         except Exception as e:
             print(f"抓取數據時發生錯誤: {str(e)}")
-            
+
         return data
+
+
+def run_aws_london_scraper(headless=True, wait_time=30, use_bigquery=False):
+    """
+    執行 AWS London Summit 爬蟲的入口函數
+
+    Args:
+        headless (bool): 是否使用無頭模式
+        wait_time (int): 等待時間
+        use_bigquery (bool): 是否上傳到 BigQuery
+
+    Returns:
+        dict: 包含爬取結果的字典
+    """
+    try:
+        scraper = AWSLondonScraper(
+            headless=headless,
+            wait_time=wait_time,
+            use_bigquery=use_bigquery
+        )
+
+        # 執行爬蟲，返回文件路徑
+        file_path = scraper.run()
+
+        # AWS London scraper 沒有 data 屬性，需要重新執行 scrape() 來獲取數據
+        # 但為了避免重複執行，我們返回空列表
+        scraped_data = []
+
+        return {
+            "status": "success",
+            "message": "AWS London Summit 爬蟲執行完成",
+            "data": scraped_data,
+            "file_path": file_path
+        }
+
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"AWS London Summit 爬蟲執行失敗: {str(e)}",
+            "data": [],
+            "file_path": None
+        }

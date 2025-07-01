@@ -58,13 +58,13 @@ def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time:
         
         # 根據爬蟲類型執行相應的爬蟲
         if scraper_type == "aws_london":
-            from src.scrapers.aws_london_scraper import run_aws_london_scraper
+            from scrapers.parsers.aws_london import run_aws_london_scraper
             result = run_aws_london_scraper(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
         elif scraper_type == "aicon_infoq":
-            from src.scrapers.aicon_infoq_scraper import run_aicon_infoq_scraper
+            from scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
             result = run_aicon_infoq_scraper(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
         elif scraper_type == "qcon_infoq":
-            from src.scrapers.qcon_infoq_scraper import run_qcon_infoq_scraper
+            from scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
             result = run_qcon_infoq_scraper(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
         else:
             raise ValueError(f"不支援的爬蟲類型: {scraper_type}")
@@ -121,8 +121,17 @@ def get_scraper_status(task_id: str):
     """獲取爬蟲任務狀態"""
     if task_id not in tasks:
         raise HTTPException(status_code=404, detail=f"找不到任務 ID: {task_id}")
-    
-    return ScraperResult(**tasks[task_id])
+
+    task_data = tasks[task_id]
+
+    # 只提取 ScraperResult 模型需要的欄位
+    return ScraperResult(
+        task_id=task_data.get("task_id", task_id),
+        status=task_data.get("status", "unknown"),
+        file_path=task_data.get("file_path"),
+        message=task_data.get("message"),
+        data=task_data.get("data", [])
+    )
 
 @router.get("/list")
 def list_available_scrapers():
