@@ -173,7 +173,7 @@ def summarize_session_from_bigquery(session_data: Dict[str, Any], output_dir: st
 
         # 調用 Gemini API
         response = genai_client.models.generate_content(
-            model="gemini-2.5-flash-preview-05-20",
+            model="gemini-2.5-flash",
             contents=[prompt]
         )
 
