@@ -16,7 +16,7 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Background
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from google import genai
+import google.generativeai as genai
 from google.cloud import bigquery
 from config.config import GEMINI_API_KEY
 import opencc
@@ -32,8 +32,8 @@ BQ_PROJECT_ID = os.environ.get("GOOGLE_CLOUD_PROJECT")
 DATASET_ID = "conference_data"
 TABLE_ID = "sessions"
 
-# 初始化客戶端
-genai_client = genai.Client(api_key=GEMINI_API_KEY)
+# 初始化 Gemini API
+genai.configure(api_key=GEMINI_API_KEY)
 
 # 初始化 OpenCC 轉換器
 cc = opencc.OpenCC('t2s')  # 繁體轉簡體
@@ -205,49 +205,36 @@ def find_best_matching_session(ppt_filename: str, seminar: str) -> Tuple[Optiona
         return None, 0.0
 
 def extract_ppt_content_with_gemini(file_path: Path) -> str:
-    """使用 Gemini API 提取 PPT 內容"""
+    """使用 Gemini API 提取 PPT/PDF 內容"""
     try:
-        # 讀取檔案
-        with open(file_path, 'rb') as f:
-            file_data = f.read()
-        
         # 上傳檔案到 Gemini
-        uploaded_file = genai_client.files.upload(
-            path=str(file_path),
-            display_name=file_path.name
-        )
-        
+        uploaded_file = genai.upload_file(file_path, display_name=file_path.name)
+
         # 等待檔案處理完成
-        import time
         while uploaded_file.state.name == "PROCESSING":
             time.sleep(2)
-            uploaded_file = genai_client.files.get(name=uploaded_file.name)
-        
+            uploaded_file = genai.get_file(uploaded_file.name)
+
         if uploaded_file.state.name == "FAILED":
             raise Exception(f"檔案上傳失敗: {uploaded_file.state}")
-        
-        # 使用 Gemini 分析 PPT 內容
+
+        # 使用 Gemini 分析檔案內容
         prompt = """
-        請詳細分析這個 PPT 檔案的內容，並提供以下資訊：
+        請詳細分析這個檔案的內容，並提供以下資訊：
         1. 簡報的主要標題
         2. 每一頁的標題和主要內容
         3. 重要的技術概念、方法或工具
         4. 關鍵數據或統計資訊
         5. 結論或要點總結
-        
+
         請用繁體中文回答，並盡可能詳細地描述簡報內容。
         """
-        
-        response = genai_client.models.generate_content(
-            model='gemini-1.5-flash',
-            contents=[
-                prompt,
-                uploaded_file
-            ]
-        )
-        
+
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        response = model.generate_content([prompt, uploaded_file])
+
         # 清理上傳的檔案
-        genai_client.files.delete(name=uploaded_file.name)
+        genai.delete_file(uploaded_file.name)
         
         return response.text if response.text else "無法提取內容"
         
@@ -495,17 +482,17 @@ async def upload_ppt_files(
     files: List[UploadFile] = File(...),
     seminar: str = Form(...)
 ):
-    """上傳 PPT 檔案並開始處理"""
+    """上傳 PPT/PDF 檔案並開始處理"""
     if not files:
         raise HTTPException(status_code=400, detail="沒有上傳任何檔案")
 
     # 驗證檔案類型
-    allowed_extensions = {'.ppt', '.pptx'}
+    allowed_extensions = {'.ppt', '.pptx', '.pdf'}
     for file in files:
         if not any(file.filename.lower().endswith(ext) for ext in allowed_extensions):
             raise HTTPException(
                 status_code=400,
-                detail=f"不支援的檔案類型: {file.filename}。只支援 .ppt 和 .pptx 檔案"
+                detail=f"不支援的檔案類型: {file.filename}。只支援 .ppt、.pptx 和 .pdf 檔案"
             )
 
     try:

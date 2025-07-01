@@ -13,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Response
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from google import genai
+import google.generativeai as genai
 
 # 添加專案根目錄到 Python 路徑
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -70,8 +70,8 @@ logger = logging.getLogger("trendscope-api")
 # 創建路由器
 router = APIRouter(prefix="/reports", tags=["Batch Reports"])
 
-# 初始化 Gemini 客戶端
-genai_client = genai.Client(api_key=GEMINI_API_KEY)
+# 初始化 Gemini API
+genai.configure(api_key=GEMINI_API_KEY)
 
 # 導入共享任務管理
 from backend.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
@@ -160,13 +160,12 @@ def get_sessions_from_bigquery_for_reports(bq_client: BigQueryClient, seminars: 
         logger.error(f"從 BigQuery 獲取會議數據失敗: {e}")
         raise
 
-def generate_session_report(session_data: Dict[str, Any], genai_client, analysis_mode: str = "comprehensive", output_template: str = "professional") -> Dict[str, Any]:
+def generate_session_report(session_data: Dict[str, Any], analysis_mode: str = "comprehensive", output_template: str = "professional") -> Dict[str, Any]:
     """
     為單個會議生成報告
 
     Args:
         session_data: 會議數據
-        genai_client: Gemini 客戶端
         analysis_mode: 分析模式 ("technical", "business", "trend", "comprehensive")
         output_template: 輸出樣板 ("professional", "technical", "concise", "presentation")
     """
@@ -250,10 +249,8 @@ PPT 內容：
 """
 
         # 調用 Gemini API
-        response = genai_client.models.generate_content(
-            model='gemini-1.5-flash',
-            contents=prompt
-        )
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        response = model.generate_content(prompt)
 
         if response and response.text:
             report_content = response.text
@@ -403,7 +400,7 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
         with ThreadPoolExecutor(max_workers=3) as executor:
             # 提交所有任務
             future_to_session = {
-                executor.submit(generate_session_report, session, genai_client, analysis_mode, output_template): (session, i)
+                executor.submit(generate_session_report, session, analysis_mode, output_template): (session, i)
                 for i, session in enumerate(sessions)
             }
 
