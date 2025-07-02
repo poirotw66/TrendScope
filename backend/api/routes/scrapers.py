@@ -6,13 +6,22 @@ import sys
 import uuid
 import logging
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Callable
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel
+import urllib3
 
 # 添加專案根目錄到 Python 路徑
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.insert(0, project_root)
+
+# 增加連接池大小
+urllib3.connection_pool_kw = {'maxsize': 10}  # 或更大的值，取決於您的並發需求
+
+# 預先導入所有爬蟲函數，避免重複動態導入
+from scrapers.parsers.aws_london import run_aws_london_scraper
+from scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
+from scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
 
 # 設置日誌
 logger = logging.getLogger("trendscope-api")
@@ -45,6 +54,13 @@ class ScraperResult(BaseModel):
 # 導入共享任務管理
 from backend.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
 
+# 爬蟲函數映射表，避免重複動態導入
+SCRAPER_FUNCTIONS: Dict[str, Callable] = {
+    "aws_london": run_aws_london_scraper,
+    "aicon_infoq": run_aicon_infoq_scraper,
+    "qcon_infoq": run_qcon_infoq_scraper,
+}
+
 def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time: int, use_bigquery: bool):
     """
     執行爬蟲任務的背景函數
@@ -57,17 +73,11 @@ def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time:
         logger.info(f"開始執行爬蟲任務 {task_id}: {scraper_type}")
         
         # 根據爬蟲類型執行相應的爬蟲
-        if scraper_type == "aws_london":
-            from scrapers.parsers.aws_london import run_aws_london_scraper
-            result = run_aws_london_scraper(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
-        elif scraper_type == "aicon_infoq":
-            from scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
-            result = run_aicon_infoq_scraper(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
-        elif scraper_type == "qcon_infoq":
-            from scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
-            result = run_qcon_infoq_scraper(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
-        else:
+        if scraper_type not in SCRAPER_FUNCTIONS:
             raise ValueError(f"不支援的爬蟲類型: {scraper_type}")
+
+        scraper_function = SCRAPER_FUNCTIONS[scraper_type]
+        result = scraper_function(headless=headless, wait_time=wait_time, use_bigquery=use_bigquery)
         
         # 更新任務狀態為成功
         tasks[task_id].update({

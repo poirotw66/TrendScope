@@ -104,6 +104,8 @@ class AWSLondonScraper(BaseScraper):
         except Exception as e:
             print(f"抓取數據時發生錯誤: {str(e)}")
 
+        # 保存數據到實例變量，供後續使用
+        self.data = data
         return data
 
 
@@ -119,6 +121,7 @@ def run_aws_london_scraper(headless=True, wait_time=30, use_bigquery=False):
     Returns:
         dict: 包含爬取結果的字典
     """
+    scraper = None
     try:
         scraper = AWSLondonScraper(
             headless=headless,
@@ -126,12 +129,11 @@ def run_aws_london_scraper(headless=True, wait_time=30, use_bigquery=False):
             use_bigquery=use_bigquery
         )
 
-        # 執行爬蟲，返回文件路徑
+        # 使用基類的 run 方法，它會自動處理 WebDriver 的生命週期
         file_path = scraper.run()
 
-        # AWS London scraper 沒有 data 屬性，需要重新執行 scrape() 來獲取數據
-        # 但為了避免重複執行，我們返回空列表
-        scraped_data = []
+        # 獲取爬取的數據（如果有的話）
+        scraped_data = getattr(scraper, 'data', [])
 
         return {
             "status": "success",

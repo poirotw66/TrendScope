@@ -89,7 +89,7 @@ class AiconInfoqScraper(BaseScraper):
                     # 每提交一批任務後短暫延遲，避免同時發起太多請求
                     if (index + 1) % self.max_workers == 0:
                         self.random_delay(0.5, 1)
-                
+                    break
                 # 等待所有任務完成
                 for future in concurrent.futures.as_completed(futures):
                     try:
