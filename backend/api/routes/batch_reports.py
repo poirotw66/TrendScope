@@ -39,21 +39,33 @@ def get_bigquery_client():
         return None
 from config.config import GEMINI_API_KEY
 
+# 設置日誌
+logger = logging.getLogger("trendscope-api")
+
 # 添加項目根目錄到 Python 路徑以導入 SSG 模組
 project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
 sys.path.append(str(project_root_path))
 
 try:
-    from src.batch_md_to_html import batch_convert_markdown_files
-except ImportError:
-    # 如果無法導入，創建一個簡單的替代函數
+    from backend.api.modules.hugo_report import HugoReportGenerator
+    hugo_generator = HugoReportGenerator()
+
     def batch_convert_markdown_files(md_dir, html_dir, template_style="professional"):
-        """簡單的 Markdown 到 HTML 轉換函數"""
+        """Hugo-based static site generation function"""
+        return hugo_generator.generate_hugo_site(md_dir, html_dir, template_style)
+
+except ImportError as e:
+    logger.warning(f"無法導入 Hugo 報告生成器: {e}")
+    # 如果無法導入，創建一個簡單的替代函數
+
+    def batch_convert_markdown_files(md_dir, html_dir, template_style="professional"):
+        """簡單的 Markdown 到 HTML 轉換函數（Hugo 不可用時的備用方案）"""
         import markdown
         md_path = pathlib.Path(md_dir)
         html_path = pathlib.Path(html_dir)
         html_path.mkdir(parents=True, exist_ok=True)
 
+        generated_files = []
         for md_file in md_path.glob('*.md'):
             with open(md_file, 'r', encoding='utf-8') as f:
                 md_content = f.read()
@@ -64,8 +76,9 @@ except ImportError:
             with open(html_file, 'w', encoding='utf-8') as f:
                 f.write(html_content)
 
-# 設置日誌
-logger = logging.getLogger("trendscope-api")
+            generated_files.append(str(html_file))
+
+        return generated_files
 
 # 創建路由器
 router = APIRouter(prefix="/reports", tags=["Batch Reports"])
@@ -449,8 +462,9 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             try:
                 tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
 
-                # 使用 SSG 將 Markdown 轉換為 HTML，傳遞樣板參數
-                batch_convert_markdown_files(str(output_md_dir), str(output_html_dir), template_style=output_template)
+                # 使用 Hugo SSG 將 Markdown 轉換為靜態網站，傳遞樣板參數
+                generated_files = batch_convert_markdown_files(str(output_md_dir), str(output_html_dir), template_style=output_template)
+                logger.info(f"[任務 {task_id}] Hugo 生成了 {len(generated_files) if generated_files else 0} 個文件")
 
                 # 收集生成的 HTML 文件
                 for html_file in output_html_dir.glob("*.html"):
