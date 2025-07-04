@@ -1,0 +1,224 @@
+項目 1:
+文字內容: 端侧智能的模型架构设计与算法改进
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6487
+
+項目 2:
+文字內容: 面向端侧大模型的原生 AI SoC 设计与实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6477
+
+項目 3:
+文字內容: 开源大模型创新背后的 RISC-V 算力架构革新
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6460
+
+項目 4:
+文字內容: vivo 蓝心大模型端侧轻量化部署的创新路径
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6426
+
+項目 5:
+文字內容: 多模态大模型时空感知理解能力前沿进展
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6388
+
+項目 6:
+文字內容: 千卡级分布式集群上的视觉多模态大模型落地实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6410
+
+項目 7:
+文字內容: 多模态理解在 AIGC 场景中的主要应用
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6351
+
+項目 8:
+文字內容: 多模态大模型在游戏创作领域的创新实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6455
+
+項目 9:
+文字內容: 从辅助编程到协同编程，AI Coding Agent 的技术演进与落地实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6395
+
+項目 10:
+文字內容: 蚂蚁数科可信 Agent 技术创新实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6411
+
+項目 11:
+文字內容: 打造可扩展的生态体系：从 MCP 到 Agent 集成的实践与趋势
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6499
+
+項目 12:
+文字內容: 智能体在知识库与客服的深度应用实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6457
+
+項目 13:
+文字內容: Data is Power，AI is Motor
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6427
+
+項目 14:
+文字內容: 构建下一代数据架构，释放 AI 的“数据智慧”
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6390
+
+項目 15:
+文字內容: Data Warebase: Instant Ingest-Transform-Explore-Retrieve for AI applications
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6481
+
+項目 16:
+文字內容: Chat2Graph：Graph + AI 时代的未来智能体架构
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6507
+
+項目 17:
+文字內容: 大模型+数据资产变现，RAG 驱动企业智能化实践案例
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6473
+
+項目 18:
+文字內容: 从技术到应用，火山引擎 Data Agent 分析智能体提效落地实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6352
+
+項目 19:
+文字內容: 金融领域大模型数据集管理与应用
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6472
+
+項目 20:
+文字內容: AI 时代实验平台演进之路，从 A/B 测试到智能决策闭环
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6476
+
+項目 21:
+文字內容: 基于统一标准的智能数据治理Dataphin的落地实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6363
+
+項目 22:
+文字內容: 开场致辞
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6524
+
+項目 23:
+文字內容: 推理 Scaling Law 在音乐大模型 Mureka 中的应用与创新
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6491
+
+項目 24:
+文字內容: 蚂蚁百灵大模型：全模态架构创新与开源驱动的智能演进
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6517
+
+項目 25:
+文字內容: 人工智能与智能革命：AI 发现新科学和技术的能力
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6523
+
+項目 26:
+文字內容: AI 重构全球数字基建：从统一底座到多云协同的技术跃迁
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6506
+
+項目 27:
+文字內容: 解耦与互联：ADK、MCP、A2A 如何重塑 Agent 开发与协作范式
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6520
+
+項目 28:
+文字內容: 大模型Data Agent重构金融数据价值：从智能分析到决策闭环的范式升级
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6521
+
+項目 29:
+文字內容: 以 KV 缓存为中心的高效长文本方法的优化和实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6428
+
+項目 30:
+文字內容: 华为昇腾推理技术的优化实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6433
+
+項目 31:
+文字內容: 腾讯混元 AngelHCF 推理加速框架优化实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6440
+
+項目 32:
+文字內容: 超越算力瓶颈，大模型推理的跨层优化前沿实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6418
+
+項目 33:
+文字內容: 金融智能体· 新范式，AI Agent 驱动的价值重构探索
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6493
+
+項目 34:
+文字內容: “邮远见”驱动消费金融智变，中邮消费大模型应用之路
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6425
+
+項目 35:
+文字內容: AI 给人寿保险业带来了什么？进化还是颠覆？
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6448
+
+項目 36:
+文字內容: AI + 风控，大模型驱动金融风险决策新范式
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6449
+
+項目 37:
+文字內容: 快手代码大模型 Kwaipilot 在研发领域的落地实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6370
+
+項目 38:
+文字內容: 从 Copilot 到 Coding Agent，AI 驱动软件开发的未来
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6391
+
+項目 39:
+文字內容: 60K Stars 的开源 AI 产品是如何炼成的 —— 两人两年的 AI 驱动研发之旅
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6498
+
+項目 40:
+文字內容: 华为云官网智能客服的 AI 应用实践与思考
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6429
+
+項目 41:
+文字內容: 蚂蚁集团 CIO 智能转型助力业务提效的实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6439
+
+項目 42:
+文字內容: 多模态大模型驱动的生成式营销落地实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6375
+
+項目 43:
+文字內容: 阿里云客户服务领域Agent在业务提效上的思考与创新实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6502
+
+項目 44:
+文字內容: 生成式 AI 在产品设计和 UI 领域：过去、现在和未来
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6482
+
+項目 45:
+文字內容: AI 原生时代，搜索引擎的范式重构与产品哲学
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6505
+
+項目 46:
+文字內容: AI 重塑游戏世界的四阶段革命，从《麦琪的花园》看未来游戏发展新范式
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6441
+
+項目 47:
+文字內容: 复杂场景下的语音交互，多模态降噪技术的实践与应用
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6452
+
+項目 48:
+文字內容: WAKE-AI 大模型如何赋能 AI 智能眼镜的多场景应用
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6456
+
+項目 49:
+文字內容: 大模型催化下的 AI 学习硬件演化
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6479
+
+項目 50:
+文字內容: AI 驱动组织进化与人才跃迁：大模型重塑企业知识工程与培训新范式
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6489
+
+項目 51:
+文字內容: AI 时代的人才管理双螺旋，技能升级 × 心智刷新
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6434
+
+項目 52:
+文字內容: 腾讯云顾问：从人到数智平台，用 AI 重塑 SRE
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6480
+
+項目 53:
+文字內容: 开源基础设施软件如何实现全球化：从零到一亿美元 ARR 的增长之路
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6488
+
+項目 54:
+文字內容: 中国科技企业出海，要不要把新加坡作为第一站？
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6496
+
+項目 55:
+文字內容: GMI Cloud 全球化高性能分布式推理服务构建实践
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6486
+
+項目 56:
+文字內容: 新一代智能化 B2B 电商出海的落地探索
+連結: https://aicon.infoq.cn/2025/shanghai/presentation/6384
+
