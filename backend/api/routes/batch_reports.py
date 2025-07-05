@@ -50,9 +50,26 @@ try:
     from backend.api.modules.hugo_report import HugoReportGenerator
     hugo_generator = HugoReportGenerator()
 
-    def batch_convert_markdown_files(md_dir, html_dir, template_style="professional"):
-        """Hugo-based static site generation function"""
-        return hugo_generator.generate_hugo_site(md_dir, html_dir, template_style)
+    def batch_convert_markdown_files(md_dir, html_dir, template_style="professional",
+                                    create_offline_package=True):
+        """Hugo-based static site generation function with offline package support"""
+        result = hugo_generator.generate_hugo_site(
+            md_dir, html_dir, template_style, create_offline_package
+        )
+
+        # 為了向後兼容，如果調用者期望舊格式，返回 HTML 文件列表
+        if isinstance(result, dict):
+            return result
+        else:
+            # 如果返回的是列表（舊格式），包裝成新格式
+            return {
+                'html_files': result,
+                'zip_file': None,
+                'launcher_file': None,
+                'instructions_file': None,
+                'total_pages': len(result) if result else 0,
+                'site_info': {}
+            }
 
 except ImportError as e:
     logger.warning(f"無法導入 Hugo 報告生成器: {e}")
@@ -458,26 +475,64 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
 
         # 生成 HTML 文件（如果需要）
         html_files = []
+        zip_file_path = None
+        launcher_file_path = None
+        instructions_file_path = None
+        site_info = {}
+
         if include_html and processed_sessions:
             try:
                 tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
 
                 # 使用 Hugo SSG 將 Markdown 轉換為靜態網站，傳遞樣板參數
-                generated_files = batch_convert_markdown_files(str(output_md_dir), str(output_html_dir), template_style=output_template)
-                logger.info(f"[任務 {task_id}] Hugo 生成了 {len(generated_files) if generated_files else 0} 個文件")
+                hugo_result = batch_convert_markdown_files(
+                    str(output_md_dir),
+                    str(output_html_dir),
+                    template_style=output_template,
+                    create_offline_package=True
+                )
 
-                # 收集生成的 HTML 文件
-                for html_file in output_html_dir.glob("*.html"):
-                    html_files.append(str(html_file))
+                # 處理新的返回格式
+                if isinstance(hugo_result, dict):
+                    html_files = hugo_result.get('html_files', [])
+                    zip_file_path = hugo_result.get('zip_file')
+                    launcher_file_path = hugo_result.get('launcher_file')
+                    instructions_file_path = hugo_result.get('instructions_file')
+                    site_info = hugo_result.get('site_info', {})
+                    total_pages = hugo_result.get('total_pages', 0)
+
+                    logger.info(f"[任務 {task_id}] Hugo 生成了 {total_pages} 個頁面")
+                    if zip_file_path:
+                        logger.info(f"[任務 {task_id}] 離線分享包已創建: {zip_file_path}")
+                else:
+                    # 向後兼容舊格式
+                    html_files = hugo_result if hugo_result else []
+                    logger.info(f"[任務 {task_id}] Hugo 生成了 {len(html_files)} 個文件")
+
+                # 收集生成的 HTML 文件（如果使用舊格式）
+                if not html_files:
+                    for html_file in output_html_dir.glob("*.html"):
+                        html_files.append(str(html_file))
 
                 logger.info(f"[任務 {task_id}] 已生成 {len(html_files)} 個 HTML 文件")
 
             except ImportError as e:
                 logger.warning(f"[任務 {task_id}] 無法導入 SSG 模組，跳過 HTML 生成: {e}")
                 # 使用備用的簡單 HTML 生成
-                batch_convert_markdown_files(str(output_md_dir), str(output_html_dir), template_style=output_template)
+                backup_result = batch_convert_markdown_files(
+                    str(output_md_dir),
+                    str(output_html_dir),
+                    template_style=output_template,
+                    create_offline_package=False
+                )
+                if isinstance(backup_result, dict):
+                    html_files = backup_result.get('html_files', [])
+                else:
+                    html_files = backup_result if backup_result else []
+
                 for html_file in output_html_dir.glob("*.html"):
-                    html_files.append(str(html_file))
+                    if str(html_file) not in html_files:
+                        html_files.append(str(html_file))
             except Exception as e:
                 logger.error(f"[任務 {task_id}] 生成 HTML 報告時發生錯誤: {e}")
 
@@ -485,7 +540,9 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
         tasks[task_id]["status"] = "completed"
         tasks[task_id]["end_time"] = datetime.now().isoformat()
         tasks[task_id]["progress"]["current_session"] = "完成"
-        tasks[task_id]["results"] = {
+
+        # 構建結果信息
+        results = {
             "processed_sessions": len(processed_sessions),
             "failed_sessions": len(failed_sessions),
             "output_directory": str(output_base_dir),
@@ -495,6 +552,18 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
             "failed_files": failed_sessions,
             "html_files": html_files if include_html else []
         }
+
+        # 添加離線分享包信息
+        if zip_file_path:
+            results["offline_package"] = {
+                "zip_file": zip_file_path,
+                "launcher_file": launcher_file_path,
+                "instructions_file": instructions_file_path,
+                "download_url": f"/reports/download-zip/{pathlib.Path(zip_file_path).name}",
+                "site_info": site_info
+            }
+
+        tasks[task_id]["results"] = results
 
         logger.info(f"[任務 {task_id}] 批量報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
 
@@ -827,3 +896,34 @@ def download_report_file(file_path: str):
     except Exception as e:
         logger.error(f"下載文件失敗: {e}")
         raise HTTPException(status_code=500, detail=f"下載文件失敗: {str(e)}")
+
+@router.get("/download-zip/{zip_filename}")
+def download_zip_file(zip_filename: str):
+    """下載離線分享包 ZIP 文件"""
+    try:
+        # 在 reports 目錄中查找 ZIP 文件
+        reports_dir = pathlib.Path("reports")
+        zip_file_path = None
+
+        # 搜索所有批量報告目錄中的 ZIP 文件
+        for batch_dir in reports_dir.glob("batch_*"):
+            potential_zip = batch_dir / zip_filename
+            if potential_zip.exists():
+                zip_file_path = potential_zip
+                break
+
+        if not zip_file_path or not zip_file_path.exists():
+            raise HTTPException(status_code=404, detail="ZIP 文件不存在")
+
+        # 返回文件下載響應
+        return FileResponse(
+            path=str(zip_file_path),
+            filename=zip_filename,
+            media_type='application/zip'
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"下載 ZIP 文件時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"下載 ZIP 文件時發生錯誤: {str(e)}")
