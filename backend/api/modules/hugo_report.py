@@ -969,10 +969,9 @@ class HugoReportGenerator:
             output_path = pathlib.Path(output_dir)
             output_path.mkdir(parents=True, exist_ok=True)
 
-            # 設置 Hugo 構建命令
+            # 設置 Hugo 構建命令 - 直接輸出到目標目錄
             cmd = [
                 self.hugo_binary,
-                "--source", str(site_dir),
                 "--destination", str(output_path),
                 "--minify",
                 "--gc"
@@ -989,8 +988,12 @@ class HugoReportGenerator:
 
             logger.info(f"Hugo 網站構建成功: {result.stdout}")
 
-            # 複製生成的 HTML 文件到指定目錄
-            self._copy_generated_files(output_path, output_dir)
+            # 檢查輸出目錄是否有文件
+            if output_path.exists():
+                html_files = list(output_path.rglob("*.html"))
+                logger.info(f"生成了 {len(html_files)} 個 HTML 文件")
+            else:
+                logger.warning(f"輸出目錄不存在: {output_path}")
 
         except subprocess.CalledProcessError as e:
             error_msg = f"Hugo 構建失敗 (返回碼: {e.returncode})"
@@ -1007,17 +1010,6 @@ class HugoReportGenerator:
         except Exception as e:
             logger.error(f"Hugo 構建過程中發生錯誤: {e}")
             raise
-
-    def _copy_generated_files(self, hugo_output: pathlib.Path, target_dir: str):
-        """複製生成的文件到目標目錄"""
-        target_path = pathlib.Path(target_dir)
-
-        # 如果 Hugo 輸出目錄和目標目錄不同，則複製文件
-        if hugo_output.resolve() != target_path.resolve():
-            if target_path.exists():
-                shutil.rmtree(target_path)
-            shutil.copytree(hugo_output, target_path)
-            logger.info(f"已複製 Hugo 輸出到: {target_dir}")
 
     def create_partials(self, layouts_dir: pathlib.Path):
         """創建 Hugo 部分模板"""
