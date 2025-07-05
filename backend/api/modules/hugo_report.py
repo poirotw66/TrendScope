@@ -248,7 +248,11 @@ class HugoReportGenerator:
                     {"name": "分類", "url": "/categories/", "weight": 30},
                     {"name": "標籤", "url": "/tags/", "weight": 40}
                 ]
-            }
+            },
+            "permalinks": {
+                "posts": "/posts/:slug/"
+            },
+            "disableKinds": []  # 確保不禁用任何內容類型
         }
         
         # 支援多語言配置
@@ -1007,9 +1011,9 @@ body {
                 # 創建 Hugo 內容文件
                 hugo_content = self._create_hugo_content(content, metadata)
 
-                # 確定輸出路徑（使用 posts 目錄結構）
+                # 確定輸出路徑（直接放在 posts 目錄下，避免嵌套）
                 seminar_slug = self._slugify(metadata.seminar)
-                # 將報告放在 posts 目錄下，這是 Hugo 的標準做法
+                # 將報告直接放在 posts 目錄下，避免子目錄問題
                 posts_dir = content_dir / "posts"
                 posts_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1027,50 +1031,32 @@ description: 所有會議報告的列表
 這裡包含所有的會議報告。
 """)
 
-                seminar_dir = posts_dir / seminar_slug
-                seminar_dir.mkdir(parents=True, exist_ok=True)
+                # 直接使用 posts 目錄，不創建子目錄
+                seminar_dir = posts_dir
 
-                # 為研討會目錄創建 _index.md（如果不存在）
-                seminar_index = seminar_dir / "_index.md"
-                if not seminar_index.exists():
-                    with open(seminar_index, 'w', encoding='utf-8') as f:
-                        f.write(f"""---
-title: {metadata.seminar}
-description: {metadata.seminar} 的報告列表
-seminar: {metadata.seminar}
----
-
-# {metadata.seminar}
-
-這裡包含 {metadata.seminar} 的所有報告。
-""")
-
-                # 生成較短的文件名（避免文件名過長問題）
-                # 使用 session_id 的前8個字符作為文件名
+                # 生成簡短且安全的文件名
                 session_id = md_file.stem
-                if len(session_id) > 50:  # 如果文件名太長
-                    # 提取 UUID 部分（通常在開頭）
-                    if '_' in session_id:
-                        uuid_part = session_id.split('_')[0]
-                        if len(uuid_part) >= 8:
-                            short_filename = uuid_part[:8]
-                        else:
-                            short_filename = session_id[:8]
-                    else:
-                        short_filename = session_id[:8]
-                else:
-                    short_filename = session_id
 
-                # 確保文件名是安全的
-                safe_filename = self._slugify(short_filename)
+                # 提取 UUID 的前8個字符作為唯一標識
+                if '_' in session_id:
+                    uuid_part = session_id.split('_')[0][:8]
+                else:
+                    uuid_part = session_id[:8]
+
+                # 使用簡短的文件名：report-UUID
+                safe_filename = f"report-{uuid_part}"
+
+                # 確保文件名是安全的（只包含字母數字和連字符）
+                import re
+                safe_filename = re.sub(r'[^a-zA-Z0-9-]', '', safe_filename)
 
                 # 保存 Hugo 內容文件
                 output_file = seminar_dir / f"{safe_filename}.md"
                 with open(output_file, 'w', encoding='utf-8') as f:
                     f.write(hugo_content)
 
-                # 記錄生成的文件（更新路徑以反映新的目錄結構）
-                html_files.append(f"posts/{seminar_slug}/{safe_filename}.html")
+                # 記錄生成的文件（Hugo 會為每個頁面創建目錄）
+                html_files.append(f"posts/{safe_filename}/index.html")
 
                 logger.info(f"已處理 Markdown 文件: {md_file.name}")
 
@@ -1149,6 +1135,8 @@ seminar: {metadata.seminar}
             "title": metadata.title,
             "date": metadata.date,
             "draft": False,  # 明確設置為非草稿
+            "type": "posts",  # 明確設置內容類型
+            "layout": "single",  # 明確設置佈局類型
             "seminar": metadata.seminar,
             "category": metadata.category,
             "tags": metadata.tags,
@@ -1169,7 +1157,8 @@ seminar: {metadata.seminar}
 
         # 組合完整的 Hugo 內容
         hugo_content = f"""---
-{yaml_front_matter}---
+{yaml_front_matter.strip()}
+---
 
 {content_without_title}
 """
