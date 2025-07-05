@@ -85,6 +85,59 @@ export const BatchReportTasksPage: React.FC = () => {
     }
   };
 
+  const handleDownloadZip = async (batchId: string) => {
+    try {
+      setError(null);
+
+      // 檢查是否有對應的任務
+      const taskId = batchId; // 假設 batch_id 就是 task_id
+
+      // 調用 ZIP 下載 API
+      const response = await fetch(`${apiService.baseURL}/batch-reports/${taskId}/download-zip`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/zip',
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('ZIP 文件不存在或任務未完成');
+        } else if (response.status === 400) {
+          throw new Error('任務尚未完成');
+        } else {
+          throw new Error(`下載失敗: ${response.statusText}`);
+        }
+      }
+
+      // 獲取文件名
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = `TrendScope-會議報告-${batchId}.zip`;
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename=(.+)/);
+        if (filenameMatch) {
+          filename = filenameMatch[1].replace(/['"]/g, '');
+        }
+      }
+
+      // 下載文件
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+    } catch (error: any) {
+      console.error('下載 ZIP 文件失敗:', error);
+      setError(`下載 ZIP 文件失敗: ${error.message || '未知錯誤'}`);
+    }
+  };
+
 
 
 
@@ -148,10 +201,21 @@ export const BatchReportTasksPage: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                      <span>{batch.md_files.length} MD</span>
-                      <span>•</span>
-                      <span>{batch.html_files.length} HTML</span>
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                        <span>{batch.md_files.length} MD</span>
+                        <span>•</span>
+                        <span>{batch.html_files.length} HTML</span>
+                      </div>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={() => handleDownloadZip(batch.batch_id)}
+                        leftIcon={<DownloadIcon className="w-4 h-4" />}
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                      >
+                        下載 ZIP
+                      </Button>
                     </div>
                   </div>
 

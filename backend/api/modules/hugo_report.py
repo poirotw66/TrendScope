@@ -1007,18 +1007,70 @@ body {
                 # 創建 Hugo 內容文件
                 hugo_content = self._create_hugo_content(content, metadata)
 
-                # 確定輸出路徑（按研討會分組）
+                # 確定輸出路徑（使用 posts 目錄結構）
                 seminar_slug = self._slugify(metadata.seminar)
-                seminar_dir = content_dir / seminar_slug
+                # 將報告放在 posts 目錄下，這是 Hugo 的標準做法
+                posts_dir = content_dir / "posts"
+                posts_dir.mkdir(parents=True, exist_ok=True)
+
+                # 為 posts 目錄創建 _index.md（如果不存在）
+                posts_index = posts_dir / "_index.md"
+                if not posts_index.exists():
+                    with open(posts_index, 'w', encoding='utf-8') as f:
+                        f.write(f"""---
+title: 會議報告
+description: 所有會議報告的列表
+---
+
+# 會議報告
+
+這裡包含所有的會議報告。
+""")
+
+                seminar_dir = posts_dir / seminar_slug
                 seminar_dir.mkdir(parents=True, exist_ok=True)
 
+                # 為研討會目錄創建 _index.md（如果不存在）
+                seminar_index = seminar_dir / "_index.md"
+                if not seminar_index.exists():
+                    with open(seminar_index, 'w', encoding='utf-8') as f:
+                        f.write(f"""---
+title: {metadata.seminar}
+description: {metadata.seminar} 的報告列表
+seminar: {metadata.seminar}
+---
+
+# {metadata.seminar}
+
+這裡包含 {metadata.seminar} 的所有報告。
+""")
+
+                # 生成較短的文件名（避免文件名過長問題）
+                # 使用 session_id 的前8個字符作為文件名
+                session_id = md_file.stem
+                if len(session_id) > 50:  # 如果文件名太長
+                    # 提取 UUID 部分（通常在開頭）
+                    if '_' in session_id:
+                        uuid_part = session_id.split('_')[0]
+                        if len(uuid_part) >= 8:
+                            short_filename = uuid_part[:8]
+                        else:
+                            short_filename = session_id[:8]
+                    else:
+                        short_filename = session_id[:8]
+                else:
+                    short_filename = session_id
+
+                # 確保文件名是安全的
+                safe_filename = self._slugify(short_filename)
+
                 # 保存 Hugo 內容文件
-                output_file = seminar_dir / f"{md_file.stem}.md"
+                output_file = seminar_dir / f"{safe_filename}.md"
                 with open(output_file, 'w', encoding='utf-8') as f:
                     f.write(hugo_content)
 
-                # 記錄生成的文件
-                html_files.append(f"{seminar_slug}/{md_file.stem}.html")
+                # 記錄生成的文件（更新路徑以反映新的目錄結構）
+                html_files.append(f"posts/{seminar_slug}/{safe_filename}.html")
 
                 logger.info(f"已處理 Markdown 文件: {md_file.name}")
 
@@ -1096,6 +1148,7 @@ body {
         front_matter = {
             "title": metadata.title,
             "date": metadata.date,
+            "draft": False,  # 明確設置為非草稿
             "seminar": metadata.seminar,
             "category": metadata.category,
             "tags": metadata.tags,
@@ -1472,7 +1525,19 @@ body {
                 except Exception as e:
                     logger.warning(f"無法解析報告文件 {md_file}: {e}")
 
+            # 從目錄路徑中提取 batch_id
+            batch_id = "unknown"
+            try:
+                # 假設目錄結構是 reports/batch_YYYYMMDD_HHMMSS/
+                if "batch_" in md_dir:
+                    batch_id = md_dir.split("batch_")[1].split("/")[0]
+                elif "batch_" in output_dir:
+                    batch_id = output_dir.split("batch_")[1].split("/")[0]
+            except Exception:
+                logger.warning("無法從路徑中提取 batch_id")
+
             return {
+                'batch_id': batch_id,
                 'total_reports': len(reports),
                 'total_html_files': len(html_file_paths),
                 'reports': reports,
@@ -1965,33 +2030,33 @@ body {
             output_path = pathlib.Path(output_dir)
             parent_dir = output_path.parent
 
-            # 生成 ZIP 檔案名
-            date_str = datetime.now().strftime("%Y%m%d")
-            zip_filename = f"TrendScope-會議報告-離線版-{date_str}.zip"
-            zip_file_path = parent_dir / zip_filename
+            # 從 site_info 中獲取 batch_id
+            batch_id = site_info.get('batch_id', 'unknown')
 
-            # 如果 ZIP 檔案已存在，添加時間戳
-            if zip_file_path.exists():
-                time_str = datetime.now().strftime("%H%M%S")
-                zip_filename = f"TrendScope-會議報告-離線版-{date_str}-{time_str}.zip"
-                zip_file_path = parent_dir / zip_filename
+            # 生成 ZIP 檔案名（按照要求的格式）
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            zip_filename = f"TrendScope-會議報告-{batch_id}-{timestamp}.zip"
+            zip_file_path = parent_dir / zip_filename
 
             logger.info(f"開始創建 ZIP 離線包: {zip_filename}")
 
-            # 使用 subprocess 調用 zip 命令
-            cmd = [
-                "zip", "-r", str(zip_file_path), ".",
-                "-x", "*.DS_Store", "*/.*"
-            ]
+            # 使用 Python 內建的 zipfile 模組
+            with zipfile.ZipFile(zip_file_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                # 遍歷輸出目錄中的所有文件
+                for file_path in output_path.rglob('*'):
+                    if file_path.is_file():
+                        # 跳過隱藏文件和系統文件
+                        if file_path.name.startswith('.') or file_path.name == '.DS_Store':
+                            continue
 
-            result = subprocess.run(
-                cmd,
-                cwd=str(output_path),
-                capture_output=True,
-                text=True,
-                check=True
-            )
+                        # 計算相對路徑
+                        relative_path = file_path.relative_to(output_path)
 
+                        # 添加文件到 ZIP
+                        zipf.write(file_path, relative_path)
+                        logger.debug(f"添加文件到 ZIP: {relative_path}")
+
+            # 檢查 ZIP 文件是否創建成功
             if zip_file_path.exists():
                 file_size = zip_file_path.stat().st_size
                 file_size_mb = file_size / (1024 * 1024)
@@ -2001,11 +2066,10 @@ body {
                 logger.error("ZIP 檔案創建失敗")
                 return ""
 
-        except subprocess.CalledProcessError as e:
-            logger.error(f"ZIP 打包命令執行失敗: {e.stderr}")
-            return ""
         except Exception as e:
             logger.error(f"創建 ZIP 離線包時發生錯誤: {e}")
+            import traceback
+            logger.error(f"詳細錯誤: {traceback.format_exc()}")
             return ""
 
     def _build_hugo_site(self, site_dir: pathlib.Path, output_dir: str) -> bool:
@@ -2020,7 +2084,8 @@ body {
                 self.hugo_binary,
                 "--destination", str(output_path.absolute()),
                 "--gc",
-                "--cleanDestinationDir"
+                "--cleanDestinationDir",
+                "--buildDrafts"  # 包含草稿內容，確保所有文件都被構建
             ]
 
             # 只在生產環境使用 minify，避免破壞 DOCTYPE

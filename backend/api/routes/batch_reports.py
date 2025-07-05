@@ -897,9 +897,61 @@ def download_report_file(file_path: str):
         logger.error(f"下載文件失敗: {e}")
         raise HTTPException(status_code=500, detail=f"下載文件失敗: {str(e)}")
 
+@router.get("/{task_id}/download-zip")
+def download_task_zip_file(task_id: str):
+    """下載指定任務的 ZIP 檔案
+
+    Args:
+        task_id: 任務 ID
+
+    Returns:
+        ZIP 檔案下載響應
+    """
+    try:
+        # 檢查任務是否存在
+        if task_id not in tasks:
+            raise HTTPException(status_code=404, detail="任務不存在")
+
+        task_data = tasks[task_id]
+
+        # 檢查任務是否完成
+        if task_data.get("status") != "completed":
+            raise HTTPException(status_code=400, detail="任務尚未完成")
+
+        # 獲取任務結果中的 ZIP 文件路徑
+        results = task_data.get("results", {})
+        zip_file_path = results.get("zip_file")
+
+        if not zip_file_path:
+            raise HTTPException(status_code=404, detail="該任務沒有生成 ZIP 文件")
+
+        zip_path = pathlib.Path(zip_file_path)
+        if not zip_path.exists():
+            raise HTTPException(status_code=404, detail="ZIP 文件不存在")
+
+        # 生成下載文件名
+        filename = zip_path.name
+
+        # 返回文件下載響應，設置適當的 HTTP 響應頭
+        return FileResponse(
+            path=str(zip_path),
+            filename=filename,
+            media_type='application/zip',
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}",
+                "Cache-Control": "no-cache"
+            }
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"下載任務 ZIP 文件時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"下載 ZIP 文件時發生錯誤: {str(e)}")
+
 @router.get("/download-zip/{zip_filename}")
 def download_zip_file(zip_filename: str):
-    """下載離線分享包 ZIP 文件"""
+    """下載離線分享包 ZIP 文件（舊版本兼容）"""
     try:
         # 在 reports 目錄中查找 ZIP 文件
         reports_dir = pathlib.Path("reports")
@@ -919,7 +971,11 @@ def download_zip_file(zip_filename: str):
         return FileResponse(
             path=str(zip_file_path),
             filename=zip_filename,
-            media_type='application/zip'
+            media_type='application/zip',
+            headers={
+                "Content-Disposition": f"attachment; filename={zip_filename}",
+                "Cache-Control": "no-cache"
+            }
         )
 
     except HTTPException:
