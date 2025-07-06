@@ -953,28 +953,64 @@ def download_task_zip_file(task_id: str):
 def download_zip_file(zip_filename: str):
     """下載離線分享包 ZIP 文件（舊版本兼容）"""
     try:
-        # 在 reports 目錄中查找 ZIP 文件
-        reports_dir = pathlib.Path("reports")
+        # URL 解碼文件名
+        import urllib.parse
+        decoded_filename = urllib.parse.unquote(zip_filename)
+
+        logger.info(f"嘗試下載 ZIP 文件: {decoded_filename} (原始: {zip_filename})")
+
+        # 在 reports 目錄中查找 ZIP 文件（使用絕對路徑）
+        # 獲取項目根目錄
+        current_dir = pathlib.Path.cwd()
+        project_root = current_dir
+        if current_dir.name == "backend":
+            project_root = current_dir.parent
+
+        reports_dir = project_root / "reports"
         zip_file_path = None
 
+        logger.info(f"當前工作目錄: {current_dir}")
+        logger.info(f"項目根目錄: {project_root}")
+        logger.info(f"reports 目錄: {reports_dir}")
+        logger.info(f"reports 目錄是否存在: {reports_dir.exists()}")
+
         # 搜索所有批量報告目錄中的 ZIP 文件
-        for batch_dir in reports_dir.glob("batch_*"):
-            potential_zip = batch_dir / zip_filename
-            if potential_zip.exists():
-                zip_file_path = potential_zip
+        batch_dirs = list(reports_dir.glob("batch_*")) if reports_dir.exists() else []
+        logger.info(f"找到的批量目錄: {batch_dirs}")
+
+        for batch_dir in batch_dirs:
+            # 嘗試原始文件名和解碼後的文件名
+            for filename in [zip_filename, decoded_filename]:
+                potential_zip = batch_dir / filename
+                logger.debug(f"檢查文件: {potential_zip}")
+                if potential_zip.exists():
+                    zip_file_path = potential_zip
+                    logger.info(f"找到 ZIP 文件: {zip_file_path}")
+                    break
+            if zip_file_path:
                 break
 
         if not zip_file_path or not zip_file_path.exists():
+            # 記錄調試信息
+            logger.warning(f"未找到 ZIP 文件: {decoded_filename}")
+            logger.warning(f"搜索的目錄: {batch_dirs}")
             raise HTTPException(status_code=404, detail="ZIP 文件不存在")
 
-        # 返回文件下載響應
+        # 返回文件下載響應（處理中文文件名編碼問題）
+        # 對中文文件名進行 RFC 5987 編碼
+        import urllib.parse
+        encoded_filename_rfc5987 = urllib.parse.quote(decoded_filename.encode('utf-8'))
+
         return FileResponse(
             path=str(zip_file_path),
-            filename=zip_filename,
+            filename=decoded_filename,
             media_type='application/zip',
             headers={
-                "Content-Disposition": f"attachment; filename={zip_filename}",
-                "Cache-Control": "no-cache"
+                "Content-Disposition": f"attachment; filename*=UTF-8''{encoded_filename_rfc5987}",
+                "Cache-Control": "no-cache",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "*"
             }
         )
 
@@ -983,3 +1019,30 @@ def download_zip_file(zip_filename: str):
     except Exception as e:
         logger.error(f"下載 ZIP 文件時發生錯誤: {e}")
         raise HTTPException(status_code=500, detail=f"下載 ZIP 文件時發生錯誤: {str(e)}")
+
+
+@router.get("/list-zip-files")
+def list_zip_files():
+    """列出所有可用的 ZIP 文件"""
+    try:
+        # 獲取項目根目錄
+        current_dir = pathlib.Path.cwd()
+        project_root = current_dir
+        if current_dir.name == "backend":
+            project_root = current_dir.parent
+
+        reports_dir = project_root / "reports"
+        zip_files = []
+
+        if reports_dir.exists():
+            # 搜索所有批量報告目錄中的 ZIP 文件
+            for batch_dir in reports_dir.glob("batch_*"):
+                for zip_file in batch_dir.glob("*.zip"):
+                    zip_files.append(zip_file.name)
+
+        logger.info(f"找到 {len(zip_files)} 個 ZIP 文件")
+        return zip_files
+
+    except Exception as e:
+        logger.error(f"列出 ZIP 文件時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"列出 ZIP 文件時發生錯誤: {e}")

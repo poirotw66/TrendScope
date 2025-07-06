@@ -36,12 +36,13 @@ interface ReportFilesResponse {
 }
 
 export const BatchReportTasksPage: React.FC = () => {
-  const { setPageTitle } = useAppContext();
+  const { setPageTitle, addNotification } = useAppContext();
   const { t } = useLanguage();
 
   const [reportBatches, setReportBatches] = useState<ReportBatch[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [downloadingTasks, setDownloadingTasks] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     setPageTitle(t('batchReportTasks', 'sidebar'));
@@ -85,57 +86,201 @@ export const BatchReportTasksPage: React.FC = () => {
     }
   };
 
+  // 修復後的下載函數 - 解決 React Hooks 規則問題
   const handleDownloadZip = async (batchId: string) => {
+    console.log('🖱️ [DEBUG] 下載函數被調用:', batchId);
+    console.log('🔧 [DEBUG] addNotification 可用:', typeof addNotification);
+
     try {
       setError(null);
+      setDownloadingTasks(prev => ({ ...prev, [batchId]: true }));
 
-      // 檢查是否有對應的任務
-      const taskId = batchId; // 假設 batch_id 就是 task_id
+      console.log('🚀 [DEBUG] 開始下載 ZIP 文件:', batchId);
+      console.log('🔧 [DEBUG] API 基礎 URL:', apiService.baseURL);
+      console.log('🔧 [DEBUG] 當前時間:', new Date().toISOString());
 
-      // 調用 ZIP 下載 API
-      const response = await fetch(`${apiService.baseURL}/batch-reports/${taskId}/download-zip`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/zip',
-        },
-      });
+      // 獲取可用的 ZIP 文件列表
+      console.log('📋 [DEBUG] 步驟 1: 獲取 ZIP 文件列表...');
+      const listUrl = `${apiService.baseURL}/reports/list-zip-files`;
+      console.log('🌐 [DEBUG] 文件列表 URL:', listUrl);
 
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('ZIP 文件不存在或任務未完成');
-        } else if (response.status === 400) {
-          throw new Error('任務尚未完成');
-        } else {
-          throw new Error(`下載失敗: ${response.statusText}`);
-        }
+      const listResponse = await fetch(listUrl);
+      console.log('📊 [DEBUG] 文件列表響應狀態:', listResponse.status);
+      console.log('📋 [DEBUG] 文件列表響應頭:', Object.fromEntries(listResponse.headers.entries()));
+
+      if (!listResponse.ok) {
+        const errorText = await listResponse.text();
+        console.error('❌ [DEBUG] 文件列表 API 失敗:', errorText);
+        throw new Error(`無法獲取 ZIP 文件列表: ${listResponse.status} ${errorText}`);
       }
 
-      // 獲取文件名
-      const contentDisposition = response.headers.get('Content-Disposition');
-      let filename = `TrendScope-會議報告-${batchId}.zip`;
-      if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename=(.+)/);
-        if (filenameMatch) {
-          filename = filenameMatch[1].replace(/['"]/g, '');
-        }
+      const zipFiles = await listResponse.json();
+      console.log('📁 [DEBUG] 所有 ZIP 文件:', zipFiles);
+
+      const batchIdClean = batchId.replace('batch_', '');
+      console.log('🔍 [DEBUG] 清理後的 batch ID:', batchIdClean);
+
+      const matchingFiles = zipFiles.filter((filename: string) =>
+        filename.includes(batchIdClean)
+      );
+
+      console.log(`🎯 [DEBUG] 找到 ${matchingFiles.length} 個匹配文件:`, matchingFiles);
+
+      if (matchingFiles.length === 0) {
+        console.error('❌ [DEBUG] 沒有找到匹配的文件');
+        console.log('🔍 [DEBUG] 搜索條件:', batchIdClean);
+        console.log('📁 [DEBUG] 可用文件:', zipFiles);
+        throw new Error('找不到對應的 ZIP 文件');
       }
 
-      // 下載文件
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      const targetFile = matchingFiles[0];
+      console.log('🎯 [DEBUG] 目標文件:', targetFile);
+
+      const encodedFilename = encodeURIComponent(targetFile);
+      console.log('🔤 [DEBUG] 編碼後文件名:', encodedFilename);
+
+      const downloadUrl = `${apiService.baseURL}/reports/download-zip/${encodedFilename}`;
+      console.log('🌐 [DEBUG] 下載 URL:', downloadUrl);
+
+      // 方法 1: 直接跳轉下載（最可靠）
+      try {
+        console.log('📥 [DEBUG] 步驟 2: 方法 1 - 使用 window.location.href');
+        console.log('🌐 [DEBUG] 即將跳轉到:', downloadUrl);
+        console.log('🕐 [DEBUG] 跳轉時間:', new Date().toISOString());
+
+        // 添加一個小延遲來確保日誌被記錄
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        window.location.href = downloadUrl;
+
+        console.log('✅ [DEBUG] window.location.href 已執行');
+
+        addNotification({
+          message: 'ZIP 文件下載已開始！請檢查瀏覽器下載文件夾。',
+          type: 'success'
+        });
+
+        console.log('✅ [DEBUG] 直接跳轉下載成功');
+        return;
+
+      } catch (directError) {
+        console.error('❌ [DEBUG] 直接跳轉下載失敗:', directError);
+        console.log('🔄 [DEBUG] 嘗試備用方法...');
+      }
+
+      // 方法 2: 使用 window.open（備用方法）
+      try {
+        console.log('📥 方法 2: 使用 window.open');
+        const newWindow = window.open(downloadUrl, '_blank');
+
+        if (newWindow) {
+          // 短暫延遲後關閉窗口
+          setTimeout(() => {
+            newWindow.close();
+          }, 1000);
+
+          addNotification({
+            message: 'ZIP 文件下載已開始！請檢查瀏覽器下載文件夾。',
+            type: 'success'
+          });
+
+          console.log('✅ window.open 下載成功');
+          return;
+        }
+      } catch (openError) {
+        console.warn('window.open 下載失敗，嘗試最後方法:', openError);
+      }
+
+      // 方法 3: 創建隱藏的 iframe（最後備用方法）
+      try {
+        console.log('📥 方法 3: 使用隱藏 iframe');
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = downloadUrl;
+        document.body.appendChild(iframe);
+
+        // 延遲移除 iframe
+        setTimeout(() => {
+          document.body.removeChild(iframe);
+        }, 5000);
+
+        addNotification({
+          message: 'ZIP 文件下載已開始！請檢查瀏覽器下載文件夾。',
+          type: 'success'
+        });
+
+        console.log('✅ iframe 下載成功');
+
+      } catch (iframeError) {
+        console.error('所有下載方法都失敗:', iframeError);
+
+        // 提供手動下載鏈接
+        addNotification({
+          message: `自動下載失敗，請點擊此鏈接手動下載：${downloadUrl}`,
+          type: 'warning'
+        });
+
+        throw new Error('所有自動下載方法都失敗，請手動下載');
+      }
 
     } catch (error: any) {
-      console.error('下載 ZIP 文件失敗:', error);
+      console.error('❌ [DEBUG] 下載 ZIP 文件失敗:', error);
+      console.log('🔍 [DEBUG] 錯誤詳情:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name,
+        batchId: batchId,
+        timestamp: new Date().toISOString()
+      });
+
       setError(`下載 ZIP 文件失敗: ${error.message || '未知錯誤'}`);
+
+      addNotification({
+        message: `下載失敗: ${error.message || '未知錯誤'}`,
+        type: 'error'
+      });
+    } finally {
+      setDownloadingTasks(prev => ({ ...prev, [batchId]: false }));
+      console.log('🏁 [DEBUG] 下載流程結束:', batchId, '時間:', new Date().toISOString());
     }
+  };
+
+  // 簡單的測試函數
+  const testDownloadFunction = () => {
+    console.log('🧪 [TEST] 測試函數被調用');
+    console.log('🧪 [TEST] addNotification 類型:', typeof addNotification);
+
+    try {
+      addNotification({
+        message: '測試通知功能正常！',
+        type: 'success'
+      });
+      console.log('🧪 [TEST] 通知發送成功');
+    } catch (error) {
+      console.error('🧪 [TEST] 通知發送失敗:', error);
+    }
+  };
+
+  // 獲取手動下載鏈接
+  const getManualDownloadUrl = async (batchId: string): Promise<string | null> => {
+    try {
+      const listResponse = await fetch(`${apiService.baseURL}/reports/list-zip-files`);
+      if (listResponse.ok) {
+        const zipFiles = await listResponse.json();
+        const matchingFiles = zipFiles.filter((filename: string) =>
+          filename.includes(batchId.replace('batch_', ''))
+        );
+
+        if (matchingFiles.length > 0) {
+          const targetFile = matchingFiles[0];
+          const encodedFilename = encodeURIComponent(targetFile);
+          return `${apiService.baseURL}/reports/download-zip/${encodedFilename}`;
+        }
+      }
+    } catch (error) {
+      console.error('獲取手動下載鏈接失敗:', error);
+    }
+    return null;
   };
 
 
@@ -159,6 +304,14 @@ export const BatchReportTasksPage: React.FC = () => {
             disabled={loading}
           >
             {loading ? '載入中...' : '刷新'}
+          </Button>
+
+          <Button
+            variant="primary"
+            onClick={testDownloadFunction}
+            className="bg-purple-600 hover:bg-purple-700"
+          >
+            🧪 測試功能
           </Button>
         </div>
       </div>
@@ -207,15 +360,48 @@ export const BatchReportTasksPage: React.FC = () => {
                         <span>•</span>
                         <span>{batch.html_files.length} HTML</span>
                       </div>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        onClick={() => handleDownloadZip(batch.batch_id)}
-                        leftIcon={<DownloadIcon className="w-4 h-4" />}
-                        className="bg-green-600 hover:bg-green-700 text-white"
-                      >
-                        下載 ZIP
-                      </Button>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => {
+                            console.log('🖱️ [DEBUG] 下載按鈕被點擊:', batch.batch_id);
+                            console.log('🔧 [DEBUG] 按鈕狀態:', {
+                              disabled: downloadingTasks[batch.batch_id],
+                              batchId: batch.batch_id,
+                              timestamp: new Date().toISOString()
+                            });
+                            handleDownloadZip(batch.batch_id);
+                          }}
+                          disabled={downloadingTasks[batch.batch_id]}
+                          leftIcon={<DownloadIcon className="w-4 h-4" />}
+                          className={`${
+                            downloadingTasks[batch.batch_id]
+                              ? 'bg-gray-400 cursor-not-allowed'
+                              : 'bg-green-600 hover:bg-green-700'
+                          } text-white`}
+                        >
+                          {downloadingTasks[batch.batch_id] ? '下載中...' : '下載 ZIP'}
+                        </Button>
+
+                        <button
+                          onClick={async () => {
+                            const url = await getManualDownloadUrl(batch.batch_id);
+                            if (url) {
+                              window.open(url, '_blank');
+                            } else {
+                              addNotification({
+                                message: '無法獲取下載鏈接',
+                                type: 'error'
+                              });
+                            }
+                          }}
+                          className="text-xs text-blue-600 hover:text-blue-800 underline"
+                          title="如果自動下載失敗，請點擊此鏈接手動下載"
+                        >
+                          手動下載
+                        </button>
+                      </div>
                     </div>
                   </div>
 
