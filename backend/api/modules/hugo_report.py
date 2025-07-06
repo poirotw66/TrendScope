@@ -1011,9 +1011,7 @@ body {
                 # 創建 Hugo 內容文件
                 hugo_content = self._create_hugo_content(content, metadata)
 
-                # 確定輸出路徑（直接放在 posts 目錄下，避免嵌套）
-                seminar_slug = self._slugify(metadata.seminar)
-                # 將報告直接放在 posts 目錄下，避免子目錄問題
+                # 使用 Hugo Page Bundle 結構：每個報告都有自己的目錄
                 posts_dir = content_dir / "posts"
                 posts_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1031,9 +1029,6 @@ description: 所有會議報告的列表
 這裡包含所有的會議報告。
 """)
 
-                # 直接使用 posts 目錄，不創建子目錄
-                seminar_dir = posts_dir
-
                 # 生成簡短且安全的文件名
                 session_id = md_file.stem
 
@@ -1050,12 +1045,16 @@ description: 所有會議報告的列表
                 import re
                 safe_filename = re.sub(r'[^a-zA-Z0-9-]', '', safe_filename)
 
-                # 保存 Hugo 內容文件
-                output_file = seminar_dir / f"{safe_filename}.md"
+                # 創建 Page Bundle 目錄結構：posts/report-xxx/index.md
+                bundle_dir = posts_dir / safe_filename
+                bundle_dir.mkdir(parents=True, exist_ok=True)
+
+                # 保存為 index.md（Page Bundle 的標準文件名）
+                output_file = bundle_dir / "index.md"
                 with open(output_file, 'w', encoding='utf-8') as f:
                     f.write(hugo_content)
 
-                # 記錄生成的文件（Hugo 會為每個頁面創建目錄）
+                # 記錄生成的文件（Hugo Page Bundle 會生成對應的 HTML）
                 html_files.append(f"posts/{safe_filename}/index.html")
 
                 logger.info(f"已處理 Markdown 文件: {md_file.name}")
