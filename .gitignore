@@ -42,3 +42,5 @@ node_modules/
 tasks.json
 tasks/ 
 reports/
+*__pycache__
+*__init__.py

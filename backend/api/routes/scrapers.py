@@ -22,6 +22,7 @@ urllib3.connection_pool_kw = {'maxsize': 10}  # 或更大的值，取決於您�
 from scrapers.parsers.aws_london import run_aws_london_scraper
 from scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
 from scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
+from scrapers.parsers.cloudsummit_tapei import run_cloudsummit_taipei_scraper
 
 # 設置日誌
 logger = logging.getLogger("trendscope-api")
@@ -59,6 +60,7 @@ SCRAPER_FUNCTIONS: Dict[str, Callable] = {
     "aws_london": run_aws_london_scraper,
     "aicon_infoq": run_aicon_infoq_scraper,
     "qcon_infoq": run_qcon_infoq_scraper,
+    "CloudSummit_Taipei": run_cloudsummit_taipei_scraper
 }
 
 def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time: int, use_bigquery: bool):
@@ -162,6 +164,11 @@ def list_available_scrapers():
                 "id": "qcon_infoq",
                 "name": "QCon InfoQ 2025 Beijing",
                 "description": "爬取 QCon (InfoQ) 2025 北京議程與摘要"
+            },
+            {
+                "id": "CloudSummit_Taipei",
+                "name": "Cloud Summit ithome 2025 Taipei",
+                "description": "爬取 Cloud Summit  (ithome) 2025 台北議程與摘要"
             }
         ]
     }
