@@ -19,11 +19,12 @@ sys.path.insert(0, project_root)
 urllib3.connection_pool_kw = {'maxsize': 10}  # 或更大的值，取決於您的並發需求
 
 # 預先導入所有爬蟲函數，避免重複動態導入
-from scrapers.parsers.aws_london import run_aws_london_scraper
-from scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
-from scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
-from scrapers.parsers.cloudsummit_tapei import run_cloudsummit_taipei_scraper
-from scrapers.parsers.devopsdays_taipei import run_devopsdays_taipei_scraper
+from base.scrapers.parsers.aws_london import run_aws_london_scraper
+from base.scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
+from base.scrapers.parsers.aicon_infoq_beijing import run_aicon_infoq_beijing_scraper
+from base.scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
+from base.scrapers.parsers.cloudsummit_tapei import run_cloudsummit_taipei_scraper
+from base.scrapers.parsers.devopsdays_taipei import run_devopsdays_taipei_scraper
 
 # 設置日誌
 logger = logging.getLogger("trendscope-api")
@@ -60,9 +61,10 @@ from base.api.shared.tasks import tasks, get_task, set_task, update_task, task_e
 SCRAPER_FUNCTIONS: Dict[str, Callable] = {
     "aws_london": run_aws_london_scraper,
     "aicon_infoq": run_aicon_infoq_scraper,
+    "aicon_infoq_beijing": run_aicon_infoq_beijing_scraper,
     "qcon_infoq": run_qcon_infoq_scraper,
     "CloudSummit_Taipei": run_cloudsummit_taipei_scraper,
-    "DevOpsDays_Taipei": run_devopsdays_taipei_scraper  
+    "DevOpsDays_Taipei": run_devopsdays_taipei_scraper
 }
 
 def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time: int, use_bigquery: bool):
@@ -161,6 +163,11 @@ def list_available_scrapers():
                 "id": "aicon_infoq",
                 "name": "AICon InfoQ 2025 Shanghai",
                 "description": "爬取 AICon (InfoQ) 2025 上海議程與摘要"
+            },
+            {
+                "id": "aicon_infoq_beijing",
+                "name": "AICon InfoQ 2025 Beijing",
+                "description": "爬取 AICon (InfoQ) 2025 北京議程與摘要"
             },
             {
                 "id": "qcon_infoq",

@@ -7,6 +7,14 @@ import threading
 import concurrent.futures
 import random
 import uuid
+import os
+import sys
+
+# 添加專案根目錄到 Python 路徑
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
+sys.path.insert(0, project_root)
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,7 +22,8 @@ from selenium.common.exceptions import TimeoutException
 from base.scrapers.base_scraper import BaseScraper
 from base.scrapers.utils.driver_setup import setup_driver
 
-class AiconInfoqScraper(BaseScraper):
+
+class AiconInfoqBeijingScraper(BaseScraper):
     """
     AICon InfoQ 會議爬蟲類
     """
@@ -26,14 +35,14 @@ class AiconInfoqScraper(BaseScraper):
             bq_credentials=bq_credentials,
             bq_project_id=bq_project_id
         )
-        self.url = "https://aicon.infoq.cn/2025/shanghai/track"
-        self.seminar = "202503 AICon Shanghai"
+        self.url = "https://aicon.infoq.cn/2025/beijing/track"
+        self.seminar = "202506 AICon Beijing"
         self.data_lock = threading.Lock()
         self.data = []
         self.max_workers = 5  # 預設工作線程數
 
     def get_scraper_name(self):
-        return "202503 AICon Shanghai"
+        return "202506 AICon Beijing"
 
     def get_filename_prefix(self):
         return self.seminar
@@ -140,7 +149,7 @@ class AiconInfoqScraper(BaseScraper):
                         pdf_url = pdf_element.get_attribute("href")
                         print(f"找到PDF連結: {pdf_url}")
                 except Exception as e:
-                    print(f"未找到PDF連結或查找過程出錯: {e}")
+                    print("未找到PDF連結或查找過程出錯")
                     
                 return content_text, pdf_url
             except Exception as e:
@@ -182,7 +191,7 @@ class AiconInfoqScraper(BaseScraper):
                             pdf_url = pdf_element.get_attribute("href")
                             print(f"✅ 找到PDF連結: {pdf_url}")
                     except Exception as pdf_e:
-                        print(f"⚠️  未找到PDF連結 (這是正常的): {pdf_e}")
+                        print("⚠️  未找到PDF連結 (這是正常的)")
                         # PDF連結不存在不應該影響整體處理
 
                     print(f"✅ 成功處理項目 {index + 1}: {text[:50]}...")
@@ -235,7 +244,7 @@ class AiconInfoqScraper(BaseScraper):
             return False
 
 
-def run_aicon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
+def run_aicon_infoq_beijing_scraper(headless=True, wait_time=30, use_bigquery=False):
     """
     執行 AICon InfoQ 爬蟲的入口函數
 
@@ -248,7 +257,7 @@ def run_aicon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
         dict: 包含爬取結果的字典
     """
     try:
-        scraper = AiconInfoqScraper(
+        scraper = AiconInfoqBeijingScraper(
             headless=headless,
             wait_time=wait_time,
             use_bigquery=use_bigquery
@@ -262,7 +271,7 @@ def run_aicon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
 
         return {
             "status": "success",
-            "message": "AICon InfoQ 爬蟲執行完成",
+            "message": "AICon InfoQ Beijing爬蟲執行完成",
             "data": scraped_data,
             "file_path": file_path
         }
@@ -270,7 +279,18 @@ def run_aicon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
     except Exception as e:
         return {
             "status": "error",
-            "message": f"AICon InfoQ 爬蟲執行失敗: {str(e)}",
+            "message": f"AICon InfoQ Beijing爬蟲執行失敗: {str(e)}",
             "data": [],
             "file_path": None
         }
+
+if __name__ == "__main__":
+    # 直接運行爬蟲
+    result = run_aicon_infoq_beijing_scraper(headless=True, wait_time=10)
+    
+    if result["status"] == "success":
+        print("\n🎉 爬蟲執行成功！")
+        print(f"📁 文件路徑: {result['file_path']}")
+        print(f"📊 共爬取 {len(result['data'])} 筆資料")
+    else:
+        print(f"\n❌ 爬蟲執行失敗: {result['message']}")

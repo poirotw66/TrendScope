@@ -183,7 +183,7 @@ class CloudSummitTaipeiScraper(BaseScraper):
                         icon = li.find_element(By.TAG_NAME, "i")
                         if icon.get_attribute("class") == "fas fa-hashtag":
                             hashtags.append(li.text.strip())
-                    except:
+                    except Exception as e:
                         pass  # 忽略沒有 i 的 li
                         
                 session_data["hashtags"] = hashtags
