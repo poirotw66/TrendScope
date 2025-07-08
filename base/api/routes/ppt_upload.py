@@ -22,7 +22,7 @@ from config.config import GEMINI_API_KEY
 import opencc
 
 # 導入共享任務管理
-from backend.api.shared.tasks import tasks
+from base.api.shared.tasks import tasks
 
 # 路由器
 router = APIRouter(prefix="/ppt", tags=["PPT Upload"])

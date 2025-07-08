@@ -1,1 +1,0 @@
-# Scrapers parsers package initialization

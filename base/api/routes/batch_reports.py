@@ -19,7 +19,7 @@ import google.generativeai as genai
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.insert(0, project_root)
 
-from backend.bigquery.client import BigQueryClient
+from base.bigquery.client import BigQueryClient
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():
@@ -47,7 +47,7 @@ project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
 sys.path.append(str(project_root_path))
 
 try:
-    from backend.api.modules.hugo_report import HugoReportGenerator
+    from base.api.modules.hugo_report import HugoReportGenerator
     hugo_generator = HugoReportGenerator()
 
     def batch_convert_markdown_files(md_dir, html_dir, template_style="professional",
@@ -104,7 +104,7 @@ router = APIRouter(prefix="/reports", tags=["Batch Reports"])
 genai.configure(api_key=GEMINI_API_KEY)
 
 # 導入共享任務管理
-from backend.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
+from base.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
 
 # 模型定義
 class SeminarInfo(BaseModel):

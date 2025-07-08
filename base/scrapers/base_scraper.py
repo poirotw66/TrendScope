@@ -10,9 +10,9 @@ from selenium.common.exceptions import WebDriverException, TimeoutException
 from urllib3.exceptions import MaxRetryError, NewConnectionError
 from datetime import datetime
 
-from backend.scrapers.utils.driver_setup import setup_driver
-from backend.scrapers.utils.file_handler import save_to_excel
-from backend.bigquery.upload import ConferenceUploader
+from base.scrapers.utils.driver_setup import setup_driver
+from base.scrapers.utils.file_handler import save_to_excel
+from base.bigquery.upload import ConferenceUploader
 
 class BaseScraper(ABC):
     """

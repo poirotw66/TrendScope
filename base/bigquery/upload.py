@@ -6,8 +6,8 @@ from datetime import datetime
 import uuid
 from google.cloud import bigquery
 
-from backend.bigquery.client import BigQueryClient
-from backend.bigquery.schemas.conferences import CONFERENCE_SCHEMA
+from base.bigquery.client import BigQueryClient
+from base.bigquery.schemas.conferences import CONFERENCE_SCHEMA
 
 class ConferenceUploader:
     """

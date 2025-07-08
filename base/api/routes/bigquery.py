@@ -12,7 +12,7 @@ from pydantic import BaseModel
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.insert(0, project_root)
 
-from backend.bigquery.client import BigQueryClient
+from base.bigquery.client import BigQueryClient
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():

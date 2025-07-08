@@ -1,6 +1,6 @@
 """
-QCon InfoQ 會議爬蟲
-用於爬取 QCon (InfoQ) 會議議程與摘要
+AICon InfoQ 會議爬蟲
+用於爬取 AICon (InfoQ) 會議議程與摘要
 """
 import time
 import threading
@@ -11,12 +11,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from backend.scrapers.base_scraper import BaseScraper
-from backend.scrapers.utils.driver_setup import setup_driver
+from base.scrapers.base_scraper import BaseScraper
+from base.scrapers.utils.driver_setup import setup_driver
 
-class QconInfoqScraper(BaseScraper):
+class AiconInfoqScraper(BaseScraper):
     """
-    QCon InfoQ 會議爬蟲類
+    AICon InfoQ 會議爬蟲類
     """
     def __init__(self, headless=False, wait_time=10, use_bigquery=False, bq_credentials=None, bq_project_id=None):
         super().__init__(
@@ -26,14 +26,14 @@ class QconInfoqScraper(BaseScraper):
             bq_credentials=bq_credentials,
             bq_project_id=bq_project_id
         )
-        self.url = "https://qcon.infoq.cn/2025/beijing/track"
-        self.seminar = "202503 QCon Beijing"
+        self.url = "https://aicon.infoq.cn/2025/shanghai/track"
+        self.seminar = "202503 AICon Shanghai"
         self.data_lock = threading.Lock()
         self.data = []
         self.max_workers = 5  # 預設工作線程數
 
     def get_scraper_name(self):
-        return "202503 QCon Beijing"
+        return "202503 AICon Shanghai"
 
     def get_filename_prefix(self):
         return self.seminar
@@ -89,7 +89,7 @@ class QconInfoqScraper(BaseScraper):
                     # 每提交一批任務後短暫延遲，避免同時發起太多請求
                     if (index + 1) % self.max_workers == 0:
                         self.random_delay(0.5, 1)
-                
+                    break
                 # 等待所有任務完成
                 for future in concurrent.futures.as_completed(futures):
                     try:
@@ -138,19 +138,20 @@ class QconInfoqScraper(BaseScraper):
         return "爬取失敗，已達最大重試次數", None
 
     def process_link(self, link_info, driver, index, total_links):
+        """處理單個演講連結，為多線程設計"""
         try:
             text, href = link_info
             print(f"正在處理第 {index + 1}/{total_links} 個項目: {text}")
-            
+
             # 使用提供的driver而不是self.driver，因為每個線程有自己的driver
             wait = driver.wait
-            
+
             # 爬取內容
             retries = 0
             max_retries = 3
             content_text = ""
             pdf_url = None
-            
+
             while retries < max_retries:
                 try:
                     driver.get(href)
@@ -158,7 +159,7 @@ class QconInfoqScraper(BaseScraper):
                         EC.visibility_of_element_located((By.XPATH, '//div[@data-v-2c704944][@class="content"]'))
                     )
                     content_text = content_element.text.strip()
-                    
+
                     # 嘗試查找PDF連結元素
                     try:
                         pdf_element = driver.find_element(By.XPATH, '//a[contains(@class, "item ppt") or contains(@class, "icon-ppt")]')
@@ -167,16 +168,16 @@ class QconInfoqScraper(BaseScraper):
                             print(f"找到PDF連結: {pdf_url}")
                     except Exception as e:
                         print(f"未找到PDF連結或查找過程出錯: {e}")
-                        
+
                     break  # 成功爬取，跳出循環
                 except Exception as e:
                     retries += 1
                     print(f"爬取內容失敗，重試 {retries}: {e}")
                     self.random_delay(1, 2)  # 重試前稍微延遲
-            
+
             if retries == max_retries:
                 content_text = "爬取失敗，已達最大重試次數"
-            
+
             # 使用線程鎖確保數據安全
             with self.data_lock:
                 self.data.append({
@@ -187,16 +188,16 @@ class QconInfoqScraper(BaseScraper):
                     "url": href,
                     "pdf_url": pdf_url or ""
                 })
-                
+
             return True
         except Exception as e:
             print(f"處理連結時出錯: {e}")
             return False
 
 
-def run_qcon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
+def run_aicon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
     """
-    執行 QCon InfoQ 爬蟲的入口函數
+    執行 AICon InfoQ 爬蟲的入口函數
 
     Args:
         headless (bool): 是否使用無頭模式
@@ -207,7 +208,7 @@ def run_qcon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
         dict: 包含爬取結果的字典
     """
     try:
-        scraper = QconInfoqScraper(
+        scraper = AiconInfoqScraper(
             headless=headless,
             wait_time=wait_time,
             use_bigquery=use_bigquery
@@ -221,7 +222,7 @@ def run_qcon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
 
         return {
             "status": "success",
-            "message": "QCon InfoQ 爬蟲執行完成",
+            "message": "AICon InfoQ 爬蟲執行完成",
             "data": scraped_data,
             "file_path": file_path
         }
@@ -229,7 +230,7 @@ def run_qcon_infoq_scraper(headless=True, wait_time=30, use_bigquery=False):
     except Exception as e:
         return {
             "status": "error",
-            "message": f"QCon InfoQ 爬蟲執行失敗: {str(e)}",
+            "message": f"AICon InfoQ 爬蟲執行失敗: {str(e)}",
             "data": [],
             "file_path": None
         }

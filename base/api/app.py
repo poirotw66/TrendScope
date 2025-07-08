@@ -18,10 +18,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # 導入路由器
-from backend.api.routes.ppt_upload import router as ppt_router
-from backend.api.routes.scrapers import router as scrapers_router
-from backend.api.routes.bigquery import router as bigquery_router
-from backend.api.routes.batch_reports import router as batch_reports_router
+from base.api.routes.ppt_upload import router as ppt_router
+from base.api.routes.scrapers import router as scrapers_router
+from base.api.routes.bigquery import router as bigquery_router
+from base.api.routes.batch_reports import router as batch_reports_router
 
 # 配置日誌
 logging.basicConfig(

@@ -56,13 +56,13 @@ except ImportError:
                 """)
 
 # 導入爬蟲
-from backend.scrapers.parsers.aws_london import AWSLondonScraper
-from backend.scrapers.parsers.aicon_infoq import AiconInfoqScraper
-from backend.scrapers.parsers.qcon_infoq import QconInfoqScraper
-from backend.bigquery.client import BigQueryClient
+from base.scrapers.parsers.aws_london import AWSLondonScraper
+from base.scrapers.parsers.aicon_infoq import AiconInfoqScraper
+from base.scrapers.parsers.qcon_infoq import QconInfoqScraper
+from base.bigquery.client import BigQueryClient
 
 # 導入 PPT 上傳路由器
-from backend.api.ppt_upload import router as ppt_router
+from base.api.ppt_upload import router as ppt_router
 
 # 配置日誌
 # 確保日誌目錄存在

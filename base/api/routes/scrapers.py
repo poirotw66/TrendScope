@@ -23,6 +23,7 @@ from scrapers.parsers.aws_london import run_aws_london_scraper
 from scrapers.parsers.aicon_infoq import run_aicon_infoq_scraper
 from scrapers.parsers.qcon_infoq import run_qcon_infoq_scraper
 from scrapers.parsers.cloudsummit_tapei import run_cloudsummit_taipei_scraper
+from scrapers.parsers.devopsdays_taipei import run_devopsdays_taipei_scraper
 
 # 設置日誌
 logger = logging.getLogger("trendscope-api")
@@ -53,14 +54,15 @@ class ScraperResult(BaseModel):
     data: Optional[List[Dict[str, Any]]] = None
 
 # 導入共享任務管理
-from backend.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
+from base.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
 
 # 爬蟲函數映射表，避免重複動態導入
 SCRAPER_FUNCTIONS: Dict[str, Callable] = {
     "aws_london": run_aws_london_scraper,
     "aicon_infoq": run_aicon_infoq_scraper,
     "qcon_infoq": run_qcon_infoq_scraper,
-    "CloudSummit_Taipei": run_cloudsummit_taipei_scraper
+    "CloudSummit_Taipei": run_cloudsummit_taipei_scraper,
+    "DevOpsDays_Taipei": run_devopsdays_taipei_scraper  
 }
 
 def run_scraper_task(task_id: str, scraper_type: str, headless: bool, wait_time: int, use_bigquery: bool):
@@ -168,7 +170,12 @@ def list_available_scrapers():
             {
                 "id": "CloudSummit_Taipei",
                 "name": "Cloud Summit ithome 2025 Taipei",
-                "description": "爬取 Cloud Summit  (ithome) 2025 台北議程與摘要"
+                "description": "爬取 Cloud Summit (ithome) 2025 台北議程與摘要"
+            },
+            {
+                "id": "DevOpsDays_Taipei",
+                "name": "DevOpsDays ithome 2025 Taipei",
+                "description": "爬取 DevOpsDays (ithome) 2025 台北議程與摘要"
             }
         ]
     }

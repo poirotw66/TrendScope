@@ -14,4 +14,4 @@ echo "API 文檔: http://localhost:8001/docs"
 echo "API 根端點: http://localhost:8001/"
 
 # 啟動後端 API
-python backend/main.py
+python base/main.py

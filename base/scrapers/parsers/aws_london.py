@@ -6,7 +6,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from backend.scrapers.base_scraper import BaseScraper
+from base.scrapers.base_scraper import BaseScraper
 
 class AWSLondonScraper(BaseScraper):
     """
