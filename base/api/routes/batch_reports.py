@@ -20,6 +20,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(_
 sys.path.insert(0, project_root)
 
 from base.bigquery.client import BigQueryClient
+from base.gcs.client import get_gcs_client
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():
@@ -131,6 +132,17 @@ class BatchReportResponse(BaseModel):
     estimated_sessions: int
     estimated_time: Optional[str] = None
 
+class OfflinePackageInfo(BaseModel):
+    """離線分享包信息模型"""
+    zip_file: str
+    launcher_file: Optional[str] = None
+    instructions_file: Optional[str] = None
+    download_url: str
+    gcs_url: Optional[str] = None  # GCS 存儲 URL
+    gcs_public_url: Optional[str] = None  # GCS 公開訪問 URL
+    gcs_size: Optional[int] = None  # 文件大小（字節）
+    site_info: Optional[Dict[str, Any]] = None
+
 class BatchReportStatus(BaseModel):
     """批量報告狀態模型"""
     task_id: str
@@ -142,6 +154,59 @@ class BatchReportStatus(BaseModel):
     results: Optional[Dict[str, Any]] = None  # 完成後的結果信息
 
 # 工具函數
+def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = "neo-trend-hub-documents") -> Dict[str, Any]:
+    """
+    上傳 ZIP 文件到 Google Cloud Storage
+
+    Args:
+        zip_file_path (str): 本地 ZIP 文件路徑
+        bucket_name (str): GCS bucket 名稱，默認為 "neo-trend-hub-documents"
+
+    Returns:
+        Dict[str, Any]: 上傳結果
+            - success (bool): 上傳是否成功
+            - public_url (str): 公開訪問 URL（如果成功）
+            - gs_url (str): GCS URL（如果成功）
+            - error (str): 錯誤信息（如果失敗）
+    """
+    try:
+        # 獲取 GCS 客戶端
+        gcs_client = get_gcs_client()
+        if not gcs_client:
+            return {
+                "success": False,
+                "error": "無法初始化 GCS 客戶端，請檢查 GOOGLE_APPLICATION_CREDENTIALS 環境變量"
+            }
+
+        # 檢查 bucket 是否存在
+        if not gcs_client.check_bucket_exists(bucket_name):
+            return {
+                "success": False,
+                "error": f"GCS bucket '{bucket_name}' 不存在或無法訪問"
+            }
+
+        # 上傳 ZIP 文件到 seminar_report/ 目錄
+        result = gcs_client.upload_zip_file(
+            local_zip_path=zip_file_path,
+            bucket_name=bucket_name,
+            folder_prefix="seminar_report/"
+        )
+
+        if result["success"]:
+            logger.info(f"ZIP 文件已成功上傳到 GCS: {result.get('public_url', result.get('gs_url'))}")
+        else:
+            logger.error(f"ZIP 文件上傳到 GCS 失敗: {result.get('error')}")
+
+        return result
+
+    except Exception as e:
+        error_msg = f"上傳 ZIP 文件到 GCS 時發生異常: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "success": False,
+            "error": error_msg
+        }
+
 def get_sessions_from_bigquery_for_reports(bq_client: BigQueryClient, seminars: Optional[List[str]] = None,
                                          limit: Optional[int] = None) -> List[Dict[str, Any]]:
     """
@@ -504,6 +569,16 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
                     logger.info(f"[任務 {task_id}] Hugo 生成了 {total_pages} 個頁面")
                     if zip_file_path:
                         logger.info(f"[任務 {task_id}] 離線分享包已創建: {zip_file_path}")
+
+                        # 上傳 ZIP 文件到 GCS
+                        tasks[task_id]["progress"]["current_session"] = "正在上傳到 Google Cloud Storage..."
+                        gcs_upload_result = upload_zip_to_gcs(zip_file_path)
+
+                        if gcs_upload_result["success"]:
+                            logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS: {gcs_upload_result.get('public_url')}")
+                        else:
+                            logger.warning(f"[任務 {task_id}] ZIP 文件上傳到 GCS 失敗: {gcs_upload_result.get('error')}")
+                            # 上傳失敗不影響整個任務的完成
                 else:
                     # 向後兼容舊格式
                     html_files = hugo_result if hugo_result else []
@@ -555,13 +630,22 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
 
         # 添加離線分享包信息
         if zip_file_path:
-            results["offline_package"] = {
+            offline_package = {
                 "zip_file": zip_file_path,
                 "launcher_file": launcher_file_path,
                 "instructions_file": instructions_file_path,
                 "download_url": f"/reports/download-zip/{pathlib.Path(zip_file_path).name}",
                 "site_info": site_info
             }
+
+            # 如果有GCS上傳結果，添加GCS URL
+            if 'gcs_upload_result' in locals() and gcs_upload_result["success"]:
+                offline_package["gcs_url"] = gcs_upload_result.get("gs_url")
+                offline_package["gcs_public_url"] = gcs_upload_result.get("public_url")
+                offline_package["gcs_size"] = gcs_upload_result.get("size")
+                logger.info(f"[任務 {task_id}] GCS URL 已添加到結果中: {gcs_upload_result.get('public_url')}")
+
+            results["offline_package"] = offline_package
 
         tasks[task_id]["results"] = results
 
@@ -1046,3 +1130,56 @@ def list_zip_files():
     except Exception as e:
         logger.error(f"列出 ZIP 文件時發生錯誤: {e}")
         raise HTTPException(status_code=500, detail=f"列出 ZIP 文件時發生錯誤: {e}")
+
+@router.get("/gcs-status")
+def get_gcs_status():
+    """獲取 Google Cloud Storage 連接狀態"""
+    try:
+        # 檢查環境變量
+        credentials_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+        project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+
+        status_info = {
+            "gcs_available": False,
+            "credentials_configured": bool(credentials_path),
+            "project_id_configured": bool(project_id),
+            "bucket_accessible": False,
+            "bucket_name": "neo-trend-hub-documents",
+            "error_message": None
+        }
+
+        if not credentials_path:
+            status_info["error_message"] = "GOOGLE_APPLICATION_CREDENTIALS 環境變量未設置"
+            return status_info
+
+        if not os.path.exists(credentials_path):
+            status_info["error_message"] = f"憑證文件不存在: {credentials_path}"
+            return status_info
+
+        # 嘗試初始化 GCS 客戶端
+        gcs_client = get_gcs_client()
+        if not gcs_client:
+            status_info["error_message"] = "無法初始化 GCS 客戶端"
+            return status_info
+
+        status_info["gcs_available"] = True
+
+        # 檢查 bucket 訪問權限
+        bucket_name = "neo-trend-hub-documents"
+        if gcs_client.check_bucket_exists(bucket_name):
+            status_info["bucket_accessible"] = True
+        else:
+            status_info["error_message"] = f"無法訪問 bucket: {bucket_name}"
+
+        return status_info
+
+    except Exception as e:
+        logger.error(f"檢查 GCS 狀態時發生錯誤: {e}")
+        return {
+            "gcs_available": False,
+            "credentials_configured": False,
+            "project_id_configured": False,
+            "bucket_accessible": False,
+            "bucket_name": "neo-trend-hub-documents",
+            "error_message": f"檢查 GCS 狀態時發生錯誤: {str(e)}"
+        }
