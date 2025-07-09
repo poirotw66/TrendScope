@@ -50,9 +50,9 @@ class ScraperResult(BaseModel):
     """爬蟲結果模型"""
     task_id: str
     status: str
-    file_path: Optional[str] = None
+    # file_path: Optional[str] = None
     message: Optional[str] = None
-    data: Optional[List[Dict[str, Any]]] = None
+    # data: Optional[List[Dict[str, Any]]] = None
 
 # 導入共享任務管理
 from base.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists

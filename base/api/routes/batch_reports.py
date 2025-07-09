@@ -846,21 +846,6 @@ def get_batch_report_status(task_id: str):
         results=task_data.get("results")
     )
 
-@router.get("/list")
-def list_batch_report_tasks():
-    """列出所有批量報告生成任務
-
-    Returns:
-        所有任務的列表
-    """
-    batch_tasks = {
-        task_id: task_data
-        for task_id, task_data in tasks.items()
-        if task_data.get("type") == "batch_report"
-    }
-
-    return {"tasks": batch_tasks}
-
 @router.get("/files")
 def list_report_files():
     """獲取所有生成的報告文件列表，包含任務狀態信息"""
@@ -975,93 +960,6 @@ def preview_report_file(file_path: str):
         logger.error(f"預覽文件失敗: {e}")
         raise HTTPException(status_code=500, detail=f"預覽文件失敗: {str(e)}")
 
-@router.get("/download/{file_path:path}")
-def download_report_file(file_path: str):
-    """下載報告文件"""
-    try:
-        # 安全檢查：確保文件路徑在 reports 目錄內
-        file_path = pathlib.Path(file_path)
-        reports_dir = pathlib.Path("reports")
-
-        # 解析相對路徑
-        if not file_path.is_absolute():
-            full_path = reports_dir / file_path
-        else:
-            full_path = file_path
-
-        # 確保文件在 reports 目錄內
-        try:
-            full_path.resolve().relative_to(reports_dir.resolve())
-        except ValueError:
-            raise HTTPException(status_code=403, detail="訪問被拒絕：文件不在允許的目錄內")
-
-        if not full_path.exists():
-            raise HTTPException(status_code=404, detail="文件不存在")
-
-        # 返回文件下載響應
-        return FileResponse(
-            path=str(full_path),
-            filename=full_path.name,
-            media_type='application/octet-stream'
-        )
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"下載文件失敗: {e}")
-        raise HTTPException(status_code=500, detail=f"下載文件失敗: {str(e)}")
-
-@router.get("/{task_id}/download-zip")
-def download_task_zip_file(task_id: str):
-    """下載指定任務的 ZIP 檔案
-
-    Args:
-        task_id: 任務 ID
-
-    Returns:
-        ZIP 檔案下載響應
-    """
-    try:
-        # 檢查任務是否存在
-        if task_id not in tasks:
-            raise HTTPException(status_code=404, detail="任務不存在")
-
-        task_data = tasks[task_id]
-
-        # 檢查任務是否完成
-        if task_data.get("status") != "completed":
-            raise HTTPException(status_code=400, detail="任務尚未完成")
-
-        # 獲取任務結果中的 ZIP 文件路徑
-        results = task_data.get("results", {})
-        zip_file_path = results.get("zip_file")
-
-        if not zip_file_path:
-            raise HTTPException(status_code=404, detail="該任務沒有生成 ZIP 文件")
-
-        zip_path = pathlib.Path(zip_file_path)
-        if not zip_path.exists():
-            raise HTTPException(status_code=404, detail="ZIP 文件不存在")
-
-        # 生成下載文件名
-        filename = zip_path.name
-
-        # 返回文件下載響應，設置適當的 HTTP 響應頭
-        return FileResponse(
-            path=str(zip_path),
-            filename=filename,
-            media_type='application/zip',
-            headers={
-                "Content-Disposition": f"attachment; filename={filename}",
-                "Cache-Control": "no-cache"
-            }
-        )
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"下載任務 ZIP 文件時發生錯誤: {e}")
-        raise HTTPException(status_code=500, detail=f"下載 ZIP 文件時發生錯誤: {str(e)}")
 
 @router.get("/download-zip/{zip_filename}")
 def download_zip_file(zip_filename: str):
