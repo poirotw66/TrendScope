@@ -472,262 +472,361 @@ PPT 內容：
             "error": str(e)
         }
 
+def _initialize_task(task_id: str) -> BigQueryClient:
+    """初始化任務狀態並獲取 BigQuery 客戶端"""
+    tasks[task_id]["status"] = "running"
+    tasks[task_id]["progress"] = {"current": 0, "total": 0, "current_session": "初始化中..."}
+
+    bq_client = get_bigquery_client()
+    if not bq_client:
+        raise Exception("無法連接到 BigQuery")
+
+    return bq_client
+
+def _setup_output_directories(include_html: bool) -> tuple:
+    """創建輸出目錄結構"""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_base_dir = pathlib.Path("reports") / f"batch_{timestamp}"
+    output_md_dir = output_base_dir / "md"
+    output_html_dir = output_base_dir / "html"
+
+    output_md_dir.mkdir(parents=True, exist_ok=True)
+    if include_html:
+        output_html_dir.mkdir(parents=True, exist_ok=True)
+
+    return output_base_dir, output_md_dir, output_html_dir
+
+def _handle_empty_sessions(task_id: str):
+    """處理沒有找到會議的情況"""
+    tasks[task_id]["status"] = "completed"
+    tasks[task_id]["progress"]["current_session"] = "沒有找到符合條件的會議"
+    tasks[task_id]["end_time"] = datetime.now().isoformat()
+    tasks[task_id]["results"] = {"processed_sessions": 0, "generated_reports": 0}
+
+def _save_markdown_file(result: Dict[str, Any], output_md_dir: pathlib.Path) -> Dict[str, Any]:
+    """保存 Markdown 文件並返回更新的結果"""
+    session_id = result["session_id"]
+    title = result["title"]
+    safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    safe_title = safe_title.replace(' ', '_')[:50]  # 限制文件名長度
+
+    md_filename = f"{session_id}_{safe_title}.md"
+    md_file_path = output_md_dir / md_filename
+
+    with open(md_file_path, 'w', encoding='utf-8') as f:
+        f.write(result["content"])
+
+    result["file_path"] = str(md_file_path)
+    return result
+
+def _process_sessions_parallel(task_id: str, sessions: List[Dict], analysis_mode: str,
+                              output_template: str, output_md_dir: pathlib.Path) -> tuple:
+    """使用線程池並行處理會議數據"""
+    processed_sessions = []
+    failed_sessions = []
+
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        # 提交所有任務
+        future_to_session = {
+            executor.submit(generate_session_report, session, analysis_mode, output_template): (session, i)
+            for i, session in enumerate(sessions)
+        }
+
+        # 收集結果
+        for future in as_completed(future_to_session):
+            session, session_index = future_to_session[future]
+            try:
+                result = future.result()
+                if result["status"] == "completed":
+                    # 保存 Markdown 文件
+                    result = _save_markdown_file(result, output_md_dir)
+                    processed_sessions.append(result)
+                    logger.info(f"[任務 {task_id}] 已完成會議: {result['title']}")
+                else:
+                    failed_sessions.append(result)
+                    logger.error(f"[任務 {task_id}] 處理失敗: {result.get('title', 'Unknown')} - {result.get('error', 'Unknown error')}")
+
+            except Exception as e:
+                logger.error(f"[任務 {task_id}] 處理會議時發生異常: {e}")
+                failed_sessions.append({
+                    "session_id": session.get('id', 'unknown'),
+                    "title": session.get('title', 'Unknown'),
+                    "error": str(e)
+                })
+
+            # 更新進度
+            current_progress = len(processed_sessions) + len(failed_sessions)
+            tasks[task_id]["progress"]["current"] = current_progress
+            tasks[task_id]["progress"]["current_session"] = f"已處理 {current_progress}/{len(sessions)} 個會議"
+
+    return processed_sessions, failed_sessions
+
+def _generate_html_files(task_id: str, output_md_dir: pathlib.Path, output_html_dir: pathlib.Path,
+                        output_template: str) -> Dict[str, Any]:
+    """生成 HTML 文件"""
+    try:
+        tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
+
+        # 使用 Hugo SSG 將 Markdown 轉換為靜態網站
+        hugo_result = batch_convert_markdown_files(
+            str(output_md_dir),
+            str(output_html_dir),
+            template_style=output_template,
+            create_offline_package=True
+        )
+
+        # 處理返回格式
+        if isinstance(hugo_result, dict):
+            return hugo_result
+        else:
+            # 向後兼容舊格式
+            return {
+                'html_files': hugo_result if hugo_result else [],
+                'zip_file': None,
+                'launcher_file': None,
+                'instructions_file': None,
+                'site_info': {},
+                'total_pages': len(hugo_result) if hugo_result else 0
+            }
+
+    except ImportError as e:
+        logger.warning(f"[任務 {task_id}] 無法導入 SSG 模組，使用備用方案: {e}")
+        # 使用備用的簡單 HTML 生成
+        backup_result = batch_convert_markdown_files(
+            str(output_md_dir),
+            str(output_html_dir),
+            template_style=output_template,
+            create_offline_package=False
+        )
+
+        html_files = []
+        if isinstance(backup_result, dict):
+            html_files = backup_result.get('html_files', [])
+        else:
+            html_files = backup_result if backup_result else []
+
+        # 收集所有HTML文件
+        for html_file in output_html_dir.glob("*.html"):
+            if str(html_file) not in html_files:
+                html_files.append(str(html_file))
+
+        return {
+            'html_files': html_files,
+            'zip_file': None,
+            'launcher_file': None,
+            'instructions_file': None,
+            'site_info': {},
+            'total_pages': len(html_files)
+        }
+
+def _handle_gcs_upload(task_id: str, zip_file_path: str) -> Dict[str, Any]:
+    """處理 GCS 上傳"""
+    enable_gcs_upload = os.environ.get("ENABLE_GCS_UPLOAD", "true").lower() == "true"
+
+    if enable_gcs_upload:
+        tasks[task_id]["progress"]["current_session"] = "正在上傳到 Google Cloud Storage..."
+        gcs_upload_result = upload_zip_to_gcs(zip_file_path)
+
+        if gcs_upload_result["success"]:
+            logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS: {gcs_upload_result.get('public_url')}")
+        else:
+            logger.warning(f"[任務 {task_id}] ZIP 文件上傳到 GCS 失敗: {gcs_upload_result.get('error')}")
+
+        return gcs_upload_result
+    else:
+        logger.info(f"[任務 {task_id}] GCS 上傳已禁用，跳過雲端備份")
+        return {"success": False, "disabled": True}
+
+def _create_file_tracking_record(task_id: str, bq_client: BigQueryClient, output_base_dir: pathlib.Path,
+                                zip_file_path: str, seminars: List[str], processed_sessions: List,
+                                analysis_mode: str, output_template: str, gcs_upload_result: Dict,
+                                site_info: Dict, total_pages: int, launcher_file_path: str,
+                                instructions_file_path: str, enable_gcs_upload: bool) -> str:
+    """創建檔案追蹤記錄"""
+    try:
+        tasks[task_id]["progress"]["current_session"] = "正在記錄檔案追蹤信息..."
+        archive_manager = ReportArchiveManager(bq_client)
+
+        # 創建檔案追蹤記錄（不使用metadata，因為表結構中沒有）
+        created_task_id = archive_manager.create_archive_record(
+            task_id=task_id,
+            batch_id=output_base_dir.name,
+            zip_file_path=zip_file_path,
+            seminars=seminars or [],
+            session_count=len(processed_sessions),
+            analysis_mode=analysis_mode,
+            output_template=output_template,
+            gcs_info=gcs_upload_result if gcs_upload_result.get("success") else None,
+            metadata=None  # 不使用metadata
+        )
+
+        logger.info(f"[任務 {task_id}] 檔案追蹤記錄已創建: {created_task_id}")
+        return created_task_id
+
+    except Exception as archive_error:
+        logger.warning(f"[任務 {task_id}] 創建檔案追蹤記錄失敗: {archive_error}")
+        return ""
+
+def _generate_html_and_track_files(task_id: str, include_html: bool, processed_sessions: List,
+                                  output_md_dir: pathlib.Path, output_html_dir: pathlib.Path,
+                                  output_base_dir: pathlib.Path, output_template: str,
+                                  seminars: List[str], analysis_mode: str,
+                                  bq_client: BigQueryClient) -> Dict[str, Any]:
+    """生成 HTML 文件並處理檔案追蹤"""
+    result = {
+        'html_files': [],
+        'zip_file_path': None,
+        'launcher_file_path': None,
+        'instructions_file_path': None,
+        'site_info': {},
+        'gcs_upload_result': {"success": False},
+        'created_task_id': ""
+    }
+
+    if not (include_html and processed_sessions):
+        return result
+
+    try:
+        # 生成 HTML 文件
+        hugo_result = _generate_html_files(task_id, output_md_dir, output_html_dir, output_template)
+
+        result['html_files'] = hugo_result.get('html_files', [])
+        result['zip_file_path'] = hugo_result.get('zip_file')
+        result['launcher_file_path'] = hugo_result.get('launcher_file')
+        result['instructions_file_path'] = hugo_result.get('instructions_file')
+        result['site_info'] = hugo_result.get('site_info', {})
+        total_pages = hugo_result.get('total_pages', 0)
+
+        logger.info(f"[任務 {task_id}] Hugo 生成了 {total_pages} 個頁面")
+
+        # 處理 ZIP 文件上傳和追蹤
+        if result['zip_file_path']:
+            logger.info(f"[任務 {task_id}] 離線分享包已創建: {result['zip_file_path']}")
+
+            # GCS 上傳
+            result['gcs_upload_result'] = _handle_gcs_upload(task_id, result['zip_file_path'])
+
+            # 檔案追蹤記錄
+            result['created_task_id'] = _create_file_tracking_record(
+                task_id, bq_client, output_base_dir, result['zip_file_path'],
+                seminars, processed_sessions, analysis_mode, output_template,
+                result['gcs_upload_result'], result['site_info'], total_pages,
+                result['launcher_file_path'], result['instructions_file_path'],
+                os.environ.get("ENABLE_GCS_UPLOAD", "true").lower() == "true"
+            )
+
+        logger.info(f"[任務 {task_id}] 已生成 {len(result['html_files'])} 個 HTML 文件")
+
+    except Exception as e:
+        logger.error(f"[任務 {task_id}] 生成 HTML 報告時發生錯誤: {e}")
+
+    return result
+
+def _build_task_results(processed_sessions: List, failed_sessions: List, output_base_dir: pathlib.Path,
+                       output_md_dir: pathlib.Path, output_html_dir: pathlib.Path, include_html: bool,
+                       html_generation_result: Dict[str, Any]) -> Dict[str, Any]:
+    """構建任務結果"""
+    results = {
+        "processed_sessions": len(processed_sessions),
+        "failed_sessions": len(failed_sessions),
+        "output_directory": str(output_base_dir),
+        "md_directory": str(output_md_dir),
+        "html_directory": str(output_html_dir) if include_html else None,
+        "processed_files": [s["file_path"] for s in processed_sessions if s["status"] == "completed"],
+        "failed_files": failed_sessions,
+        "html_files": html_generation_result.get('html_files', []) if include_html else []
+    }
+
+    # 添加離線分享包信息
+    zip_file_path = html_generation_result.get('zip_file_path')
+    if zip_file_path:
+        offline_package = {
+            "zip_file": zip_file_path,
+            "launcher_file": html_generation_result.get('launcher_file_path'),
+            "instructions_file": html_generation_result.get('instructions_file_path'),
+            "download_url": f"/reports/download-zip/{pathlib.Path(zip_file_path).name}",
+            "site_info": html_generation_result.get('site_info', {})
+        }
+
+        # 添加GCS信息
+        gcs_upload_result = html_generation_result.get('gcs_upload_result', {})
+        if gcs_upload_result.get("success"):
+            offline_package["gcs_url"] = gcs_upload_result.get("gs_url")
+            offline_package["gcs_public_url"] = gcs_upload_result.get("public_url")
+            offline_package["gcs_size"] = gcs_upload_result.get("size")
+
+        # 添加檔案追蹤信息
+        created_task_id = html_generation_result.get('created_task_id')
+        if created_task_id:
+            offline_package["batch_id"] = output_base_dir.name
+            offline_package["archive_api_url"] = f"/reports/archives/task/{created_task_id}"
+
+        results["offline_package"] = offline_package
+
+    return results
+
+def _complete_task(task_id: str, results: Dict[str, Any]):
+    """完成任務並設置最終狀態"""
+    tasks[task_id]["status"] = "completed"
+    tasks[task_id]["end_time"] = datetime.now().isoformat()
+    tasks[task_id]["progress"]["current_session"] = "完成"
+    tasks[task_id]["results"] = results
+
+    processed_count = results["processed_sessions"]
+    failed_count = results["failed_sessions"]
+    logger.info(f"[任務 {task_id}] 批量報告生成完成: {processed_count} 成功, {failed_count} 失敗")
+
+def _handle_task_failure(task_id: str, error: Exception):
+    """處理任務失敗"""
+    logger.error(f"[任務 {task_id}] 批量報告生成任務失敗: {error}")
+    tasks[task_id]["status"] = "failed"
+    tasks[task_id]["end_time"] = datetime.now().isoformat()
+    tasks[task_id]["error_message"] = str(error)
+    tasks[task_id]["progress"]["current_session"] = f"任務失敗: {str(error)}"
+
 def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Optional[int],
                          include_html: bool, output_format: str, analysis_mode: str = "comprehensive",
                          output_template: str = "professional"):
     """
-    執行批量報告生成任務（多線程版本）
+    執行批量報告生成任務（重構版本）
     """
     try:
-        # 更新任務狀態
-        tasks[task_id]["status"] = "running"
-        tasks[task_id]["progress"] = {"current": 0, "total": 0, "current_session": "初始化中..."}
+        # 1. 初始化任務
+        bq_client = _initialize_task(task_id)
 
-        # 獲取 BigQuery 客戶端
-        bq_client = get_bigquery_client()
-        if not bq_client:
-            raise Exception("無法連接到 BigQuery")
-
-        # 獲取會議數據
+        # 2. 獲取會議數據
         sessions = get_sessions_from_bigquery_for_reports(bq_client, seminars, limit)
-
         if not sessions:
-            tasks[task_id]["status"] = "completed"
-            tasks[task_id]["progress"]["current_session"] = "沒有找到符合條件的會議"
-            tasks[task_id]["end_time"] = datetime.now().isoformat()
-            tasks[task_id]["results"] = {"processed_sessions": 0, "generated_reports": 0}
+            _handle_empty_sessions(task_id)
             return
 
-        # 更新進度
+        # 3. 設置輸出目錄
+        output_base_dir, output_md_dir, output_html_dir = _setup_output_directories(include_html)
+
+        # 4. 更新進度
         tasks[task_id]["progress"]["total"] = len(sessions)
         logger.info(f"[任務 {task_id}] 開始處理 {len(sessions)} 個會議")
 
-        # 創建輸出目錄
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_base_dir = pathlib.Path("reports") / f"batch_{timestamp}"
-        output_md_dir = output_base_dir / "md"
-        output_html_dir = output_base_dir / "html"
+        # 5. 處理會議數據
+        processed_sessions, failed_sessions = _process_sessions_parallel(
+            task_id, sessions, analysis_mode, output_template, output_md_dir
+        )
 
-        output_md_dir.mkdir(parents=True, exist_ok=True)
-        if include_html:
-            output_html_dir.mkdir(parents=True, exist_ok=True)
+        # 6. 生成 HTML 文件和處理檔案追蹤
+        html_generation_result = _generate_html_and_track_files(
+            task_id, include_html, processed_sessions, output_md_dir, output_html_dir,
+            output_base_dir, output_template, seminars, analysis_mode, bq_client
+        )
 
-        # 使用線程池並行處理
-        processed_sessions = []
-        failed_sessions = []
-
-        with ThreadPoolExecutor(max_workers=3) as executor:
-            # 提交所有任務
-            future_to_session = {
-                executor.submit(generate_session_report, session, analysis_mode, output_template): (session, i)
-                for i, session in enumerate(sessions)
-            }
-
-            # 收集結果
-            for future in as_completed(future_to_session):
-                session, session_index = future_to_session[future]
-                try:
-                    result = future.result()
-                    if result["status"] == "completed":
-                        # 保存 Markdown 文件
-                        session_id = result["session_id"]
-                        title = result["title"]
-                        safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_')).rstrip()
-                        safe_title = safe_title.replace(' ', '_')[:50]  # 限制文件名長度
-
-                        md_filename = f"{session_id}_{safe_title}.md"
-                        md_file_path = output_md_dir / md_filename
-
-                        with open(md_file_path, 'w', encoding='utf-8') as f:
-                            f.write(result["content"])
-
-                        result["file_path"] = str(md_file_path)
-                        processed_sessions.append(result)
-
-                        logger.info(f"[任務 {task_id}] 已完成會議: {title}")
-                    else:
-                        failed_sessions.append(result)
-                        logger.error(f"[任務 {task_id}] 處理失敗: {result.get('title', 'Unknown')} - {result.get('error', 'Unknown error')}")
-
-                except Exception as e:
-                    logger.error(f"[任務 {task_id}] 處理會議時發生異常: {e}")
-                    failed_sessions.append({
-                        "session_id": session.get('id', 'unknown'),
-                        "title": session.get('title', 'Unknown'),
-                        "error": str(e)
-                    })
-
-                # 更新進度
-                current_progress = len(processed_sessions) + len(failed_sessions)
-                tasks[task_id]["progress"]["current"] = current_progress
-                tasks[task_id]["progress"]["current_session"] = f"已處理 {current_progress}/{len(sessions)} 個會議"
-
-        # 生成 HTML 文件（如果需要）
-        html_files = []
-        zip_file_path = None
-        launcher_file_path = None
-        instructions_file_path = None
-        site_info = {}
-
-        if include_html and processed_sessions:
-            try:
-                tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
-
-                # 使用 Hugo SSG 將 Markdown 轉換為靜態網站，傳遞樣板參數
-                hugo_result = batch_convert_markdown_files(
-                    str(output_md_dir),
-                    str(output_html_dir),
-                    template_style=output_template,
-                    create_offline_package=True
-                )
-
-                # 處理新的返回格式
-                if isinstance(hugo_result, dict):
-                    html_files = hugo_result.get('html_files', [])
-                    zip_file_path = hugo_result.get('zip_file')
-                    launcher_file_path = hugo_result.get('launcher_file')
-                    instructions_file_path = hugo_result.get('instructions_file')
-                    site_info = hugo_result.get('site_info', {})
-                    total_pages = hugo_result.get('total_pages', 0)
-
-                    logger.info(f"[任務 {task_id}] Hugo 生成了 {total_pages} 個頁面")
-                    if zip_file_path:
-                        logger.info(f"[任務 {task_id}] 離線分享包已創建: {zip_file_path}")
-
-                        # 檢查是否啟用 GCS 上傳
-                        enable_gcs_upload = os.environ.get("ENABLE_GCS_UPLOAD", "true").lower() == "true"
-
-                        if enable_gcs_upload:
-                            # 上傳 ZIP 文件到 GCS
-                            tasks[task_id]["progress"]["current_session"] = "正在上傳到 Google Cloud Storage..."
-                            gcs_upload_result = upload_zip_to_gcs(zip_file_path)
-
-                            if gcs_upload_result["success"]:
-                                logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS: {gcs_upload_result.get('public_url')}")
-                            else:
-                                logger.warning(f"[任務 {task_id}] ZIP 文件上傳到 GCS 失敗: {gcs_upload_result.get('error')}")
-                                # 上傳失敗不影響整個任務的完成
-                        else:
-                            logger.info(f"[任務 {task_id}] GCS 上傳已禁用，跳過雲端備份")
-                            gcs_upload_result = {"success": False, "disabled": True}
-
-                        # 記錄檔案到 BigQuery 追蹤表
-                        try:
-                            tasks[task_id]["progress"]["current_session"] = "正在記錄檔案追蹤信息..."
-                            archive_manager = ReportArchiveManager(bq_client)
-
-                            # 準備元數據
-                            metadata = {
-                                "hugo_info": site_info,
-                                "total_pages": total_pages,
-                                "launcher_file": launcher_file_path,
-                                "instructions_file": instructions_file_path,
-                                "gcs_upload_enabled": enable_gcs_upload,
-                                "gcs_upload_success": gcs_upload_result.get("success", False)
-                            }
-
-                            # 創建檔案追蹤記錄
-                            created_task_id = archive_manager.create_archive_record(
-                                task_id=task_id,
-                                batch_id=output_base_dir.name,  # 使用目錄名作為batch_id
-                                zip_file_path=zip_file_path,
-                                seminars=seminars or [],
-                                session_count=len(processed_sessions),
-                                analysis_mode=analysis_mode,
-                                output_template=output_template,
-                                gcs_info=gcs_upload_result if gcs_upload_result.get("success") else None,
-                                metadata=metadata
-                            )
-
-                            logger.info(f"[任務 {task_id}] 檔案追蹤記錄已創建: {created_task_id}")
-
-                        except Exception as archive_error:
-                            logger.warning(f"[任務 {task_id}] 創建檔案追蹤記錄失敗: {archive_error}")
-                            # 檔案追蹤失敗不影響整個任務的完成
-                else:
-                    # 向後兼容舊格式
-                    html_files = hugo_result if hugo_result else []
-                    logger.info(f"[任務 {task_id}] Hugo 生成了 {len(html_files)} 個文件")
-
-                # 收集生成的 HTML 文件（如果使用舊格式）
-                if not html_files:
-                    for html_file in output_html_dir.glob("*.html"):
-                        html_files.append(str(html_file))
-
-                logger.info(f"[任務 {task_id}] 已生成 {len(html_files)} 個 HTML 文件")
-
-            except ImportError as e:
-                logger.warning(f"[任務 {task_id}] 無法導入 SSG 模組，跳過 HTML 生成: {e}")
-                # 使用備用的簡單 HTML 生成
-                backup_result = batch_convert_markdown_files(
-                    str(output_md_dir),
-                    str(output_html_dir),
-                    template_style=output_template,
-                    create_offline_package=False
-                )
-                if isinstance(backup_result, dict):
-                    html_files = backup_result.get('html_files', [])
-                else:
-                    html_files = backup_result if backup_result else []
-
-                for html_file in output_html_dir.glob("*.html"):
-                    if str(html_file) not in html_files:
-                        html_files.append(str(html_file))
-            except Exception as e:
-                logger.error(f"[任務 {task_id}] 生成 HTML 報告時發生錯誤: {e}")
-
-        # 完成任務
-        tasks[task_id]["status"] = "completed"
-        tasks[task_id]["end_time"] = datetime.now().isoformat()
-        tasks[task_id]["progress"]["current_session"] = "完成"
-
-        # 構建結果信息
-        results = {
-            "processed_sessions": len(processed_sessions),
-            "failed_sessions": len(failed_sessions),
-            "output_directory": str(output_base_dir),
-            "md_directory": str(output_md_dir),
-            "html_directory": str(output_html_dir) if include_html else None,
-            "processed_files": [s["file_path"] for s in processed_sessions if s["status"] == "completed"],
-            "failed_files": failed_sessions,
-            "html_files": html_files if include_html else []
-        }
-
-        # 添加離線分享包信息
-        if zip_file_path:
-            offline_package = {
-                "zip_file": zip_file_path,
-                "launcher_file": launcher_file_path,
-                "instructions_file": instructions_file_path,
-                "download_url": f"/reports/download-zip/{pathlib.Path(zip_file_path).name}",
-                "site_info": site_info
-            }
-
-            # 如果有GCS上傳結果，添加GCS URL
-            if 'gcs_upload_result' in locals() and gcs_upload_result["success"]:
-                offline_package["gcs_url"] = gcs_upload_result.get("gs_url")
-                offline_package["gcs_public_url"] = gcs_upload_result.get("public_url")
-                offline_package["gcs_size"] = gcs_upload_result.get("size")
-                logger.info(f"[任務 {task_id}] GCS URL 已添加到結果中: {gcs_upload_result.get('public_url')}")
-
-            # 如果有檔案追蹤記錄，添加追蹤信息
-            if 'created_task_id' in locals() and created_task_id:
-                offline_package["batch_id"] = output_base_dir.name
-                offline_package["archive_api_url"] = f"/reports/archives/task/{task_id}"
-                logger.info(f"[任務 {task_id}] 檔案追蹤信息已添加到結果中: {created_task_id}")
-
-            results["offline_package"] = offline_package
-
-        tasks[task_id]["results"] = results
-
-        logger.info(f"[任務 {task_id}] 批量報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
+        # 7. 構建結果並完成任務
+        results = _build_task_results(
+            processed_sessions, failed_sessions, output_base_dir,
+            output_md_dir, output_html_dir, include_html, html_generation_result
+        )
+        _complete_task(task_id, results)
 
     except Exception as e:
-        logger.error(f"[任務 {task_id}] 批量報告生成任務失敗: {e}")
-        tasks[task_id]["status"] = "failed"
-        tasks[task_id]["end_time"] = datetime.now().isoformat()
-        tasks[task_id]["error_message"] = str(e)
-        tasks[task_id]["progress"]["current_session"] = f"任務失敗: {str(e)}"
+        _handle_task_failure(task_id, e)
 
 # API 端點
 @router.get("/seminars")
