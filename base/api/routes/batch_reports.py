@@ -154,13 +154,13 @@ class BatchReportStatus(BaseModel):
     results: Optional[Dict[str, Any]] = None  # 完成後的結果信息
 
 # 工具函數
-def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = "neo-trend-hub-documents") -> Dict[str, Any]:
+def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = None) -> Dict[str, Any]:
     """
     上傳 ZIP 文件到 Google Cloud Storage
 
     Args:
         zip_file_path (str): 本地 ZIP 文件路徑
-        bucket_name (str): GCS bucket 名稱，默認為 "neo-trend-hub-documents"
+        bucket_name (str): GCS bucket 名稱，如果為 None 則從環境變量獲取
 
     Returns:
         Dict[str, Any]: 上傳結果
@@ -170,6 +170,10 @@ def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = "neo-trend-hub-docu
             - error (str): 錯誤信息（如果失敗）
     """
     try:
+        # 獲取 bucket 名稱
+        if bucket_name is None:
+            bucket_name = os.environ.get("GCS_BUCKET_NAME", "neo-trend-hub-documents")
+
         # 獲取 GCS 客戶端
         gcs_client = get_gcs_client()
         if not gcs_client:
@@ -178,12 +182,31 @@ def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = "neo-trend-hub-docu
                 "error": "無法初始化 GCS 客戶端，請檢查 GOOGLE_APPLICATION_CREDENTIALS 環境變量"
             }
 
-        # 檢查 bucket 是否存在
-        if not gcs_client.check_bucket_exists(bucket_name):
-            return {
-                "success": False,
-                "error": f"GCS bucket '{bucket_name}' 不存在或無法訪問"
-            }
+        # 檢查 bucket 是否存在（使用更詳細的錯誤處理）
+        try:
+            bucket_accessible = gcs_client.check_bucket_exists(bucket_name)
+            if not bucket_accessible:
+                return {
+                    "success": False,
+                    "error": f"GCS bucket '{bucket_name}' 不存在或無法訪問",
+                    "suggestion": "請運行 'python fix_gcs_permissions.py' 修復權限問題"
+                }
+        except Exception as bucket_error:
+            # 提供更詳細的錯誤信息和修復建議
+            error_msg = str(bucket_error)
+            if "storage.buckets.get" in error_msg:
+                return {
+                    "success": False,
+                    "error": f"服務帳戶缺少 Storage 權限: {error_msg}",
+                    "suggestion": "需要為服務帳戶添加 'roles/storage.objectAdmin' 和 'roles/storage.legacyBucketReader' 權限",
+                    "fix_command": f"gcloud projects add-iam-policy-binding {gcs_client.project_id} --member='serviceAccount:{gcs_client.credentials.service_account_email}' --role='roles/storage.objectAdmin'"
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": f"GCS bucket 檢查失敗: {error_msg}",
+                    "suggestion": "請檢查 bucket 名稱和權限配置"
+                }
 
         # 上傳 ZIP 文件到 seminar_report/ 目錄
         result = gcs_client.upload_zip_file(
@@ -570,15 +593,22 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
                     if zip_file_path:
                         logger.info(f"[任務 {task_id}] 離線分享包已創建: {zip_file_path}")
 
-                        # 上傳 ZIP 文件到 GCS
-                        tasks[task_id]["progress"]["current_session"] = "正在上傳到 Google Cloud Storage..."
-                        gcs_upload_result = upload_zip_to_gcs(zip_file_path)
+                        # 檢查是否啟用 GCS 上傳
+                        enable_gcs_upload = os.environ.get("ENABLE_GCS_UPLOAD", "true").lower() == "true"
 
-                        if gcs_upload_result["success"]:
-                            logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS: {gcs_upload_result.get('public_url')}")
+                        if enable_gcs_upload:
+                            # 上傳 ZIP 文件到 GCS
+                            tasks[task_id]["progress"]["current_session"] = "正在上傳到 Google Cloud Storage..."
+                            gcs_upload_result = upload_zip_to_gcs(zip_file_path)
+
+                            if gcs_upload_result["success"]:
+                                logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS: {gcs_upload_result.get('public_url')}")
+                            else:
+                                logger.warning(f"[任務 {task_id}] ZIP 文件上傳到 GCS 失敗: {gcs_upload_result.get('error')}")
+                                # 上傳失敗不影響整個任務的完成
                         else:
-                            logger.warning(f"[任務 {task_id}] ZIP 文件上傳到 GCS 失敗: {gcs_upload_result.get('error')}")
-                            # 上傳失敗不影響整個任務的完成
+                            logger.info(f"[任務 {task_id}] GCS 上傳已禁用，跳過雲端備份")
+                            gcs_upload_result = {"success": False, "disabled": True}
                 else:
                     # 向後兼容舊格式
                     html_files = hugo_result if hugo_result else []
@@ -1138,38 +1168,63 @@ def get_gcs_status():
         # 檢查環境變量
         credentials_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
         project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+        bucket_name = os.environ.get("GCS_BUCKET_NAME", "neo-trend-hub-documents")
 
         status_info = {
             "gcs_available": False,
             "credentials_configured": bool(credentials_path),
             "project_id_configured": bool(project_id),
             "bucket_accessible": False,
-            "bucket_name": "neo-trend-hub-documents",
-            "error_message": None
+            "bucket_name": bucket_name,
+            "service_account_email": None,
+            "permissions_needed": [
+                "storage.buckets.get",
+                "storage.objects.create",
+                "storage.objects.get"
+            ],
+            "error_message": None,
+            "fix_suggestions": []
         }
 
         if not credentials_path:
             status_info["error_message"] = "GOOGLE_APPLICATION_CREDENTIALS 環境變量未設置"
+            status_info["fix_suggestions"].append("設置 GOOGLE_APPLICATION_CREDENTIALS 環境變量")
             return status_info
 
         if not os.path.exists(credentials_path):
             status_info["error_message"] = f"憑證文件不存在: {credentials_path}"
+            status_info["fix_suggestions"].append("檢查憑證文件路徑是否正確")
+            return status_info
+
+        # 讀取服務帳戶信息
+        try:
+            import json
+            with open(credentials_path, 'r') as f:
+                creds = json.load(f)
+                status_info["service_account_email"] = creds.get('client_email')
+        except Exception as e:
+            status_info["error_message"] = f"無法讀取憑證文件: {str(e)}"
             return status_info
 
         # 嘗試初始化 GCS 客戶端
         gcs_client = get_gcs_client()
         if not gcs_client:
             status_info["error_message"] = "無法初始化 GCS 客戶端"
+            status_info["fix_suggestions"].append("檢查憑證文件格式是否正確")
             return status_info
 
         status_info["gcs_available"] = True
 
         # 檢查 bucket 訪問權限
-        bucket_name = "neo-trend-hub-documents"
         if gcs_client.check_bucket_exists(bucket_name):
             status_info["bucket_accessible"] = True
         else:
             status_info["error_message"] = f"無法訪問 bucket: {bucket_name}"
+            status_info["fix_suggestions"].extend([
+                f"為服務帳戶 {status_info['service_account_email']} 添加 Storage 權限",
+                "運行 python fix_gcs_permissions.py 自動修復權限",
+                f"手動執行: gcloud projects add-iam-policy-binding {project_id} --member='serviceAccount:{status_info['service_account_email']}' --role='roles/storage.objectAdmin'"
+            ])
 
         return status_info
 
