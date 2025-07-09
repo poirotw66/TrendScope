@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TrendScope base 主啟動檔案
+NeoTrendHub base 主啟動檔案
 """
 
 import os
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     # 確保日誌目錄存在
     os.makedirs(os.path.join(project_root, "logs"), exist_ok=True)
     
-    print("🚀 啟動 TrendScope base API 服務...")
+    print("🚀 啟動 NeoTrendHub base API 服務...")
     print(f"專案根目錄: {project_root}")
     print("API 文檔: http://localhost:8001/docs")
     print("API 根端點: http://localhost:8001/")
