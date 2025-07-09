@@ -71,14 +71,14 @@ class HugoReportGenerator:
         """驗證 Hugo 是否已安裝"""
         try:
             result = subprocess.run([self.hugo_binary, "version"], 
-                                  capture_output=True, text=True, check=True)
+                                    capture_output=True, text=True, check=True)
             logger.info(f"Hugo 版本: {result.stdout.strip()}")
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
             raise RuntimeError(f"Hugo 未安裝或無法執行: {e}")
     
     def generate_hugo_site(self, md_dir: str, output_dir: str,
-                          template_style: str = "professional",
-                          create_offline_package: bool = True) -> Dict[str, Any]:
+                           template_style: str = "professional",
+                           create_offline_package: bool = True) -> Dict[str, Any]:
         """
         生成 Hugo 靜態網站並創建離線分享包
 
@@ -988,7 +988,7 @@ body {
             f.write(seminar_single_layout)
 
     def _process_markdown_files(self, md_dir: str, site_dir: pathlib.Path,
-                               template_style: str) -> List[str]:
+                                template_style: str) -> List[str]:
         """處理 Markdown 文件並生成 Hugo 內容"""
         md_path = pathlib.Path(md_dir)
         content_dir = site_dir / "content"
@@ -1019,7 +1019,7 @@ body {
                 posts_index = posts_dir / "_index.md"
                 if not posts_index.exists():
                     with open(posts_index, 'w', encoding='utf-8') as f:
-                        f.write(f"""---
+                        f.write("""---
 title: 會議報告
 description: 所有會議報告的列表
 ---
@@ -1422,10 +1422,10 @@ description: 所有會議報告的列表
 
                 # 保留外部連結
                 if (href_value.startswith('http://') or
-                    href_value.startswith('https://') or
-                    href_value.startswith('//') or
-                    href_value.startswith('mailto:') or
-                    href_value.startswith('tel:')):
+                        href_value.startswith('https://') or
+                        href_value.startswith('//') or
+                        href_value.startswith('mailto:') or
+                        href_value.startswith('tel:')):
                     return match.group(0)
 
                 # 保留錨點連結
@@ -1450,8 +1450,8 @@ description: 所有會議報告的列表
 
                 # 保留外部資源
                 if (src_value.startswith('http://') or
-                    src_value.startswith('https://') or
-                    src_value.startswith('//')):
+                        src_value.startswith('https://') or
+                        src_value.startswith('//')):
                     return match.group(0)
 
                 # 保留已經是相對路徑的資源
@@ -1550,7 +1550,7 @@ description: 所有會議報告的列表
             }
 
     def _generate_html_launcher(self, output_dir: str, site_info: Dict[str, Any],
-                               template_style: str) -> str:
+                                template_style: str) -> str:
         """生成 HTML 啟動器頁面"""
         try:
             output_path = pathlib.Path(output_dir)
@@ -1600,7 +1600,7 @@ description: 所有會議報告的列表
             </a>
 '''
 
-            launcher_html = f'''<!DOCTYPE html>
+            launcher_html = '''<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -2191,7 +2191,7 @@ description: "AI 驅動的會議報告分析平台"
         """獲取 Hugo 版本信息"""
         try:
             result = subprocess.run([self.hugo_binary, "version"],
-                                  capture_output=True, text=True, check=True)
+                                    capture_output=True, text=True, check=True)
             return result.stdout.strip()
         except Exception:
             return "Unknown"
