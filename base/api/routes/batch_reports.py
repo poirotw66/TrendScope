@@ -20,6 +20,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(_
 sys.path.insert(0, project_root)
 
 from base.bigquery.client import BigQueryClient
+from base.bigquery.report_archive_manager import ReportArchiveManager
 from base.gcs.client import get_gcs_client
 
 # 依賴項：獲取 BigQuery 客戶端
@@ -609,6 +610,40 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
                         else:
                             logger.info(f"[任務 {task_id}] GCS 上傳已禁用，跳過雲端備份")
                             gcs_upload_result = {"success": False, "disabled": True}
+
+                        # 記錄檔案到 BigQuery 追蹤表
+                        try:
+                            tasks[task_id]["progress"]["current_session"] = "正在記錄檔案追蹤信息..."
+                            archive_manager = ReportArchiveManager(bq_client)
+
+                            # 準備元數據
+                            metadata = {
+                                "hugo_info": site_info,
+                                "total_pages": total_pages,
+                                "launcher_file": launcher_file_path,
+                                "instructions_file": instructions_file_path,
+                                "gcs_upload_enabled": enable_gcs_upload,
+                                "gcs_upload_success": gcs_upload_result.get("success", False)
+                            }
+
+                            # 創建檔案追蹤記錄
+                            created_task_id = archive_manager.create_archive_record(
+                                task_id=task_id,
+                                batch_id=output_base_dir.name,  # 使用目錄名作為batch_id
+                                zip_file_path=zip_file_path,
+                                seminars=seminars or [],
+                                session_count=len(processed_sessions),
+                                analysis_mode=analysis_mode,
+                                output_template=output_template,
+                                gcs_info=gcs_upload_result if gcs_upload_result.get("success") else None,
+                                metadata=metadata
+                            )
+
+                            logger.info(f"[任務 {task_id}] 檔案追蹤記錄已創建: {created_task_id}")
+
+                        except Exception as archive_error:
+                            logger.warning(f"[任務 {task_id}] 創建檔案追蹤記錄失敗: {archive_error}")
+                            # 檔案追蹤失敗不影響整個任務的完成
                 else:
                     # 向後兼容舊格式
                     html_files = hugo_result if hugo_result else []
@@ -674,6 +709,12 @@ def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Op
                 offline_package["gcs_public_url"] = gcs_upload_result.get("public_url")
                 offline_package["gcs_size"] = gcs_upload_result.get("size")
                 logger.info(f"[任務 {task_id}] GCS URL 已添加到結果中: {gcs_upload_result.get('public_url')}")
+
+            # 如果有檔案追蹤記錄，添加追蹤信息
+            if 'created_task_id' in locals() and created_task_id:
+                offline_package["batch_id"] = output_base_dir.name
+                offline_package["archive_api_url"] = f"/reports/archives/task/{task_id}"
+                logger.info(f"[任務 {task_id}] 檔案追蹤信息已添加到結果中: {created_task_id}")
 
             results["offline_package"] = offline_package
 
@@ -1136,3 +1177,85 @@ def get_gcs_status():
             "bucket_name": "neo-trend-hub-documents",
             "error_message": f"檢查 GCS 狀態時發生錯誤: {str(e)}"
         }
+
+@router.get("/archives")
+def list_report_archives(limit: int = 50):
+    """列出報告檔案追蹤記錄"""
+    try:
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+        archive_manager = ReportArchiveManager(bq_client)
+        archives = archive_manager.list_archives(limit=limit)
+
+        logger.info(f"返回 {len(archives)} 個檔案追蹤記錄")
+        return {
+            "archives": archives,
+            "total": len(archives)
+        }
+
+    except Exception as e:
+        logger.error(f"列出檔案追蹤記錄時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"列出檔案追蹤記錄時發生錯誤: {e}")
+
+@router.get("/archives/batch/{batch_id}")
+def get_archive_by_batch(batch_id: str):
+    """根據批次ID獲取檔案追蹤記錄"""
+    try:
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+        archive_manager = ReportArchiveManager(bq_client)
+        archive = archive_manager.get_archive_by_batch_id(batch_id)
+
+        if not archive:
+            raise HTTPException(status_code=404, detail=f"找不到批次 {batch_id} 的檔案記錄")
+
+        return archive
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"獲取檔案追蹤記錄時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"獲取檔案追蹤記錄時發生錯誤: {e}")
+
+@router.get("/archives/task/{task_id}")
+def get_archive_by_task(task_id: str):
+    """根據任務ID獲取檔案追蹤記錄"""
+    try:
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+        archive_manager = ReportArchiveManager(bq_client)
+        archive = archive_manager.get_archive_by_task_id(task_id)
+
+        if not archive:
+            raise HTTPException(status_code=404, detail=f"找不到任務 {task_id} 的檔案記錄")
+
+        return archive
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"獲取檔案追蹤記錄時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"獲取檔案追蹤記錄時發生錯誤: {e}")
+
+@router.delete("/archives/task/{task_id}")
+def delete_archive_by_task(task_id: str):
+    """刪除檔案追蹤記錄（軟刪除）"""
+    try:
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+        archive_manager = ReportArchiveManager(bq_client)
+        archive_manager.delete_archive(task_id)
+
+        return {"message": f"任務 {task_id} 的檔案記錄已刪除"}
+
+    except Exception as e:
+        logger.error(f"刪除檔案追蹤記錄時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"刪除檔案追蹤記錄時發生錯誤: {e}")

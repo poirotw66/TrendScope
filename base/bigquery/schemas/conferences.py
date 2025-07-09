@@ -24,3 +24,17 @@ CONFERENCE_SUMMARY_SCHEMA = [
     bigquery.SchemaField("keywords", "STRING", mode="REPEATED", description="關鍵詞"),
     bigquery.SchemaField("created_at", "TIMESTAMP", mode="REQUIRED", description="創建時間")
 ]
+
+# 報告檔案追蹤表結構
+REPORT_ARCHIVES_SCHEMA = [
+    bigquery.SchemaField("task_id", "STRING", mode="REQUIRED", description="任務ID（主鍵）"),
+    bigquery.SchemaField("batch_id", "STRING", mode="REQUIRED", description="報告批次ID"),
+    bigquery.SchemaField("zip_filename", "STRING", mode="REQUIRED", description="ZIP檔案名稱"),
+    bigquery.SchemaField("gcs_path", "STRING", description="GCS存儲路徑"),
+    bigquery.SchemaField("gcs_public_url", "STRING", description="GCS公開下載URL"),
+    bigquery.SchemaField("seminars", "STRING", mode="REPEATED", description="包含的研討會列表"),
+    bigquery.SchemaField("session_count", "INTEGER", description="包含的會議數量"),
+    bigquery.SchemaField("analysis_mode", "STRING", description="分析模式"),
+    bigquery.SchemaField("output_template", "STRING", description="輸出模板"),
+    bigquery.SchemaField("updated_at", "TIMESTAMP", description="更新時間"),
+]
