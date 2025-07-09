@@ -32,7 +32,7 @@ def get_bigquery_client():
         return None
 
 # 設置日誌
-logger = logging.getLogger("trendscope-api")
+logger = logging.getLogger("NeoTrendHub-api")
 
 # 創建路由器
 router = APIRouter(prefix="/data", tags=["BigQuery Data"])

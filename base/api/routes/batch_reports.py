@@ -41,7 +41,7 @@ def get_bigquery_client():
 from config.config import GEMINI_API_KEY
 
 # 設置日誌
-logger = logging.getLogger("trendscope-api")
+logger = logging.getLogger("NeoTrendHub-api")
 
 # 添加項目根目錄到 Python 路徑以導入 SSG 模組
 project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
@@ -393,7 +393,7 @@ PPT 內容：
 ---
 
 <div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 2em;">
-<em>本報告由 TrendScope 自動生成 | 生成時間：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</em>
+<em>本報告由 NeoTrendHub 自動生成 | 生成時間：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</em>
 </div>
 """,
             "technical": f"""# 技術分析報告：{title}
@@ -413,7 +413,7 @@ PPT 內容：
 - 原始來源：[{url}]({url})
 
 ---
-*技術文檔 | TrendScope 自動生成*
+*技術文檔 | NeoTrendHub 自動生成*
 """,
             "concise": f"""# {title}
 
@@ -445,7 +445,7 @@ PPT 內容：
 ### 🔗 更多資訊
 [點擊查看原始資料]({url})
 
-<small>*由 TrendScope 自動生成*</small>
+<small>*由 NeoTrendHub 自動生成*</small>
 
 </div>
 """

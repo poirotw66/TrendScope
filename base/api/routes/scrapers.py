@@ -27,7 +27,7 @@ from base.scrapers.parsers.cloudsummit_tapei import run_cloudsummit_taipei_scrap
 from base.scrapers.parsers.devopsdays_taipei import run_devopsdays_taipei_scraper
 
 # 設置日誌
-logger = logging.getLogger("trendscope-api")
+logger = logging.getLogger("NeoTrendHub-api")
 
 # 創建路由器
 router = APIRouter(prefix="/scrapers", tags=["Scrapers"])

@@ -32,12 +32,12 @@ logging.basicConfig(
         logging.FileHandler(os.path.join(project_root, "logs", f"api_{datetime.now().strftime('%Y%m%d')}.log"))
     ]
 )
-logger = logging.getLogger("trendscope-api")
+logger = logging.getLogger("NeoTrendHub-api")
 
 # 創建 FastAPI 應用
 app = FastAPI(
-    title="TrendScope API",
-    description="TrendScope 的 API 服務，提供爬蟲和資料查詢功能",
+    title="NeoTrendHub API",
+    description="NeoTrendHub 的 API 服務，提供爬蟲和資料查詢功能",
     version="1.0.0"
 )
 
@@ -60,18 +60,18 @@ app.include_router(batch_reports_router)
 @app.get("/")
 def read_root():
     """API 根端點"""
-    return {"message": "歡迎使用 TrendScope API"}
+    return {"message": "歡迎使用 NeoTrendHub API"}
 
 if __name__ == "__main__":
     import uvicorn
     
-    print("🚀 啟動 TrendScope Backend API 服務...")
+    print("🚀 啟動 NeoTrendHub base API 服務...")
     print(f"專案根目錄: {project_root}")
     print("API 文檔: http://localhost:8001/docs")
     print("API 根端點: http://localhost:8001/")
     
     uvicorn.run(
-        "backend.api.app:app",
+        "base.api.app:app",
         host="0.0.0.0",
         port=8001,
         reload=True,
