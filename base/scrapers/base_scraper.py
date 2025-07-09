@@ -106,7 +106,7 @@ class BaseScraper(ABC):
             # 保存數據到文件
             file_path = None
             if data:
-                file_path = save_to_excel(data, self.get_filename_prefix(), output_dir)
+                # file_path = save_to_excel(data, self.get_filename_prefix(), output_dir)
                 
                 # 上傳到 BigQuery（如果啟用）
                 if self.use_bigquery and self.bq_uploader:
