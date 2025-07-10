@@ -68,8 +68,14 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       crawlerManagement: 'Crawlers',
       systemSettings: 'Settings',
       logQuery: 'Log Query',
+
+      // 智慧分析
+      trendAnalysis: 'Trend Analysis',
+      personalizedRecommendations: 'Smart Recommendations',
+
       // 分組標題
       dataCollection: 'Data Collection',
+      intelligentAnalysis: 'Intelligent Analysis',
     },
     dashboard: {
       title: 'Dashboard',
@@ -202,8 +208,14 @@ const translations: Record<Language, Record<string, Record<string, string>>> = {
       crawlerManagement: '爬蟲管理',
       systemSettings: '系統設定',
       logQuery: '日誌查詢',
+
+      // 智慧分析
+      trendAnalysis: '技術趨勢分析',
+      personalizedRecommendations: '個性化推薦',
+
       // 分組標題
       dataCollection: '數據搜集',
+      intelligentAnalysis: '智慧分析',
     },
     dashboard: {
       title: '儀表板',

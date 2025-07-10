@@ -339,6 +339,36 @@ class ApiService {
       throw error;
     }
   }
+
+  /**
+   * 執行趨勢分析
+   * @param request 趨勢分析請求
+   * @returns 趨勢分析結果
+   */
+  public async analyzeTrends(request: {
+    seminars?: string[];
+    limit?: number;
+  }): Promise<any> {
+    const response = await this.api.post('/reports/trends/analyze', request);
+    return response.data;
+  }
+
+  /**
+   * 獲取個性化推薦
+   * @param request 個性化推薦請求
+   * @returns 推薦結果
+   */
+  public async getPersonalizedRecommendations(request: {
+    user_interests: string[];
+    preferred_trends?: string[];
+    expertise_level?: string;
+    max_recommendations?: number;
+    seminars?: string[];
+    limit?: number;
+  }): Promise<any> {
+    const response = await this.api.post('/reports/recommendations/personalized', request);
+    return response.data;
+  }
 }
 
 // 導出 API 服務實例

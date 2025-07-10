@@ -1,5 +1,11 @@
 """
-批量報告生成相關的 API 路由
+Enhanced Batch Report Generation API Routes
+完全重構的批量報告生成系統 - 符合 plan.md 規範
+
+Features:
+- Phase 1: LLM Trend Analysis (第一階段：LLM 趨勢分析)
+- Phase 2: Automatic Tagging System (第二階段：自動標記系統)
+- Phase 3: Three-Tier Hugo Site Generation (第三階段：三階層 Hugo 網站建構)
 """
 import os
 import sys
@@ -22,11 +28,18 @@ sys.path.insert(0, project_root)
 from base.bigquery.client import BigQueryClient
 from base.bigquery.report_archive_manager import ReportArchiveManager
 from base.gcs.client import get_gcs_client
+from config.config import GEMINI_API_KEY
+
+# 設置日誌
+logger = logging.getLogger("NeoTrendHub-api")
+
+# 添加項目根目錄到 Python 路徑以導入增強模組
+project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
+sys.path.append(str(project_root_path))
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():
     """獲取 BigQuery 客戶端"""
-    import os
     try:
         credentials_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
         project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
@@ -39,31 +52,33 @@ def get_bigquery_client():
     except Exception as e:
         logger.error(f"初始化 BigQuery 客戶端失敗: {str(e)}")
         return None
-from config.config import GEMINI_API_KEY
 
-# 設置日誌
-logger = logging.getLogger("NeoTrendHub-api")
-
-# 添加項目根目錄到 Python 路徑以導入 SSG 模組
-project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
-sys.path.append(str(project_root_path))
-
+# 導入增強報告生成模組
 try:
     from base.api.modules.hugo_report import HugoReportGenerator
+    from base.api.modules.enhanced_report_generator import EnhancedReportGenerator
+    from base.api.modules.trend_analyzer import TrendAnalyzer
+    from base.api.modules.trend_recommendation_engine import TrendRecommendationEngine
+
+    # 初始化核心組件
     hugo_generator = HugoReportGenerator()
+    enhanced_generator = EnhancedReportGenerator()
+    trend_analyzer = TrendAnalyzer()
+    recommendation_engine = TrendRecommendationEngine()
+
+    logger.info("✅ 成功導入所有增強報告生成模組")
 
     def batch_convert_markdown_files(md_dir, html_dir, template_style="professional",
-                                    create_offline_package=True):
-        """Hugo-based static site generation function with offline package support"""
+                                      create_offline_package=True):
+        """Enhanced Hugo-based static site generation with three-tier architecture"""
         result = hugo_generator.generate_hugo_site(
             md_dir, html_dir, template_style, create_offline_package
         )
 
-        # 為了向後兼容，如果調用者期望舊格式，返回 HTML 文件列表
         if isinstance(result, dict):
             return result
         else:
-            # 如果返回的是列表（舊格式），包裝成新格式
+            # 向後兼容舊格式
             return {
                 'html_files': result,
                 'zip_file': None,
@@ -74,11 +89,18 @@ try:
             }
 
 except ImportError as e:
-    logger.warning(f"無法導入 Hugo 報告生成器: {e}")
-    # 如果無法導入，創建一個簡單的替代函數
+    logger.error(f"❌ 無法導入增強報告生成模組: {e}")
+    logger.error("請確保所有必要的模組都已正確安裝")
+
+    # 創建備用實例
+    hugo_generator = None
+    enhanced_generator = None
+    trend_analyzer = None
+    recommendation_engine = None
 
     def batch_convert_markdown_files(md_dir, html_dir, template_style="professional"):
-        """簡單的 Markdown 到 HTML 轉換函數（Hugo 不可用時的備用方案）"""
+        """備用 Markdown 到 HTML 轉換函數"""
+        logger.warning("使用備用 Markdown 轉換功能")
         import markdown
         md_path = pathlib.Path(md_dir)
         html_path = pathlib.Path(html_dir)
@@ -123,6 +145,8 @@ class BatchReportRequest(BaseModel):
     include_html: bool = True
     analysis_mode: str = "comprehensive"  # "technical", "business", "trend", "comprehensive"
     output_template: str = "professional"  # "professional", "technical", "concise", "presentation"
+    enable_trend_analysis: bool = True  # 啟用 LLM 趨勢分析 (plan.md 功能)
+    enable_recommendations: bool = False  # 啟用智慧推薦引擎
 
 class BatchReportResponse(BaseModel):
     """批量報告生成響應模型"""
@@ -232,7 +256,7 @@ def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = None) -> Dict[str, 
         }
 
 def get_sessions_from_bigquery_for_reports(bq_client: BigQueryClient, seminars: Optional[List[str]] = None,
-                                         limit: Optional[int] = None) -> List[Dict[str, Any]]:
+                                           limit: Optional[int] = None) -> List[Dict[str, Any]]:
     """
     從 BigQuery 獲取會議數據用於報告生成
     """
@@ -637,6 +661,118 @@ def _handle_gcs_upload(task_id: str, zip_file_path: str) -> Dict[str, Any]:
         logger.info(f"[任務 {task_id}] GCS 上傳已禁用，跳過雲端備份")
         return {"success": False, "disabled": True}
 
+def _generate_enhanced_reports(task_id: str, sessions: List[Dict],
+                              output_md_dir: pathlib.Path,
+                              analysis_mode: str, output_template: str,
+                              enable_trend_analysis: bool = True,
+                              enable_recommendations: bool = False) -> Dict[str, Any]:
+    """
+    生成符合 plan.md 規劃的完整三階層報告結構
+
+    Phase 1: LLM Trend Analysis (第一階段：LLM 趨勢分析)
+    Phase 2: Automatic Tagging System (第二階段：自動標記系統)
+    Phase 3: Three-Tier Markdown Generation (第三階段：三階層 Markdown 文件生成)
+    """
+    try:
+        if not enhanced_generator:
+            raise ImportError("增強報告生成器未正確初始化")
+
+        logger.info(f"[任務 {task_id}] 🚀 開始執行增強報告生成流程...")
+
+        # Phase 1: 更新進度 - 趨勢分析階段
+        tasks[task_id]["progress"]["current_session"] = "第一階段：正在執行 LLM 趨勢分析..."
+        logger.info(f"[任務 {task_id}] 📊 Phase 1: LLM 趨勢分析開始")
+
+        # Phase 2: 更新進度 - 自動標記階段
+        tasks[task_id]["progress"]["current_session"] = "第二階段：正在執行自動標記系統..."
+        logger.info(f"[任務 {task_id}] 🏷️ Phase 2: 自動標記系統開始")
+
+        # Phase 3: 更新進度 - Markdown 生成階段
+        tasks[task_id]["progress"]["current_session"] = "第三階段：正在生成三階層 Markdown 文件..."
+        logger.info(f"[任務 {task_id}] 📝 Phase 3: 三階層 Markdown 文件生成開始")
+
+        # 執行完整的三階層報告生成
+        enhanced_result = enhanced_generator.generate_comprehensive_reports(
+            sessions=sessions,
+            output_dir=output_md_dir,
+            analysis_mode=analysis_mode,
+            output_template=output_template,
+            enable_trend_analysis=enable_trend_analysis,
+            enable_recommendations=enable_recommendations
+        )
+
+        # 驗證生成結果
+        if not enhanced_result:
+            raise Exception("增強報告生成失敗：返回空結果")
+
+        # 統計處理結果
+        total_sessions = len(sessions)
+        session_files = enhanced_result.get('session_files', [])
+        trend_files = enhanced_result.get('trend_files', [])
+        trends_analysis_file = enhanced_result.get('trends_analysis_file')
+        index_file = enhanced_result.get('index_file')
+
+        processed_count = len(session_files)
+        failed_count = total_sessions - processed_count
+
+        logger.info(f"[任務 {task_id}] ✅ 增強報告生成完成:")
+        logger.info(f"  📄 趨勢分析文件: {trends_analysis_file}")
+        logger.info(f"  📂 趨勢分類文件: {len(trend_files)} 個")
+        logger.info(f"  📋 會議詳細文件: {len(session_files)} 個")
+        logger.info(f"  🏠 首頁文件: {index_file}")
+        logger.info(f"  ✅ 成功處理: {processed_count}/{total_sessions} 個會議")
+
+        # 構建處理結果
+        processed_sessions = []
+        failed_sessions = []
+
+        # 為每個成功處理的會議創建結果記錄
+        for i, session_file in enumerate(session_files):
+            if i < len(sessions):
+                session = sessions[i]
+                processed_sessions.append({
+                    "status": "completed",
+                    "session_id": session.get('conference_id', session.get('id', f'session_{i}')),
+                    "title": session.get('name', 'Unknown'),
+                    "file_path": session_file
+                })
+
+        # 為失敗的會議創建失敗記錄
+        for i in range(processed_count, total_sessions):
+            if i < len(sessions):
+                session = sessions[i]
+                failed_sessions.append({
+                    "session_id": session.get('conference_id', session.get('id', f'session_{i}')),
+                    "title": session.get('name', 'Unknown'),
+                    "error": "增強報告生成過程中處理失敗"
+                })
+
+        logger.info(f"[任務 {task_id}] 增強報告生成完成: {processed_count} 成功, {failed_count} 失敗")
+        logger.info(f"[任務 {task_id}] 生成文件統計: {enhanced_result.get('total_files', 0)} 個文件")
+
+        return {
+            'processed_sessions': processed_sessions,
+            'failed_sessions': failed_sessions,
+            'enhanced_result': enhanced_result,
+            'statistics': enhanced_result.get('statistics', {})
+        }
+
+    except Exception as e:
+        logger.error(f"[任務 {task_id}] 增強報告生成失敗: {e}")
+
+        # 回退到原有的並行處理方式
+        logger.info(f"[任務 {task_id}] 回退到標準報告生成方式...")
+        processed_sessions, failed_sessions = _process_sessions_parallel(
+            task_id, sessions, analysis_mode, output_template, output_md_dir
+        )
+
+        return {
+            'processed_sessions': processed_sessions,
+            'failed_sessions': failed_sessions,
+            'enhanced_result': None,
+            'fallback_used': True
+        }
+
 def _create_file_tracking_record(task_id: str, bq_client: BigQueryClient, output_base_dir: pathlib.Path,
                                 zip_file_path: str, seminars: List[str], processed_sessions: List,
                                 analysis_mode: str, output_template: str, gcs_upload_result: Dict,
@@ -724,7 +860,7 @@ def _generate_html_and_track_files(task_id: str, include_html: bool, processed_s
 
 def _build_task_results(processed_sessions: List, failed_sessions: List, output_base_dir: pathlib.Path,
                        output_md_dir: pathlib.Path, output_html_dir: pathlib.Path, include_html: bool,
-                       html_generation_result: Dict[str, Any]) -> Dict[str, Any]:
+                       html_generation_result: Dict[str, Any], enhanced_result: Dict[str, Any] = None) -> Dict[str, Any]:
     """構建任務結果"""
     results = {
         "processed_sessions": len(processed_sessions),
@@ -732,10 +868,29 @@ def _build_task_results(processed_sessions: List, failed_sessions: List, output_
         "output_directory": str(output_base_dir),
         "md_directory": str(output_md_dir),
         "html_directory": str(output_html_dir) if include_html else None,
-        "processed_files": [s["file_path"] for s in processed_sessions if s["status"] == "completed"],
+        "processed_files": [s["file_path"] for s in processed_sessions if s.get("status") == "completed"],
         "failed_files": failed_sessions,
         "html_files": html_generation_result.get('html_files', []) if include_html else []
     }
+
+    # 添加增強報告的特殊信息
+    if enhanced_result and enhanced_result.get('enhanced_result'):
+        enhanced_data = enhanced_result['enhanced_result']
+        results.update({
+            "enhanced_report": True,
+            "trends_analysis_file": enhanced_data.get('trends_analysis_file'),
+            "trend_files": enhanced_data.get('trend_files', []),
+            "session_files": enhanced_data.get('session_files', []),
+            "index_file": enhanced_data.get('index_file'),
+            "trends": enhanced_data.get('trends', []),
+            "total_trends": len(enhanced_data.get('trends', [])),
+            "statistics": enhanced_data.get('statistics', {}),
+            "report_structure": "three_tier_architecture"  # 標記為三階層架構
+        })
+    else:
+        results["enhanced_report"] = False
+        if enhanced_result and enhanced_result.get('fallback_used'):
+            results["fallback_used"] = True
 
     # 添加離線分享包信息
     zip_file_path = html_generation_result.get('zip_file_path')
@@ -786,46 +941,75 @@ def _handle_task_failure(task_id: str, error: Exception):
 
 def run_batch_report_task(task_id: str, seminars: Optional[List[str]], limit: Optional[int],
                          include_html: bool, output_format: str, analysis_mode: str = "comprehensive",
-                         output_template: str = "professional"):
+                         output_template: str = "professional", enable_trend_analysis: bool = True,
+                         enable_recommendations: bool = False):
     """
-    執行批量報告生成任務（重構版本）
+    執行增強版批量報告生成任務 - 完全符合 plan.md 規範
+
+    工作流程：
+    1. 資料提取 - 從 BigQuery 獲取研討會資料
+    2. LLM 趨勢分析 - 產生 trends-analysis.md
+    3. LLM 標記分類 - 為每場研討會標注趨勢類別
+    4. Markdown 生成 - 產生趨勢分類和研討會詳細頁面的 md 檔案
+    5. Hugo 建構 - 使用 SSG 生成完整靜態網站
     """
     try:
-        # 1. 初始化任務
+        logger.info(f"[任務 {task_id}] 🚀 開始執行增強版批量報告生成任務")
+        logger.info(f"[任務 {task_id}] 📋 配置: 分析模式={analysis_mode}, 模板={output_template}")
+        logger.info(f"[任務 {task_id}] 🔧 功能: 趨勢分析={enable_trend_analysis}, 推薦={enable_recommendations}")
+
+        # 1. 初始化任務和 BigQuery 客戶端
+        logger.info(f"[任務 {task_id}] 📊 步驟 1: 初始化任務和資料連接")
         bq_client = _initialize_task(task_id)
 
-        # 2. 獲取會議數據
+        # 2. 從 BigQuery 獲取會議數據
+        logger.info(f"[任務 {task_id}] 📥 步驟 2: 從 BigQuery 提取研討會資料")
         sessions = get_sessions_from_bigquery_for_reports(bq_client, seminars, limit)
         if not sessions:
             _handle_empty_sessions(task_id)
             return
 
-        # 3. 設置輸出目錄
+        logger.info(f"[任務 {task_id}] ✅ 成功獲取 {len(sessions)} 個會議資料")
+
+        # 3. 設置輸出目錄結構
+        logger.info(f"[任務 {task_id}] 📁 步驟 3: 設置輸出目錄結構")
         output_base_dir, output_md_dir, output_html_dir = _setup_output_directories(include_html)
 
-        # 4. 更新進度
+        # 4. 更新任務進度
         tasks[task_id]["progress"]["total"] = len(sessions)
-        logger.info(f"[任務 {task_id}] 開始處理 {len(sessions)} 個會議")
+        tasks[task_id]["progress"]["current_session"] = "準備執行三階段報告生成流程..."
 
-        # 5. 處理會議數據
-        processed_sessions, failed_sessions = _process_sessions_parallel(
-            task_id, sessions, analysis_mode, output_template, output_md_dir
+        # 5. 執行增強報告生成（三階段流程）
+        logger.info(f"[任務 {task_id}] 🔄 步驟 4: 執行三階段增強報告生成")
+        enhanced_result = _generate_enhanced_reports(
+            task_id, sessions, output_md_dir, analysis_mode, output_template,
+            enable_trend_analysis, enable_recommendations
         )
 
-        # 6. 生成 HTML 文件和處理檔案追蹤
+        processed_sessions = enhanced_result.get('processed_sessions', [])
+        failed_sessions = enhanced_result.get('failed_sessions', [])
+
+        logger.info(f"[任務 {task_id}] ✅ 增強報告生成完成: {len(processed_sessions)} 成功, {len(failed_sessions)} 失敗")
+
+        # 6. 生成 Hugo 靜態網站和處理檔案追蹤
+        logger.info(f"[任務 {task_id}] 🏗️ 步驟 5: 生成 Hugo 靜態網站")
         html_generation_result = _generate_html_and_track_files(
             task_id, include_html, processed_sessions, output_md_dir, output_html_dir,
             output_base_dir, output_template, seminars, analysis_mode, bq_client
         )
 
-        # 7. 構建結果並完成任務
+        # 7. 構建最終結果並完成任務
+        logger.info(f"[任務 {task_id}] 📦 步驟 6: 構建最終結果")
         results = _build_task_results(
             processed_sessions, failed_sessions, output_base_dir,
-            output_md_dir, output_html_dir, include_html, html_generation_result
+            output_md_dir, output_html_dir, include_html, html_generation_result, enhanced_result
         )
+
         _complete_task(task_id, results)
+        logger.info(f"[任務 {task_id}] 🎉 增強版批量報告生成任務完成!")
 
     except Exception as e:
+        logger.error(f"[任務 {task_id}] ❌ 增強版批量報告生成任務失敗: {e}")
         _handle_task_failure(task_id, e)
 
 # API 端點
@@ -945,7 +1129,9 @@ def generate_batch_reports(
             request.include_html,
             request.output_format,
             request.analysis_mode,
-            request.output_template
+            request.output_template,
+            request.enable_trend_analysis,
+            request.enable_recommendations
         )
 
         return BatchReportResponse(
@@ -1358,3 +1544,374 @@ def delete_archive_by_task(task_id: str):
     except Exception as e:
         logger.error(f"刪除檔案追蹤記錄時發生錯誤: {e}")
         raise HTTPException(status_code=500, detail=f"刪除檔案追蹤記錄時發生錯誤: {e}")
+
+# 新增趨勢分析和推薦相關的 API 端點
+
+@router.post("/trends/analyze")
+def analyze_trends(seminars: Optional[List[str]] = None, limit: Optional[int] = 50):
+    """執行趨勢分析"""
+    try:
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+        # 獲取會議數據
+        sessions = get_sessions_from_bigquery_for_reports(bq_client, seminars, limit)
+
+        if not sessions:
+            return {"trends": [], "message": "沒有找到符合條件的會議"}
+
+        # 執行趨勢分析
+        from ..modules.trend_analyzer import TrendAnalyzer
+        analyzer = TrendAnalyzer()
+
+        trends = analyzer.analyze_trends(sessions)
+        session_mappings = analyzer.classify_sessions(sessions, trends)
+        correlation_analysis = analyzer.analyze_trend_correlations(sessions, session_mappings)
+
+        # 構建響應
+        result = {
+            "trends": [
+                {
+                    "name": trend.name,
+                    "description": trend.description,
+                    "keywords": trend.keywords,
+                    "importance_score": trend.importance_score,
+                    "session_count": trend.session_count
+                }
+                for trend in trends
+            ],
+            "session_mappings": [
+                {
+                    "session_id": mapping.session_id,
+                    "title": mapping.title,
+                    "trends": mapping.trends,
+                    "confidence_scores": mapping.confidence_scores
+                }
+                for mapping in session_mappings
+            ],
+            "correlation_analysis": {
+                "correlation_insights": correlation_analysis.get('correlation_insights', []),
+                "trend_clusters": correlation_analysis.get('trend_clusters', []),
+                "analysis_metadata": correlation_analysis.get('analysis_metadata', {})
+            },
+            "statistics": {
+                "total_sessions": len(sessions),
+                "total_trends": len(trends),
+                "mapped_sessions": len([m for m in session_mappings if m.trends])
+            }
+        }
+
+        logger.info(f"趨勢分析完成: {len(trends)} 個趨勢, {len(sessions)} 個會議")
+        return result
+
+    except Exception as e:
+        logger.error(f"趨勢分析時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"趨勢分析時發生錯誤: {e}")
+
+@router.post("/recommendations/personalized")
+def get_personalized_recommendations(
+    user_interests: List[str],
+    preferred_trends: Optional[List[str]] = None,
+    expertise_level: str = "intermediate",
+    max_recommendations: int = 10,
+    seminars: Optional[List[str]] = None,
+    limit: Optional[int] = 50
+):
+    """獲取個性化推薦"""
+    try:
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=500, detail="無法連接到 BigQuery")
+
+        # 獲取會議數據
+        sessions = get_sessions_from_bigquery_for_reports(bq_client, seminars, limit)
+
+        if not sessions:
+            return {"recommendations": [], "message": "沒有找到符合條件的會議"}
+
+        # 執行趨勢分析
+        from ..modules.trend_analyzer import TrendAnalyzer
+        from ..modules.trend_recommendation_engine import TrendRecommendationEngine, UserProfile
+
+        analyzer = TrendAnalyzer()
+        recommendation_engine = TrendRecommendationEngine()
+
+        trends = analyzer.analyze_trends(sessions)
+        session_mappings = analyzer.classify_sessions(sessions, trends)
+
+        # 構建用戶檔案
+        user_profile = UserProfile(
+            user_id="api_user",
+            interests=user_interests,
+            preferred_trends=preferred_trends or [],
+            interaction_history=[],
+            expertise_level=expertise_level
+        )
+
+        # 轉換數據格式
+        trends_data = [
+            {
+                "name": trend.name,
+                "description": trend.description,
+                "keywords": trend.keywords,
+                "importance_score": trend.importance_score
+            }
+            for trend in trends
+        ]
+
+        session_mappings_data = [
+            {
+                "session_id": mapping.session_id,
+                "title": mapping.title,
+                "trends": mapping.trends,
+                "confidence_scores": mapping.confidence_scores
+            }
+            for mapping in session_mappings
+        ]
+
+        # 生成推薦
+        recommendations = recommendation_engine.generate_personalized_recommendations(
+            user_profile=user_profile,
+            trends=trends_data,
+            sessions=sessions,
+            session_mappings=session_mappings_data,
+            max_recommendations=max_recommendations
+        )
+
+        # 構建響應
+        result = {
+            "recommendations": [
+                {
+                    "item_id": rec.item_id,
+                    "item_type": rec.item_type,
+                    "title": rec.title,
+                    "description": rec.description,
+                    "relevance_score": rec.relevance_score,
+                    "reasoning": rec.reasoning,
+                    "metadata": rec.metadata
+                }
+                for rec in recommendations
+            ],
+            "user_profile": {
+                "interests": user_interests,
+                "preferred_trends": preferred_trends or [],
+                "expertise_level": expertise_level
+            },
+            "statistics": {
+                "total_recommendations": len(recommendations),
+                "total_sessions": len(sessions),
+                "total_trends": len(trends)
+            }
+        }
+
+        logger.info(f"個性化推薦完成: {len(recommendations)} 個推薦項目")
+        return result
+
+    except Exception as e:
+        logger.error(f"生成個性化推薦時發生錯誤: {e}")
+        raise HTTPException(status_code=500, detail=f"生成個性化推薦時發生錯誤: {e}")
+
+
+# ==================== 新增：增強功能 API 端點 ====================
+# 注意：移除重複的 /trends/analyze 端點，使用上方已存在的版本
+
+@router.post("/trends/analyze-enhanced")
+async def analyze_trends_enhanced_endpoint(request: dict):
+    """
+    執行技術趨勢分析 API 端點
+
+    對應前端 TrendAnalysisPage 的趨勢分析功能
+    """
+    try:
+        if not trend_analyzer:
+            raise HTTPException(status_code=503, detail="趨勢分析器未正確初始化")
+
+        logger.info("🔍 開始執行趨勢分析...")
+
+        # 獲取請求參數
+        seminars = request.get('seminars')
+        limit = request.get('limit', 50)
+
+        # 獲取 BigQuery 客戶端
+        bq_client = get_bigquery_client()
+        if not bq_client:
+            raise HTTPException(status_code=503, detail="無法連接到 BigQuery")
+
+        # 獲取會議數據
+        sessions = get_sessions_from_bigquery_for_reports(bq_client, seminars, limit)
+        if not sessions:
+            raise HTTPException(status_code=404, detail="未找到符合條件的會議數據")
+
+        logger.info(f"📊 分析 {len(sessions)} 個會議的技術趨勢")
+
+        # 執行趨勢分析
+        trends = trend_analyzer.analyze_trends(sessions)
+
+        # 執行會議分類
+        session_mappings = trend_analyzer.classify_sessions(sessions, trends)
+
+        # 執行趨勢關聯分析
+        correlation_analysis = trend_analyzer.analyze_trend_correlations(trends, session_mappings)
+
+        # 構建響應
+        result = {
+            "trends": [
+                {
+                    "name": trend.name,
+                    "description": trend.description,
+                    "keywords": trend.keywords,
+                    "importance_score": trend.importance_score,
+                    "session_count": trend.session_count
+                }
+                for trend in trends
+            ],
+            "session_mappings": [
+                {
+                    "session_id": mapping.session_id,
+                    "title": mapping.title,
+                    "trends": mapping.trends,
+                    "confidence_scores": mapping.confidence_scores,
+                    "reasoning": mapping.reasoning
+                }
+                for mapping in session_mappings
+            ],
+            "correlation_analysis": {
+                "trend_clusters": [
+                    {
+                        "primary_trend": cluster.primary_trend,
+                        "related_trends": [
+                            {
+                                "trend": related.trend,
+                                "correlation_score": related.correlation_score,
+                                "shared_sessions": related.shared_sessions
+                            }
+                            for related in cluster.related_trends
+                        ],
+                        "description": cluster.description
+                    }
+                    for cluster in correlation_analysis.trend_clusters
+                ],
+                "cross_trend_sessions": [
+                    {
+                        "session_id": session.session_id,
+                        "title": session.title,
+                        "trends": session.trends,
+                        "cross_trend_score": session.cross_trend_score
+                    }
+                    for session in correlation_analysis.cross_trend_sessions
+                ]
+            },
+            "statistics": {
+                "total_sessions": len(sessions),
+                "total_trends": len(trends),
+                "mapped_sessions": len([m for m in session_mappings if m.trends]),
+                "cross_trend_sessions": len(correlation_analysis.cross_trend_sessions)
+            }
+        }
+
+        logger.info(f"✅ 趨勢分析完成: {len(trends)} 個趨勢, {len(session_mappings)} 個會議映射")
+        return result
+
+    except Exception as e:
+        logger.error(f"趨勢分析失敗: {e}")
+        raise HTTPException(status_code=500, detail=f"趨勢分析失敗: {e}")
+
+
+@router.get("/enhanced/status")
+async def get_enhanced_system_status():
+    """
+    獲取增強系統狀態
+
+    檢查所有增強功能模組的可用性
+    """
+    try:
+        status = {
+            "enhanced_report_generator": enhanced_generator is not None,
+            "trend_analyzer": trend_analyzer is not None,
+            "recommendation_engine": recommendation_engine is not None,
+            "hugo_generator": hugo_generator is not None,
+            "bigquery_client": get_bigquery_client() is not None,
+            "gemini_api": bool(GEMINI_API_KEY),
+            "system_ready": all([
+                enhanced_generator is not None,
+                trend_analyzer is not None,
+                hugo_generator is not None,
+                get_bigquery_client() is not None,
+                bool(GEMINI_API_KEY)
+            ])
+        }
+
+        logger.info(f"增強系統狀態檢查: {'✅ 系統就緒' if status['system_ready'] else '❌ 系統未就緒'}")
+        return status
+
+    except Exception as e:
+        logger.error(f"獲取增強系統狀態失敗: {e}")
+        raise HTTPException(status_code=500, detail=f"獲取增強系統狀態失敗: {e}")
+
+
+@router.get("/enhanced/features")
+async def get_enhanced_features():
+    """
+    獲取增強功能列表
+
+    返回當前可用的增強功能和其描述
+    """
+    try:
+        features = {
+            "three_tier_architecture": {
+                "name": "三階層網站架構",
+                "description": "首頁 → 趨勢分類 → 會議詳情的完整網站結構",
+                "available": enhanced_generator is not None and hugo_generator is not None,
+                "phase": "Phase 3"
+            },
+            "llm_trend_analysis": {
+                "name": "LLM 趨勢分析",
+                "description": "使用大型語言模型進行深度技術趨勢分析",
+                "available": trend_analyzer is not None,
+                "phase": "Phase 1"
+            },
+            "automatic_tagging": {
+                "name": "自動標記系統",
+                "description": "基於 LLM 的會議內容自動分類和標記",
+                "available": trend_analyzer is not None,
+                "phase": "Phase 2"
+            },
+            "personalized_recommendations": {
+                "name": "個性化推薦",
+                "description": "基於用戶興趣的智慧內容推薦系統",
+                "available": recommendation_engine is not None,
+                "phase": "Enhanced"
+            },
+            "hugo_static_site": {
+                "name": "Hugo 靜態網站生成",
+                "description": "快速、SEO 友好的靜態網站生成",
+                "available": hugo_generator is not None,
+                "phase": "Phase 3"
+            },
+            "offline_packages": {
+                "name": "離線分享包",
+                "description": "ZIP 打包的離線可瀏覽報告",
+                "available": hugo_generator is not None,
+                "phase": "Enhanced"
+            }
+        }
+
+        available_count = sum(1 for feature in features.values() if feature["available"])
+        total_count = len(features)
+
+        result = {
+            "features": features,
+            "summary": {
+                "total_features": total_count,
+                "available_features": available_count,
+                "completion_rate": f"{(available_count/total_count)*100:.1f}%"
+            }
+        }
+
+        logger.info(f"增強功能狀態: {available_count}/{total_count} 可用")
+        return result
+
+    except Exception as e:
+        logger.error(f"獲取增強功能列表失敗: {e}")
+        raise HTTPException(status_code=500, detail=f"獲取增強功能列表失敗: {e}")

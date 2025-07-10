@@ -12,6 +12,10 @@ import { BatchReportTasksPage } from './components/pages/BatchReportTasksPage';
 
 import { CrawlerManagementPage } from './components/pages/CrawlerManagementPage';
 
+// 智慧分析頁面
+import { TrendAnalysisPage } from './components/pages/TrendAnalysisPage';
+import { PersonalizedRecommendationsPage } from './components/pages/PersonalizedRecommendationsPage';
+
 import { NotFoundPage } from './components/pages/NotFoundPage';
 
 const App: React.FC = () => {
@@ -26,6 +30,10 @@ const App: React.FC = () => {
           <Route path="/reports" element={<BatchReportTasksPage />} />
 
           <Route path="/crawlers" element={<CrawlerManagementPage />} />
+
+          {/* 智慧分析路由 */}
+          <Route path="/trend-analysis" element={<TrendAnalysisPage />} />
+          <Route path="/personalized-recommendations" element={<PersonalizedRecommendationsPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

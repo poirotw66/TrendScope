@@ -46,6 +46,8 @@ export const BatchReportsPage: React.FC = () => {
   const [includeHtml, setIncludeHtml] = useState(true);
   const [analysisMode, setAnalysisMode] = useState<string>('comprehensive');
   const [outputTemplate, setOutputTemplate] = useState<string>('professional');
+  const [enableTrendAnalysis, setEnableTrendAnalysis] = useState<boolean>(true);
+  const [enableRecommendations, setEnableRecommendations] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -102,7 +104,9 @@ export const BatchReportsPage: React.FC = () => {
         output_format: 'markdown',
         include_html: includeHtml,
         analysis_mode: analysisMode,
-        output_template: outputTemplate
+        output_template: outputTemplate,
+        enable_trend_analysis: enableTrendAnalysis,
+        enable_recommendations: enableRecommendations
       };
 
       const response = await apiService.generateBatchReports(request);
@@ -305,6 +309,60 @@ export const BatchReportsPage: React.FC = () => {
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               選擇生成報告的外觀和格式風格
             </p>
+          </div>
+
+          {/* 增強功能選項 */}
+          <div className="space-y-3">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              增強功能 (基於 plan.md 的智慧化功能)
+            </label>
+
+            <div className="space-y-2">
+              <label className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  checked={enableTrendAnalysis}
+                  onChange={(e) => setEnableTrendAnalysis(e.target.checked)}
+                  disabled={generating}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    🔍 LLM 趨勢分析
+                  </span>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    使用 Gemini 2.5 Flash 自動識別五大技術趨勢，生成趨勢關聯性分析
+                  </p>
+                </div>
+              </label>
+
+              <label className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  checked={enableRecommendations}
+                  onChange={(e) => setEnableRecommendations(e.target.checked)}
+                  disabled={generating}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    🎯 智慧推薦引擎
+                  </span>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    基於內容分析生成個性化推薦和相關會議建議
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+              <p className="text-xs text-blue-700 dark:text-blue-300">
+                💡 啟用增強功能將生成符合 plan.md 規範的三階層報告結構：
+                <br />• 趨勢分析總覽 (trends-analysis.md)
+                <br />• 趨勢分類頁面 (trends/trend-*.md)
+                <br />• 會議詳細頁面 (sessions/session-*.md)
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

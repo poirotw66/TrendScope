@@ -44,3 +44,4 @@ tasks/
 reports/
 *__pycache__
 *__init__.py
+test_output/
