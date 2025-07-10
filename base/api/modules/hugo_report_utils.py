@@ -151,10 +151,12 @@ class HugoReportUtils:
                 content = f.read()
 
             # 解析元數據
-            metadata = self._extract_metadata_from_content(content, md_file.stem)
+            from .hugo_report_core import HugoReportCore
+            core = HugoReportCore()
+            metadata = core._extract_metadata_from_content(content, md_file.stem)
 
             # 創建 Hugo 內容文件
-            hugo_content = self._create_hugo_content(content, metadata)
+            hugo_content = core._create_hugo_content(content, metadata)
 
             # 使用 Hugo Page Bundle 結構：每個報告都有自己的目錄
             posts_dir = content_dir / "posts"

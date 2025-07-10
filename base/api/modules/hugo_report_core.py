@@ -22,7 +22,7 @@ class HugoReportCore:
     def _extract_metadata_from_content(self, content: str, filename: str):
         """從內容中提取元數據"""
         import re
-        from .hugo_report_fixed import ReportMetadata
+        from .hugo_report import ReportMetadata
 
         # 嘗試從內容中提取標題
         title_match = re.search(r'^#\s+(.+)$', content, re.MULTILINE)
@@ -40,8 +40,9 @@ class HugoReportCore:
         url_match = re.search(r'來源[：:]\s*\[(.+?)\]\((.+?)\)', content)
         url = url_match.group(2) if url_match else ""
 
-        # 生成標籤
+        # 生成標籤和趨勢
         tags = self._generate_tags_from_content(content, seminar, category)
+        trends = self._extract_trends_from_content(content)
 
         return ReportMetadata(
             title=title,
@@ -49,7 +50,8 @@ class HugoReportCore:
             category=category,
             url=url,
             session_id=filename,
-            tags=tags
+            tags=tags,
+            trends=trends
         )
 
     def _generate_tags_from_content(self, content: str, seminar: str, category: str) -> List[str]:
@@ -84,6 +86,31 @@ class HugoReportCore:
         # 限制標籤數量並去重
         return list(set(tags))[:10]
 
+    def _extract_trends_from_content(self, content: str) -> List[str]:
+        """從內容中提取技術趨勢"""
+        trends = []
+
+        # 技術趨勢關鍵詞映射
+        trend_keywords = {
+            "人工智能": ["AI", "人工智能", "機器學習", "深度學習", "神經網絡", "大模型", "LLM", "GPT"],
+            "雲原生": ["雲原生", "Cloud Native", "Kubernetes", "Docker", "容器", "微服務", "服務網格"],
+            "前端開發": ["前端", "React", "Vue", "Angular", "JavaScript", "TypeScript", "Web開發"],
+            "數據庫": ["數據庫", "MySQL", "PostgreSQL", "MongoDB", "Redis", "分佈式數據庫", "OLAP", "OLTP"],
+            "DevOps": ["DevOps", "CI/CD", "持續集成", "持續部署", "自動化", "監控"],
+            "大數據": ["大數據", "Spark", "Hadoop", "數據分析", "數據挖掘", "數據科學"],
+            "區塊鏈": ["區塊鏈", "比特幣", "以太坊", "智能合約", "DeFi", "NFT"],
+            "物聯網": ["物聯網", "IoT", "邊緣計算", "傳感器", "智能設備"],
+            "安全": ["網絡安全", "信息安全", "加密", "身份認證", "零信任"],
+            "性能優化": ["性能優化", "性能調優", "緩存", "負載均衡", "高並發"]
+        }
+
+        content_lower = content.lower()
+        for trend, keywords in trend_keywords.items():
+            if any(keyword.lower() in content_lower for keyword in keywords):
+                trends.append(trend)
+
+        return list(set(trends))  # 去重
+
     def _create_hugo_content(self, content: str, metadata) -> str:
         """創建 Hugo 內容文件"""
         # 創建 Front Matter
@@ -93,7 +120,8 @@ class HugoReportCore:
             "draft": False,
             "seminar": metadata.seminar,
             "category": metadata.category,
-            "tags": metadata.tags
+            "tags": metadata.tags,
+            "trends": metadata.trends
         }
 
         if metadata.url:

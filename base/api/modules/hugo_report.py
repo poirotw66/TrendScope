@@ -28,10 +28,13 @@ class ReportMetadata:
     date: str = ""
     session_id: str = ""
     tags: List[str] = None
-    
+    trends: List[str] = None
+
     def __post_init__(self):
         if self.tags is None:
             self.tags = []
+        if self.trends is None:
+            self.trends = []
         if not self.date:
             self.date = datetime.now().strftime("%Y-%m-%d")
 
@@ -108,8 +111,8 @@ class HugoReportGenerator:
                 # 使用備用方法生成靜態文件
                 self._generate_static_files_fallback(site_dir, html_dir)
             
-            # 修復離線瀏覽路徑
-            self._fix_offline_paths(html_dir)
+            # 修復離線瀏覽路徑和導航連結
+            self._fix_offline_paths_and_navigation(html_dir)
             
             # 收集網站信息
             site_info = self._collect_site_info(md_dir, html_dir, html_files)
@@ -156,8 +159,8 @@ class HugoReportGenerator:
         # 創建配置文件
         self._create_hugo_config(site_dir, template_style)
         
-        # 創建佈局模板
-        self._create_hugo_layouts(site_dir, template_style)
+        # 創建佈局模板（包含完整導航）
+        self._create_hugo_layouts_with_navigation(site_dir, template_style)
         
         # 創建靜態資源
         self._create_static_assets(site_dir, template_style)
@@ -181,14 +184,17 @@ class HugoReportGenerator:
                 "author": "TrendScope",
                 "version": "2.0",
                 "build_date": datetime.now().isoformat(),
-                
-                # 社交媒體和 SEO
-                "social": {
-                    "github": "",
-                    "twitter": "",
-                    "linkedin": ""
+
+                # 導航配置
+                "navigation": {
+                    "show_breadcrumbs": True,
+                    "show_related_content": True,
+                    "show_back_to_top": True,
+                    "show_prev_next": True,
+                    "show_trend_tags": True,
+                    "show_seminar_links": True
                 },
-                
+
                 # 功能開關
                 "features": {
                     "search": True,
@@ -243,27 +249,29 @@ class HugoReportGenerator:
         with open(config_file, 'w', encoding='utf-8') as f:
             yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
     
-    def _create_hugo_layouts(self, site_dir: pathlib.Path, template_style: str):
-        """創建 Hugo 佈局模板"""
+    def _create_hugo_layouts_with_navigation(self, site_dir: pathlib.Path, template_style: str):
+        """創建包含完整導航的 Hugo 佈局模板"""
         layouts_dir = site_dir / "layouts"
-        
-        # 創建基礎佈局
-        self._create_base_layout(layouts_dir, template_style)
-        
-        # 創建首頁佈局
-        self._create_index_layout(layouts_dir, template_style)
-        
-        # 創建單頁佈局
-        self._create_single_layout(layouts_dir, template_style)
-        
-        # 創建列表佈局
-        self._create_list_layout(layouts_dir, template_style)
-        
-        # 創建分類佈局
-        self._create_taxonomy_layouts(layouts_dir, template_style)
-        
-        # 創建部分模板
-        self.create_partials(layouts_dir)
+
+        # 創建基礎佈局（包含主導航和頁腳）
+        self._create_base_layout_with_navigation(layouts_dir, template_style)
+
+        # 創建導航組件
+        self._create_navigation_partials(layouts_dir)
+
+        # 創建首頁佈局（包含趨勢分類連結）
+        self._create_index_layout_with_links(layouts_dir, template_style)
+
+        # 創建單頁佈局（包含麵包屑和相關連結）
+        self._create_single_layout_with_navigation(layouts_dir, template_style)
+
+        # 創建列表佈局（包含分類導航）
+        self._create_list_layout_with_navigation(layouts_dir, template_style)
+
+        # 創建分類佈局（趨勢和研討會）
+        self._create_taxonomy_layouts_with_navigation(layouts_dir, template_style)
+
+        logger.info("✅ Hugo 佈局模板創建完成（包含完整導航）")
 
     def _create_static_assets(self, site_dir: pathlib.Path, template_style: str):
         """創建靜態資源文件"""
@@ -702,6 +710,263 @@ a:hover {{
     }}
 }}
 
+/* 麵包屑導航 */
+.breadcrumb {{
+    background: var(--bg-secondary);
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--border-light);
+}}
+
+.breadcrumb-nav {{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}}
+
+.breadcrumb-item {{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}}
+
+.breadcrumb-item:not(:last-child)::after {{
+    content: '›';
+    color: var(--text-light);
+    font-weight: bold;
+}}
+
+.breadcrumb-link {{
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}}
+
+.breadcrumb-link:hover {{
+    color: var(--primary-dark);
+    text-decoration: underline;
+}}
+
+.breadcrumb-current {{
+    color: var(--text-primary);
+    font-weight: 500;
+}}
+
+/* 導航按鈕 */
+.nav-buttons {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: var(--spacing-2xl) 0;
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--border-light);
+}}
+
+.nav-btn {{
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}}
+
+.nav-btn:hover {{
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: white;
+    text-decoration: none;
+}}
+
+.nav-btn.disabled {{
+    background: var(--text-light);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}}
+
+/* 相關內容區塊 */
+.related-content {{
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-2xl) 0;
+    border: 1px solid var(--border-light);
+}}
+
+.related-title {{
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+}}
+
+.related-links {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}}
+
+.related-link {{
+    display: block;
+    padding: var(--spacing-md);
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    border: 1px solid var(--border-light);
+}}
+
+.related-link:hover {{
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+}}
+
+.related-link-title {{
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}}
+
+.related-link-meta {{
+    font-size: var(--text-sm);
+    opacity: 0.8;
+}}
+
+/* 返回頂部按鈕 */
+.back-to-top {{
+    position: fixed;
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-fast);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}}
+
+.back-to-top.visible {{
+    opacity: 1;
+    visibility: visible;
+}}
+
+.back-to-top:hover {{
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}}
+
+/* 活動狀態導航 */
+.nav-link.active {{
+    background: var(--primary);
+    color: white;
+}}
+
+.nav-link.active:hover {{
+    background: var(--primary-dark);
+    color: white;
+}}
+
+/* 趨勢標籤增強 */
+.trend-tag.clickable {{
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}}
+
+.trend-tag.clickable::before {{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}}
+
+.trend-tag.clickable:hover::before {{
+    left: 100%;
+}}
+
+/* 研討會連結 */
+.seminar-link {{
+    color: var(--secondary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    position: relative;
+}}
+
+.seminar-link:hover {{
+    color: var(--primary);
+    text-decoration: underline;
+}}
+
+.seminar-link::after {{
+    content: '🔗';
+    margin-left: var(--spacing-xs);
+    opacity: 0;
+    transition: var(--transition-fast);
+}}
+
+.seminar-link:hover::after {{
+    opacity: 1;
+}}
+
+/* 移動端導航增強 */
+.nav-toggle {{
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border: none;
+    background: none;
+}}
+
+.nav-toggle span {{
+    width: 25px;
+    height: 3px;
+    background: var(--text-primary);
+    margin: 3px 0;
+    transition: var(--transition-fast);
+    border-radius: 2px;
+}}
+
+.nav-toggle.active span:nth-child(1) {{
+    transform: rotate(45deg) translate(5px, 5px);
+}}
+
+.nav-toggle.active span:nth-child(2) {{
+    opacity: 0;
+}}
+
+.nav-toggle.active span:nth-child(3) {{
+    transform: rotate(-45deg) translate(7px, -6px);
+}}
+
 /* 頁腳 */
 .site-footer {{
     background: var(--bg-primary);
@@ -712,19 +977,62 @@ a:hover {{
     color: var(--text-muted);
     font-size: var(--text-sm);
 }}
+
+/* 響應式導航 */
+@media (max-width: 768px) {{
+    .nav-toggle {{
+        display: flex;
+    }}
+
+    .nav-menu {{
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        flex-direction: column;
+        padding: var(--spacing-lg);
+        box-shadow: var(--shadow-md);
+        border-top: 1px solid var(--border-light);
+    }}
+
+    .nav-menu.active {{
+        display: flex;
+    }}
+
+    .nav-buttons {{
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }}
+
+    .related-links {{
+        grid-template-columns: 1fr;
+    }}
+
+    .back-to-top {{
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        width: 45px;
+        height: 45px;
+    }}
+}}
 """
 
     def _create_javascript(self, js_dir: pathlib.Path):
-        """創建 JavaScript 文件"""
+        """創建包含完整導航功能的 JavaScript 文件"""
         js_content = """
-        // NeoTrendHub Hugo Theme JavaScript
+        // NeoTrendHub Hugo Theme JavaScript - 完整導航系統
         document.addEventListener('DOMContentLoaded', function() {
-            // 初始化主題功能
+            // 初始化所有功能
             initializeTheme();
             initializeNavigation();
+            initializeBackToTop();
+            initializeBreadcrumbs();
+            initializeActiveNavigation();
             initializeSearch();
 
-            console.log('NeoTrendHub Hugo Theme 已載入');
+            console.log('NeoTrendHub Hugo Theme 已載入 - 完整導航系統');
         });
 
         function initializeTheme() {
@@ -749,6 +1057,7 @@ a:hover {{
             if (navToggle && navMenu) {
                 navToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
                 });
             }
 
@@ -765,6 +1074,101 @@ a:hover {{
                     }
                 });
             });
+
+            // 點擊外部關閉移動端菜單
+            document.addEventListener('click', function(e) {
+                if (navMenu && navToggle &&
+                    !navMenu.contains(e.target) &&
+                    !navToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            });
+        }
+
+        function initializeBackToTop() {
+            // 創建返回頂部按鈕
+            const backToTopBtn = document.createElement('button');
+            backToTopBtn.className = 'back-to-top';
+            backToTopBtn.innerHTML = '↑';
+            backToTopBtn.setAttribute('aria-label', '返回頂部');
+            document.body.appendChild(backToTopBtn);
+
+            // 滾動監聽
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            // 點擊返回頂部
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        function initializeBreadcrumbs() {
+            // 動態生成麵包屑導航
+            const breadcrumbContainer = document.querySelector('.breadcrumb-nav');
+            if (!breadcrumbContainer) return;
+
+            const path = window.location.pathname;
+            const segments = path.split('/').filter(segment => segment);
+
+            // 清空現有內容
+            breadcrumbContainer.innerHTML = '';
+
+            // 添加首頁
+            const homeItem = createBreadcrumbItem('首頁', '/');
+            breadcrumbContainer.appendChild(homeItem);
+
+            // 添加路徑段
+            let currentPath = '';
+            segments.forEach((segment, index) => {
+                currentPath += '/' + segment;
+                const isLast = index === segments.length - 1;
+
+                let title = segment;
+                // 轉換路徑段為中文標題
+                if (segment === 'trends') title = '技術趨勢';
+                else if (segment === 'sessions') title = '會議報告';
+                else if (segment === 'seminars') title = '研討會';
+
+                const item = createBreadcrumbItem(title, currentPath, isLast);
+                breadcrumbContainer.appendChild(item);
+            });
+        }
+
+        function createBreadcrumbItem(title, url, isCurrent = false) {
+            const item = document.createElement('div');
+            item.className = 'breadcrumb-item';
+
+            if (isCurrent) {
+                item.innerHTML = `<span class="breadcrumb-current">${title}</span>`;
+            } else {
+                item.innerHTML = `<a href="${url}" class="breadcrumb-link">${title}</a>`;
+            }
+
+            return item;
+        }
+
+        function initializeActiveNavigation() {
+            // 標記當前頁面的導航項目
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (linkPath === currentPath ||
+                    (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+                    link.classList.add('active');
+                }
+            });
         }
 
         function initializeSearch() {
@@ -773,6 +1177,16 @@ a:hover {{
             if (searchInput) {
                 searchInput.addEventListener('input', handleSearch);
             }
+
+            // 鍵盤快捷鍵 (Ctrl+K 或 Cmd+K)
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+            });
         }
 
         function toggleTheme() {
@@ -784,41 +1198,117 @@ a:hover {{
             const query = event.target.value.toLowerCase();
             // 實現搜索邏輯
             console.log('搜索查詢:', query);
+
+            // 簡單的頁面內搜索
+            if (query.length > 2) {
+                highlightSearchResults(query);
+            } else {
+                clearSearchHighlights();
+            }
+        }
+
+        function highlightSearchResults(query) {
+            // 清除之前的高亮
+            clearSearchHighlights();
+
+            // 搜索並高亮匹配的文本
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+
+            const textNodes = [];
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.textContent.toLowerCase().includes(query)) {
+                    textNodes.push(node);
+                }
+            }
+
+            textNodes.forEach(textNode => {
+                const parent = textNode.parentNode;
+                if (parent.tagName !== 'SCRIPT' && parent.tagName !== 'STYLE') {
+                    const highlightedText = textNode.textContent.replace(
+                        new RegExp(query, 'gi'),
+                        match => `<mark class="search-highlight">${match}</mark>`
+                    );
+                    const wrapper = document.createElement('span');
+                    wrapper.innerHTML = highlightedText;
+                    parent.replaceChild(wrapper, textNode);
+                }
+            });
+        }
+
+        function clearSearchHighlights() {
+            const highlights = document.querySelectorAll('.search-highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize();
+            });
+        }
+
+        // 工具函數：平滑滾動到元素
+        function scrollToElement(element, offset = 0) {
+            const elementPosition = element.offsetTop - offset;
+            window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // 工具函數：檢查元素是否在視窗中
+        function isElementInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
         }
         """
 
         with open(js_dir / "main.js", 'w', encoding='utf-8') as f:
             f.write(js_content)
 
-    def _create_base_layout(self, layouts_dir: pathlib.Path, template_style: str):
-        """創建基礎佈局模板"""
-        from .hugo_report_layouts import HugoLayoutMethods
-        layout_methods = HugoLayoutMethods()
-        layout_methods._create_base_layout(layouts_dir, template_style)
+    def _create_base_layout_with_navigation(self, layouts_dir: pathlib.Path, template_style: str):
+        """創建包含完整導航的基礎佈局模板"""
+        from .hugo_navigation_layouts import HugoNavigationLayouts
+        layout_methods = HugoNavigationLayouts()
+        layout_methods._create_base_layout_with_navigation(layouts_dir, template_style)
 
-    def _create_index_layout(self, layouts_dir: pathlib.Path, template_style: str):
-        """創建首頁佈局"""
-        from .hugo_report_layouts import HugoLayoutMethods
-        layout_methods = HugoLayoutMethods()
-        layout_methods._create_index_layout(layouts_dir, template_style)
+    def _create_navigation_partials(self, layouts_dir: pathlib.Path):
+        """創建導航組件"""
+        from .hugo_navigation_layouts import HugoNavigationLayouts
+        layout_methods = HugoNavigationLayouts()
+        layout_methods._create_navigation_partials(layouts_dir)
 
-    def _create_single_layout(self, layouts_dir: pathlib.Path, template_style: str):
-        """創建單頁佈局"""
-        from .hugo_report_layouts import HugoLayoutMethods
-        layout_methods = HugoLayoutMethods()
-        layout_methods._create_single_layout(layouts_dir, template_style)
+    def _create_index_layout_with_links(self, layouts_dir: pathlib.Path, template_style: str):
+        """創建包含趨勢分類連結的首頁佈局"""
+        from .hugo_navigation_layouts import HugoNavigationLayouts
+        layout_methods = HugoNavigationLayouts()
+        layout_methods._create_index_layout_with_links(layouts_dir, template_style)
 
-    def _create_list_layout(self, layouts_dir: pathlib.Path, template_style: str):
-        """創建列表佈局"""
-        from .hugo_report_layouts import HugoLayoutMethods
-        layout_methods = HugoLayoutMethods()
-        layout_methods._create_list_layout(layouts_dir, template_style)
+    def _create_single_layout_with_navigation(self, layouts_dir: pathlib.Path, template_style: str):
+        """創建包含完整導航的單頁佈局"""
+        from .hugo_navigation_layouts import HugoNavigationLayouts
+        layout_methods = HugoNavigationLayouts()
+        layout_methods._create_single_layout_with_navigation(layouts_dir, template_style)
 
-    def _create_taxonomy_layouts(self, layouts_dir: pathlib.Path, template_style: str):
-        """創建分類佈局"""
-        from .hugo_report_layouts import HugoLayoutMethods
-        layout_methods = HugoLayoutMethods()
-        layout_methods._create_taxonomy_layouts(layouts_dir, template_style)
+    def _create_list_layout_with_navigation(self, layouts_dir: pathlib.Path, template_style: str):
+        """創建包含分類導航的列表佈局"""
+        from .hugo_navigation_layouts import HugoNavigationLayouts
+        layout_methods = HugoNavigationLayouts()
+        layout_methods._create_list_layout_with_navigation(layouts_dir, template_style)
+
+    def _create_taxonomy_layouts_with_navigation(self, layouts_dir: pathlib.Path, template_style: str):
+        """創建包含導航的分類佈局（趨勢和研討會）"""
+        from .hugo_navigation_layouts import HugoNavigationLayouts
+        layout_methods = HugoNavigationLayouts()
+        layout_methods._create_taxonomy_layouts_with_navigation(layouts_dir, template_style)
 
     def create_partials(self, layouts_dir: pathlib.Path):
         """創建 Hugo 部分模板"""
@@ -910,11 +1400,73 @@ description: "深度技術趨勢分析與會議洞察"
         core = HugoReportCore()
         return core._generate_static_files_fallback(site_dir, output_dir)
 
-    def _fix_offline_paths(self, output_dir: str):
-        """修復離線瀏覽的路徑問題"""
+    def _fix_offline_paths_and_navigation(self, output_dir: str):
+        """修復離線瀏覽的路徑問題和導航連結"""
         from .hugo_report_core import HugoReportCore
         core = HugoReportCore()
-        return core._fix_offline_paths(output_dir)
+
+        # 修復基本路徑
+        core._fix_offline_paths(output_dir)
+
+        # 修復導航連結
+        self._fix_navigation_links(output_dir)
+
+        logger.info("✅ 離線路徑和導航連結修復完成")
+
+    def _fix_navigation_links(self, output_dir: str):
+        """修復導航連結以確保離線瀏覽正常"""
+        import os
+        import re
+
+        output_path = pathlib.Path(output_dir)
+
+        # 遍歷所有 HTML 文件
+        for html_file in output_path.rglob("*.html"):
+            try:
+                with open(html_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
+                # 修復相對路徑連結
+                # 將 href="/xxx/" 轉換為相對路徑
+                content = re.sub(r'href="(/[^"]*?/)"', self._convert_to_relative_path, content)
+
+                # 修復 src 路徑
+                content = re.sub(r'src="(/[^"]*?)"', self._convert_to_relative_path, content)
+
+                # 確保所有內部連結都有 .html 擴展名（如果需要）
+                content = self._ensure_html_extensions(content, html_file, output_path)
+
+                # 寫回文件
+                with open(html_file, 'w', encoding='utf-8') as f:
+                    f.write(content)
+
+            except Exception as e:
+                logger.warning(f"修復導航連結時出錯 {html_file}: {e}")
+
+    def _convert_to_relative_path(self, match):
+        """將絕對路徑轉換為相對路徑"""
+        path = match.group(1)
+        # 簡單的相對路徑轉換
+        if path.startswith('/'):
+            return f'href=".{path}"' if 'href=' in match.group(0) else f'src=".{path}"'
+        return match.group(0)
+
+    def _ensure_html_extensions(self, content: str, current_file: pathlib.Path, output_path: pathlib.Path) -> str:
+        """確保內部連結有正確的 .html 擴展名"""
+        import re
+
+        # 計算當前文件相對於根目錄的深度
+        relative_path = current_file.relative_to(output_path)
+        depth = len(relative_path.parts) - 1
+
+        # 根據深度調整相對路徑前綴
+        prefix = "../" * depth if depth > 0 else "./"
+
+        # 替換相對路徑前綴
+        content = re.sub(r'href="\./([^"]*)"', f'href="{prefix}\\1"', content)
+        content = re.sub(r'src="\./([^"]*)"', f'src="{prefix}\\1"', content)
+
+        return content
 
     def _collect_site_info(self, md_dir: str, output_dir: str, html_files: List[str]) -> Dict[str, Any]:
         """收集網站信息"""
