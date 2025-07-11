@@ -27,7 +27,14 @@ class EnhancedReportGenerator:
                                      enable_trend_analysis: bool = True,
                                      enable_recommendations: bool = False) -> Dict[str, Any]:
         """
-        生成完整的三階層報告結構
+        生成完整的三階層報告結構 - 完全符合 plan.md 規範
+
+        實施 plan.md 中描述的完整工作流程：
+        1. 資料提取 - 從 BigQuery 獲取研討會資料
+        2. LLM 趨勢分析 - 產生 trends-analysis.md
+        3. LLM 標記分類 - 為每場研討會標注趨勢類別
+        4. Markdown 生成 - 產生趨勢分類和研討會詳細頁面的 md 檔案
+        5. Hugo 建構 - 使用 SSG 生成完整靜態網站
 
         Args:
             sessions: 會議數據列表
@@ -40,49 +47,62 @@ class EnhancedReportGenerator:
         Returns:
             Dict: 生成結果信息
         """
-        logger.info(f"開始生成完整的三階層報告結構，共 {len(sessions)} 個會議")
-        
+        logger.info(f"🚀 開始生成完整的三階層報告結構，共 {len(sessions)} 個會議")
+        logger.info(f"📋 配置: 分析模式={analysis_mode}, 模板={output_template}")
+        logger.info(f"🔧 功能: 趨勢分析={enable_trend_analysis}, 推薦={enable_recommendations}")
+
         try:
             # 根據配置決定是否執行趨勢分析
             if enable_trend_analysis:
-                # 第一階段：趨勢分析
-                logger.info("執行 LLM 趨勢分析...")
+                # 第一階段：LLM 趨勢分析 (plan.md 第一階段)
+                logger.info("📊 步驟 1: 執行 LLM 趨勢分析...")
                 trends = self.trend_analyzer.analyze_trends(sessions)
 
-                # 第二階段：會議分類
-                logger.info("執行會議趨勢分類...")
+                # 第二階段：LLM 自動標記系統 (plan.md 第二階段)
+                logger.info("🏷️ 步驟 2: 執行 LLM 自動標記系統...")
+                logger.info("   - 使用五大趨勢作為標記基準")
+                logger.info("   - 分析每場研討會與各趨勢的關聯性")
+                logger.info("   - 支援多重標記和置信度評分")
                 session_mappings = self.trend_analyzer.classify_sessions(sessions, trends)
 
                 # 更新趨勢的會議數量統計
                 self._update_trend_session_counts(trends, session_mappings)
+                logger.info(f"✅ 完成 {len(session_mappings)} 個會議的趨勢標記")
 
                 # 2.5 階段：趨勢關聯性分析
-                logger.info("執行趨勢關聯性分析...")
+                logger.info("🔗 步驟 2.5: 執行趨勢關聯性分析...")
                 correlation_analysis = self.trend_analyzer.analyze_trend_correlations(sessions, session_mappings)
             else:
                 # 使用基礎的趨勢分析（不使用 LLM）
                 logger.info("使用基礎趨勢分析（跳過 LLM 分析）...")
                 trends, session_mappings, correlation_analysis = self._generate_basic_trends(sessions)
 
-            # 第三階段：生成 Markdown 文件
-            logger.info("生成 Markdown 文件...")
-            
-            # 1. 生成趨勢分析報告文件 (trends-analysis.md)
+            # 第三階段：Markdown 生成 (plan.md 第三階段)
+            logger.info("📝 步驟 3: 生成 Markdown 文件...")
+            logger.info("   - 產生趨勢分類和研討會詳細頁面的 md 檔案")
+            logger.info("   - 確保符合 Hugo Page Bundle 結構")
+            logger.info("   - 實施三階層網站架構")
+
+            # 3.1 生成趨勢分析報告文件 (trends-analysis.md)
+            logger.info("📊 生成趨勢分析報告...")
             trends_analysis_file = self._generate_trends_analysis_file(
                 trends, session_mappings, correlation_analysis, output_dir
             )
-            
-            # 2. 生成趨勢分類頁面文件 (trend-*.md)
+
+            # 3.2 生成趨勢分類頁面文件 (trend-*.md)
+            logger.info("🏷️ 生成趨勢分類頁面...")
             trend_files = self._generate_trend_category_files(
                 trends, session_mappings, sessions, output_dir
             )
-            
-            # 3. 生成研討會詳細頁面文件 (session-*.md)
+
+            # 3.3 生成研討會詳細頁面文件 (session-*.md)
+            logger.info("📄 生成研討會詳細頁面...")
             session_files = self._generate_session_detail_files(
                 sessions, session_mappings, output_dir, analysis_mode, output_template
             )
-            
-            # 4. 生成 Hugo 首頁文件 (_index.md)
+
+            # 3.4 生成 Hugo 首頁文件 (_index.md)
+            logger.info("🏠 生成 Hugo 首頁...")
             index_file = self._generate_hugo_index_file(trends, output_dir)
 
             # 5. 生成推薦信息（如果啟用）

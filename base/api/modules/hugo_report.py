@@ -71,26 +71,34 @@ class HugoReportGenerator:
             logger.warning("Hugo 未安裝或不在 PATH 中，將使用內建的靜態文件生成")
             self.hugo_binary = None
 
-    def generate_hugo_site(self, md_dir: str, html_dir: str, 
+    def generate_hugo_site(self, md_dir: str, html_dir: str,
                           template_style: str = "professional",
                           create_offline_package: bool = True) -> Dict[str, Any]:
         """
-        生成 Hugo 靜態網站
-        
+        生成 Hugo 靜態網站 - 完全實施 plan.md 第四階段
+
+        實施 plan.md 第四階段：Hugo 建構
+        - 使用 SSG (Static Site Generator) 生成完整靜態網站
+        - 實現三階層網站架構：首頁 → 趨勢分類 → 研討會詳細
+        - 專業視覺設計和響應式佈局
+        - 離線瀏覽支援和 ZIP 打包
+
         Args:
             md_dir: Markdown 文件目錄
             html_dir: HTML 輸出目錄
             template_style: 模板樣式
             create_offline_package: 是否創建離線包
-            
+
         Returns:
             生成結果字典
         """
         try:
-            logger.info(f"🏗️ 開始生成 Hugo 靜態網站...")
+            logger.info(f"🏗️ 步驟 4: 開始 Hugo 建構 (plan.md 第四階段)...")
             logger.info(f"   📂 Markdown 目錄: {md_dir}")
             logger.info(f"   📂 HTML 輸出目錄: {html_dir}")
             logger.info(f"   🎨 模板樣式: {template_style}")
+            logger.info(f"   📦 離線包: {create_offline_package}")
+            logger.info(f"   🏛️ 實施三階層網站架構")
             
             # 創建臨時 Hugo 網站目錄
             site_dir = pathlib.Path(html_dir).parent / "hugo_site"
