@@ -53,47 +53,24 @@ def get_bigquery_client():
         logger.error(f"初始化 BigQuery 客戶端失敗: {str(e)}")
         return None
 
-# 導入增強報告生成模組
+# 導入報告生成模組（專注於 Markdown 生成）
 try:
-    from base.api.modules.simple_static_generator import SimpleStaticGenerator
     from base.api.modules.enhanced_report_generator import EnhancedReportGenerator
     from base.api.modules.trend_analyzer import TrendAnalyzer
     from base.api.modules.trend_recommendation_engine import TrendRecommendationEngine
 
     # 初始化核心組件
-    static_generator = SimpleStaticGenerator()
     enhanced_generator = EnhancedReportGenerator()
     trend_analyzer = TrendAnalyzer()
     recommendation_engine = TrendRecommendationEngine()
 
-    logger.info("✅ 成功導入所有增強報告生成模組（使用簡化靜態生成器）")
-
-    def batch_convert_markdown_files(md_dir, html_dir, template_style="professional",
-                                      create_offline_package=True):
-        """Enhanced static site generation with three-tier architecture (Simplified)"""
-        result = static_generator.generate_three_tier_site(
-            md_dir, html_dir, template_style, create_offline_package
-        )
-
-        if isinstance(result, dict):
-            return result
-        else:
-            # 向後兼容舊格式
-            return {
-                'html_files': result,
-                'zip_file': None,
-                'launcher_file': None,
-                'instructions_file': None,
-                'total_pages': len(result) if result else 0,
-                'site_info': {}
-            }
+    logger.info("✅ 成功導入報告生成模組（專注於 Markdown 生成）")
 
 except ImportError as e:
-    logger.error(f"❌ 無法導入增強報告生成模組: {e}")
+    logger.error(f"❌ 無法導入報告生成模組: {e}")
     logger.error("請確保所有必要的模組都已正確安裝")
 
     # 創建備用實例
-    hugo_generator = None
     enhanced_generator = None
     trend_analyzer = None
     recommendation_engine = None
