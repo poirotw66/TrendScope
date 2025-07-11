@@ -55,26 +55,22 @@ def get_bigquery_client():
 
 # 導入增強報告生成模組
 try:
-    from base.api.modules.hugo_report import HugoReportGenerator
+    from base.api.modules.simple_static_generator import SimpleStaticGenerator
     from base.api.modules.enhanced_report_generator import EnhancedReportGenerator
     from base.api.modules.trend_analyzer import TrendAnalyzer
     from base.api.modules.trend_recommendation_engine import TrendRecommendationEngine
 
     # 初始化核心組件
-    hugo_generator = HugoReportGenerator()
+    static_generator = SimpleStaticGenerator()
     enhanced_generator = EnhancedReportGenerator()
     trend_analyzer = TrendAnalyzer()
     recommendation_engine = TrendRecommendationEngine()
 
-    logger.info("✅ 成功導入所有增強報告生成模組")
+    logger.info("✅ 成功導入所有增強報告生成模組（使用簡化靜態生成器）")
 
     def batch_convert_markdown_files(md_dir, html_dir, template_style="professional",
                                       create_offline_package=True):
         """Enhanced static site generation with three-tier architecture (Simplified)"""
-        # 使用簡化的靜態生成器
-        from base.api.modules.simple_static_generator import SimpleStaticGenerator
-        static_generator = SimpleStaticGenerator()
-
         result = static_generator.generate_three_tier_site(
             md_dir, html_dir, template_style, create_offline_package
         )

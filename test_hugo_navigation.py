@@ -13,7 +13,7 @@ from datetime import datetime
 # 添加項目根目錄到 Python 路徑
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
-from base.api.modules.hugo_report import HugoReportGenerator, ReportMetadata
+from base.api.modules.simple_static_generator import SimpleStaticGenerator
 
 # 設置日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -166,13 +166,13 @@ def test_hugo_navigation_system():
         logger.info("📝 創建測試 Markdown 文件...")
         create_test_markdown_files(md_dir)
         
-        # 初始化 Hugo 生成器
-        logger.info("🏗️ 初始化 Hugo 生成器...")
-        generator = HugoReportGenerator()
-        
-        # 生成 Hugo 靜態網站
-        logger.info("🌐 生成 Hugo 靜態網站...")
-        result = generator.generate_hugo_site(
+        # 初始化簡化靜態生成器
+        logger.info("🏗️ 初始化簡化靜態生成器...")
+        generator = SimpleStaticGenerator()
+
+        # 生成靜態網站
+        logger.info("🌐 生成靜態網站...")
+        result = generator.generate_three_tier_site(
             md_dir=str(md_dir),
             html_dir=str(html_dir),
             template_style="professional",
