@@ -96,7 +96,8 @@ class ReportArchiveManager:
             # 添加GCS信息（如果有）
             if gcs_info and gcs_info.get("success"):
                 record_data["gcs_path"] = gcs_info.get("gs_url")
-                record_data["gcs_public_url"] = gcs_info.get("public_url")
+                # 由於設定為私有訪問，public_url 將為 None
+                record_data["gcs_public_url"] = gcs_info.get("public_url")  # 通常為 None
 
             # 插入記錄
             self._insert_record(record_data)

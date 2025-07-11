@@ -45,8 +45,8 @@ class GCSClient:
             project=self.project_id
         )
         
-    def upload_file(self, local_file_path: str, bucket_name: str, 
-                   destination_blob_name: str, make_public: bool = True) -> Dict[str, Any]:
+    def upload_file(self, local_file_path: str, bucket_name: str,
+                   destination_blob_name: str, make_public: bool = False) -> Dict[str, Any]:
         """
         上傳文件到 Google Cloud Storage
         
@@ -54,7 +54,7 @@ class GCSClient:
             local_file_path (str): 本地文件路徑
             bucket_name (str): GCS bucket 名稱
             destination_blob_name (str): 目標 blob 名稱（GCS 中的文件路徑）
-            make_public (bool): 是否設置為公開可訪問，默認為 True
+            make_public (bool): 是否設置為公開可訪問，默認為 False（私有訪問）
             
         Returns:
             Dict[str, Any]: 包含上傳結果的字典
@@ -86,12 +86,14 @@ class GCSClient:
             with open(local_file_path, 'rb') as file_obj:
                 blob.upload_from_file(file_obj)
             
-            # 設置文件為公開可訪問（如果需要）
+            # 設置文件訪問權限
             public_url = None
             if make_public:
                 blob.make_public()
                 public_url = blob.public_url
                 logger.info(f"文件已設置為公開可訪問: {public_url}")
+            else:
+                logger.info("文件已設置為私有訪問（需要認證才能訪問）")
             
             # 構建結果
             result = {
@@ -115,18 +117,18 @@ class GCSClient:
                 "error": error_msg
             }
     
-    def upload_zip_file(self, local_zip_path: str, bucket_name: str, 
+    def upload_zip_file(self, local_zip_path: str, bucket_name: str,
                        folder_prefix: str = "seminar_report/") -> Dict[str, Any]:
         """
-        上傳 ZIP 文件到 GCS 的指定目錄
-        
+        上傳 ZIP 文件到 GCS 的指定目錄（私有訪問）
+
         Args:
             local_zip_path (str): 本地 ZIP 文件路徑
             bucket_name (str): GCS bucket 名稱
             folder_prefix (str): GCS 中的目錄前綴，默認為 "seminar_report/"
-            
+
         Returns:
-            Dict[str, Any]: 上傳結果
+            Dict[str, Any]: 上傳結果（不包含 public_url，因為設定為私有訪問）
         """
         try:
             local_path = pathlib.Path(local_zip_path)
@@ -139,16 +141,16 @@ class GCSClient:
             # 構建目標路徑：folder_prefix + 文件名
             destination_blob_name = f"{folder_prefix.rstrip('/')}/{local_path.name}"
             
-            # 上傳文件
+            # 上傳文件（設定為私有訪問）
             result = self.upload_file(
                 local_file_path=local_zip_path,
                 bucket_name=bucket_name,
                 destination_blob_name=destination_blob_name,
-                make_public=True
+                make_public=False
             )
             
             if result["success"]:
-                logger.info(f"ZIP 文件上傳成功: {local_zip_path} -> {result['gs_url']}")
+                logger.info(f"ZIP 文件上傳成功（私有訪問）: {local_zip_path} -> {result['gs_url']}")
             
             return result
             

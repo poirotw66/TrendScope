@@ -241,7 +241,7 @@ def upload_zip_to_gcs(zip_file_path: str, bucket_name: str = None) -> Dict[str, 
         )
 
         if result["success"]:
-            logger.info(f"ZIP 文件已成功上傳到 GCS: {result.get('public_url', result.get('gs_url'))}")
+            logger.info(f"ZIP 文件已成功上傳到 GCS（私有訪問）: {result.get('gs_url')}")
         else:
             logger.error(f"ZIP 文件上傳到 GCS 失敗: {result.get('error')}")
 
@@ -652,7 +652,7 @@ def _handle_gcs_upload(task_id: str, zip_file_path: str) -> Dict[str, Any]:
         gcs_upload_result = upload_zip_to_gcs(zip_file_path)
 
         if gcs_upload_result["success"]:
-            logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS: {gcs_upload_result.get('public_url')}")
+            logger.info(f"[任務 {task_id}] ZIP 文件已成功上傳到 GCS（私有訪問）: {gcs_upload_result.get('gs_url')}")
         else:
             logger.warning(f"[任務 {task_id}] ZIP 文件上傳到 GCS 失敗: {gcs_upload_result.get('error')}")
 
@@ -903,12 +903,13 @@ def _build_task_results(processed_sessions: List, failed_sessions: List, output_
             "site_info": html_generation_result.get('site_info', {})
         }
 
-        # 添加GCS信息
+        # 添加GCS信息（私有訪問）
         gcs_upload_result = html_generation_result.get('gcs_upload_result', {})
         if gcs_upload_result.get("success"):
             offline_package["gcs_url"] = gcs_upload_result.get("gs_url")
-            offline_package["gcs_public_url"] = gcs_upload_result.get("public_url")
+            offline_package["gcs_public_url"] = None  # 私有訪問，無公開URL
             offline_package["gcs_size"] = gcs_upload_result.get("size")
+            offline_package["gcs_access_type"] = "private"  # 標記為私有訪問
 
         # 添加檔案追蹤信息
         created_task_id = html_generation_result.get('created_task_id')
