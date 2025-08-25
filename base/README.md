@@ -1,11 +1,11 @@
-# TrendScope Backend
+# TrendScope base
 
 TrendScope 專案的後端 API 服務，提供 PPT 上傳處理、爬蟲管理和資料查詢功能。
 
 ## 📁 專案結構
 
 ```
-backend/
+base/
 ├── api/                    # API 路由和端點
 │   ├── __init__.py
 │   ├── app.py             # FastAPI 主應用
@@ -23,7 +23,7 @@ backend/
 
 ```bash
 # 在專案根目錄執行
-pip install -r backend/requirements.txt
+pip install -r base/requirements.txt
 ```
 
 ### 2. 設置環境變數
@@ -44,7 +44,7 @@ export GOOGLE_CLOUD_PROJECT="your-project-id"
 #### 方法 2: 直接啟動
 ```bash
 # 在專案根目錄執行
-python backend/main.py
+python base/main.py
 ```
 
 ### 4. 訪問 API
@@ -94,7 +94,7 @@ python backend/main.py
 
 ### 並行處理配置
 
-在 `backend/api/ppt_upload.py` 中可以調整：
+在 `base/api/ppt_upload.py` 中可以調整：
 
 ```python
 MAX_CONCURRENT_FILES = 3  # 最多同時處理的檔案數量
@@ -106,7 +106,7 @@ MAX_CONCURRENT_FILES = 3  # 最多同時處理的檔案數量
 
 ```bash
 # 啟用自動重載
-python backend/main.py
+python base/main.py
 ```
 
 ### 日誌
@@ -137,6 +137,6 @@ python backend/main.py
 ## 📝 更新日誌
 
 ### v1.0.0 (2024-06-24)
-- 重新組織專案結構，將後端功能搬移到 `backend/` 目錄
+- 重新組織專案結構，將後端功能搬移到 `base/` 目錄
 - 實現 PPT 並行處理功能
 - 添加詳細的 API 文檔和配置說明

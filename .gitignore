@@ -45,3 +45,5 @@ reports/
 *__pycache__
 *__init__.py
 test_output/
+*.augment/
+.augment/rules/rule-srp.md
