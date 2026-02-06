@@ -7,11 +7,8 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.utils.logging_utils import logger
 from bs4 import BeautifulSoup
-import sys
 from src.utils.string_utils import normalize_string
 
 CONFERENCE_CONFIG = {

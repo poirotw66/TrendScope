@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trendscope"
+version = "1.0.0"
+description = "會議內容處理與報告生成平台 - TrendScope / NeoTrendHub"
+readme = "README_zh.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "TrendScope Team"}
+]
+keywords = ["conference", "summarization", "ai", "bigquery", "fastapi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "google-generativeai>=0.3.0",
+    "pandas>=1.3.0",
+    "markdown>=3.3.0",
+    "python-dotenv>=0.19.0",
+    "Jinja2>=3.0.0",
+    "beautifulsoup4>=4.9.0",
+    "selenium>=4.0.0",
+    "google-cloud-bigquery>=3.0.0",
+    "google-cloud-storage>=2.0.0",
+    "fastapi>=0.95.0",
+    "uvicorn[standard]>=0.20.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.0.0",
+    "openpyxl>=3.0.0",
+    "python-multipart>=0.0.6",
+    "httpx>=0.23.0",
+    "psutil>=5.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[tool.setuptools]
+packages = [
+    "base",
+    "base.api",
+    "base.api.routes",
+    "base.api.modules",
+    "base.api.shared",
+    "base.bigquery",
+    "base.bigquery.schemas",
+    "base.gcs",
+    "base.scrapers",
+    "base.scrapers.parsers",
+    "base.scrapers.utils",
+    "config",
+    "src",
+    "src.api",
+    "src.templates",
+    "src.utils",
+]
+
+[tool.setuptools.package-data]
+"*" = ["*.txt", "*.md", "*.json", "*.yaml", "*.yml"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

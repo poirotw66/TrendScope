@@ -7,6 +7,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from base.scrapers.base_scraper import BaseScraper
+from base.utils.logger import get_scraper_logger
+
+logger = get_scraper_logger()
 
 class AWSLondonScraper(BaseScraper):
     """
@@ -61,10 +64,10 @@ class AWSLondonScraper(BaseScraper):
         """
         # 打開網頁
         self.driver.get(self.url)
-        print("正在載入頁面，請等待...")
+        logger.info("正在載入頁面，請等待...")
         
         # 等待手動登入（如果需要）
-        print("如需登入，請在 20 秒內完成")
+        logger.info("如需登入，請在 20 秒內完成")
         time.sleep(20)  # 等待頁面加載和可能的手動登入
         
         # 創建一個空的列表來存儲數據
@@ -77,7 +80,7 @@ class AWSLondonScraper(BaseScraper):
             
             # 抓取所有會議卡片
             cards = self.driver.find_elements(By.CLASS_NAME, 'css-t4lfxt-card')
-            print(f"找到 {len(cards)} 個會議卡片")
+            logger.info("找到 %s 個會議卡片", len(cards))
             
             for idx, card in enumerate(cards, start=1):
                 try:
@@ -95,14 +98,14 @@ class AWSLondonScraper(BaseScraper):
                         "會議連結": link,
                     })
                     
-                    print(f"{idx}. 會議名稱: {title}")
-                    print(f"   會議連結: {link}")
+                    logger.debug("%s. 會議名稱: %s", idx, title)
+                    logger.debug("   會議連結: %s", link)
                     
                 except Exception as inner_e:
-                    print(f"{idx}. 抓取失敗: {str(inner_e)}")
+                    logger.warning("%s. 抓取失敗: %s", idx, str(inner_e))
         
         except Exception as e:
-            print(f"抓取數據時發生錯誤: {str(e)}")
+            logger.error("抓取數據時發生錯誤: %s", str(e), exc_info=True)
 
         # 保存數據到實例變量，供後續使用
         self.data = data

@@ -2,7 +2,6 @@
 DevOpsDays Taipei 會議爬蟲
 用於爬取 DevOpsDays Taipei 會議議程與摘要
 """
-import sys
 import os
 import urllib.parse
 import time
@@ -15,11 +14,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, WebDriverException
-
-# 添加專案根目錄到 Python 路徑
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
-sys.path.insert(0, project_root)
 
 from base.scrapers.base_scraper import BaseScraper
 from base.scrapers.utils.driver_setup import setup_driver

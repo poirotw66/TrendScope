@@ -2,34 +2,50 @@
 BigQuery 資料查詢相關的 API 路由
 """
 import os
-import sys
 import logging
 from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 
-# 添加專案根目錄到 Python 路徑
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-sys.path.insert(0, project_root)
-
 from base.bigquery.client import BigQueryClient
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():
-    """獲取 BigQuery 客戶端"""
-    import os
+    """
+    獲取 BigQuery 客戶端
+    
+    Raises:
+        BigQueryError: 當 BigQuery 客戶端無法初始化時
+    """
+    from base.api.middleware.error_handler import BigQueryError
+    from config.settings import settings
+    
     try:
-        credentials_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
-        project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+        credentials_path = settings.google_application_credentials or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+        project_id = settings.google_cloud_project or os.environ.get("GOOGLE_CLOUD_PROJECT")
 
         if not credentials_path:
-            logger.warning("未設置 GOOGLE_APPLICATION_CREDENTIALS 環境變量")
-            return None
+            raise BigQueryError(
+                message="BigQuery 服務未配置",
+                detail="請設置 GOOGLE_APPLICATION_CREDENTIALS 環境變數或配置 google_application_credentials"
+            )
+
+        if not project_id:
+            raise BigQueryError(
+                message="BigQuery 專案 ID 未配置",
+                detail="請設置 GOOGLE_CLOUD_PROJECT 環境變數或配置 google_cloud_project"
+            )
 
         return BigQueryClient(credentials_path=credentials_path, project_id=project_id)
+    except BigQueryError:
+        # 重新拋出 BigQueryError
+        raise
     except Exception as e:
-        logger.error(f"初始化 BigQuery 客戶端失敗: {str(e)}")
-        return None
+        logger.error(f"初始化 BigQuery 客戶端失敗: {str(e)}", exc_info=True)
+        raise BigQueryError(
+            message="BigQuery 客戶端初始化失敗",
+            detail=str(e)
+        )
 
 # 設置日誌
 logger = logging.getLogger("NeoTrendHub-api")

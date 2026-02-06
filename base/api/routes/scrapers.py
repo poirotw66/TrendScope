@@ -2,7 +2,6 @@
 爬蟲相關的 API 路由
 """
 import os
-import sys
 import uuid
 import logging
 from datetime import datetime
@@ -10,10 +9,6 @@ from typing import List, Optional, Dict, Any, Callable
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 import urllib3
-
-# 添加專案根目錄到 Python 路徑
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-sys.path.insert(0, project_root)
 
 # 增加連接池大小
 urllib3.connection_pool_kw = {'maxsize': 10}  # 或更大的值，取決於您的並發需求

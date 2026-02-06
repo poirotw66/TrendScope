@@ -13,13 +13,14 @@ import csv
 from datetime import datetime
 from typing import Dict, List, Optional
 
-# 添加專案根目錄到 Python 路徑
-sys.path.append(str(pathlib.Path(__file__).parent.parent))
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+from scripts._setup_path import setup_path
+setup_path()
 
 from google import genai
 from config.config import GEMINI_API_KEY
-from bigquery.client import BigQueryClient
-from bigquery.schemas.conferences import CONFERENCE_SCHEMA
+from base.bigquery.client import BigQueryClient
+from base.bigquery.schemas.conferences import CONFERENCE_SCHEMA
 
 # 配置
 PPT_DIR = pathlib.Path("data/202505_aicon_ppt")

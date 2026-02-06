@@ -14,9 +14,11 @@ import json
 import time
 from pathlib import Path
 
-# 添加項目根目錄到 Python 路徑
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+# 測試檔案可以保留路徑設置以便獨立運行
 project_root = Path(__file__).parent
-sys.path.insert(0, str(project_root))
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 # API 基礎配置
 API_BASE_URL = "http://localhost:8001"

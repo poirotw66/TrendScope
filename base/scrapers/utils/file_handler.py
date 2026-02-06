@@ -5,6 +5,9 @@
 import os
 import pandas as pd
 from datetime import datetime
+from base.utils.logger import get_scraper_logger
+
+logger = get_scraper_logger()
 
 def save_to_excel(data, filename_prefix, output_dir=None):
     """
@@ -20,7 +23,7 @@ def save_to_excel(data, filename_prefix, output_dir=None):
     """
     # 確保數據不為空
     if not data:
-        print("沒有數據可保存")
+        logger.warning("沒有數據可保存")
         return None
     
     # 創建 DataFrame
@@ -41,6 +44,6 @@ def save_to_excel(data, filename_prefix, output_dir=None):
     
     # 保存到 Excel
     df.to_excel(file_path, index=False)
-    print(f"數據已成功保存至 {file_path}")
+    logger.info("數據已成功保存至 %s", file_path)
     
     return file_path

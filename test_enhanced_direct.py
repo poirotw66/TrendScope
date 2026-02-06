@@ -13,9 +13,11 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-# 添加項目根目錄到 Python 路徑
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+# 測試檔案可以保留路徑設置以便獨立運行
 project_root = Path(__file__).parent
-sys.path.insert(0, str(project_root))
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 def test_enhanced_modules_import():
     """測試增強模組導入"""

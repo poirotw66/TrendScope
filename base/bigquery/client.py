@@ -5,6 +5,9 @@ BigQuery 客戶端
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import os
+from base.utils.logger import get_bigquery_logger
+
+logger = get_bigquery_logger()
 
 class BigQueryClient:
     """
@@ -54,13 +57,13 @@ class BigQueryClient:
         
         try:
             dataset = self.client.get_dataset(dataset_ref)
-            print(f"數據集 {dataset_id} 已存在")
+            logger.debug("數據集 %s 已存在", dataset_id)
         except Exception:
             # 數據集不存在，創建它
             dataset = bigquery.Dataset(dataset_ref)
             dataset.location = "asia-east1"  # 可根據需要更改位置
             dataset = self.client.create_dataset(dataset)
-            print(f"已創建數據集 {dataset_id}")
+            logger.info("已創建數據集 %s", dataset_id)
             
         return dataset
         
@@ -80,12 +83,12 @@ class BigQueryClient:
         
         try:
             table = self.client.get_table(table_ref)
-            print(f"表 {dataset_id}.{table_id} 已存在")
+            logger.debug("表 %s.%s 已存在", dataset_id, table_id)
         except Exception:
             # 表不存在，創建它
             table = bigquery.Table(table_ref, schema=schema)
             table = self.client.create_table(table)
-            print(f"已創建表 {dataset_id}.{table_id}")
+            logger.info("已創建表 %s.%s", dataset_id, table_id)
             
         return table
         
@@ -113,7 +116,7 @@ class BigQueryClient:
                 table = self.client.get_table(table_ref)
                 schema = table.schema
             except Exception as e:
-                print(f"無法獲取表結構: {str(e)}")
+                logger.warning("無法獲取表結構: %s", str(e))
                 return None
         
         # 準備上傳作業
@@ -133,7 +136,7 @@ class BigQueryClient:
         # 等待作業完成
         job.result()
         
-        print(f"已上傳 {len(data)} 條記錄到 {dataset_id}.{table_id}")
+        logger.info("已上傳 %s 條記錄到 %s.%s", len(data), dataset_id, table_id)
         
         return job
         

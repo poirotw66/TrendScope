@@ -21,21 +21,13 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import google.generativeai as genai
 
-# 添加專案根目錄到 Python 路徑
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-sys.path.insert(0, project_root)
-
 from base.bigquery.client import BigQueryClient
 from base.bigquery.report_archive_manager import ReportArchiveManager
 from base.gcs.client import get_gcs_client
-from config.config import GEMINI_API_KEY
+from config.settings import settings
 
 # 設置日誌
 logger = logging.getLogger("NeoTrendHub-api")
-
-# 添加項目根目錄到 Python 路徑以導入增強模組
-project_root_path = pathlib.Path(__file__).parent.parent.parent.parent
-sys.path.append(str(project_root_path))
 
 # 依賴項：獲取 BigQuery 客戶端
 def get_bigquery_client():
@@ -102,7 +94,7 @@ except ImportError as e:
 router = APIRouter(prefix="/reports", tags=["Batch Reports"])
 
 # 初始化 Gemini API
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(api_key=settings.gemini_api_key)
 
 # 導入共享任務管理
 from base.api.shared.tasks import tasks, get_task, set_task, update_task, task_exists
@@ -1809,13 +1801,13 @@ async def get_enhanced_system_status():
             "recommendation_engine": recommendation_engine is not None,
             "hugo_generator": hugo_generator is not None,
             "bigquery_client": get_bigquery_client() is not None,
-            "gemini_api": bool(GEMINI_API_KEY),
+            "gemini_api": bool(settings.gemini_api_key),
             "system_ready": all([
                 enhanced_generator is not None,
                 trend_analyzer is not None,
                 hugo_generator is not None,
                 get_bigquery_client() is not None,
-                bool(GEMINI_API_KEY)
+                bool(settings.gemini_api_key)
             ])
         }
 

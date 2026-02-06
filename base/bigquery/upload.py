@@ -8,6 +8,9 @@ from google.cloud import bigquery
 
 from base.bigquery.client import BigQueryClient
 from base.bigquery.schemas.conferences import CONFERENCE_SCHEMA
+from base.utils.logger import get_bigquery_logger
+
+logger = get_bigquery_logger()
 
 class ConferenceUploader:
     """
@@ -69,7 +72,7 @@ class ConferenceUploader:
                 existing.add((row.name, row.seminar))
             return existing
         except Exception as e:
-            print(f"檢查現有記錄時發生錯誤: {str(e)}")
+            logger.error("檢查現有記錄時發生錯誤: %s", str(e), exc_info=True)
             return set()
 
     def upload_sessions(self, sessions, source):
@@ -84,12 +87,12 @@ class ConferenceUploader:
             bool: 上傳是否成功
         """
         if not sessions:
-            print("沒有資料可上傳")
+            logger.warning("沒有資料可上傳")
             return False
         
         # 檢查已存在的記錄
         existing_sessions = self._check_existing_sessions(sessions)
-        print(f"發現 {len(existing_sessions)} 個已存在的會議記錄")
+        logger.info("發現 %s 個已存在的會議記錄", len(existing_sessions))
 
         # 轉換資料格式，過濾掉重複的記錄
         bq_data = []
@@ -102,7 +105,7 @@ class ConferenceUploader:
             session_seminar = session.get("seminar", source)
 
             if (session_name, session_seminar) in existing_sessions:
-                print(f"跳過重複記錄: {session_name} (seminar: {session_seminar})")
+                logger.debug("跳過重複記錄: %s (seminar: %s)", session_name, session_seminar)
                 skipped_count += 1
                 continue
 
@@ -136,10 +139,10 @@ class ConferenceUploader:
 
         # 檢查是否有新數據需要上傳
         if not bq_data:
-            print(f"所有 {len(sessions)} 條記錄都已存在，跳過上傳")
+            logger.info("所有 %s 條記錄都已存在，跳過上傳", len(sessions))
             return True
 
-        print(f"準備上傳 {len(bq_data)} 條新記錄，跳過 {skipped_count} 條重複記錄")
+        logger.info("準備上傳 %s 條新記錄，跳過 %s 條重複記錄", len(bq_data), skipped_count)
 
         try:
             # 創建臨時表
@@ -191,9 +194,9 @@ class ConferenceUploader:
             # 刪除臨時表
             self.bq_client.client.delete_table(temp_table_ref)
 
-            print(f"成功上傳 {len(bq_data)} 條新會議資料到 BigQuery，跳過 {skipped_count} 條重複記錄")
+            logger.info("成功上傳 %s 條新會議資料到 BigQuery，跳過 %s 條重複記錄", len(bq_data), skipped_count)
             return True
         
         except Exception as e:
-            print(f"上傳到 BigQuery 失敗: {str(e)}")
+            logger.error("上傳到 BigQuery 失敗: %s", str(e), exc_info=True)
             return False

@@ -10,8 +10,7 @@ from pathlib import Path
 import re
 import logging # 引入 logging 模組
 
-# 添加專案根目錄到系統路徑
-sys.path.append(str(Path(__file__).parent.parent))
+# 標準導入（專案應作為 package 安裝：pip install -e .）
 
 from config.config import GEMINI_API_KEY, MAX_TRANSCRIPT_LENGTH, GEMINI_MODEL_NAME,INPUT_CSV_PATH
 from src.meeting_list_reader import meeting_list # 暫時保留，後續考慮注入

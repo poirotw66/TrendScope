@@ -7,11 +7,12 @@ import os
 import sys
 import pathlib
 
-# 添加專案根目錄到 Python 路徑
-sys.path.append(str(pathlib.Path(__file__).parent.parent))
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+from scripts._setup_path import setup_path
+setup_path()
 
 from google.cloud import bigquery
-from bigquery.client import BigQueryClient
+from base.bigquery.client import BigQueryClient
 
 # BigQuery 配置
 BQ_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")

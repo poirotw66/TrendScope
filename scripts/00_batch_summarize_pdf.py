@@ -14,12 +14,12 @@ import argparse
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
-# 添加項目根目錄到 Python 路徑
-project_root = pathlib.Path(__file__).parent.parent
-sys.path.append(str(project_root))
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+from scripts._setup_path import setup_path
+setup_path()
 
 from src.batch_md_to_html_pdf import batch_md_to_html
-from bigquery.client import BigQueryClient
+from base.bigquery.client import BigQueryClient
 from google import genai
 from config.config import GEMINI_API_KEY
 

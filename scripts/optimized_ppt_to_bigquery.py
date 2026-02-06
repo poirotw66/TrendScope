@@ -10,8 +10,9 @@ import pathlib
 import argparse
 from typing import Optional
 
-# 添加專案根目錄到 Python 路徑
-sys.path.append(str(pathlib.Path(__file__).parent.parent))
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+from scripts._setup_path import setup_path
+setup_path()
 
 from src.optimized_ppt_processor import OptimizedPPTProcessor
 from config.config import GEMINI_API_KEY

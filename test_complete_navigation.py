@@ -9,8 +9,11 @@ import pathlib
 import logging
 from datetime import datetime
 
-# 添加項目根目錄到 Python 路徑
-sys.path.append(os.path.join(os.path.dirname(__file__)))
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+# 測試檔案可以保留路徑設置以便獨立運行
+project_root = os.path.dirname(__file__)
+if project_root not in sys.path:
+    sys.path.append(project_root)
 
 from base.api.modules.hugo_navigation_layouts import HugoNavigationLayouts
 

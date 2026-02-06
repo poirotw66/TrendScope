@@ -11,7 +11,9 @@ import concurrent.futures
 import threading
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# 使用標準導入（專案應作為 package 安裝：pip install -e .）
+from scripts._setup_path import setup_path
+setup_path()
 
 load_dotenv()
 

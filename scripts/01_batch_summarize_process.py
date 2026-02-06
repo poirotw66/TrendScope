@@ -2,7 +2,6 @@
 """
 Batch Meeting Transcript Summarization Tool - Processes transcripts in a folder (Multithreaded Version)
 """
-import sys
 import os
 import argparse
 import time
@@ -11,7 +10,6 @@ import concurrent.futures
 import threading
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 load_dotenv()
 

@@ -1,35 +1,38 @@
-import os
-from pathlib import Path
-from dotenv import load_dotenv
+"""
+設定模組 - 由 config.settings 集中提供，此檔保留向後相容匯出
+請改為使用: from config.settings import settings
+"""
+from config.settings import get_settings
 
-# 載入 .env 檔案中的環境變數
-load_dotenv()
+_settings = get_settings()
 
-# 專案根目錄
-PROJECT_ROOT = Path(__file__).parent.parent
+# 向後相容：舊程式可繼續 from config.config import PROJECT_ROOT, GEMINI_API_KEY 等
+PROJECT_ROOT = _settings.PROJECT_ROOT
+GEMINI_API_KEY = _settings.GEMINI_API_KEY
+GEMINI_MODEL_NAME = _settings.GEMINI_MODEL_NAME
+MAX_REQUESTS_PER_MINUTE = _settings.MAX_REQUESTS_PER_MINUTE
+REQUEST_INTERVAL = _settings.REQUEST_INTERVAL
+MAX_RETRIES = _settings.MAX_RETRIES
+RETRY_DELAY = _settings.RETRY_DELAY
+DEFAULT_INPUT_DIR = _settings.DEFAULT_INPUT_DIR
+DEFAULT_OUTPUT_DIR = _settings.DEFAULT_OUTPUT_DIR
+SUPPORTED_FILE_EXTENSIONS = _settings.SUPPORTED_FILE_EXTENSIONS
+DEFAULT_OUTPUT_FORMAT = _settings.DEFAULT_OUTPUT_FORMAT
+DEFAULT_WORKERS = _settings.DEFAULT_WORKERS
+MAX_TRANSCRIPT_LENGTH = _settings.MAX_TRANSCRIPT_LENGTH
+OUTPUT_MD_DIR = _settings.OUTPUT_MD_DIR
+OUTPUT_HTML_DIR = _settings.OUTPUT_HTML_DIR
+SESSION_HTML_DIR = _settings.SESSION_HTML_DIR
+INPUT_CSV_PATH = _settings.INPUT_CSV_PATH
+TOP_N_MEETINGS = _settings.TOP_N_MEETINGS
+BATCH_MD_TO_HTML_INDEX = _settings.BATCH_MD_TO_HTML_INDEX
 
-# API 配置
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL_NAME = os.environ.get("GEMINI_MODEL_NAME", "gemini-2.0-flash")
-MAX_REQUESTS_PER_MINUTE = int(os.environ.get("MAX_REQUESTS_PER_MINUTE", "15"))
-REQUEST_INTERVAL = float(os.environ.get("REQUEST_INTERVAL", "4"))
-MAX_RETRIES = int(os.environ.get("MAX_RETRIES", "3"))
-RETRY_DELAY = int(os.environ.get("RETRY_DELAY", "10"))
-
-# 檔案路徑
-DEFAULT_INPUT_DIR = os.environ.get("DEFAULT_INPUT_DIR", os.path.join(PROJECT_ROOT, "data/test"))
-DEFAULT_OUTPUT_DIR = os.environ.get("DEFAULT_OUTPUT_DIR", os.path.join(PROJECT_ROOT, "output/summaries"))
-SUPPORTED_FILE_EXTENSIONS = ['.txt', '.md', '.text']
-
-# 處理配置
-DEFAULT_OUTPUT_FORMAT = os.environ.get("DEFAULT_OUTPUT_FORMAT", "md")
-DEFAULT_WORKERS = int(os.environ.get("DEFAULT_WORKERS", "4"))
-MAX_TRANSCRIPT_LENGTH = int(os.environ.get("MAX_TRANSCRIPT_LENGTH", "30000"))
-
-OUTPUT_MD_DIR = os.getenv("OUTPUT_MD_DIR", "./GTC_summary/topic_md")
-OUTPUT_HTML_DIR = os.getenv("OUTPUT_HTML_DIR", "./GTC_summary/topic")
-SESSION_HTML_DIR = os.getenv("SESSION_HTML_DIR", "./GTC_summary/topic/session")
-INPUT_CSV_PATH = os.getenv("INPUT_CSV_PATH", "./data/sheet/GTC25.csv")
-TOP_N_MEETINGS = int(os.getenv("TOP_N_MEETINGS", 5)) # 從環境變數讀取 top_n，預設為 3
-BATCH_MD_TO_HTML_INDEX = int(os.getenv("BATCH_MD_TO_HTML_INDEX", 1)) # 從環境變數讀取 index，預設為 1
-
+# 新增的配置項（向後相容）
+DATA_DIR = _settings.data_dir
+SHEET_DIR = _settings.sheet_dir
+BASE_OUTPUT_DIR = _settings.base_output_dir
+MEETING_EXCEL_FILENAME = _settings.meeting_excel_filename
+MEETING_COL = _settings.meeting_col
+URL_COL = _settings.url_col
+CONTEXT_CSV_PATH = _settings.context_csv_path
+CONTEXT_DIAGRAM_OUTPUT_PATH = _settings.context_diagram_output_path

@@ -13,6 +13,9 @@ from datetime import datetime
 from base.scrapers.utils.driver_setup import setup_driver
 from base.scrapers.utils.file_handler import save_to_excel
 from base.bigquery.upload import ConferenceUploader
+from base.utils.logger import get_scraper_logger
+
+logger = get_scraper_logger()
 
 class BaseScraper(ABC):
     """
@@ -49,7 +52,7 @@ class BaseScraper(ABC):
                     project_id=self.bq_project_id
                 )
             except Exception as e:
-                print(f"初始化 BigQuery 上傳器失敗: {str(e)}")
+                logger.error("初始化 BigQuery 上傳器失敗: %s", str(e), exc_info=True)
                 self.use_bigquery = False
         
     def start_driver(self):
@@ -61,8 +64,7 @@ class BaseScraper(ABC):
             self.wait = WebDriverWait(self.driver, self.wait_time)
             return True
         except Exception as e:
-            print(f"啟動 WebDriver 失敗: {str(e)}")
-            traceback.print_exc()
+            logger.error("啟動 WebDriver 失敗: %s", str(e), exc_info=True)
             return False
             
     def quit_driver(self):
@@ -71,7 +73,7 @@ class BaseScraper(ABC):
         """
         if self.driver:
             self.driver.quit()
-            print("WebDriver 已關閉")
+            logger.debug("WebDriver 已關閉")
             
     @abstractmethod
     def scrape(self):
@@ -98,7 +100,7 @@ class BaseScraper(ABC):
             if not self.start_driver():
                 return None
             
-            print(f"\n開始爬取 {self.get_scraper_name()}")
+            logger.info("開始爬取 %s", self.get_scraper_name())
             
             # 執行爬蟲
             data = self.scrape()
@@ -112,22 +114,22 @@ class BaseScraper(ABC):
                 if self.use_bigquery and self.bq_uploader:
                     try:
                         self.bq_uploader.upload_sessions(data, self.get_scraper_name())
+                        logger.info("成功上傳 %s 筆資料到 BigQuery", len(data))
                     except Exception as e:
-                        print(f"上傳到 BigQuery 失敗: {str(e)}")
+                        logger.error("上傳到 BigQuery 失敗: %s", str(e), exc_info=True)
             else:
-                print("未獲取到數據")
+                logger.warning("未獲取到數據")
                 
             return file_path
                 
         except Exception as e:
-            print(f"爬蟲過程中發生錯誤: {str(e)}")
-            traceback.print_exc()
+            logger.error("爬蟲過程中發生錯誤: %s", str(e), exc_info=True)
             return None
             
         finally:
             # 確保 WebDriver 關閉
             self.quit_driver()
-            print("爬蟲程序已完成")
+            logger.info("爬蟲程序已完成")
     
     @abstractmethod
     def get_scraper_name(self):
