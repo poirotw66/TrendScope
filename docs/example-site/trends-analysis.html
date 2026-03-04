@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>trends-analysis · NeoTrendHub</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-soft: #e0f2fe;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  --max-w: 720px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.offline-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.offline-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.offline-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.offline-nav a:hover { color: var(--accent); }
+.offline-nav .brand { color: var(--text); font-weight: 600; }
+.content {
+  flex: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+@media (min-width: 640px) {
+  .content { padding: 2rem 2.5rem 2.5rem; margin: 1rem auto 2rem; border-radius: var(--radius); }
+}
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--text);
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent-hover);
+}
+.page-home h3 {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+}
+.page-home h3:first-of-type { margin-top: 1rem; }
+h4, h5, h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--text); }
+p { margin: 0.5rem 0 1rem; color: var(--text); }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:visited { color: #7c3aed; }
+.content a[href^="http"]::after { content: " ↗"; font-size: 0.75em; opacity: .8; }
+code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+}
+pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.page-home hr { margin: 1.25rem 0; }
+strong { font-weight: 600; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; color: var(--text); }
+.offline-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body class="page-analysis">
+<nav class="offline-nav" aria-label="主要導覽">
+<div class="offline-nav-inner">
+  <a href="_index.html" class="brand">NeoTrendHub</a>
+  <a href="_index.html">首頁</a>
+  <a href="trends-analysis.html">趨勢分析</a>
+</div>
+</nav>
+<main class="content">
+<h2>趨勢總覽</h2>
+<p>本報告基於 30 場研討會的深度分析，識別出以下五大技術發展趨勢：</p>
+<h3>統計資料</h3>
+<ul>
+<li><strong>總會議數量</strong>: 30</li>
+<li><strong>成功分類會議</strong>: 30</li>
+<li><strong>分類成功率</strong>: 100.0%</li>
+<li><strong>分析時間</strong>: 2026年03月04日</li>
+</ul>
+<h2>五大技術趨勢</h2>
+<h3>1. AI Agent 技術的全面普及與智慧化演進</h3>
+<p><strong>重要性評分</strong>: 1.00 / 1.00<br />
+<strong>相關會議數量</strong>: 19 場</p>
+<p>AI Agent 技術正從輔助工具演進為能夠自主執行複雜任務的智能實體，廣泛應用於內容創作與分發（如播客生成）、智能物聯網（AIoT）場景創新、軟體研發效率提升（Coding Agent）、企業流程自動化，甚至推動程式設計範式從 Copilot 向 Agent 轉變。同時，對 Agent 之間互操作協議的標準化探索，預示著 Agent 互聯網的興起，使其具備自我進化、協同工作的能力，為各行各業帶來深遠的變革，成為AI應用落地的核心概念。</p>
+<p><strong>關鍵技術詞彙</strong>:
+<code>AI Agent</code>, <code>智能體</code>, <code>企業自動化</code>, <code>程式設計範式</code>, <code>Agent 協議</code>, <code>自我進化</code>, <code>協同作業</code>, <code>AIoT</code></p>
+<hr />
+<h3>2. 大型模型 (LLM) 的深度應用與效能優化</h3>
+<p><strong>重要性評分</strong>: 0.98 / 1.00<br />
+<strong>相關會議數量</strong>: 25 場</p>
+<p>大型語言模型（LLM）已成為當前 AI 發展的核心驅動力，其應用正從通用領域向特定場景深化。研討會內容顯示，LLM 廣泛應用於智能硬體（如詞典筆）的端側部署、知識庫問答體系革新（RAG）、企業級風險控制、數據治理及垂直產業應用。為確保這些應用的可行性與擴展性，大模型訓練的穩定性、推理效能優化（如萬卡規模訓練、高效開源服務框架 SGLang、數據湖查詢加速）以及數據調優的高效構建與進化方法，成為關鍵的技術挑戰與研究方向。</p>
+<p><strong>關鍵技術詞彙</strong>:
+<code>LLM</code>, <code>大模型</code>, <code>推理優化</code>, <code>訓練穩定性</code>, <code>RAG</code>, <code>端側部署</code>, <code>知識庫問答</code>, <code>數據調優</code>, <code>SGLang</code></p>
+<hr />
+<h3>3. AI 賦能軟體工程與人機協同創新</h3>
+<p><strong>重要性評分</strong>: 0.90 / 1.00<br />
+<strong>相關會議數量</strong>: 9 場</p>
+<p>在生成式人工智慧（GenAI）時代，人工智慧正深度介入軟體開發的各個環節，引領開發思維與實踐的根本性變革。Coding Agent 不僅能顯著提升研發效率，更能重塑傳統軟體架構與開發者分工協作模式。從 Copilot 到 Agent 的演進，使 AI 能作為「研發數字員工」深度參與程式設計、測試與流程改進，實現更高效、更智能的人機協同。這也對產品經理與程式設計師的協作提出了新的範式要求，共同探索以 AI 為核心的創新開發模式。</p>
+<p><strong>關鍵技術詞彙</strong>:
+<code>軟體研發</code>, <code>GenAI</code>, <code>Coding Agent</code>, <code>AI程式設計</code>, <code>人機協同</code>, <code>研發效率</code>, <code>開發思維</code>, <code>產品經理</code></p>
+<hr />
+<h3>4. AI-Native 數據基礎設施與智能決策平台</h3>
+<p><strong>重要性評分</strong>: 0.88 / 1.00<br />
+<strong>相關會議數量</strong>: 8 場</p>
+<p>隨著 AI 應用的爆發式成長，傳統的數據基礎設施面臨巨大挑戰，催生了以 AI 為中心的數據平台與治理體系。這一趨勢強調 Data+AI 的深度融合，從「讓數據說話」演進到「數據智能決策」，並通過創新服務模型（如 DlaaS）提供數據智能能力。其核心在於構建高效、穩定的數據湖與數據儲存方案，例如在 PB 級數據湖上實現 Parquet 查詢千倍性能提升，以加速 AI 推理與檢索生成。同時，面向大模型的數據治理與安全體系，確保數據在 AI 時代的合規與安全，也是不可或缺的一環。</p>
+<p><strong>關鍵技術詞彙</strong>:
+<code>AI-Native</code>, <code>數據基礎設施</code>, <code>數據治理</code>, <code>Data+AI</code>, <code>數智平台</code>, <code>DlaaS</code>, <code>數據湖</code>, <code>性能優化</code>, <code>安全治理</code></p>
+<hr />
+<h3>5. 邊緣智能與多模態 AI 的融合發展</h3>
+<p><strong>重要性評分</strong>: 0.85 / 1.00<br />
+<strong>相關會議數量</strong>: 12 場</p>
+<p>人工智慧正從雲端走向邊緣，與多模態能力深度融合，以滿足智能硬體、AR/VR 空間計算等場景的實時性、低延遲和個性化需求。端側多模態大模型（如 TinyDongni &amp; Deepseek）的創新實踐，展示了在資源受限的邊緣設備上部署複雜 AI 模型的可行性與優勢。結合 AI 與 AR 的空間計算技術，則開創了人機協同的新範式，讓 AI 能更好地理解物理世界並與之互動。這不僅提升了用戶體驗，也為智能硬件和沉浸式技術的發展提供了新的驅動力。</p>
+<p><strong>關鍵技術詞彙</strong>:
+<code>邊緣AI</code>, <code>端側AI</code>, <code>多模態</code>, <code>AR</code>, <code>空間計算</code>, <code>智能硬體</code>, <code>實時性</code>, <code>低延遲</code></p>
+<hr />
+<h2>趨勢間關聯性分析</h2>
+<p>基於會議內容的深度分析，我們識別出以下技術趨勢間的關聯模式：</p>
+<h3>關鍵洞察</h3>
+<ul>
+<li>最強技術關聯：大型模型 (LLM) 的深度應用與效能優化 與相關技術形成緊密的技術生態圈</li>
+<li>技術融合熱點：大型模型 (LLM) 的深度應用與效能優化 與 AI Agent 技術的全面普及與智慧化演進 在 16 場會議中同時出現</li>
+<li>技術相似性：AI Agent 技術的全面普及與智慧化演進 與 大型模型 (LLM) 的深度應用與效能優化 在技術內容上高度相似（相似度：0.60）</li>
+</ul>
+<h3>技術生態圈</h3>
+<p><strong>1. 大型模型 (LLM) 的深度應用與效能優化 生態圈</strong></p>
+<p>大型模型 (LLM) 的深度應用與效能優化 與 邊緣智能與多模態 AI 的融合發展, AI-Native 數據基礎設施與智能決策平台 等趨勢密切相關</p>
+<p>相關技術：
+- 邊緣智能與多模態 AI 的融合發展 (關聯強度: 0.43)
+- AI-Native 數據基礎設施與智能決策平台 (關聯強度: 0.33)
+- AI Agent 技術的全面普及與智慧化演進 (關聯強度: 0.60)</p>
+<h3>技術融合熱點</h3>
+<p>以下技術趨勢經常在同一場會議中被討論，顯示出強烈的技術融合趨勢：</p>
+<ul>
+<li><strong>大型模型 (LLM) 的深度應用與效能優化</strong> ↔ <strong>AI Agent 技術的全面普及與智慧化演進</strong> (共現 16 次)</li>
+<li><strong>AI Agent 技術的全面普及與智慧化演進</strong> ↔ <strong>大型模型 (LLM) 的深度應用與效能優化</strong> (共現 16 次)</li>
+<li><strong>大型模型 (LLM) 的深度應用與效能優化</strong> ↔ <strong>邊緣智能與多模態 AI 的融合發展</strong> (共現 10 次)</li>
+<li><strong>邊緣智能與多模態 AI 的融合發展</strong> ↔ <strong>大型模型 (LLM) 的深度應用與效能優化</strong> (共現 10 次)</li>
+<li><strong>AI Agent 技術的全面普及與智慧化演進</strong> ↔ <strong>AI 賦能軟體工程與人機協同創新</strong> (共現 8 次)</li>
+</ul>
+</main>
+<footer class="offline-footer">NeoTrendHub 技術趨勢報告 · 離線版</footer>
+</body>
+</html>

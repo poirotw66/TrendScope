@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>trend-ai-賦能軟體工程與人機協同創新 · NeoTrendHub</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-soft: #e0f2fe;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  --max-w: 720px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.offline-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.offline-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.offline-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.offline-nav a:hover { color: var(--accent); }
+.offline-nav .brand { color: var(--text); font-weight: 600; }
+.content {
+  flex: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+@media (min-width: 640px) {
+  .content { padding: 2rem 2.5rem 2.5rem; margin: 1rem auto 2rem; border-radius: var(--radius); }
+}
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--text);
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent-hover);
+}
+.page-home h3 {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+}
+.page-home h3:first-of-type { margin-top: 1rem; }
+h4, h5, h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--text); }
+p { margin: 0.5rem 0 1rem; color: var(--text); }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:visited { color: #7c3aed; }
+.content a[href^="http"]::after { content: " ↗"; font-size: 0.75em; opacity: .8; }
+code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+}
+pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.page-home hr { margin: 1.25rem 0; }
+strong { font-weight: 600; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; color: var(--text); }
+.offline-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body class="page-trend">
+<nav class="offline-nav" aria-label="主要導覽">
+<div class="offline-nav-inner">
+  <a href="_index.html" class="brand">NeoTrendHub</a>
+  <a href="_index.html">首頁</a>
+  <a href="../trends-analysis.html">趨勢分析</a>
+</div>
+</nav>
+<main class="content">
+<h2>趨勢描述</h2>
+<p>在生成式人工智慧（GenAI）時代，人工智慧正深度介入軟體開發的各個環節，引領開發思維與實踐的根本性變革。Coding Agent 不僅能顯著提升研發效率，更能重塑傳統軟體架構與開發者分工協作模式。從 Copilot 到 Agent 的演進，使 AI 能作為「研發數字員工」深度參與程式設計、測試與流程改進，實現更高效、更智能的人機協同。這也對產品經理與程式設計師的協作提出了新的範式要求，共同探索以 AI 為核心的創新開發模式。</p>
+<h3>重要性評估</h3>
+<ul>
+<li><strong>評分</strong>: 0.90 / 1.00</li>
+<li><strong>相關會議</strong>: 9 場</li>
+<li><strong>技術成熟度</strong>: 高</li>
+</ul>
+<h3>關鍵技術</h3>
+<p><code>軟體研發</code>, <code>GenAI</code>, <code>Coding Agent</code>, <code>AI程式設計</code>, <code>人機協同</code>, <code>研發效率</code>, <code>開發思維</code>, <code>產品經理</code></p>
+<h2>相關研討會</h2>
+<h3><a href="../sessions/session-20260304-coding-agent-驱动研发提效从.html">Coding Agent 驱动研发提效：从实践到流程改进</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>12d77a9f-8044-4808-8f3e-36f0323abd20</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-从copilot到agentai编程的范.html">从Copilot到Agent：AI编程的范式革新</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>5ca8220f-b3d6-4416-bd10-10455b9a7f03</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-大模型助力软件研发人机协同进化实践.html">大模型助力软件研发人机协同进化实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.99</li>
+<li><strong>會議ID</strong>: <code>8fb4068a-b6fd-4770-bd68-16728a488d93</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-当产品经理开始ai编程如何构建程序员与产.html">当产品经理开始AI编程，如何构建程序员与产品经理的协作新范式</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.95</li>
+<li><strong>會議ID</strong>: <code>e79727c0-345c-477f-bb50-6be345592cd7</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-cangjiemagic基于仓颉语言的a.html">CangjieMagic：基于仓颉语言的Agent开发框架实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>111579d4-80c4-4348-a24f-51c6d6a8559f</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-genai-应用时代开发思想如何变革.html">GenAI 应用时代，开发思想如何变革？</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>f58850fb-aae3-4aaf-9a8f-0bc758b933e7</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-人机协同新范式aiar-空间计算的落地路.html">人机协同新范式：AI+AR 空间计算的落地路径</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.85</li>
+<li><strong>會議ID</strong>: <code>dfa27999-d216-4a76-b9e3-17ddc1ecfd2f</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-开场致辞.html">开场致辞</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.75</li>
+<li><strong>會議ID</strong>: <code>162e4b8a-c2f6-406a-9ba8-092b236733cb</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-构建面向大模型的安全治理体系和应用实践.html">构建面向大模型的安全治理体系和应用实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.75</li>
+<li><strong>會議ID</strong>: <code>0e587e62-7100-435d-b47c-06c9eb167f9f</code></li>
+</ul>
+<hr />
+</main>
+<footer class="offline-footer">NeoTrendHub 技術趨勢報告 · 離線版</footer>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>session-20260304-qanything大模型驱动下的知识库问 · NeoTrendHub</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-soft: #e0f2fe;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  --max-w: 720px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.offline-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.offline-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.offline-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.offline-nav a:hover { color: var(--accent); }
+.offline-nav .brand { color: var(--text); font-weight: 600; }
+.content {
+  flex: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+@media (min-width: 640px) {
+  .content { padding: 2rem 2.5rem 2.5rem; margin: 1rem auto 2rem; border-radius: var(--radius); }
+}
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--text);
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent-hover);
+}
+.page-home h3 {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+}
+.page-home h3:first-of-type { margin-top: 1rem; }
+h4, h5, h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--text); }
+p { margin: 0.5rem 0 1rem; color: var(--text); }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:visited { color: #7c3aed; }
+.content a[href^="http"]::after { content: " ↗"; font-size: 0.75em; opacity: .8; }
+code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+}
+pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.page-home hr { margin: 1.25rem 0; }
+strong { font-weight: 600; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; color: var(--text); }
+.offline-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body class="page-trend">
+<nav class="offline-nav" aria-label="主要導覽">
+<div class="offline-nav-inner">
+  <a href="_index.html" class="brand">NeoTrendHub</a>
+  <a href="_index.html">首頁</a>
+  <a href="../trends-analysis.html">趨勢分析</a>
+</div>
+</nav>
+<main class="content">
+<h2>🏷️ 技術趨勢分類</h2>
+<ul>
+<li><a href="../trends/trend-大型模型-llm-的深度應用與效能優化.html">大型模型 (LLM) 的深度應用與效能優化</a> (相關度: 1.00)</li>
+<li><a href="../trends/trend-邊緣智能與多模態-ai-的融合發展.html">邊緣智能與多模態 AI 的融合發展</a> (相關度: 0.75)</li>
+</ul>
+<h2>報告內容</h2>
+<h2>QAnything：大模型驅動下的知識庫問答體系革新與實踐——綜合分析報告</h2>
+<h3>引言</h3>
+<p>本報告根據騰訊與網易有道合作專案 QAnything 在 2025 年 6 月 AICon Beijing 研討會上的主題演講內容，進行全面、深入的分析。QAnything 作為一個由大模型驅動的知識庫問答系統，強調自研 RAG 引擎、支持全離線私有化輕鬆部署，並已在 qanything.ai 官網及 GitHub 開源社群中引起廣泛關注。本次演講由網易有道 QAnything 首席架構師馮江濤主講，旨在展示其在智能問答領域的技術革新與實踐經驗。</p>
+<p>本報告將從會議概述、技術要點、商業價值、創新亮點及趨勢洞察五個方面，為技術專家、商業決策者及對人工智能發展感興趣的各類讀者，提供一份全面而專業的分析。</p>
+<hr />
+<h3>1. 會議概述與核心內容</h3>
+<p>本次主題演講以「QAnything: 大模型驅動下的知識庫問答體系革新與實踐」為核心，圍繞 QAnything 的演化史、系統架構、開源策略以及與 OpenCloudOS 的合作展開。整場演講旨在將 QAnything 定位為解決企業和個人信息過載問題的「錘子」，強調其在處理大規模知識庫問答方面的卓越能力。</p>
+<p><strong>核心內容概覽：</strong></p>
+<ul>
+<li><strong>演化歷程：</strong> QAnything 的發展並非一蹴而就，而是基於網易有道多年來在 OCR（光學字符識別）、NMT（神經機器翻譯）等底層技術上的深厚積累。從最初的圖片/文檔翻譯，逐步演進至文檔問答（結合 BM25 和「子曰大模型」）、有道速讀、K12 教育 AI 助手「小P老師」，最終形成了通用的 QAnything 知識庫問答平台。這一歷程展示了技術如何從特定應用場景向通用平台擴展。</li>
+<li><strong>系統架構：</strong> QAnything 採用了先進的 RAG（Retrieval-Augmented Generation）架構，並著重強調了兩階段檢索機制，特別是 Rerank（重排序）環節的關鍵作用。其自研的 BCEmbedding 模型和 BCE-reranker 在多領域、多語種評測中表現優異。</li>
+<li><strong>開源策略：</strong> QAnything 自 2024 年 1 月開源以來，憑藉其強大功能和持續更新，在 GitHub 上迅速獲得 12.1k Star，並多次登上 Trending 榜單，展現了其在開源社群中的影響力。</li>
+<li><strong>私有化部署與生態合作：</strong> 為了滿足企業級客戶對數據安全、穩定性及高效部署的需求，QAnything 與騰訊發起的開源操作系統 OpenCloudOS 深度合作，共同打造了一鍵部署、全離線的私有化解決方案，為國產化生態貢獻力量。</li>
+</ul>
+<p>整場演講邏輯清晰，從歷史積澱到技術細節，再到產品應用和未來方向，為聽眾呈現了 QAnything 專案的全面圖景。</p>
+<h3>2. 技術要點與實現細節</h3>
+<p>QAnything 的技術核心在於其精妙設計的 RAG 架構及多項自研技術。</p>
+<ul>
+<li>
+<p><strong>RAG 雙階段檢索架構：</strong></p>
+<ul>
+<li><strong>文檔處理階段：</strong> 支持多種文件格式（PDF, Word, PPT, TXT, Markdown, 網頁連結）上傳。通過 <code>Parser &amp; Splitter</code>（包含 OCR 能力）進行非結構化內容解析、文本切片，隨後利用 <code>Vectorization</code>（Embedding 模型）將文本切片轉換為高維向量，存儲在 <code>Milvus</code> 等向量數據庫中。<code>MySQL</code> 則負責知識庫及文件狀態的管理。</li>
+<li><strong>問答流程階段：</strong><ol>
+<li><strong>Query 理解 (LLM)：</strong> 用戶問題首先由大型語言模型進行語義理解。</li>
+<li><strong>1st Retrieval (Embedding)：</strong> 基於查詢的 Embedding 向量，從向量數據庫中快速檢索出初步相關的文本片段 (chunks)。</li>
+<li><strong>2nd Retrieval (Rerank)：</strong> 這是 QAnything 的核心優勢所在。初步檢索的片段會經過 <code>Rerank</code> 模型進行重排序。簡報通過詳盡的實驗和實例證明，僅靠 Embedding 檢索的「相似」並不等同於實際的「相關」，尤其在數據量龐大時容易出現檢索退化。<code>Cross-Encoder</code> 型的 Rerank 模型能夠更精準地判斷查詢與片段間的真實相關性，從而將最相關的內容推至前列。</li>
+<li><strong>Answer Generation (LLM)：</strong> 最終，經過 Rerank 精選出的高相關性文本片段，連同用戶原始查詢，一同傳遞給 <code>Reader</code> (LLM) 生成最終答案。</li>
+</ol>
+</li>
+<li><strong>「擴展窗口」機制：</strong> 為 LLM 提供更豐富的上下文，當 Embedding Lookup 找到相關句子後，會將這些句子擴展到一個更大的文本窗口，確保 LLM 能夠獲得足夠的上下文來生成準確的答案。</li>
+</ul>
+</li>
+<li>
+<p><strong>自研 BCEmbedding 與 BCE-reranker 模型：</strong></p>
+<ul>
+<li>QAnything 在 Embedding 和 Rerank 環節採用了自研的 BCEmbedding 模型和 BCE-reranker 模型。簡報中展示了詳細的 Llamaindex 評測數據，證明這套組合在 <code>hit_rate/mrr</code> 等關鍵指標上顯著優於 OpenAI-ada-2、bge 系列等其他主流開源及閉源模型，尤其在多語種、跨語種及多領域場景下表現卓越（如達到 93.46/77.02 的檢索效果）。</li>
+<li>BCEmbedding 模型的開源（https://github.com/netease-youdao/BCEmbedding）也體現了其技術自信和社區貢獻。</li>
+</ul>
+</li>
+<li>
+<p><strong>多模態文檔理解：</strong></p>
+<ul>
+<li>QAnything 不僅限於文本，還具備處理 PDF, DOCX, PPTX 等文件中的圖片內容的能力。它能對三類圖片進行深度理解：<ul>
+<li><strong>自然圖片：</strong> 提供自然語言描述。</li>
+<li><strong>數據類圖片（圖表）：</strong> 提取圖元信息（如 X 軸、Y 軸、圖例）、分析數據變化趨勢，甚至支持 CSV 格式數據提取。</li>
+<li><strong>流程類圖片：</strong> 提供自然語言描述、全流程名稱，並能轉化為 Mermaid 流程圖語言，極大豐富了知識獲取維度。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>複雜邏輯解析：</strong></p>
+<ul>
+<li>為應對複雜查詢，QAnything 打破傳統「單步檢索」模式，引入「問題分層拆解 + 多輪推理」機制。系統能夠將一個複雜問題自動分解為多個子問題，逐步進行檢索與推理，最終綜合生成詳細答案，提升了對複雜業務場景的適應性。</li>
+</ul>
+</li>
+<li>
+<p><strong>部署與性能優化：</strong></p>
+<ul>
+<li>支持全離線私有化部署，兼容本地 LLM (vllm) 和本地 Embedding + Rerank + 解析，實現完全斷網使用。</li>
+<li>利用 Docker 與 Docker Compose 實現「一鍵部署」，極大簡化了部署流程，降低了技術門檻。</li>
+<li>從 FAISS 到 Milvus 再到 Zilliz 的向量數據庫演進，顯示了對性能和用戶管理能力的持續追求。</li>
+</ul>
+</li>
+</ul>
+<h3>3. 商業價值與應用場景</h3>
+<p>QAnything 的核心價值在於提升企業和個人處理海量、複雜信息的效率與質量，尤其在以下幾個方面和應用場景中展現出顯著的商業潛力：</p>
+<ul>
+<li>
+<p><strong>企業知識庫管理與智能問答：</strong></p>
+<ul>
+<li><strong>效率提升：</strong> 員工可以通過自然語言快速查詢公司規章制度、產品手冊、技術文檔、財報數據等，替代傳統的繁瑣搜索，顯著提高工作效率（例如「2分鐘看懂1萬字的純英文財報」）。</li>
+<li><strong>準確性保障：</strong> RAG 架構結合 Rerank 確保回答基於企業內部資料，減少「幻覺」，提供可溯源的精準信息。</li>
+<li><strong>降低成本：</strong> 自動化問答可減少人工客服或內部支持人員的工作量，降低運營成本。</li>
+<li><strong>應用場景：</strong> 大型企業的內部知識庫、客戶服務、IT 支持、人力資源問答、法律合規查詢等。</li>
+</ul>
+</li>
+<li>
+<p><strong>多模態信息處理與決策支持：</strong></p>
+<ul>
+<li><strong>數據分析：</strong> 能夠從報告中的圖表（如財報、市場分析報告）中提取數據、分析趨勢、甚至轉換為 CSV 格式，為管理層提供更快速、準確的數據洞察，輔助商業決策。</li>
+<li><strong>文檔理解：</strong> 對於包含大量圖片、圖表和流程圖的複雜文檔，QAnything 的多模態理解能力使其能夠全面解析內容，而非僅限於文本，這對於製造業、工程、醫療等行業的專業文檔處理尤為重要。</li>
+<li><strong>應用場景：</strong> 市場研究、戰略規劃、工程設計、醫療影像報告分析（初步信息提取）等。</li>
+</ul>
+</li>
+<li>
+<p><strong>教育與培訓：</strong></p>
+<ul>
+<li><strong>智能學習助手：</strong> 結合其在「有道速讀」和「小P老師」階段的經驗，QAnything 能夠為學生提供多模態（文本、圖像、語音）的 AI 解答、知識點講解、舉一反三和引導式教學，覆蓋 K12 全學段全學科。</li>
+<li><strong>企業內訓：</strong> 快速搭建企業內部培訓知識庫，員工可隨時提問學習，提升培訓效率和效果。</li>
+</ul>
+</li>
+<li>
+<p><strong>私有化部署與數據安全：</strong></p>
+<ul>
+<li><strong>滿足合規需求：</strong> 對於金融、政府、國防等數據敏感行業，QAnything 支持全離線私有化部署，確保數據不出企業內網，嚴格遵守數據隱私和安全法規。</li>
+<li><strong>自定義與集成：</strong> 企業可根據自身需求定製化模型、接入現有系統，實現無縫集成。</li>
+<li><strong>應用場景：</strong> 任何對數據主權和安全有嚴格要求的組織。</li>
+</ul>
+</li>
+<li>
+<p><strong>開源生態帶來的普及與創新：</strong></p>
+<ul>
+<li>開源降低了中小企業和開發者使用大模型技術的門檻，加速了技術的普及和創新應用。通過社區協作，能夠快速迭代和完善產品功能，為更多垂直行業提供解決方案。</li>
+</ul>
+</li>
+</ul>
+<h3>4. 創新亮點與技術突破</h3>
+<p>QAnything 結合其深厚積累和前沿技術，展現了多項創新亮點和技術突破：</p>
+<ul>
+<li>
+<p><strong>Rerank 機制對 RAG 系統的本質性改進：</strong></p>
+<ul>
+<li>這是 QAnything 最具代表性的技術突破。它深刻洞察到「語義檢索：相似≠相關」這一 RAG 系統的固有挑戰。通過引入 <code>Cross-Encoder</code> 型的 Rerank 模型進行二階段精排，有效解決了在大規模知識庫中「數據越多，效果越差」的檢索退化問題。這不僅提升了問答的準確性，也極大地拓展了 RAG 系統在企業級應用中的可行性與穩定性。</li>
+</ul>
+</li>
+<li>
+<p><strong>自研 BCEmbedding 模型群的卓越性能：</strong></p>
+<ul>
+<li>BCEmbedding 不僅在 Llamaindex 和開源評測中展示出超越業界主流模型的性能，尤其是在多語種、跨語種的複雜語境下，其優越性更加突出。這意味著 QAnything 在處理全球化企業知識庫時，具有更強大的兼容性和精準度，減少了對第三方商用 Embedding 服務的依賴，實現技術自主可控。</li>
+</ul>
+</li>
+<li>
+<p><strong>突破性的多模態文檔理解能力：</strong></p>
+<ul>
+<li>傳統知識庫問答主要聚焦文本，而 QAnything 將能力擴展到對圖像、圖表、流程圖的深度解析。能夠自動提取圖表數據、分析趨勢，並將流程圖轉換為結構化的 Mermaid 語言，這極大地豐富了知識獲取的來源，使系統能夠理解和回應更為複雜和視覺化的信息，是通向真正「智能文檔助手」的重要一步。</li>
+</ul>
+</li>
+<li>
+<p><strong>複雜問題的「分層拆解+多輪推理」：</strong></p>
+<ul>
+<li>打破了單純的「檢索-生成」模式，通過將用戶的複雜查詢拆解為子問題，並結合多輪交互與推理，QAnything 能夠處理更深層次、邏輯性更強的問題，提供更為結構化和全面的答案，這對於需要深度分析和歸納的商業智能場景至關重要。</li>
+</ul>
+</li>
+<li>
+<p><strong>全離線私有化部署的工程化實踐：</strong></p>
+<ul>
+<li>在保證高性能的同時，實現了 QAnything 的全離線、本地化部署，並通過 Docker/Docker Compose 提供「一鍵部署」能力。這不僅解決了企業級客戶對數據安全、隱私和網絡環境的嚴格要求，也展現了 QAnything 團隊在工程化和易用性方面的卓越能力。</li>
+</ul>
+</li>
+<li>
+<p><strong>積極擁抱開源，加速技術普惠：</strong></p>
+<ul>
+<li>QAnything 與 BCEmbedding 的開源策略本身就是一大亮點。在短短一年內獲得 12.1k GitHub Star 並持續迭代，證明了其技術實力和社區吸引力，也為整個 AI 社區提供了高質量的 RAG 解決方案，加速了 LLM 技術在各行各業的落地。</li>
+</ul>
+</li>
+</ul>
+<h3>5. 趨勢洞察與未來展望</h3>
+<p>QAnything 的發展路徑和技術選擇，深刻契合了當前人工智能領域的關鍵趨勢，並為未來發展提供了豐富的啟示：</p>
+<ul>
+<li>
+<p><strong>RAG 將成為大模型應用的核心範式：</strong></p>
+<ul>
+<li>大型語言模型雖然強大，但存在知識截止日期、幻覺、難以獲取最新和企業內部專有信息等局限性。QAnything 再次證明，RAG 作為結合檢索和生成的架構，是解決這些問題的黃金標準。其對 Rerank 機制的深度優化，預示著未來 RAG 系統將更加注重檢索精準度，而非僅僅擴展數據量。如何在大規模異構數據中實現高效、精準、低延遲的檢索，將是 RAG 發展的長期課題。</li>
+</ul>
+</li>
+<li>
+<p><strong>多模態智能是 AI 的下一座高峰：</strong></p>
+<ul>
+<li>現實世界的信息是多模態的，單純的文本處理已無法滿足需求。QAnything 在圖像、圖表、流程圖理解方面的突破，表明了通用 AI 助手向多模態方向發展的必然趨勢。未來的知識庫問答系統將不僅能讀懂文字，還能看懂圖片、聽懂語音、甚至理解視頻，實現對多源異構知識的全面感知和推理。</li>
+</ul>
+</li>
+<li>
+<p><strong>企業級 AI 服務的私有化與國產化需求日益增長：</strong></p>
+<ul>
+<li>隨著數據安全與合規性要求的提高，以及地緣政治因素的影響，企業對於 AI 解決方案的私有化部署和國產化替代需求將持續增長。QAnything 與 OpenCloudOS 的深度合作，正是響應這一趨勢的典範。未來，具備穩定性、安全性、易用性且支持全棧國產化的 AI 基礎設施和應用將更受青睞。</li>
+</ul>
+</li>
+<li>
+<p><strong>開源生態加速 AI 創新與普惠：</strong></p>
+<ul>
+<li>QAnything 及其核心組件 BCEmbedding 的開源，體現了 AI 時代開放協作的重要性。開源不僅能快速匯聚社區智慧，加速技術迭代，降低企業和開發者的進入門檻，還有助於建立行業標準，推動整個 AI 生態的繁榮。未來，更多核心 AI 技術組件將以開源形式呈現，形成強大的協同效應。</li>
+</ul>
+</li>
+<li>
+<p><strong>從通用大模型到領域專精的應用落地：</strong></p>
+<ul>
+<li>QAnything 的演化歷程（從翻譯到教育，再到通用知識庫）反映了 AI 技術從通用模型向特定領域和行業應用深化的趨勢。未來的大模型應用將更加註重與具體業務場景的深度結合，通過精準的領域知識庫、定制化的模型微調和優化的交互體驗，為垂直行業創造更大的價值。</li>
+</ul>
+</li>
+<li>
+<p><strong>智能化、自動化的部署與運維：</strong></p>
+<ul>
+<li>隨著 AI 系統複雜度的增加，簡化部署和運維將成為關鍵。QAnything 的「一鍵部署」能力是很好的開端。未來，將會有更多自動化工具、智能監控系統和 AIOps 解決方案融入 AI 應用部署，降低企業管理成本，提高系統穩定性。</li>
+</ul>
+</li>
+</ul>
+<h3>總結</h3>
+<p>QAnything 專案不僅展示了網易有道與騰訊在人工智能領域的深厚技術實力，更為知識庫問答系統的未來發展指明了方向。其在 RAG 架構中的 Rerank 創新、卓越的自研 Embedding 模型、多模態理解能力以及對私有化部署的堅定投入，都使其在競爭激烈的 AI 市場中獨樹一幟。</p>
+<p>從技術層面，QAnything 解決了 RAG 系統在大規模數據下的核心挑戰，並在多模態理解上實現了突破；從商業層面，它提供了高效、安全、可定制的企業級知識管理和智能問答解決方案，廣泛適用於各行各業；從趨勢層面，QAnything 緊跟 RAG 範式、多模態 AI、私有化部署和開源協作等主流趨勢，展現出強勁的生命力和廣闊的發展前景。</p>
+<p>可以預見，QAnything 將繼續引領知識庫問答領域的創新，為企業和個人帶來更智能、更高效的信息獲取與決策支持體驗。</p>
+<hr />
+<div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 2em;">
+<em>本報告由 NeoTrendHub 自動生成 | 生成時間：2026-03-04 15:51:53</em>
+</div>
+</main>
+<footer class="offline-footer">NeoTrendHub 技術趨勢報告 · 離線版</footer>
+</body>
+</html>

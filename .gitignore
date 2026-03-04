@@ -47,3 +47,5 @@ reports/
 test_output/
 *.augment/
 .augment/rules/rule-srp.md
+# Allow example-site HTML to be committed
+!docs/example-site/**/*.html

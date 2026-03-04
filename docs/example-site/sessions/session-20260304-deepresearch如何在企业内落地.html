@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>session-20260304-deepresearch如何在企业内落地 · NeoTrendHub</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-soft: #e0f2fe;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  --max-w: 720px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.offline-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.offline-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.offline-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.offline-nav a:hover { color: var(--accent); }
+.offline-nav .brand { color: var(--text); font-weight: 600; }
+.content {
+  flex: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+@media (min-width: 640px) {
+  .content { padding: 2rem 2.5rem 2.5rem; margin: 1rem auto 2rem; border-radius: var(--radius); }
+}
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--text);
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent-hover);
+}
+.page-home h3 {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+}
+.page-home h3:first-of-type { margin-top: 1rem; }
+h4, h5, h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--text); }
+p { margin: 0.5rem 0 1rem; color: var(--text); }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:visited { color: #7c3aed; }
+.content a[href^="http"]::after { content: " ↗"; font-size: 0.75em; opacity: .8; }
+code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+}
+pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.page-home hr { margin: 1.25rem 0; }
+strong { font-weight: 600; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; color: var(--text); }
+.offline-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body class="page-trend">
+<nav class="offline-nav" aria-label="主要導覽">
+<div class="offline-nav-inner">
+  <a href="_index.html" class="brand">NeoTrendHub</a>
+  <a href="_index.html">首頁</a>
+  <a href="../trends-analysis.html">趨勢分析</a>
+</div>
+</nav>
+<main class="content">
+<h2>🏷️ 技術趨勢分類</h2>
+<ul>
+<li><a href="../trends/trend-大型模型-llm-的深度應用與效能優化.html">大型模型 (LLM) 的深度應用與效能優化</a> (相關度: 1.00)</li>
+<li><a href="../trends/trend-ai-agent-技術的全面普及與智慧化演進.html">AI Agent 技術的全面普及與智慧化演進</a> (相關度: 0.90)</li>
+<li><a href="../trends/trend-邊緣智能與多模態-ai-的融合發展.html">邊緣智能與多模態 AI 的融合發展</a> (相關度: 0.70)</li>
+</ul>
+<h2>報告內容</h2>
+<h2>DeepResearch 在企業內落地：綜合分析報告</h2>
+<h3>報告標題：DeepResearch 如何在企業內落地</h3>
+<h3>研討會：202506 AICon Beijing</h3>
+<h3>演講人：覃睿 (BISHENG / 聯合創始人)</h3>
+<hr />
+<h3>1. 會議概述和核心內容</h3>
+<p>本次 AiCon Beijing 主題演講深入探討了大型模型 (LLM) 在企業應用落地中面臨的普遍挑戰，並提出 <strong>DeepResearch</strong> 作為破局的「新變量」，以及畢昇靈思 (BISHENG·Linsight) 所提供的具體解決方案。演講開宗明義地指出，儘管大模型展現出巨大潛力，但在企業環境中，從概念驗證到實際價值創造的道路卻充滿坎坷，常出現「上線 Demo 一週，優化效果半年」的困境。</p>
+<p>核心內容聚焦於 DeepResearch 這一新型智能體能力，它旨在透過多步驟、跨領域的自主研究，連接技術與業務，顯著降低大模型應用的開發門檻和實施成本。畢昇靈思的解法，則圍繞著建立標準操作流程 (SOP) 體系、融入人機協作 (HITL)、強化上下文管理、擴展實用工具生態，並通過不斷的反饋迭代機制，解決企業級應用在複雜性、精確性、可控性及成本等方面的痛點，最終推動企業實現 AI 的規模化賦能。整個演講傳達了「理性樂觀，做好持久戰準備」的務實態度。</p>
+<h3>2. 技術要點和實現細節</h3>
+<h4>2.1 DeepResearch 技術概念與運作機制</h4>
+<ul>
+<li><strong>核心定義：</strong> DeepResearch 被定義為一種能夠針對複雜任務在互聯網上進行多步驟研究的新智能能力。它超越了單純的知識問答或簡單指令執行，強調 AI 智能體自主規劃、執行、反思和迭代的能力。</li>
+<li><strong>Agentic Capability (智能體能力)：</strong> 這是 DeepResearch 的基礎。它涉及將複雜任務拆解為多個子任務，由 AI 智能體（Agent）自主判斷執行路徑、調用工具、獲取信息、分析結果，並根據反饋調整策略，直至達成最終目標。</li>
+<li><strong>多智能體結構：</strong> 簡報中對多個開源類 DeepResearch 項目（如 OpenManus, Deerflow, AutoGPT, Xagent）的比較顯示，這類系統普遍採用任務拆解、多 Agent 協同、上下文管理和基於 LLM+工具執行的模式。每個 Agent 可能負責不同的職責（如規劃者、執行者、報告者），通過溝通協議協同工作。</li>
+<li><strong>工具調用 (Tool Calling)：</strong> 大模型通過調用外部工具（如瀏覽器、文件系統、數據分析工具、業務系統接口）來擴展其感知和行動能力，彌補其知識庫的實時性與操作的局限性。演講特別強調了 MCP (Multi-Agent Communication Protocol) 在未來工具生態中的重要性。</li>
+<li><strong>上下文管理：</strong> 處理企業級複雜任務（如幾十萬字的報告撰寫）對模型的上下文長度提出極高要求。DeepResearch 不僅要求模型能處理長上下文，更需要一套精妙的上下文管理機制，以確保在多步驟執行中信息的連貫性、避免遺忘和混淆，並支持獨立任務的並行處理。</li>
+</ul>
+<h4>2.2 BISHENG·Linsight 的技術實踐</h4>
+<p>畢昇靈思 (BISHENG·Linsight) 在上述通用技術基礎上，提出了多項針對企業級應用的創新：</p>
+<ul>
+<li><strong>SOP 體系作為核心中介：</strong> Linsight 將標準操作流程 (SOP) 視為解決任務複雜性、保證精確性的關鍵。SOP 不僅承載了領域知識和用戶偏好，更成為 AI Agent 執行任務的「指導手冊」，並負責收集反饋、積累經驗，形成一個自我優化閉環。這暗示 Linsight 更傾向於通過優化 SOP 而非直接對模型進行大規模領域微調，以實現通用模型在特定業務場景的高效應用。</li>
+<li><strong>人機協作 (Human-in-the-Loop, HITL)：</strong> Linsight 深刻理解企業對精確性和可控性的高要求，將 HITL 納入其核心設計。在關鍵環節，AI Agent 可以主動請求人類用戶的介入、確認或指導，例如在任務拆解、信息篩選或結果審核時。這不僅提升了結果的可靠性，也使業務人員能深度參與到 AI 應用的構建和優化中。</li>
+<li><strong>任務管理框架與並行處理：</strong> 針對上下文長度和執行鏈路過長的問題，Linsight 設計了高效的任務管理框架，支持將複雜任務拆解為獨立的子任務並行處理。這不僅提升了執行效率，也減少了單一模型處理超長指令鏈路時可能出現的指令遵循能力下滑問題。</li>
+<li><strong>企業級工具與 MCP 生態：</strong> Linsight 致力於提供實用的企業級工具，例如將 Markdown 生成內容轉換為 Office 文件、圖表繪製、用戶文檔與知識庫文檔的搜索與分析等。同時，積極建立企業內部的 MCP 生態，促進多智能體之間以及智能體與企業系統之間的無縫協同。</li>
+<li><strong>自動化基準測試構建：</strong> 針對企業級任務缺乏標準答案、難以評測的挑戰，Linsight 提出構建類似「新 ImageNet」的基準測試。這需要業務專家深度參與，依賴實際業務沉澱，並通過多維度評價標準（如完整性、準確性、一致性、長度等）讓大型模型進行自動化打分，推動持續改進。</li>
+</ul>
+<h3>3. 商業價值和應用場景</h3>
+<h4>3.1 解決企業大模型落地的核心困境</h4>
+<p>演講明確指出企業大模型落地的四大主要原因，而 DeepResearch 正是針對這些痛點提供了商業價值：</p>
+<ul>
+<li><strong>認知與方法論 (80%)：</strong> 企業往往對大模型抱有不切實際的期望，缺乏有效的迭代演化方法論。DeepResearch 透過其Agentic能力和BISHENG·Linsight的SOP體系，提供了一種更為務實且可控的開發與優化框架，將業務知識轉化為可執行SOP，降低了方法論的門檻。</li>
+<li><strong>優質人才 (50%)：</strong> 大模型項目高度依賴兼具模型能力與業務認知的複合型人才。DeepResearch 的「自然語言本身就是編程語言」理念和「技術平權」願景，旨在讓更多業務人員無需深厚技術背景即可參與到 AI 應用的構建中，緩解人才稀缺問題。</li>
+<li><strong>企業級可控 (10%)：</strong> 企業對可靠性、安全性、成本控制要求嚴格。BISHENG·Linsight 透過 HITL、企業級特性以及清晰的SOP管理，提升了AI應用的可控性與可信賴度。</li>
+<li><strong>場景爆發與全員參與 (1%)：</strong> DeepResearch 的最大優勢在於處理零散、泛在的長尾場景，其目標是提升所有員工的效率並激發全員自發使用。它將大模型從少數高精尖的項目轉化為普惠的生產力工具。</li>
+</ul>
+<h4>3.2 廣泛的應用場景與商業效益</h4>
+<p>簡報中列舉了大量「低垂果實」和更複雜的應用場景，展現了 DeepResearch 的巨大商業潛力：</p>
+<ul>
+<li><strong>通用場景：</strong> 智能問答（知識庫、客服）、內容審核（合同、文件）、報告生成（日報、盡調報告）、知識管理（摘要、標籤、要素提取）、數據分析（查詢、可視化）、文件生成、會議管理、風險預警等。這些應用能顯著降低人力成本、提升工作效率、確保內容一致性和準確性。</li>
+<li><strong>泛金融行業：</strong> 信貸盡調與審批、政策文件對比、投研報告撰寫、貸後管理、反洗錢評級、產品培訓材料生成等。DeepResearch 可加速複雜的金融流程，提高合規性，支持精準決策。</li>
+<li><strong>其他行業：</strong> 航空/機場客服、物業運營、街道社區管理、大宗貿易商情分析、電信客服自動化、政務報告、軍工報告、大健康信息處理、能源合同審核、教育教案生成、公安案卷輔助、建築工程報告、芯片企業客戶支持等。這些場景通常涉及大量非結構化數據處理、跨部門協作和複雜決策，DeepResearch 能在這些領域提供強大的自動化和智能輔助。</li>
+</ul>
+<p>通過 Linsight 在「投標文件撰寫」、「招股書閱讀報告」和「合同審核」等案例中的實踐，我們看到 DeepResearch 能夠從零散的輸入中提取關鍵信息，執行複雜的邏輯推理，並生成結構化、內容豐富的輸出。儘管尚需人工微調，但已極大地提升了初始生成效率和內容完整性，為企業節約了大量人工時間和成本。其核心商業價值在於 <strong>降低構建門檻、提高效率、賦能業務用戶，並解決傳統 IT 難以覆蓋的長尾、輕分析需求。</strong></p>
+<h3>4. 創新亮點和技術突破</h3>
+<h4>4.1 從 Workflow 到 DeepResearch 的範式轉變</h4>
+<p>這是本次演講最核心的創新點之一。傳統工作流 (Workflow) 依賴預設的固定流程和邏輯分支，適用於標準化程度高的任務。而 DeepResearch 代表了從「固定流程」到「動態智能體」的範式轉變。它賦予 AI 系統自主規劃、動態調整策略、基於環境反饋進行多步驟決策的能力，極大地提升了自動化處理複雜、非標準化任務的靈活性和應變性。這標誌著「輕應用」時代的到來，讓應用構建更加敏捷和以自然語言為中心。</p>
+<h4>4.2 SOP 體系與人機協作 (HITL) 的創新融合</h4>
+<p>Linsight 提出的 SOP 體系，是將企業沉澱的領域知識、業務邏輯和用戶偏好，以標準化操作流程的形式，內化為 AI Agent 的行為準則。這不僅解決了領域知識的傳承問題，更為 AI 的執行提供了清晰的指導。結合 HITL，SOP 不再是靜態的，而是在人機協作的反饋閉環中動態優化和演進。這種結合創新性地平衡了 AI 的自主性與企業對精確性、可控性的需求，是實現企業級 DeepResearch 實用性的關鍵突破。</p>
+<h4>4.3 多智能體協同與 MCP 協議</h4>
+<p>DeepResearch 的本質是協同智能。多 Agent 結構將複雜任務拆解給多個專業 Agent 處理，並通過 MCP 協議實現高效溝通和任務協調。這種架構使得系統能夠處理更複雜、多維度的企業任務，並允許各 Agent 專精於特定工具或知識領域，提升整體效率和質量。這預示著未來企業 AI 系統將是一個由多個智能體組成的生態系統。</p>
+<h4>4.4 針對性基準測試的構建理念</h4>
+<p>在「投标文件撰寫」等無標準答案、多維度評估的複雜企業場景中，傳統基準測試已無法勝任。Linsight 提出的「新 ImageNet」概念，旨在建立針對企業實際應用場景的自動化評測體系。通過引入業務專家沉澱數據實例，並利用大型模型進行多維度自動化打分，這是一種在主觀性和複雜性高的領域實現客觀評測的創新方法，對於加速 DeepResearch 在企業場景的迭代和優化具有里程碑意義。</p>
+<h4>4.5 技術「平權」與業務賦能</h4>
+<p>DeepResearch 的核心創新在於其能夠顯著降低應用構建門檻，使自然語言成為新的應用構建形式。這是一種「技術平權」，讓業務人員能夠更直接、更廣泛地參與到 AI 應用的開發與優化中。這種賦能不僅能提升個體效率，更能激發業務端自下而上的創新，加速企業的全面數字化和智能化轉型。</p>
+<h3>5. 趨勢洞察和未來展望</h3>
+<h4>5.1 技術趨勢洞察</h4>
+<ol>
+<li><strong>Agentic AI 將成為主流：</strong> 從單一Prompt到多步驟、自主規劃的Agentic AI，是未來AI發展的確定性趨勢。Agent將從「執行者」轉變為「協作者」，深度參與人類工作流程。</li>
+<li><strong>多模態與更長上下文的融合：</strong> 模型推理能力的提升、多模態處理（如分析瀏覽器界面）和上下文長度的顯著增加，是 DeepResearch 復興的技術基石。未來模型將具備更強大的跨模態理解和處理超長、複雜信息的能力。</li>
+<li><strong>工具生態的繁榮與標準化：</strong> 隨著 MCP 等通信協議的發展，AI 工具生態將更加百花齊放，並趨於標準化和模塊化。企業內部系統的 API 將成為 AI Agent 的重要工具，實現 AI 與現有業務系統的深度集成。</li>
+<li><strong>人機協作 (HITL) 的常態化：</strong> 為了確保企業級應用的精確性、可控性和合規性，HITL 將從權宜之計轉變為 AI 系統設計的內置環節。人與 AI 的界限將逐漸模糊，形成更緊密的共創關係。</li>
+<li><strong>領域專用模型與通用智能的協同：</strong> 儘管通用大模型能力強大，但在企業垂直領域，與特定領域數據訓練的輕量級模型或基於 SOP 的通用模型協同，將成為提升最終效果的有效途徑。</li>
+</ol>
+<h4>5.2 商業趨勢洞察</h4>
+<ol>
+<li><strong>AI 應用的民主化與「公民開發者」：</strong> DeepResearch 降低了 AI 應用開發門檻，使得非技術背景的業務人員也能參與 AI 解決方案的構建，催生「公民開發者」浪潮。這將極大地加速企業內部的 AI 普及和創新。</li>
+<li><strong>從 IT 主導到業務驅動：</strong> 企業 AI 戰略將從傳統的由 IT 部門主導的項目模式，轉變為業務部門深度參與、需求驅動的模式。AI 將不再僅是輔助工具，而是業務流程中的智能夥伴。</li>
+<li><strong>長尾需求與輕應用場景的價值釋放：</strong> DeepResearch 擅長處理大量零散、非標準化的長尾需求，這部分需求在傳統 IT 系統中常被忽略，但累積起來卻是巨大的效率提升空間。未來企業將更多關注這類「輕應用」的開發。</li>
+<li><strong>數據資產化與知識沉澱：</strong> 企業在 DeepResearch 應用中累積的 SOP、反饋數據、以及通過 AI 挖掘的非結構化知識，將成為企業寶貴的數字資產，推動知識管理和決策的智能化。</li>
+<li><strong>開源與商業閉環的結合：</strong> BISHENG·Linsight 宣布開源，這不僅會吸引更廣泛的開發者參與，加速技術迭代，也可能形成「開源技術 + 企業級服務/支持」的商業模式，推動 DeepResearch 生態的繁榮。</li>
+</ol>
+<h4>5.3 未來展望</h4>
+<p>DeepResearch 在企業內的落地，不僅是一場技術革新，更是一場關於工作方式、組織結構和人才培養的深刻變革。它將加速企業從「數字化」邁向「智能化」的進程。</p>
+<p><strong>挑戰：</strong> 未來仍需持續面對的挑戰包括：如何更有效地處理「幻覺」問題以提升決策場景的可靠性；如何在多Agent協同中確保數據安全和隱私保護；如何構建更強大、更開放的企業內部工具生態；以及如何在複雜任務中實現真正的「端到端」自動化，減少對人工干預的依賴。</p>
+<p><strong>機遇：</strong> 隨著技術的成熟和方法的完善，DeepResearch 有望成為企業實現全方位智能化的關鍵引擎。它將賦能員工，釋放創造力，優化決策流程，提升客戶體驗，並最終為企業帶來持續的競爭優勢。</p>
+<p><strong>畢昇靈思的開源舉措，正是迎合了這一趨勢。</strong> 它預示著在未來的企業 AI 競爭中，誰能提供更開放、更易用、更能與業務深度融合的 DeepResearch 平台，誰就能在智能化轉型的浪潮中佔據先機。這是一場需要「理性樂觀」面對的「持久戰」，但其潛在的價值回報無疑是巨大的。</p>
+<hr />
+<div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 2em;">
+<em>本報告由 NeoTrendHub 自動生成 | 生成時間：2026-03-04 15:48:47</em>
+</div>
+</main>
+<footer class="offline-footer">NeoTrendHub 技術趨勢報告 · 離線版</footer>
+</body>
+</html>

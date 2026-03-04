@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>trend-ai-agent-技術的全面普及與智慧化演進 · NeoTrendHub</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-soft: #e0f2fe;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  --max-w: 720px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.offline-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.offline-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.offline-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.offline-nav a:hover { color: var(--accent); }
+.offline-nav .brand { color: var(--text); font-weight: 600; }
+.content {
+  flex: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+@media (min-width: 640px) {
+  .content { padding: 2rem 2.5rem 2.5rem; margin: 1rem auto 2rem; border-radius: var(--radius); }
+}
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--text);
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent-hover);
+}
+.page-home h3 {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+}
+.page-home h3:first-of-type { margin-top: 1rem; }
+h4, h5, h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--text); }
+p { margin: 0.5rem 0 1rem; color: var(--text); }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:visited { color: #7c3aed; }
+.content a[href^="http"]::after { content: " ↗"; font-size: 0.75em; opacity: .8; }
+code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+}
+pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.page-home hr { margin: 1.25rem 0; }
+strong { font-weight: 600; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; color: var(--text); }
+.offline-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body class="page-trend">
+<nav class="offline-nav" aria-label="主要導覽">
+<div class="offline-nav-inner">
+  <a href="_index.html" class="brand">NeoTrendHub</a>
+  <a href="_index.html">首頁</a>
+  <a href="../trends-analysis.html">趨勢分析</a>
+</div>
+</nav>
+<main class="content">
+<h2>趨勢描述</h2>
+<p>AI Agent 技術正從輔助工具演進為能夠自主執行複雜任務的智能實體，廣泛應用於內容創作與分發（如播客生成）、智能物聯網（AIoT）場景創新、軟體研發效率提升（Coding Agent）、企業流程自動化，甚至推動程式設計範式從 Copilot 向 Agent 轉變。同時，對 Agent 之間互操作協議的標準化探索，預示著 Agent 互聯網的興起，使其具備自我進化、協同工作的能力，為各行各業帶來深遠的變革，成為AI應用落地的核心概念。</p>
+<h3>重要性評估</h3>
+<ul>
+<li><strong>評分</strong>: 1.00 / 1.00</li>
+<li><strong>相關會議</strong>: 19 場</li>
+<li><strong>技術成熟度</strong>: 高</li>
+</ul>
+<h3>關鍵技術</h3>
+<p><code>AI Agent</code>, <code>智能體</code>, <code>企業自動化</code>, <code>程式設計範式</code>, <code>Agent 協議</code>, <code>自我進化</code>, <code>協同作業</code>, <code>AIoT</code></p>
+<h2>相關研討會</h2>
+<h3><a href="../sessions/session-20260304-ai-agent-如何重塑有声内容的生产.html">AI Agent 如何重塑有声内容的生产与分发</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>766c6ee4-f776-4147-93c9-1257c7d9ac16</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-ai-agentiot技术方案新场景创新.html">AI Agent+IoT技术方案新场景创新应用</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>8ab99e20-b987-4746-9b99-fd87b472994b</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-cangjiemagic基于仓颉语言的a.html">CangjieMagic：基于仓颉语言的Agent开发框架实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>111579d4-80c4-4348-a24f-51c6d6a8559f</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-coding-agent-驱动研发提效从.html">Coding Agent 驱动研发提效：从实践到流程改进</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>12d77a9f-8044-4808-8f3e-36f0323abd20</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-从copilot到agentai编程的范.html">从Copilot到Agent：AI编程的范式革新</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>5ca8220f-b3d6-4416-bd10-10455b9a7f03</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-让-agent-进化-agent企业自动.html">让 Agent 进化 Agent：企业自动化的新范式构想</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 1.00</li>
+<li><strong>會議ID</strong>: <code>b2e89c81-807c-45ae-adb6-f5eb2492246a</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-multi-agent架构驱动的data.html">Multi-Agent架构驱动的Data Agent路线与工程实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.98</li>
+<li><strong>會議ID</strong>: <code>e16475e5-3760-432f-9e94-4c4b82e5b5c2</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-深入对比智能体协议mcpa2aanp.html">深入对比智能体协议：MCP、A2A、ANP</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.98</li>
+<li><strong>會議ID</strong>: <code>972e13af-dbd7-4c6a-9e71-936831c82c00</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-training-inference-a.html">Training, Inference, Agents: Beyond Apps in the AI-Native World</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.95</li>
+<li><strong>會議ID</strong>: <code>0a732304-f12c-4f31-895a-8d165e0a0e5d</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-大模型助力软件研发人机协同进化实践.html">大模型助力软件研发人机协同进化实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.95</li>
+<li><strong>會議ID</strong>: <code>8fb4068a-b6fd-4770-bd68-16728a488d93</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-开场致辞.html">开场致辞</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.95</li>
+<li><strong>會議ID</strong>: <code>162e4b8a-c2f6-406a-9ba8-092b236733cb</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-能源行业基于大模型的数据治理和人工智能应.html">能源行业基于大模型的数据治理和人工智能应用实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.95</li>
+<li><strong>會議ID</strong>: <code>af38178a-6ef6-4bb6-9eb1-e02820573183</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-deepresearch如何在企业内落地.html">DeepResearch如何在企业内落地</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>25c654c8-e060-467d-8668-8e908b211888</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-genai-应用时代开发思想如何变革.html">GenAI 应用时代，开发思想如何变革？</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>f58850fb-aae3-4aaf-9a8f-0bc758b933e7</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-一年上线超-10-款产品ai-时代如何做.html">一年上线超 10 款产品，AI 时代如何做独立开发</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>188a161a-39c8-453b-a8ab-e9b4fee07abf</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-京东零售大模型推理优化实践.html">京东零售大模型推理优化实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>e9c5f110-e729-400f-89b2-7a8ec11b688c</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-当产品经理开始ai编程如何构建程序员与产.html">当产品经理开始AI编程，如何构建程序员与产品经理的协作新范式</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.90</li>
+<li><strong>會議ID</strong>: <code>e79727c0-345c-477f-bb50-6be345592cd7</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-dataai-下一代数智平台建设.html">Data+AI 下一代数智平台建设</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.85</li>
+<li><strong>會議ID</strong>: <code>688e55cf-8ef8-4b06-8343-8ada032d3b50</code></li>
+</ul>
+<hr />
+<h3><a href="../sessions/session-20260304-构建面向大模型的安全治理体系和应用实践.html">构建面向大模型的安全治理体系和应用实践</a></h3>
+<ul>
+<li><strong>研討會</strong>: 202506 AICon Beijing</li>
+<li><strong>相關度</strong>: 0.85</li>
+<li><strong>會議ID</strong>: <code>0e587e62-7100-435d-b47c-06c9eb167f9f</code></li>
+</ul>
+<hr />
+</main>
+<footer class="offline-footer">NeoTrendHub 技術趨勢報告 · 離線版</footer>
+</body>
+</html>
