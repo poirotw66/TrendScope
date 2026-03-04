@@ -49,3 +49,4 @@ test_output/
 .augment/rules/rule-srp.md
 # Allow example-site HTML to be committed
 !docs/example-site/**/*.html
+!docs/**/*.html
