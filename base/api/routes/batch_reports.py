@@ -477,9 +477,10 @@ def _initialize_task(task_id: str) -> BigQueryClient:
     return bq_client
 
 def _setup_output_directories(include_html: bool) -> tuple:
-    """創建輸出目錄結構"""
+    """創建輸出目錄結構（使用專案根目錄下的 reports，與 list-zip / download-zip 一致）"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_base_dir = pathlib.Path("reports") / f"batch_{timestamp}"
+    reports_root = pathlib.Path(settings.PROJECT_ROOT) / "reports"
+    output_base_dir = reports_root / f"batch_{timestamp}"
     output_md_dir = output_base_dir / "md"
     output_html_dir = output_base_dir / "html"
 
@@ -554,63 +555,375 @@ def _process_sessions_parallel(task_id: str, sessions: List[Dict], analysis_mode
 
     return processed_sessions, failed_sessions
 
+
+# Modern inline CSS for offline HTML reports (no external assets; works inside ZIP)
+_OFFLINE_HTML_CSS = """
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-soft: #e0f2fe;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  --max-w: 720px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.offline-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.offline-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.offline-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.offline-nav a:hover { color: var(--accent); }
+.offline-nav .brand { color: var(--text); font-weight: 600; }
+.content {
+  flex: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+@media (min-width: 640px) {
+  .content { padding: 2rem 2.5rem 2.5rem; margin: 1rem auto 2rem; border-radius: var(--radius); }
+}
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--text);
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--accent-hover);
+}
+.page-home h3 {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+}
+.page-home h3:first-of-type { margin-top: 1rem; }
+h4, h5, h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--text); }
+p { margin: 0.5rem 0 1rem; color: var(--text); }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+li { margin: 0.35rem 0; }
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:visited { color: #7c3aed; }
+.content a[href^="http"]::after { content: " ↗"; font-size: 0.75em; opacity: .8; }
+code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+}
+pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.page-home hr { margin: 1.25rem 0; }
+strong { font-weight: 600; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-weight: 600; color: var(--text); }
+.offline-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+"""
+
+
+def _build_offline_nav(current_rel_path: pathlib.Path) -> str:
+    """Build top nav HTML with relative links for offline package."""
+    home_href = _href_to_relative_offline("/", current_rel_path)
+    analysis_href = _href_to_relative_offline("/trends-analysis", current_rel_path)
+    return f"""<nav class="offline-nav" aria-label="主要導覽">
+<div class="offline-nav-inner">
+  <a href="{home_href}" class="brand">NeoTrendHub</a>
+  <a href="{home_href}">首頁</a>
+  <a href="{analysis_href}">趨勢分析</a>
+</div>
+</nav>"""
+
+
+def _build_offline_footer() -> str:
+    """Build footer for offline HTML pages."""
+    return '<footer class="offline-footer">NeoTrendHub 技術趨勢報告 · 離線版</footer>'
+
+
+def _href_to_relative_offline(href: str, from_rel_path: pathlib.Path) -> str:
+    """
+    Convert site-root absolute href (e.g. /trends/trend-xxx/) to relative path
+    for offline ZIP so links work when opening HTML from file://.
+    Returns path with forward slashes for use in href.
+    """
+    href = (href or "").strip()
+    if not href or href.startswith("http://") or href.startswith("https://") or href.startswith("#") or href.startswith("mailto:"):
+        return href
+    if href.startswith("/"):
+        href = href[1:]
+    if not href:
+        return "_index.html"
+    path = href.rstrip("/")
+    if not path:
+        return "_index.html"
+    if not path.endswith(".html"):
+        path = path + ".html"
+    # Use PurePath and forward slashes so relative path works in href on all platforms
+    target = pathlib.PurePath(path.replace("\\", "/"))
+    from_dir = pathlib.PurePath(str(from_rel_path).replace("\\", "/")).parent
+    if str(from_dir) in ("", "."):
+        return path
+    try:
+        return target.relative_to(from_dir).as_posix()
+    except ValueError:
+        # Target not under from_dir (e.g. root-level _index.html from trends/xxx.html)
+        return "../" * len(from_dir.parts) + path
+
+
+def _strip_yaml_frontmatter(md_content: str) -> str:
+    """
+    Remove YAML frontmatter (between --- and ---) from markdown so it is not
+    rendered in HTML. Leaves only the body content for display.
+    """
+    content = md_content.strip()
+    if not content.startswith("---"):
+        return md_content
+    rest = content[3:].lstrip("\n")
+    end = rest.find("\n---")
+    if end == -1:
+        return md_content
+    return rest[end + 4 :].lstrip("\n")
+
+
+def _rewrite_html_links_for_offline(html_content: str, current_rel_path: pathlib.Path) -> str:
+    """Rewrite href="/..." in HTML to relative paths for offline viewing."""
+    import re
+    pattern = re.compile(r'<a\s+([^>]*?)href=["\']([^"\']+)["\']([^>]*)>', re.IGNORECASE | re.DOTALL)
+
+    def repl(match: re.Match) -> str:
+        pre, href, post = match.group(1), match.group(2), match.group(3)
+        new_href = _href_to_relative_offline(href, current_rel_path)
+        return f'<a {pre}href="{new_href}"{post}>'
+
+    return pattern.sub(repl, html_content)
+
+
+def _convert_md_to_html_and_package(
+    output_md_dir: pathlib.Path,
+    output_html_dir: pathlib.Path,
+    output_base_dir: pathlib.Path,
+    template_style: str,
+    create_offline_package: bool,
+) -> Dict[str, Any]:
+    """
+    Convert all Markdown files under output_md_dir to HTML (preserving structure),
+    optionally create a ZIP of the HTML output for offline use.
+    Rewrites absolute links to relative so offline ZIP links work; uses inline CSS for styling.
+    """
+    import zipfile
+    try:
+        import markdown
+    except ImportError:
+        markdown = None
+
+    output_html_dir.mkdir(parents=True, exist_ok=True)
+    html_files: List[str] = []
+
+    for md_path in output_md_dir.rglob("*.md"):
+        rel = md_path.relative_to(output_md_dir)
+        html_path = output_html_dir / rel.with_suffix(".html")
+        html_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(md_path, "r", encoding="utf-8") as f:
+            md_content = f.read()
+
+        md_content = _strip_yaml_frontmatter(md_content)
+
+        if markdown:
+            try:
+                html_content = markdown.markdown(
+                    md_content,
+                    extensions=["extra"],
+                )
+            except Exception:
+                html_content = markdown.markdown(md_content)
+        else:
+            import html as html_module
+            html_content = f"<pre>{html_module.escape(md_content)}</pre>"
+
+        current_rel = pathlib.Path(rel.with_suffix(".html")).as_posix()
+        current_rel_path = pathlib.Path(current_rel)
+        html_content = _rewrite_html_links_for_offline(html_content, current_rel_path)
+
+        title = rel.stem if rel.stem != "_index" else "首頁"
+        if rel.stem == "_index":
+            page_type = "home"
+        elif rel.stem == "trends-analysis":
+            page_type = "analysis"
+        else:
+            page_type = "trend"
+
+        nav_html = _build_offline_nav(current_rel_path)
+        footer_html = _build_offline_footer()
+
+        wrap = f"""<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{title} · NeoTrendHub</title>
+<style>{_OFFLINE_HTML_CSS}</style>
+</head>
+<body class="page-{page_type}">
+{nav_html}
+<main class="content">
+{html_content}
+</main>
+{footer_html}
+</body>
+</html>"""
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.write(wrap)
+        html_files.append(str(html_path))
+
+    zip_file_path: Optional[str] = None
+    if create_offline_package and html_files:
+        zip_name = f"{output_base_dir.name}_offline.zip"
+        zip_path = output_base_dir / zip_name
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+            for h in html_files:
+                p = pathlib.Path(h)
+                if p.exists():
+                    zf.write(p, p.relative_to(output_html_dir))
+            for md_path in output_md_dir.rglob("*.md"):
+                if md_path.is_file():
+                    arcname = pathlib.Path("md") / md_path.relative_to(output_md_dir)
+                    zf.write(md_path, arcname)
+        zip_file_path = str(zip_path)
+        logger.info(f"Created offline package: {zip_file_path} (HTML + MD)")
+
+    return {
+        "html_files": html_files,
+        "zip_file": zip_file_path,
+        "launcher_file": None,
+        "instructions_file": None,
+        "site_info": {},
+        "total_pages": len(html_files),
+    }
+
+
 def _generate_html_files(task_id: str, output_md_dir: pathlib.Path, output_html_dir: pathlib.Path,
-                        output_template: str) -> Dict[str, Any]:
-    """生成 HTML 文件"""
+                        output_template: str, output_base_dir: Optional[pathlib.Path] = None) -> Dict[str, Any]:
+    """Generate HTML files from Markdown and optionally create offline ZIP package."""
+    if output_base_dir is None:
+        output_base_dir = output_md_dir.parent
     try:
         tasks[task_id]["progress"]["current_session"] = "正在生成 HTML 文件..."
-
-        # 使用 Hugo SSG 將 Markdown 轉換為靜態網站
-        hugo_result = batch_convert_markdown_files(
-            str(output_md_dir),
-            str(output_html_dir),
+        result = _convert_md_to_html_and_package(
+            output_md_dir,
+            output_html_dir,
+            output_base_dir,
             template_style=output_template,
-            create_offline_package=True
+            create_offline_package=True,
         )
-
-        # 處理返回格式
-        if isinstance(hugo_result, dict):
-            return hugo_result
-        else:
-            # 向後兼容舊格式
-            return {
-                'html_files': hugo_result if hugo_result else [],
-                'zip_file': None,
-                'launcher_file': None,
-                'instructions_file': None,
-                'site_info': {},
-                'total_pages': len(hugo_result) if hugo_result else 0
-            }
-
-    except ImportError as e:
-        logger.warning(f"[任務 {task_id}] 無法導入 SSG 模組，使用備用方案: {e}")
-        # 使用備用的簡單 HTML 生成
-        backup_result = batch_convert_markdown_files(
-            str(output_md_dir),
-            str(output_html_dir),
+        return result
+    except Exception as e:
+        logger.warning(f"[任務 {task_id}] HTML 生成時發生錯誤，使用備用方案: {e}")
+        result = _convert_md_to_html_and_package(
+            output_md_dir,
+            output_html_dir,
+            output_base_dir,
             template_style=output_template,
-            create_offline_package=False
+            create_offline_package=True,
         )
-
-        html_files = []
-        if isinstance(backup_result, dict):
-            html_files = backup_result.get('html_files', [])
-        else:
-            html_files = backup_result if backup_result else []
-
-        # 收集所有HTML文件
-        for html_file in output_html_dir.glob("*.html"):
-            if str(html_file) not in html_files:
-                html_files.append(str(html_file))
-
-        return {
-            'html_files': html_files,
-            'zip_file': None,
-            'launcher_file': None,
-            'instructions_file': None,
-            'site_info': {},
-            'total_pages': len(html_files)
-        }
+        return result
 
 def _handle_gcs_upload(task_id: str, zip_file_path: str) -> Dict[str, Any]:
     """處理 GCS 上傳"""
@@ -793,7 +1106,9 @@ def _generate_html_and_track_files(task_id: str, include_html: bool, processed_s
 
     try:
         # 生成 HTML 文件
-        hugo_result = _generate_html_files(task_id, output_md_dir, output_html_dir, output_template)
+        hugo_result = _generate_html_files(
+            task_id, output_md_dir, output_html_dir, output_template, output_base_dir
+        )
 
         result['html_files'] = hugo_result.get('html_files', [])
         result['zip_file_path'] = hugo_result.get('zip_file')
@@ -1266,20 +1581,9 @@ def download_zip_file(zip_filename: str):
 
         logger.info(f"嘗試下載 ZIP 文件: {decoded_filename} (原始: {zip_filename})")
 
-        # 在 reports 目錄中查找 ZIP 文件（使用絕對路徑）
-        # 獲取項目根目錄
-        current_dir = pathlib.Path.cwd()
-        project_root = current_dir
-        if current_dir.name == "backend":
-            project_root = current_dir.parent
-
-        reports_dir = project_root / "reports"
+        # 使用專案根目錄下的 reports，避免受當前工作目錄影響
+        reports_dir = pathlib.Path(settings.PROJECT_ROOT) / "reports"
         zip_file_path = None
-
-        logger.info(f"當前工作目錄: {current_dir}")
-        logger.info(f"項目根目錄: {project_root}")
-        logger.info(f"reports 目錄: {reports_dir}")
-        logger.info(f"reports 目錄是否存在: {reports_dir.exists()}")
 
         # 搜索所有批量報告目錄中的 ZIP 文件
         batch_dirs = list(reports_dir.glob("batch_*")) if reports_dir.exists() else []
@@ -1332,13 +1636,7 @@ def download_zip_file(zip_filename: str):
 def list_zip_files():
     """列出所有可用的 ZIP 文件"""
     try:
-        # 獲取項目根目錄
-        current_dir = pathlib.Path.cwd()
-        project_root = current_dir
-        if current_dir.name == "backend":
-            project_root = current_dir.parent
-
-        reports_dir = project_root / "reports"
+        reports_dir = pathlib.Path(settings.PROJECT_ROOT) / "reports"
         zip_files = []
 
         if reports_dir.exists():
