@@ -64,6 +64,23 @@ TrendScope/
 └── pyproject.toml         # Project package configuration
 ```
 
+## 🖼️ UI Overview
+
+The following screenshots show the end-to-end workflow of TrendScope:
+
+- **Home dashboard** – overall entry point and navigation.
+  ![TrendScope Home](images/0-home.png)
+- **BigQuery data & configuration** – manage conference data source and query.
+  ![BigQuery & Data Setup](images/1-db.png)
+- **PPT / PDF upload** – upload slide decks for AI-based processing.
+  ![PPT Upload](images/2-ppt.png)
+- **Batch report generation page** – configure and launch batch AI reports.
+  ![Batch Report Generation](images/3-report.png)
+- **Generated Markdown / HTML reports** – view and browse analysis results.
+  ![Generated Reports](images/4-reportm.png)
+- **Scraper management** – manage and run web scrapers for conference sources.
+  ![Scraper Management](images/5-scraper.png)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
