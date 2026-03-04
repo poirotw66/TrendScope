@@ -1,4 +1,4 @@
-# TrendScope / NeoTrendHub
+# TrendScope
 
 A comprehensive platform for processing, summarizing, and generating structured reports from conference content using AI. This project combines automated transcript processing, web scraping, data management, and report generation capabilities.
 

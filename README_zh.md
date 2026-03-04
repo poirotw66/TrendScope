@@ -1,4 +1,4 @@
-# TrendScope / NeoTrendHub
+# TrendScope 
 
 一個全面的會議內容處理與報告生成平台，使用 AI 技術自動處理、摘要並生成結構化報告。本專案結合了自動化逐字稿處理、網頁爬蟲、資料管理和報告生成功能。
 
@@ -63,6 +63,23 @@ TrendScope/
 ├── logs/                  # 應用程式日誌
 └── pyproject.toml         # 專案套件配置
 ```
+
+## 🖼️ 介面總覽（UI Overview）
+
+以下截圖展示 TrendScope 從資料導入到報告瀏覽的完整流程：
+
+- **首頁儀表板**：整體入口與導覽。
+  ![TrendScope Home](images/0-home.png)
+- **BigQuery 資料與設定**：管理研討會資料來源與查詢。
+  ![BigQuery & Data Setup](images/1-db.png)
+- **PPT / PDF 上傳**：上傳簡報檔案，交由 AI 進行處理。
+  ![PPT Upload](images/2-ppt.png)
+- **批次報告生成頁面**：設定批次報告參數並啟動 AI 生成流程。
+  ![Batch Report Generation](images/3-report.png)
+- **生成的 Markdown / HTML 報告**：瀏覽與檢視分析結果。
+  ![Generated Reports](images/4-reportm.png)
+- **爬蟲管理頁面**：管理並執行會議來源的網頁爬蟲。
+  ![Scraper Management](images/5-scraper.png)
 
 ## 🚀 快速開始
 
