@@ -32,8 +32,8 @@ def get_meeting_name_from_filename(filename):
 
 def main():
     # 設定路徑
-    md_dir = '/Users/cfh00896102/Github/TrendScope/GTC_summary/topic/md'
-    csv_path = '/Users/cfh00896102/Github/TrendScope/data/sheet/GTC25.csv'
+    md_dir = str(Path(__file__).resolve().parents[2] / 'GTC_summary/topic/md')
+    csv_path = str(Path(__file__).resolve().parents[2] / 'data/sheet/GTC25.csv')
     
     # 確保目錄存在
     if not os.path.exists(md_dir):
