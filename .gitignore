@@ -17,7 +17,18 @@ __pycache__/
 *.pyc
 *__pycache__/
 consensus_2025_summary/*
-itr-aimasteryhub-lab-1a116262496d.json
+# Local credentials and sensitive runtime configuration
+*service-account*.json
+*credentials*.json
+*.pem
+*.p12
+*.pfx
+*.tfstate
+*.tfstate.*
+*.tfvars
+.env.*
+!.env.example
+!.env_example
 
 # Added by Task Master AI
 # Logs
