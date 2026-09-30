@@ -1,6 +1,7 @@
 import pandas as pd
 import google.generativeai as genai
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 # 載入 .env 文件中的環境變數
@@ -15,7 +16,7 @@ model_name = "gemini-2.5-pro-preview-05-06"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "yur_api_key")
 
 # 指定存放 txt 檔案的目錄
-txt_dir = '/Users/cfh00896102/Github/TrendScope/data/202505_aicon/md'
+txt_dir = str(Path(__file__).resolve().parents[1] / 'data/202505_aicon/md')
 
 def get_all_chunk():
     """
