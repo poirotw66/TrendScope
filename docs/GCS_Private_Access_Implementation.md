@@ -110,16 +110,16 @@ offline_package["gcs_public_url"] = None  # 私有訪問，無公開URL
 
 ```
 角色: roles/storage.admin
-成員: serviceAccount:bigquery-api@itr-aimasteryhub-lab.iam.gserviceaccount.com
+成員: serviceAccount:bigquery-api@YOUR_GCP_PROJECT_ID.iam.gserviceaccount.com
 
 角色: roles/storage.legacyBucketOwner
-成員: projectEditor:itr-aimasteryhub-lab, projectOwner:itr-aimasteryhub-lab
+成員: projectEditor:YOUR_GCP_PROJECT_ID, projectOwner:YOUR_GCP_PROJECT_ID
 
 角色: roles/storage.legacyBucketReader
-成員: projectViewer:itr-aimasteryhub-lab
+成員: projectViewer:YOUR_GCP_PROJECT_ID
 
 角色: roles/storage.objectCreator
-成員: serviceAccount:bigquery-api@itr-aimasteryhub-lab.iam.gserviceaccount.com
+成員: serviceAccount:bigquery-api@YOUR_GCP_PROJECT_ID.iam.gserviceaccount.com
 ```
 
 **注意**: 已移除 `roles/storage.objectViewer` 給 `allUsers` 的綁定
