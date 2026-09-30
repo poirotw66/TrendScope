@@ -1,13 +1,19 @@
 #!/bin/bash
-# filepath: /Users/cfh00896102/Github/TrendScope/start_api.sh
+# Start backend from the repository root
 # 啟動 TrendScope Backend API 服務的腳本
 
 # 切換到腳本所在目錄（專案根目錄），確保 Python 能正確解析 config 與 base
 cd "$(dirname "$0")"
 
 # 設置環境變數
-export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS:-$(pwd)/itr-aimasteryhub-lab-1a116262496d.json}"
-export GOOGLE_CLOUD_PROJECT="${GOOGLE_CLOUD_PROJECT:-itr-aimasteryhub-lab}"
+if [ -z "${GOOGLE_APPLICATION_CREDENTIALS:-}" ]; then
+  echo "Set GOOGLE_APPLICATION_CREDENTIALS to a valid credential file before starting." >&2
+  exit 1
+fi
+if [ -z "${GOOGLE_CLOUD_PROJECT:-}" ]; then
+  echo "Set GOOGLE_CLOUD_PROJECT before starting." >&2
+  exit 1
+fi
 
 # 確保日誌目錄存在
 mkdir -p logs
