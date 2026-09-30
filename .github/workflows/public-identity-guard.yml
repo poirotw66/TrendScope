@@ -1,0 +1,63 @@
+name: Public repository identity guard
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Check for company account identifiers and embedded credentials
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import re
+          import subprocess
+          import sys
+
+          patterns = {
+              "corporate_email": re.compile(r"(?i)[\w.+-]+@[\w.-]*holdings\.com\.tw"),
+              "organization_tenant": re.compile(r"(?i)[\w.+-]+@[\w.-]+\.onmicrosoft\.com"),
+              "employee_workstation": re.compile(r"(?i)(?:/Users/|/home/)[cC][fF][hH]\d{6,}"),
+              "github_token": re.compile(r"(?:ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,})"),
+              "openai_key": re.compile(r"sk-proj-[A-Za-z0-9_-]{30,}"),
+              "private_key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+          }
+
+          tracked = subprocess.check_output(["git", "ls-files", "-z"]).split(b"\0")
+          findings = []
+          for raw in tracked:
+              if not raw:
+                  continue
+              path = pathlib.Path(raw.decode("utf-8", "surrogateescape"))
+              if not path.is_file() or path.stat().st_size > 2_000_000:
+                  continue
+              try:
+                  content = path.read_text(encoding="utf-8")
+              except (UnicodeError, OSError):
+                  continue
+              for label, pattern in patterns.items():
+                  if pattern.search(content):
+                      findings.append(f"{path}: {label}")
+
+          msg = subprocess.check_output(
+              ["git", "log", "-1", "--format=%B"], text=True
+          )
+          for label in ("corporate_email", "organization_tenant"):
+              if patterns[label].search(msg):
+                  findings.append(f"HEAD commit message: {label}")
+
+          if findings:
+              print("Potential sensitive identifiers detected (values hidden):")
+              print("\n".join(findings))
+              sys.exit(1)
+          print("No configured identifier patterns detected.")
+          PY
