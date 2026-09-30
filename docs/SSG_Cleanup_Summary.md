@@ -190,7 +190,7 @@ reports/batch_YYYYMMDD_HHMMSS/
 
 ### 1. 啟動服務
 ```bash
-cd /Users/cfh00896102/Github/TrendScope
+cd $HOME/Github/TrendScope
 python -m uvicorn base.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
