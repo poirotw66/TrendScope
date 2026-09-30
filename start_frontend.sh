@@ -1,5 +1,5 @@
 #!/bin/bash
-# filepath: /Users/cfh00896102/Github/TrendScope/start_frontend.sh
+# Start frontend from the repository root
 # 啟動前端開發服務器的腳本
 
 # 進入前端目錄
