@@ -190,7 +190,7 @@ hugo_navigation_demo/
 
 ## 🎯 使用方法
 
-1. **查看演示**: 打開 `file:///Users/cfh00896102/Desktop/hugo_navigation_demo/index.html`
+1. **查看演示**: 打開 `file:///Users/USERNAME/Desktop/hugo_navigation_demo/index.html`
 2. **測試導航**: 點擊各種連結體驗三階層導航
 3. **檢查響應式**: 調整瀏覽器窗口大小測試響應式設計
 4. **驗證功能**: 測試麵包屑、返回頂部等功能
