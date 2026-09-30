@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from pathlib import Path
 
 def remove_duplicates_by_meeting(csv_path):
     """
@@ -71,8 +72,9 @@ def save_csv(df, output_path):
 
 def main():
     # 設定輸入和輸出文件路徑
-    input_csv = "/Users/cfh00896102/Github/TrendScope/data/sheet/GTC25.csv"
-    output_csv = "/Users/cfh00896102/Github/TrendScope/data/sheet/GTC25_no_duplicates.csv"
+    repo_root = Path(__file__).resolve().parents[2]
+    input_csv = str(repo_root / "data/sheet/GTC25.csv")
+    output_csv = str(repo_root / "data/sheet/GTC25_no_duplicates.csv")
     
     # 處理CSV文件
     df_processed = remove_duplicates_by_meeting(input_csv)
