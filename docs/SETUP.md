@@ -79,11 +79,7 @@ from base.bigquery.client import BigQueryClient
    - ❌ `from bigquery.client import ...` 
    - ✅ `from base.bigquery.client import ...`
 
-2. **不要使用 disposal/ 目錄的模組：**
-   - ❌ `from disposal.bigquery.client import ...`
-   - ✅ `from base.bigquery.client import ...`
-
-3. **設定優先順序：**
+2. **設定優先順序：**
    - 環境變數 > `.env` 檔案 > 預設值
 
 ## 🔧 開發建議

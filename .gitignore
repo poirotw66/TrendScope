@@ -56,8 +56,19 @@ reports/
 *__pycache__
 *__init__.py
 test_output/
-*.augment/
-.augment/rules/rule-srp.md
+# Local / editor / agent scratch (not part of the app)
+.augment/
+.workspace/
+.roomodes
+
+# One-off demos and raw dump files (keep out of the repo root)
+quick_navigation_demo.py
+*.xlsx
+!docs/**/*.xlsx
+
+# Legacy code dump (migrated to base/)
+disposal/
+
 # Allow example-site HTML to be committed
 !docs/example-site/**/*.html
 !docs/**/*.html
