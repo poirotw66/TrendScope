@@ -1,8 +1,21 @@
 # TrendScope
 
-A comprehensive platform for processing, summarizing, and generating structured reports from conference content using AI. This project combines automated transcript processing, web scraping, data management, and report generation capabilities.
+[中文](README_zh.md) | English
 
-## 🎯 Project Overview
+**TrendScope** turns conference talks and scraped session pages into structured AI reports so you can skim a whole event without watching every session.
+
+**Demo:** [https://poirotw66.github.io/TrendScope/](https://poirotw66.github.io/TrendScope/)
+
+```mermaid
+flowchart LR
+  A[Conference scrapers] --> B[BigQuery]
+  C[PPT / PDF upload] --> B
+  B --> D[Gemini summarization]
+  D --> E[Markdown / HTML reports]
+  E --> F[FastAPI + React UI]
+```
+
+## Project Overview
 
 TrendScope is an automated tool that processes conference transcripts, presentations, and web-scraped content to generate structured reports. It includes:
 
@@ -12,7 +25,7 @@ TrendScope is an automated tool that processes conference transcripts, presentat
 - **Report Generation**: Automated generation of HTML/Markdown reports
 - **RESTful API**: FastAPI-based backend for frontend integration
 
-## ✨ Key Features
+## Key Features
 
 ### Core Functionality
 - **Batch Processing**: Process large volumes of conference transcripts and presentations
@@ -34,7 +47,7 @@ TrendScope is an automated tool that processes conference transcripts, presentat
 - **Error Handling**: Global exception handlers with unified error responses
 - **CORS Support**: Configurable CORS settings per environment
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 TrendScope/
@@ -64,7 +77,7 @@ TrendScope/
 └── pyproject.toml         # Project package configuration
 ```
 
-## 🖼️ UI Overview
+## UI Overview
 
 The following screenshots show the end-to-end workflow of TrendScope:
 
@@ -81,7 +94,7 @@ The following screenshots show the end-to-end workflow of TrendScope:
 - **Scraper management** – manage and run web scrapers for conference sources.
   ![Scraper Management](images/5-scraper.png)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -93,7 +106,7 @@ The following screenshots show the end-to-end workflow of TrendScope:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/poirotw66/TrendScope.git
    cd TrendScope
    ```
 
@@ -151,7 +164,7 @@ npm install
 npm run dev
 ```
 
-## 📚 Usage
+## Usage
 
 ### 1. Conference Transcript Processing
 
@@ -199,7 +212,7 @@ curl -X POST "http://localhost:8001/scrapers/run" \
   -d '{"scraper_type": "aws_london", "headless": true}'
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Settings Management
 
@@ -222,7 +235,7 @@ See `.env_example` for all available configuration options. Key settings:
 - **Gemini**: `GEMINI_API_KEY`, `GEMINI_MODEL_NAME`
 - **Paths**: `DATA_DIR`, `DEFAULT_INPUT_DIR`, `DEFAULT_OUTPUT_DIR`
 
-## 🏗️ Architecture
+## Architecture
 
 ### Module Organization
 
@@ -245,7 +258,7 @@ See `.env_example` for all available configuration options. Key settings:
 4. **Configuration Management**: Centralized settings with environment variable support
 5. **Code Organization**: Clear separation of concerns, no duplicate code
 
-## 📖 API Documentation
+## API Documentation
 
 Full API documentation is available at `/docs` when the server is running. Key endpoints:
 
@@ -267,7 +280,7 @@ Full API documentation is available at `/docs` when the server is running. Key e
 - `POST /reports/generate` - Generate batch reports
 - `GET /reports/status/{task_id}` - Get report generation status
 
-## 🛠️ Development
+## Development
 
 ### Setup Development Environment
 
@@ -276,7 +289,7 @@ Full API documentation is available at `/docs` when the server is running. Key e
 pip install -e ".[dev]"
 
 # Install development dependencies
-pip install pytest black ruff mypy
+pip install black ruff mypy
 ```
 
 ### Code Style
@@ -286,12 +299,11 @@ pip install pytest black ruff mypy
 - Use standard imports (no `sys.path` manipulation)
 - Use logging instead of `print()`
 
-### Testing
+### Linting and type checks
+
+There is no `tests/` suite in this repository yet. Use static checks while developing:
 
 ```bash
-# Run tests (when available)
-pytest
-
 # Type checking
 mypy base/
 
@@ -299,7 +311,7 @@ mypy base/
 ruff check .
 ```
 
-## 📝 Logging
+## Logging
 
 Logs are automatically saved to `logs/` directory:
 
@@ -311,15 +323,15 @@ Log levels are automatically adjusted based on `API_ENVIRONMENT`:
 - `development`: DEBUG level
 - `production`: INFO level
 
-## 🔗 Related Documentation
+## Related Documentation
 
-- [Optimization Guide](OPTIMIZATION_GUIDE.md) - Detailed optimization documentation
-- [API Optimization Summary](API_OPTIMIZATION_SUMMARY.md) - API improvements
-- [Logging Optimization Summary](LOGGING_OPTIMIZATION_SUMMARY.md) - Logging system
-- [Setup Guide](SETUP.md) - Quick setup reference
+- [Optimization Guide](docs/OPTIMIZATION_GUIDE.md) - Detailed optimization documentation
+- [API Optimization Summary](docs/API_OPTIMIZATION_SUMMARY.md) - API improvements
+- [Logging Optimization Summary](docs/LOGGING_OPTIMIZATION_SUMMARY.md) - Logging system
+- [Setup Guide](docs/SETUP.md) - Quick setup reference
 - [Base API README](base/README.md) - Backend API documentation
 
-## 📦 Dependencies
+## Dependencies
 
 ### Core
 - `fastapi` - Web framework
@@ -342,7 +354,7 @@ Log levels are automatically adjusted based on `API_ENVIRONMENT`:
 - `Jinja2` - Template engine
 - `beautifulsoup4` - HTML parsing
 
-## 🚧 Roadmap
+## Roadmap
 
 - [ ] PostgreSQL integration
 - [ ] Redis caching layer
@@ -350,18 +362,17 @@ Log levels are automatically adjusted based on `API_ENVIRONMENT`:
 - [ ] Complete scraper logging migration
 - [ ] Comprehensive test coverage
 
-## 📄 License
+## License
 
-MIT License
+MIT License — see [LICENSE](LICENSE).
 
-## 👥 Contributing
+## Contributing
 
 Contributions are welcome! Please ensure:
 1. Code follows the project's style guidelines
-2. All tests pass
-3. Documentation is updated
-4. Use standard imports (no `sys.path` manipulation)
+2. Documentation is updated
+3. Use standard imports (no `sys.path` manipulation)
 
-## 📞 Support
+## Support
 
 For issues and questions, please open an issue on GitHub.

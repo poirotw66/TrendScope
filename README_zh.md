@@ -1,8 +1,21 @@
-# TrendScope 
+# TrendScope
 
-一個全面的會議內容處理與報告生成平台，使用 AI 技術自動處理、摘要並生成結構化報告。本專案結合了自動化逐字稿處理、網頁爬蟲、資料管理和報告生成功能。
+[English](README.md) | 中文
 
-## 🎯 專案概述
+**TrendScope** 把研討會場次與爬取的議程頁整理成 AI 結構化報告，讓你不用逐場看完也能掌握整場活動的重點。
+
+**Demo：** [https://poirotw66.github.io/TrendScope/](https://poirotw66.github.io/TrendScope/)
+
+```mermaid
+flowchart LR
+  A[會議網站爬蟲] --> B[BigQuery]
+  C[PPT / PDF 上傳] --> B
+  B --> D[Gemini 摘要]
+  D --> E[Markdown / HTML 報告]
+  E --> F[FastAPI + React 介面]
+```
+
+## 專案概述
 
 TrendScope 是一個自動化工具，能夠處理會議逐字稿、簡報檔案和網頁爬取的內容，生成結構化報告。包含：
 
@@ -12,7 +25,7 @@ TrendScope 是一個自動化工具，能夠處理會議逐字稿、簡報檔案
 - **報告生成**：自動生成 HTML/Markdown 報告
 - **RESTful API**：基於 FastAPI 的後端，供前端整合使用
 
-## ✨ 核心功能
+## 核心功能
 
 ### 主要功能
 - **批次處理**：處理大量會議逐字稿和簡報檔案
@@ -34,7 +47,7 @@ TrendScope 是一個自動化工具，能夠處理會議逐字稿、簡報檔案
 - **錯誤處理**：全局異常處理器，統一的錯誤響應格式
 - **CORS 支援**：可依環境配置的 CORS 設定
 
-## 📁 專案結構
+## 專案結構
 
 ```
 TrendScope/
@@ -64,7 +77,7 @@ TrendScope/
 └── pyproject.toml         # 專案套件配置
 ```
 
-## 🖼️ 介面總覽（UI Overview）
+## 介面總覽（UI Overview）
 
 以下截圖展示 TrendScope 從資料導入到報告瀏覽的完整流程：
 
@@ -78,10 +91,10 @@ TrendScope/
   ![Batch Report Generation](images/3-report.png)
 - **生成的 Markdown / HTML 報告**：瀏覽與檢視分析結果。
   ![Generated Reports](images/4-reportm.png)
-- **爬蟲管理頁面**：管理並執行會議來源的網頁爬蟲。
+- **爬蟲管理**：管理並執行會議來源的網頁爬蟲。
   ![Scraper Management](images/5-scraper.png)
 
-## 🚀 快速開始
+## 快速開始
 
 ### 前置需求
 
@@ -93,7 +106,7 @@ TrendScope/
 
 1. **克隆專案**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/poirotw66/TrendScope.git
    cd TrendScope
    ```
 
@@ -131,17 +144,17 @@ TrendScope/
 ### 啟動後端 API
 
 ```bash
-# 方法 1: 使用主腳本
+# 方法 1：使用主程式
 python base/main.py
 
-# 方法 2: 直接使用 uvicorn
+# 方法 2：直接使用 uvicorn
 uvicorn base.api.app:app --host 0.0.0.0 --port 8001 --reload
 ```
 
-API 將在以下位置可用：
-- **API 根端點**: http://localhost:8001/
-- **API 文檔**: http://localhost:8001/docs
-- **健康檢查**: http://localhost:8001/health
+API 可用於：
+- **API 根路徑**：http://localhost:8001/
+- **API 文件**：http://localhost:8001/docs
+- **健康檢查**：http://localhost:8001/health
 
 ### 啟動前端
 
@@ -151,7 +164,7 @@ npm install
 npm run dev
 ```
 
-## 📚 使用方法
+## 使用方式
 
 ### 1. 會議逐字稿處理
 
@@ -171,7 +184,7 @@ python scripts/02_category_page.py
 python scripts/03_generator_home.py -c google_next -i data/sheet/20250427_Qcon.csv -o output/google_next25_report
 ```
 
-### 4. 生成上下文圖表
+### 4. 生成脈絡圖
 
 ```bash
 python scripts/04_context_diagram.py
@@ -199,11 +212,11 @@ curl -X POST "http://localhost:8001/scrapers/run" \
   -d '{"scraper_type": "aws_london", "headless": true}'
 ```
 
-## 🔧 配置
+## 配置
 
 ### 設定管理
 
-所有配置都集中在 `config/settings.py`，使用 Pydantic Settings：
+所有配置集中在 `config/settings.py`，使用 Pydantic Settings：
 
 ```python
 from config.settings import settings
@@ -215,51 +228,51 @@ input_dir = settings.default_input_dir
 
 ### 環境變數
 
-請參考 `.env_example` 查看所有可用的配置選項。主要設定：
+完整選項請見 `.env_example`。主要設定：
 
-- **API 配置**: `API_ENVIRONMENT`, `API_HOST`, `API_PORT`
-- **CORS**: `CORS_ALLOW_ORIGINS`, `CORS_ALLOW_METHODS`
-- **Gemini**: `GEMINI_API_KEY`, `GEMINI_MODEL_NAME`
-- **路徑**: `DATA_DIR`, `DEFAULT_INPUT_DIR`, `DEFAULT_OUTPUT_DIR`
+- **API 配置**：`API_ENVIRONMENT`、`API_HOST`、`API_PORT`
+- **CORS**：`CORS_ALLOW_ORIGINS`、`CORS_ALLOW_METHODS`
+- **Gemini**：`GEMINI_API_KEY`、`GEMINI_MODEL_NAME`
+- **路徑**：`DATA_DIR`、`DEFAULT_INPUT_DIR`、`DEFAULT_OUTPUT_DIR`
 
-## 🏗️ 架構設計
+## 架構
 
 ### 模組組織
 
-- **標準導入**：專案安裝為套件後，使用標準導入：
+- **標準導入**：專案以套件安裝，請使用標準導入：
   ```python
   from config.settings import settings
   from base.bigquery.client import BigQueryClient
   from base.scrapers.parsers.aws_london import run_aws_london_scraper
   ```
 
-- **錯誤處理**：統一的錯誤處理，使用自定義異常類別
-- **日誌系統**：結構化日誌，模組專用 logger
-- **配置管理**：基於 Pydantic 的集中化設定
+- **錯誤處理**：統一的自訂例外類別
+- **日誌**：依模組區分的結構化日誌
+- **配置**：集中式 Pydantic 設定
 
 ### 主要改進
 
-1. **套件結構**：專案可作為 Python 套件安裝
-2. **統一錯誤處理**：全局異常處理器，一致的錯誤響應格式
-3. **結構化日誌**：完整的日誌系統，支援檔案輪轉
-4. **配置管理**：集中化設定，支援環境變數
-5. **程式碼組織**：清晰的關注點分離，無重複程式碼
+1. **套件結構**：可安裝為 Python 套件
+2. **統一錯誤處理**：全局異常處理與一致的錯誤回應
+3. **結構化日誌**：含檔案輪替的完整日誌系統
+4. **配置管理**：集中設定並支援環境變數
+5. **程式碼組織**：職責分離，減少重複
 
-## 📖 API 文檔
+## API 文件
 
-完整的 API 文檔在伺服器運行時可於 `/docs` 查看。主要端點：
+伺服器啟動後，完整 API 文件位於 `/docs`。主要端點：
 
 ### PPT 上傳
-- `POST /ppt/upload` - 上傳並處理 PPT/PDF 檔案
+- `POST /ppt/upload` - 上傳並處理 PPT/PDF
 - `GET /ppt/status/{task_id}` - 取得處理狀態
 
 ### 爬蟲
 - `POST /scrapers/run` - 執行爬蟲
-- `GET /scrapers/list` - 列出可用的爬蟲
+- `GET /scrapers/list` - 列出可用爬蟲
 - `GET /scrapers/status/{task_id}` - 取得爬蟲狀態
 
 ### 資料查詢
-- `GET /data/sessions` - 從 BigQuery 查詢會議資料
+- `GET /data/sessions` - 從 BigQuery 查詢場次
 - `GET /data/seminars` - 取得研討會列表
 - `GET /data/stats` - 取得資料統計
 
@@ -267,7 +280,7 @@ input_dir = settings.default_input_dir
 - `POST /reports/generate` - 生成批次報告
 - `GET /reports/status/{task_id}` - 取得報告生成狀態
 
-## 🛠️ 開發
+## 開發
 
 ### 設定開發環境
 
@@ -276,7 +289,7 @@ input_dir = settings.default_input_dir
 pip install -e ".[dev]"
 
 # 安裝開發依賴
-pip install pytest black ruff mypy
+pip install black ruff mypy
 ```
 
 ### 程式碼風格
@@ -286,12 +299,11 @@ pip install pytest black ruff mypy
 - 使用標準導入（不使用 `sys.path` 操作）
 - 使用 logging 而非 `print()`
 
-### 測試
+### 靜態檢查
+
+此儲存庫目前尚無 `tests/` 測試套件。開發時可使用靜態檢查：
 
 ```bash
-# 執行測試（當可用時）
-pytest
-
 # 型別檢查
 mypy base/
 
@@ -299,7 +311,7 @@ mypy base/
 ruff check .
 ```
 
-## 📝 日誌
+## 日誌
 
 日誌會自動儲存到 `logs/` 目錄：
 
@@ -311,15 +323,15 @@ ruff check .
 - `development`: DEBUG 級別
 - `production`: INFO 級別
 
-## 🔗 相關文檔
+## 相關文檔
 
-- [優化指南](OPTIMIZATION_GUIDE.md) - 詳細的優化文檔
-- [API 優化總結](API_OPTIMIZATION_SUMMARY.md) - API 改進說明
-- [日誌優化總結](LOGGING_OPTIMIZATION_SUMMARY.md) - 日誌系統說明
-- [設置指南](SETUP.md) - 快速設置參考
+- [優化指南](docs/OPTIMIZATION_GUIDE.md) - 詳細的優化文檔
+- [API 優化總結](docs/API_OPTIMIZATION_SUMMARY.md) - API 改進說明
+- [日誌優化總結](docs/LOGGING_OPTIMIZATION_SUMMARY.md) - 日誌系統說明
+- [設置指南](docs/SETUP.md) - 快速設置參考
 - [後端 API README](base/README.md) - 後端 API 文檔
 
-## 📦 依賴套件
+## 依賴套件
 
 ### 核心
 - `fastapi` - Web 框架
@@ -342,7 +354,7 @@ ruff check .
 - `Jinja2` - 模板引擎
 - `beautifulsoup4` - HTML 解析
 
-## 🚧 開發路線圖
+## 開發路線圖
 
 - [ ] PostgreSQL 整合
 - [ ] Redis 快取層
@@ -350,18 +362,17 @@ ruff check .
 - [ ] 完成爬蟲日誌遷移
 - [ ] 完整的測試覆蓋
 
-## 📄 授權
+## 授權
 
-MIT License
+MIT License — 見 [LICENSE](LICENSE)。
 
-## 👥 貢獻
+## 貢獻
 
 歡迎貢獻！請確保：
 1. 程式碼遵循專案的風格指南
-2. 所有測試通過
-3. 文檔已更新
-4. 使用標準導入（不使用 `sys.path` 操作）
+2. 文檔已更新
+3. 使用標準導入（不使用 `sys.path` 操作）
 
-## 📞 支援
+## 支援
 
 如有問題，請在 GitHub 上開啟 issue。
